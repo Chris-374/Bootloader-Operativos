@@ -160,6 +160,7 @@ UINT8 compare(const void* firstitem, const void* seconditem, UINT64 comparelengt
 
 EFI_STATUS InitUEFI_GOP(EFI_HANDLE ImageHandle, GPU_CONFIG * Graphics);
 EFI_STATUS GoTime(EFI_HANDLE ImageHandle, GPU_CONFIG * Graphics, EFI_CONFIGURATION_TABLE * SysCfgTables, UINTN NumSysCfgTables, UINT32 UEFIVer);
+EFI_STATUS RunMyNameGame(GPU_CONFIG *Graphics);
 
 UINT8 VerifyZeroMem(UINT64 NumBytes, UINT64 BaseAddr);
 EFI_PHYSICAL_ADDRESS ActuallyFreeAddress(UINT64 pages, EFI_PHYSICAL_ADDRESS OldAddress);
