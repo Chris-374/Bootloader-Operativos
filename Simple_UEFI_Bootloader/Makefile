@@ -1,8 +1,5 @@
 SHELL := /bin/bash
 
-# =========================
-# Configuración
-# =========================
 CURDIR_ABS := $(CURDIR)
 BACKEND_DIR := ../Backend
 GCC_FOLDER_NAME := /usr
@@ -11,21 +8,15 @@ EFI_FOLDER_NAME := gnu-efi-3.0.9
 LINKER_SCRIPT := $(EFI_FOLDER_NAME)/gnuefi/elf_x86_64_efi.lds
 
 CC := $(GCC_FOLDER_NAME)/bin/gcc
-OBJCOPY := $(BINUTILS_FOLDER_NAME)/bin/objcopy
 SIZE := $(BINUTILS_FOLDER_NAME)/bin/size
+OBJCOPY := $(BINUTILS_FOLDER_NAME)/bin/objcopy
 
 export PATH := $(BINUTILS_FOLDER_NAME)/bin:$(PATH)
 
-# =========================
-# Includes
-# =========================
 BASE_HFILES := -I$(CURDIR_ABS)/inc/ -I$(CURDIR_ABS)/startup/
-EXTRA_HFILES := $(shell sed 's|^|-I|' h_files.txt)
+EXTRA_HFILES := $(shell sed '/^[[:space:]]*$$/d' h_files.txt | sed 's|^|$(BACKEND_DIR)/|' | sed 's|^|-I|')
 HFILES := $(BASE_HFILES) $(EXTRA_HFILES)
 
-# =========================
-# Flags
-# =========================
 CFLAGS_COMMON := -DGNU_EFI_USE_MS_ABI \
 	-mno-avx \
 	-mcmodel=small \
@@ -60,8 +51,14 @@ CFLAGS_COMMON := -DGNU_EFI_USE_MS_ABI \
 	-MP \
 	$(HFILES)
 
-CFLAGS_USER := $(CFLAGS_COMMON) -Wpedantic
 CFLAGS_BACKEND := $(CFLAGS_COMMON)
+CFLAGS_USER := $(CFLAGS_COMMON) -Wpedantic
+
+ASFLAGS_BACKEND := -DGNU_EFI_USE_MS_ABI \
+	-m64 \
+	-maccumulate-outgoing-args \
+	--std=c11 \
+	-c
 
 LDFLAGS := -T$(LINKER_SCRIPT) \
 	-nostdlib \
@@ -74,26 +71,28 @@ LDFLAGS := -T$(LINKER_SCRIPT) \
 	-Wl,-z,now \
 	-Wl,-Map=output.map
 
-# =========================
-# Archivos
-# =========================
-BACKEND_CFILES := $(shell cat c_files_linux.txt)
-BACKEND_OFILES := $(patsubst %.c,%.o,$(BACKEND_CFILES))
-BACKEND_DFILES := $(patsubst %.c,%.d,$(BACKEND_CFILES))
-BACKEND_OUTFILES := $(patsubst %.c,%.out,$(BACKEND_CFILES))
+RAW_BACKEND_FILES := $(shell sed '/^[[:space:]]*$$/d' c_files_linux.txt)
 
+BACKEND_C_REL := $(filter %.c,$(RAW_BACKEND_FILES))
+BACKEND_S_REL := $(filter %.S,$(RAW_BACKEND_FILES))
+
+BACKEND_C_SRC := $(addprefix $(BACKEND_DIR)/,$(BACKEND_C_REL))
+BACKEND_S_SRC := $(addprefix $(BACKEND_DIR)/,$(BACKEND_S_REL))
+
+BACKEND_C_OBJ := $(patsubst %.c,%.o,$(BACKEND_C_SRC))
+BACKEND_S_OBJ := $(patsubst %.S,%.o,$(BACKEND_S_SRC))
+
+BACKEND_C_DEP := $(patsubst %.c,%.d,$(BACKEND_C_SRC))
 USER_CFILES := $(wildcard src/*.c)
 USER_OFILES := $(patsubst %.c,%.o,$(USER_CFILES))
 USER_DFILES := $(patsubst %.c,%.d,$(USER_CFILES))
-USER_OUTFILES := $(patsubst %.c,%.out,$(USER_CFILES))
 
-ALL_OFILES := $(BACKEND_OFILES) $(USER_OFILES)
-ALL_DFILES := $(BACKEND_DFILES) $(USER_DFILES)
+ALL_BACKEND_OBJ_REL := $(patsubst $(BACKEND_DIR)/%,%,$(BACKEND_C_OBJ) $(BACKEND_S_OBJ))
+PROJECT_DIR_NAME := $(notdir $(CURDIR_ABS))
+USER_OFILES_FOR_LINK := $(addprefix ../$(PROJECT_DIR_NAME)/,$(USER_OFILES))
+ALL_LINK_OBJECTS := $(ALL_BACKEND_OBJ_REL) $(USER_OFILES_FOR_LINK)
 
-# =========================
-# Targets principales
-# =========================
-.PHONY: all clean recompile showvars prepare_lists
+.PHONY: all clean recompile prepare_lists showvars
 
 all: prepare_lists $(BACKEND_DIR)/BOOTX64.EFI
 
@@ -124,43 +123,45 @@ $(BACKEND_DIR)/BOOTX64.EFI: $(BACKEND_DIR)/program.so
 	@$(SIZE) $(BACKEND_DIR)/BOOTX64.EFI
 	@echo
 
-$(BACKEND_DIR)/program.so: $(ALL_OFILES)
+$(BACKEND_DIR)/program.so: $(BACKEND_C_OBJ) $(BACKEND_S_OBJ) $(USER_OFILES)
 	@echo "Linking program.so..."
 	cd $(BACKEND_DIR) && \
-	$(CC) $(LDFLAGS) -o program.so $(addprefix ../,$(ALL_OFILES))
+	$(CC) $(LDFLAGS) -o program.so $(ALL_LINK_OBJECTS)
 
-# =========================
-# Compilación backend
-# =========================
-%.o: %.c
+$(BACKEND_DIR)/%.o: $(BACKEND_DIR)/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS_BACKEND) -Wa,-adhln="$(basename $@).out" -MF"$(basename $@).d" -MT"$@" -o "$@" "$<"
+	$(CC) $(CFLAGS_BACKEND) \
+		-Wa,-adhln="$(basename $@).out" \
+		-MF"$(basename $@).d" \
+		-MT"$@" \
+		-o "$@" "$<"
 
-# =========================
-# Compilación user src/
-# =========================
+$(BACKEND_DIR)/%.o: $(BACKEND_DIR)/%.S
+	@mkdir -p $(dir $@)
+	$(CC) $(ASFLAGS_BACKEND) -o "$@" "$<"
+
 src/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS_USER) -Wa,-adhln="src/$*.out" -MF"src/$*.d" -MT"src/$*.o" -o "src/$*.o" "src/$*.c"
+	$(CC) $(CFLAGS_USER) \
+		-Wa,-adhln="src/$*.out" \
+		-MF"src/$*.d" \
+		-MT"src/$@" \
+		-o "src/$*.o" "src/$*.c"
 
-# =========================
-# Utilidades
-# =========================
 clean:
 	@echo "Cleaning..."
-	@rm -f $(BACKEND_OFILES) $(BACKEND_DFILES) $(BACKEND_OUTFILES)
-	@rm -f $(USER_OFILES) $(USER_DFILES) $(USER_OUTFILES)
+	@find . -name "*.d" -delete
+	@find . -name "*.o" -delete
+	@find . -name "*.out" -delete
 	@rm -f $(BACKEND_DIR)/program.so
 	@rm -f $(BACKEND_DIR)/BOOTX64.EFI
 	@rm -f $(BACKEND_DIR)/output.map
-	@rm -f $(BACKEND_DIR)/objects.list
 
 recompile: clean all
 
 showvars:
-	@echo "CURDIR_ABS=$(CURDIR_ABS)"
-	@echo "BACKEND_DIR=$(BACKEND_DIR)"
-	@echo "BACKEND_CFILES=$(BACKEND_CFILES)"
+	@echo "BACKEND_C_REL=$(BACKEND_C_REL)"
+	@echo "BACKEND_S_REL=$(BACKEND_S_REL)"
 	@echo "USER_CFILES=$(USER_CFILES)"
 
--include $(ALL_DFILES)
+-include $(wildcard $(BACKEND_C_DEP) $(USER_DFILES))

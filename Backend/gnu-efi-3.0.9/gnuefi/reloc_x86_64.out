@@ -1,0 +1,291 @@
+   1              		.file	"reloc_x86_64.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Bootloader-Operativos/Simple_UEFI_Bootloader" "../Backend/gnu-efi-3.0.9/gnue
+   6              		.globl	_relocate
+   8              	_relocate:
+   9              	.LVL0:
+  10              	.LFB0:
+  11              		.file 1 "../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c"
+   1:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** /* reloc_x86_64.c - position independent x86_64 ELF shared object relocator
+   2:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****    Copyright (C) 1999 Hewlett-Packard Co.
+   3:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 	Contributed by David Mosberger <davidm@hpl.hp.com>.
+   4:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****    Copyright (C) 2005 Intel Co.
+   5:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 	Contributed by Fenghua Yu <fenghua.yu@intel.com>.
+   6:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+   7:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     All rights reserved.
+   8:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+   9:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     Redistribution and use in source and binary forms, with or without
+  10:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     modification, are permitted provided that the following conditions
+  11:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     are met:
+  12:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+  13:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     * Redistributions of source code must retain the above copyright
+  14:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****       notice, this list of conditions and the following disclaimer.
+  15:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     * Redistributions in binary form must reproduce the above
+  16:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****       copyright notice, this list of conditions and the following
+  17:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****       disclaimer in the documentation and/or other materials
+  18:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****       provided with the distribution.
+  19:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     * Neither the name of Hewlett-Packard Co. nor the names of its
+  20:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****       contributors may be used to endorse or promote products derived
+  21:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****       from this software without specific prior written permission.
+  22:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+  23:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+  24:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+  25:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  26:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  27:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+  28:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     BE LIABLE FOR ANYDIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+  29:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+  30:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  31:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  32:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
+  33:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
+  34:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+  35:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****     SUCH DAMAGE.
+  36:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** */
+  37:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+  38:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** #include <efi.h>
+  39:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** #include <efilib.h>
+  40:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+  41:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** #include <elf.h>
+  42:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+  43:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** EFI_STATUS _relocate (long ldbase, Elf64_Dyn *dyn,
+  44:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		      EFI_HANDLE image EFI_UNUSED,
+  45:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		      EFI_SYSTEM_TABLE *systab EFI_UNUSED)
+  46:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** {
+  12              		.loc 1 46 1 view -0
+  13              		.cfi_startproc
+  14              		.loc 1 46 1 is_stmt 0 view .LVU1
+  15 0000 F30F1EFA 		endbr64
+  16 0004 4989FA   		movq	%rdi, %r10
+  47:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 	long relsz = 0, relent = 0;
+  17              		.loc 1 47 2 is_stmt 1 view .LVU2
+  18              	.LVL1:
+  48:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 	Elf64_Rel *rel = 0;
+  19              		.loc 1 48 2 view .LVU3
+  49:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 	unsigned long *addr;
+  20              		.loc 1 49 2 view .LVU4
+  50:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 	int i;
+  21              		.loc 1 50 2 view .LVU5
+  51:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+  52:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 	for (i = 0; dyn[i].d_tag != DT_NULL; ++i) {
+  22              		.loc 1 52 2 view .LVU6
+  23              		.loc 1 52 9 is_stmt 0 view .LVU7
+  24 0007 B9000000 		movl	$0, %ecx
+  24      00
+  25              	.LVL2:
+  48:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 	unsigned long *addr;
+  26              		.loc 1 48 13 view .LVU8
+  27 000c BF000000 		movl	$0, %edi
+  27      00
+  28              	.LVL3:
+  47:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 	Elf64_Rel *rel = 0;
+  29              		.loc 1 47 18 view .LVU9
+  30 0011 41B90000 		movl	$0, %r9d
+  30      0000
+  47:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 	Elf64_Rel *rel = 0;
+  31              		.loc 1 47 7 view .LVU10
+  32 0017 41B80000 		movl	$0, %r8d
+  32      0000
+  33              		.loc 1 52 2 view .LVU11
+  34 001d EB07     		jmp	.L2
+  35              	.LVL4:
+  36              	.L3:
+  53:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		switch (dyn[i].d_tag) {
+  54:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 			case DT_RELA:
+  55:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 				rel = (Elf64_Rel*)
+  56:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 					((unsigned long)dyn[i].d_un.d_ptr
+  57:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 					 + ldbase);
+  58:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 				break;
+  59:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+  60:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 			case DT_RELASZ:
+  61:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 				relsz = dyn[i].d_un.d_val;
+  37              		.loc 1 61 5 is_stmt 1 view .LVU12
+  38              		.loc 1 61 24 is_stmt 0 view .LVU13
+  39 001f 4C8B4008 		movq	8(%rax), %r8
+  40              	.LVL5:
+  62:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 				break;
+  41              		.loc 1 62 5 is_stmt 1 view .LVU14
+  42              	.L5:
+  52:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		switch (dyn[i].d_tag) {
+  43              		.loc 1 52 39 discriminator 2 view .LVU15
+  44 0023 83C101   		addl	$1, %ecx
+  45              	.LVL6:
+  46              	.L2:
+  52:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		switch (dyn[i].d_tag) {
+  47              		.loc 1 52 27 discriminator 1 view .LVU16
+  52:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		switch (dyn[i].d_tag) {
+  48              		.loc 1 52 17 is_stmt 0 discriminator 1 view .LVU17
+  49 0026 4863C1   		movslq	%ecx, %rax
+  50 0029 48C1E004 		salq	$4, %rax
+  51 002d 4801F0   		addq	%rsi, %rax
+  52:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		switch (dyn[i].d_tag) {
+  52              		.loc 1 52 20 discriminator 1 view .LVU18
+  53 0030 488B10   		movq	(%rax), %rdx
+  52:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		switch (dyn[i].d_tag) {
+  54              		.loc 1 52 27 discriminator 1 view .LVU19
+  55 0033 4885D2   		testq	%rdx, %rdx
+  56 0036 7421     		je	.L13
+  53:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		switch (dyn[i].d_tag) {
+  57              		.loc 1 53 3 is_stmt 1 view .LVU20
+  58 0038 4883FA08 		cmpq	$8, %rdx
+  59 003c 74E1     		je	.L3
+  60 003e 4883FA09 		cmpq	$9, %rdx
+  61 0042 740F     		je	.L4
+  62 0044 4883FA07 		cmpq	$7, %rdx
+  63 0048 75D9     		jne	.L5
+  55:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 					((unsigned long)dyn[i].d_un.d_ptr
+  64              		.loc 1 55 5 view .LVU21
+  55:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 					((unsigned long)dyn[i].d_un.d_ptr
+  65              		.loc 1 55 9 is_stmt 0 view .LVU22
+  66 004a 4C89D7   		movq	%r10, %rdi
+  67              	.LVL7:
+  55:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 					((unsigned long)dyn[i].d_un.d_ptr
+  68              		.loc 1 55 9 view .LVU23
+  69 004d 48037808 		addq	8(%rax), %rdi
+  70              	.LVL8:
+  58:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+  71              		.loc 1 58 5 is_stmt 1 view .LVU24
+  72 0051 EBD0     		jmp	.L5
+  73              	.L4:
+  63:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+  64:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 			case DT_RELAENT:
+  65:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 				relent = dyn[i].d_un.d_val;
+  74              		.loc 1 65 5 view .LVU25
+  75              		.loc 1 65 25 is_stmt 0 view .LVU26
+  76 0053 4C8B4808 		movq	8(%rax), %r9
+  77              	.LVL9:
+  66:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 				break;
+  78              		.loc 1 66 5 is_stmt 1 view .LVU27
+  79 0057 EBCA     		jmp	.L5
+  80              	.L13:
+  67:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+  68:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 			default:
+  69:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 				break;
+  70:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		}
+  71:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 	}
+  72:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+  73:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****         if (!rel && relent == 0)
+  81              		.loc 1 73 9 view .LVU28
+  82              		.loc 1 73 13 is_stmt 0 view .LVU29
+  83 0059 4885FF   		testq	%rdi, %rdi
+  84 005c 0F94C0   		sete	%al
+  85              		.loc 1 73 28 view .LVU30
+  86 005f 4D85C9   		testq	%r9, %r9
+  87 0062 0F94C2   		sete	%dl
+  88              		.loc 1 73 12 view .LVU31
+  89 0065 84D0     		testb	%dl, %al
+  90 0067 7531     		jne	.L11
+  74:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c ****                 return EFI_SUCCESS;
+  75:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+  76:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 	if (!rel || relent == 0)
+  91              		.loc 1 76 2 is_stmt 1 view .LVU32
+  92              		.loc 1 76 5 is_stmt 0 view .LVU33
+  93 0069 08D0     		orb	%dl, %al
+  94 006b 7411     		je	.L8
+  77:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		return EFI_LOAD_ERROR;
+  95              		.loc 1 77 10 view .LVU34
+  96 006d 48B80100 		movabsq	$-9223372036854775807, %rax
+  96      00000000 
+  96      0080
+  78:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+  79:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 	while (relsz > 0) {
+  80:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		/* apply the relocs */
+  81:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		switch (ELF64_R_TYPE (rel->r_info)) {
+  82:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 			case R_X86_64_NONE:
+  83:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 				break;
+  84:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+  85:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 			case R_X86_64_RELATIVE:
+  86:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 				addr = (unsigned long *)
+  87:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 					(ldbase + rel->r_offset);
+  88:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 				*addr += ldbase;
+  89:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 				break;
+  90:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+  91:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 			default:
+  92:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 				break;
+  93:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		}
+  94:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		rel = (Elf64_Rel*) ((char *) rel + relent);
+  95:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		relsz -= relent;
+  96:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 	}
+  97:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 	return EFI_SUCCESS;
+  98:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** }
+  97              		.loc 1 98 1 view .LVU35
+  98 0077 C3       		ret
+  99              	.L9:
+  94:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		relsz -= relent;
+ 100              		.loc 1 94 3 is_stmt 1 view .LVU36
+  94:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		relsz -= relent;
+ 101              		.loc 1 94 7 is_stmt 0 view .LVU37
+ 102 0078 4C01CF   		addq	%r9, %rdi
+ 103              	.LVL10:
+  95:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 	}
+ 104              		.loc 1 95 3 is_stmt 1 view .LVU38
+  95:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 	}
+ 105              		.loc 1 95 9 is_stmt 0 view .LVU39
+ 106 007b 4D29C8   		subq	%r9, %r8
+ 107              	.LVL11:
+ 108              	.L8:
+  79:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 		/* apply the relocs */
+ 109              		.loc 1 79 15 is_stmt 1 view .LVU40
+ 110 007e 4D85C0   		testq	%r8, %r8
+ 111 0081 7E11     		jle	.L14
+  81:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 			case R_X86_64_NONE:
+ 112              		.loc 1 81 3 view .LVU41
+ 113 0083 837F0808 		cmpl	$8, 8(%rdi)
+ 114 0087 75EF     		jne	.L9
+  86:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 					(ldbase + rel->r_offset);
+ 115              		.loc 1 86 5 view .LVU42
+  87:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 				*addr += ldbase;
+ 116              		.loc 1 87 14 is_stmt 0 view .LVU43
+ 117 0089 4C89D0   		movq	%r10, %rax
+ 118 008c 480307   		addq	(%rdi), %rax
+ 119              	.LVL12:
+  88:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 				break;
+ 120              		.loc 1 88 5 is_stmt 1 view .LVU44
+  88:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 				break;
+ 121              		.loc 1 88 11 is_stmt 0 view .LVU45
+ 122 008f 4C0110   		addq	%r10, (%rax)
+  89:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+ 123              		.loc 1 89 5 is_stmt 1 view .LVU46
+ 124 0092 EBE4     		jmp	.L9
+ 125              	.LVL13:
+ 126              	.L14:
+  97:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** }
+ 127              		.loc 1 97 9 is_stmt 0 view .LVU47
+ 128 0094 B8000000 		movl	$0, %eax
+ 128      00
+ 129 0099 C3       		ret
+ 130              	.L11:
+  74:../Backend/gnu-efi-3.0.9/gnuefi/reloc_x86_64.c **** 
+ 131              		.loc 1 74 24 view .LVU48
+ 132 009a B8000000 		movl	$0, %eax
+ 132      00
+ 133 009f C3       		ret
+ 134              		.cfi_endproc
+ 135              	.LFE0:
+ 137              	.Letext0:
+ 138              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 139              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 140              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 141              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efidevp.h"
+ 142              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efiprot.h"
+ 143              		.file 7 "../Backend/gnu-efi-3.0.9/inc/efiapi.h"
+ 144              		.file 8 "../Backend/gnu-efi-3.0.9/inc/eficon.h"
+ 145              		.file 9 "/home/kokipc/Bootloader-Operativos/Simple_UEFI_Bootloader/inc/elf.h"
+ 25042              		.section	.note.gnu.property,"a"
+ 25043              		.align 8
+ 25044 0000 04000000 		.long	1f - 0f
+ 25045 0004 10000000 		.long	4f - 1f
+ 25046 0008 05000000 		.long	5
+ 25047              	0:
+ 25048 000c 474E5500 		.string	"GNU"
+ 25049              	1:
+ 25050              		.align 8
+ 25051 0010 020000C0 		.long	0xc0000002
+ 25052 0014 04000000 		.long	3f - 2f
+ 25053              	2:
+ 25054 0018 03000000 		.long	0x3
+ 25055              	3:
+ 25056 001c 00000000 		.align 8
+ 25057              	4:

@@ -1,0 +1,1609 @@
+
+Merging program properties
+
+Removed property 0xc0000002 to merge gnu-efi-3.0.9/lib/misc.o (0x3) and gnu-efi-3.0.9/lib/x86_64/efi_stub.o (not found)
+Removed property 0xc0000002 to merge gnu-efi-3.0.9/lib/misc.o (not found) and ../Simple_UEFI_Bootloader/src/Bootloader.o (0x3)
+Removed property 0xc0000002 to merge gnu-efi-3.0.9/lib/misc.o (not found) and ../Simple_UEFI_Bootloader/src/Graphics.o (0x3)
+Removed property 0xc0000002 to merge gnu-efi-3.0.9/lib/misc.o (not found) and ../Simple_UEFI_Bootloader/src/Loader.o (0x3)
+Removed property 0xc0000002 to merge gnu-efi-3.0.9/lib/misc.o (not found) and ../Simple_UEFI_Bootloader/src/Memory.o (0x3)
+
+Discarded input sections
+
+ .debug_info    0x0000000000000000     0x2f01 gnu-efi-3.0.9/lib/misc.o
+ .debug_abbrev  0x0000000000000000      0x52c gnu-efi-3.0.9/lib/misc.o
+ .debug_loclists
+                0x0000000000000000      0xcc5 gnu-efi-3.0.9/lib/misc.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/misc.o
+ .debug_rnglists
+                0x0000000000000000       0xb6 gnu-efi-3.0.9/lib/misc.o
+ .debug_line    0x0000000000000000      0xa95 gnu-efi-3.0.9/lib/misc.o
+ .debug_str     0x0000000000000000     0x1935 gnu-efi-3.0.9/lib/misc.o
+ .debug_line_str
+                0x0000000000000000      0x23f gnu-efi-3.0.9/lib/misc.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/misc.o
+ .debug_info    0x0000000000000000     0x36f1 gnu-efi-3.0.9/lib/print.o
+ .debug_abbrev  0x0000000000000000      0x4fb gnu-efi-3.0.9/lib/print.o
+ .debug_loclists
+                0x0000000000000000     0x1420 gnu-efi-3.0.9/lib/print.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/print.o
+ .debug_rnglists
+                0x0000000000000000      0x114 gnu-efi-3.0.9/lib/print.o
+ .debug_line    0x0000000000000000     0x14b9 gnu-efi-3.0.9/lib/print.o
+ .debug_str     0x0000000000000000     0x167b gnu-efi-3.0.9/lib/print.o
+ .debug_line_str
+                0x0000000000000000      0x24d gnu-efi-3.0.9/lib/print.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/print.o
+ .debug_info    0x0000000000000000      0x82b gnu-efi-3.0.9/lib/smbios.o
+ .debug_abbrev  0x0000000000000000      0x20f gnu-efi-3.0.9/lib/smbios.o
+ .debug_loclists
+                0x0000000000000000      0x25e gnu-efi-3.0.9/lib/smbios.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/smbios.o
+ .debug_rnglists
+                0x0000000000000000       0x40 gnu-efi-3.0.9/lib/smbios.o
+ .debug_line    0x0000000000000000      0x313 gnu-efi-3.0.9/lib/smbios.o
+ .debug_str     0x0000000000000000      0x61d gnu-efi-3.0.9/lib/smbios.o
+ .debug_line_str
+                0x0000000000000000      0x20e gnu-efi-3.0.9/lib/smbios.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/smbios.o
+ .debug_info    0x0000000000000000     0x1792 gnu-efi-3.0.9/lib/sread.o
+ .debug_abbrev  0x0000000000000000      0x2e7 gnu-efi-3.0.9/lib/sread.o
+ .debug_loclists
+                0x0000000000000000      0x472 gnu-efi-3.0.9/lib/sread.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/sread.o
+ .debug_line    0x0000000000000000      0x3f9 gnu-efi-3.0.9/lib/sread.o
+ .debug_str     0x0000000000000000     0x1087 gnu-efi-3.0.9/lib/sread.o
+ .debug_line_str
+                0x0000000000000000      0x21c gnu-efi-3.0.9/lib/sread.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/sread.o
+ .debug_info    0x0000000000000000      0xd94 gnu-efi-3.0.9/lib/str.o
+ .debug_abbrev  0x0000000000000000      0x2e6 gnu-efi-3.0.9/lib/str.o
+ .debug_loclists
+                0x0000000000000000      0x5d2 gnu-efi-3.0.9/lib/str.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/str.o
+ .debug_rnglists
+                0x0000000000000000       0x25 gnu-efi-3.0.9/lib/str.o
+ .debug_line    0x0000000000000000      0x5f1 gnu-efi-3.0.9/lib/str.o
+ .debug_str     0x0000000000000000      0x47d gnu-efi-3.0.9/lib/str.o
+ .debug_line_str
+                0x0000000000000000      0x214 gnu-efi-3.0.9/lib/str.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/str.o
+ .debug_info    0x0000000000000000      0x1e1 gnu-efi-3.0.9/lib/boxdraw.o
+ .debug_abbrev  0x0000000000000000       0xf7 gnu-efi-3.0.9/lib/boxdraw.o
+ .debug_loclists
+                0x0000000000000000       0x4b gnu-efi-3.0.9/lib/boxdraw.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/boxdraw.o
+ .debug_line    0x0000000000000000      0x115 gnu-efi-3.0.9/lib/boxdraw.o
+ .debug_str     0x0000000000000000      0x23e gnu-efi-3.0.9/lib/boxdraw.o
+ .debug_line_str
+                0x0000000000000000      0x1fc gnu-efi-3.0.9/lib/boxdraw.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/boxdraw.o
+ .debug_info    0x0000000000000000     0x1f30 gnu-efi-3.0.9/lib/cmdline.o
+ .debug_abbrev  0x0000000000000000      0x2cc gnu-efi-3.0.9/lib/cmdline.o
+ .debug_loclists
+                0x0000000000000000      0x1d3 gnu-efi-3.0.9/lib/cmdline.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/cmdline.o
+ .debug_rnglists
+                0x0000000000000000       0x17 gnu-efi-3.0.9/lib/cmdline.o
+ .debug_line    0x0000000000000000      0x26c gnu-efi-3.0.9/lib/cmdline.o
+ .debug_str     0x0000000000000000     0x1706 gnu-efi-3.0.9/lib/cmdline.o
+ .debug_line_str
+                0x0000000000000000      0x249 gnu-efi-3.0.9/lib/cmdline.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/cmdline.o
+ .debug_info    0x0000000000000000     0x1952 gnu-efi-3.0.9/lib/console.o
+ .debug_abbrev  0x0000000000000000      0x26f gnu-efi-3.0.9/lib/console.o
+ .debug_loclists
+                0x0000000000000000      0x141 gnu-efi-3.0.9/lib/console.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/console.o
+ .debug_line    0x0000000000000000      0x15b gnu-efi-3.0.9/lib/console.o
+ .debug_str     0x0000000000000000     0x1332 gnu-efi-3.0.9/lib/console.o
+ .debug_line_str
+                0x0000000000000000      0x22b gnu-efi-3.0.9/lib/console.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/console.o
+ .debug_info    0x0000000000000000      0x58d gnu-efi-3.0.9/lib/crc.o
+ .debug_abbrev  0x0000000000000000      0x1e3 gnu-efi-3.0.9/lib/crc.o
+ .debug_loclists
+                0x0000000000000000      0x422 gnu-efi-3.0.9/lib/crc.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/crc.o
+ .debug_rnglists
+                0x0000000000000000       0x49 gnu-efi-3.0.9/lib/crc.o
+ .debug_line    0x0000000000000000      0x300 gnu-efi-3.0.9/lib/crc.o
+ .debug_str     0x0000000000000000      0x26e gnu-efi-3.0.9/lib/crc.o
+ .debug_line_str
+                0x0000000000000000      0x1f9 gnu-efi-3.0.9/lib/crc.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/crc.o
+ .debug_info    0x0000000000000000     0x263f gnu-efi-3.0.9/lib/data.o
+ .debug_abbrev  0x0000000000000000      0x245 gnu-efi-3.0.9/lib/data.o
+ .debug_aranges
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/data.o
+ .debug_line    0x0000000000000000       0x73 gnu-efi-3.0.9/lib/data.o
+ .debug_str     0x0000000000000000     0x1ff7 gnu-efi-3.0.9/lib/data.o
+ .debug_line_str
+                0x0000000000000000      0x228 gnu-efi-3.0.9/lib/data.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/data.o
+ .debug_info    0x0000000000000000      0x165 gnu-efi-3.0.9/lib/debug.o
+ .debug_abbrev  0x0000000000000000       0xae gnu-efi-3.0.9/lib/debug.o
+ .debug_loclists
+                0x0000000000000000       0x57 gnu-efi-3.0.9/lib/debug.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/debug.o
+ .debug_line    0x0000000000000000       0x84 gnu-efi-3.0.9/lib/debug.o
+ .debug_str     0x0000000000000000      0x1e2 gnu-efi-3.0.9/lib/debug.o
+ .debug_line_str
+                0x0000000000000000      0x201 gnu-efi-3.0.9/lib/debug.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/debug.o
+ .debug_info    0x0000000000000000     0x4528 gnu-efi-3.0.9/lib/dpath.o
+ .debug_abbrev  0x0000000000000000      0x508 gnu-efi-3.0.9/lib/dpath.o
+ .debug_loclists
+                0x0000000000000000     0x1b13 gnu-efi-3.0.9/lib/dpath.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/dpath.o
+ .debug_rnglists
+                0x0000000000000000       0xbb gnu-efi-3.0.9/lib/dpath.o
+ .debug_line    0x0000000000000000     0x13d3 gnu-efi-3.0.9/lib/dpath.o
+ .debug_str     0x0000000000000000     0x18de gnu-efi-3.0.9/lib/dpath.o
+ .debug_line_str
+                0x0000000000000000      0x21c gnu-efi-3.0.9/lib/dpath.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/dpath.o
+ .debug_info    0x0000000000000000      0x1d3 gnu-efi-3.0.9/lib/error.o
+ .debug_abbrev  0x0000000000000000      0x12b gnu-efi-3.0.9/lib/error.o
+ .debug_loclists
+                0x0000000000000000       0x62 gnu-efi-3.0.9/lib/error.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/error.o
+ .debug_line    0x0000000000000000       0xbe gnu-efi-3.0.9/lib/error.o
+ .debug_str     0x0000000000000000      0x20b gnu-efi-3.0.9/lib/error.o
+ .debug_line_str
+                0x0000000000000000      0x1ff gnu-efi-3.0.9/lib/error.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/error.o
+ .debug_info    0x0000000000000000     0x1abb gnu-efi-3.0.9/lib/event.o
+ .debug_abbrev  0x0000000000000000      0x2b0 gnu-efi-3.0.9/lib/event.o
+ .debug_loclists
+                0x0000000000000000      0x1d4 gnu-efi-3.0.9/lib/event.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/event.o
+ .debug_line    0x0000000000000000      0x1b3 gnu-efi-3.0.9/lib/event.o
+ .debug_str     0x0000000000000000     0x13c9 gnu-efi-3.0.9/lib/event.o
+ .debug_line_str
+                0x0000000000000000      0x225 gnu-efi-3.0.9/lib/event.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/event.o
+ .debug_info    0x0000000000000000      0xea2 gnu-efi-3.0.9/lib/exit.o
+ .debug_abbrev  0x0000000000000000      0x1db gnu-efi-3.0.9/lib/exit.o
+ .debug_loclists
+                0x0000000000000000       0x49 gnu-efi-3.0.9/lib/exit.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/exit.o
+ .debug_line    0x0000000000000000       0xaa gnu-efi-3.0.9/lib/exit.o
+ .debug_str     0x0000000000000000      0xc97 gnu-efi-3.0.9/lib/exit.o
+ .debug_line_str
+                0x0000000000000000      0x21f gnu-efi-3.0.9/lib/exit.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/exit.o
+ .debug_info    0x0000000000000000      0x662 gnu-efi-3.0.9/lib/guid.o
+ .debug_abbrev  0x0000000000000000      0x1e7 gnu-efi-3.0.9/lib/guid.o
+ .debug_loclists
+                0x0000000000000000       0xc4 gnu-efi-3.0.9/lib/guid.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/guid.o
+ .debug_line    0x0000000000000000      0x134 gnu-efi-3.0.9/lib/guid.o
+ .debug_str     0x0000000000000000      0x8e3 gnu-efi-3.0.9/lib/guid.o
+ .debug_line_str
+                0x0000000000000000      0x211 gnu-efi-3.0.9/lib/guid.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/guid.o
+ .debug_info    0x0000000000000000     0x1e2c gnu-efi-3.0.9/lib/hand.o
+ .debug_abbrev  0x0000000000000000      0x34e gnu-efi-3.0.9/lib/hand.o
+ .debug_loclists
+                0x0000000000000000      0x53a gnu-efi-3.0.9/lib/hand.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/hand.o
+ .debug_line    0x0000000000000000      0x89f gnu-efi-3.0.9/lib/hand.o
+ .debug_str     0x0000000000000000     0x134e gnu-efi-3.0.9/lib/hand.o
+ .debug_line_str
+                0x0000000000000000      0x230 gnu-efi-3.0.9/lib/hand.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/hand.o
+ .debug_info    0x0000000000000000     0x1491 gnu-efi-3.0.9/lib/hw.o
+ .debug_abbrev  0x0000000000000000      0x221 gnu-efi-3.0.9/lib/hw.o
+ .debug_loclists
+                0x0000000000000000      0x1c0 gnu-efi-3.0.9/lib/hw.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/hw.o
+ .debug_line    0x0000000000000000      0x157 gnu-efi-3.0.9/lib/hw.o
+ .debug_str     0x0000000000000000      0xefa gnu-efi-3.0.9/lib/hw.o
+ .debug_line_str
+                0x0000000000000000      0x213 gnu-efi-3.0.9/lib/hw.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/hw.o
+ .debug_info    0x0000000000000000     0x1f1a gnu-efi-3.0.9/lib/init.o
+ .debug_abbrev  0x0000000000000000      0x32c gnu-efi-3.0.9/lib/init.o
+ .debug_loclists
+                0x0000000000000000      0x265 gnu-efi-3.0.9/lib/init.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/init.o
+ .debug_line    0x0000000000000000      0x2eb gnu-efi-3.0.9/lib/init.o
+ .debug_str     0x0000000000000000     0x1699 gnu-efi-3.0.9/lib/init.o
+ .debug_line_str
+                0x0000000000000000      0x240 gnu-efi-3.0.9/lib/init.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/init.o
+ .debug_info    0x0000000000000000      0x1ab gnu-efi-3.0.9/lib/lock.o
+ .debug_abbrev  0x0000000000000000      0x108 gnu-efi-3.0.9/lib/lock.o
+ .debug_loclists
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/lock.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/lock.o
+ .debug_line    0x0000000000000000       0xb4 gnu-efi-3.0.9/lib/lock.o
+ .debug_str     0x0000000000000000      0x208 gnu-efi-3.0.9/lib/lock.o
+ .debug_line_str
+                0x0000000000000000      0x208 gnu-efi-3.0.9/lib/lock.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/lock.o
+ .debug_line    0x0000000000000000        0x0 gnu-efi-3.0.9/lib/x86_64/callwrap.o
+ .debug_str     0x0000000000000000      0x12b gnu-efi-3.0.9/lib/x86_64/callwrap.o
+ .debug_line_str
+                0x0000000000000000       0x94 gnu-efi-3.0.9/lib/x86_64/callwrap.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/x86_64/callwrap.o
+ .debug_info    0x0000000000000000     0x1753 gnu-efi-3.0.9/lib/x86_64/initplat.o
+ .debug_abbrev  0x0000000000000000      0x1a8 gnu-efi-3.0.9/lib/x86_64/initplat.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/x86_64/initplat.o
+ .debug_line    0x0000000000000000       0x82 gnu-efi-3.0.9/lib/x86_64/initplat.o
+ .debug_str     0x0000000000000000     0x1311 gnu-efi-3.0.9/lib/x86_64/initplat.o
+ .debug_line_str
+                0x0000000000000000      0x233 gnu-efi-3.0.9/lib/x86_64/initplat.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/x86_64/initplat.o
+ .debug_info    0x0000000000000000      0x187 gnu-efi-3.0.9/lib/x86_64/math.o
+ .debug_abbrev  0x0000000000000000       0xa3 gnu-efi-3.0.9/lib/x86_64/math.o
+ .debug_loclists
+                0x0000000000000000       0x1b gnu-efi-3.0.9/lib/x86_64/math.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/x86_64/math.o
+ .debug_line    0x0000000000000000       0xbe gnu-efi-3.0.9/lib/x86_64/math.o
+ .debug_str     0x0000000000000000      0x20a gnu-efi-3.0.9/lib/x86_64/math.o
+ .debug_line_str
+                0x0000000000000000      0x1b3 gnu-efi-3.0.9/lib/x86_64/math.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/x86_64/math.o
+ .debug_info    0x0000000000000000      0x396 gnu-efi-3.0.9/lib/runtime/efirtlib.o
+ .debug_abbrev  0x0000000000000000      0x144 gnu-efi-3.0.9/lib/runtime/efirtlib.o
+ .debug_loclists
+                0x0000000000000000      0x263 gnu-efi-3.0.9/lib/runtime/efirtlib.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/runtime/efirtlib.o
+ .debug_line    0x0000000000000000      0x193 gnu-efi-3.0.9/lib/runtime/efirtlib.o
+ .debug_str     0x0000000000000000      0x270 gnu-efi-3.0.9/lib/runtime/efirtlib.o
+ .debug_line_str
+                0x0000000000000000      0x20f gnu-efi-3.0.9/lib/runtime/efirtlib.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/runtime/efirtlib.o
+ .debug_info    0x0000000000000000      0xa1d gnu-efi-3.0.9/lib/runtime/rtdata.o
+ .debug_abbrev  0x0000000000000000      0x15e gnu-efi-3.0.9/lib/runtime/rtdata.o
+ .debug_aranges
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/runtime/rtdata.o
+ .debug_line    0x0000000000000000       0x72 gnu-efi-3.0.9/lib/runtime/rtdata.o
+ .debug_str     0x0000000000000000      0x81d gnu-efi-3.0.9/lib/runtime/rtdata.o
+ .debug_line_str
+                0x0000000000000000      0x273 gnu-efi-3.0.9/lib/runtime/rtdata.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/runtime/rtdata.o
+ .debug_info    0x0000000000000000      0xeed gnu-efi-3.0.9/lib/runtime/rtlock.o
+ .debug_abbrev  0x0000000000000000      0x1fe gnu-efi-3.0.9/lib/runtime/rtlock.o
+ .debug_loclists
+                0x0000000000000000       0x56 gnu-efi-3.0.9/lib/runtime/rtlock.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/runtime/rtlock.o
+ .debug_line    0x0000000000000000      0x119 gnu-efi-3.0.9/lib/runtime/rtlock.o
+ .debug_str     0x0000000000000000      0xcc6 gnu-efi-3.0.9/lib/runtime/rtlock.o
+ .debug_line_str
+                0x0000000000000000      0x27d gnu-efi-3.0.9/lib/runtime/rtlock.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/runtime/rtlock.o
+ .debug_info    0x0000000000000000      0x6ff gnu-efi-3.0.9/lib/runtime/rtstr.o
+ .debug_abbrev  0x0000000000000000      0x20f gnu-efi-3.0.9/lib/runtime/rtstr.o
+ .debug_loclists
+                0x0000000000000000      0x628 gnu-efi-3.0.9/lib/runtime/rtstr.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/runtime/rtstr.o
+ .debug_rnglists
+                0x0000000000000000       0x56 gnu-efi-3.0.9/lib/runtime/rtstr.o
+ .debug_line    0x0000000000000000      0x428 gnu-efi-3.0.9/lib/runtime/rtstr.o
+ .debug_str     0x0000000000000000      0x28c gnu-efi-3.0.9/lib/runtime/rtstr.o
+ .debug_line_str
+                0x0000000000000000      0x21a gnu-efi-3.0.9/lib/runtime/rtstr.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/runtime/rtstr.o
+ .debug_info    0x0000000000000000      0xb82 gnu-efi-3.0.9/lib/runtime/vm.o
+ .debug_abbrev  0x0000000000000000      0x1e8 gnu-efi-3.0.9/lib/runtime/vm.o
+ .debug_loclists
+                0x0000000000000000      0x104 gnu-efi-3.0.9/lib/runtime/vm.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/lib/runtime/vm.o
+ .debug_line    0x0000000000000000      0x154 gnu-efi-3.0.9/lib/runtime/vm.o
+ .debug_str     0x0000000000000000      0x888 gnu-efi-3.0.9/lib/runtime/vm.o
+ .debug_line_str
+                0x0000000000000000      0x266 gnu-efi-3.0.9/lib/runtime/vm.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/lib/runtime/vm.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_info    0x0000000000000000     0x18b5 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_abbrev  0x0000000000000000      0x20a gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_loclists
+                0x0000000000000000       0x97 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_aranges
+                0x0000000000000000       0x30 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000      0x163 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000      0x946 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0x28 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0x10 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000      0x34e gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0xcc gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0x10 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0xd2 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000      0x282 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000      0x134 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000      0x2bf gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0x10 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000      0x2db gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0x5e gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0x1c gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000      0x121 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0x61 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000      0x1e7 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0x64 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0xee gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0x22 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0xdf gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0x3a gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0x37 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0x2e gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0x10 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000      0x325 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0x34 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0x49 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0x22 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000       0x8c gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000      0x2c2 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_macro   0x0000000000000000     0x4649 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_line    0x0000000000000000      0x1c8 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_str     0x0000000000000000    0x1ceec gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_line_str
+                0x0000000000000000      0x2f0 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .note.gnu.property
+                0x0000000000000000       0x20 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .debug_frame   0x0000000000000000       0x30 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_info    0x0000000000000000     0x20cd ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_abbrev  0x0000000000000000      0x314 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_loclists
+                0x0000000000000000      0x1e7 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_aranges
+                0x0000000000000000       0x30 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000      0x1af ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000      0x946 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x28 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000      0x34e ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0xcc ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0xd2 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000      0x282 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000      0x134 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000      0x2bf ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000      0x2db ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x5e ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x1c ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000      0x121 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x61 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000      0x1e7 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x64 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0xee ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x22 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0xdf ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x3a ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x37 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x2e ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000      0x325 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x34 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x49 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x22 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x8c ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000      0x2c2 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000      0x5f8 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000     0x4649 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000      0x426 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x56 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000      0x5b2 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x16 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_macro   0x0000000000000000       0x34 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_line    0x0000000000000000      0x3a4 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_str     0x0000000000000000    0x21b79 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_line_str
+                0x0000000000000000      0x330 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .note.gnu.property
+                0x0000000000000000       0x20 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .debug_frame   0x0000000000000000       0x80 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_info    0x0000000000000000     0x3b45 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_abbrev  0x0000000000000000      0x332 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_loclists
+                0x0000000000000000      0xbb7 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_aranges
+                0x0000000000000000       0x30 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_rnglists
+                0x0000000000000000       0xe5 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000      0x1c8 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000      0x946 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x28 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000      0x34e ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0xcc ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0xd2 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000      0x282 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000      0x134 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000      0x2bf ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000      0x2db ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x5e ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x1c ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000      0x121 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x61 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000      0x1e7 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x64 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0xee ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x22 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0xdf ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x3a ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x37 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x2e ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000      0x325 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x34 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x49 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x22 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x8c ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000      0x2c2 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000      0x5f8 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000     0x4649 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000      0x426 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x56 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000      0x5b2 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x16 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_macro   0x0000000000000000       0x34 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_line    0x0000000000000000     0x15fb ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_str     0x0000000000000000    0x2207f ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_line_str
+                0x0000000000000000      0x32a ../Simple_UEFI_Bootloader/src/Graphics.o
+ .note.gnu.property
+                0x0000000000000000       0x20 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .debug_frame   0x0000000000000000       0xa8 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_info    0x0000000000000000     0x4a8e ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_abbrev  0x0000000000000000      0x313 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_loclists
+                0x0000000000000000     0x13a8 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_aranges
+                0x0000000000000000       0x30 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_rnglists
+                0x0000000000000000       0xdb ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000      0x1ae ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000      0x946 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x28 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000      0x34e ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0xcc ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0xd2 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000      0x282 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000      0x134 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000      0x2bf ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000      0x2db ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x5e ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x1c ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000      0x121 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x61 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000      0x1e7 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x64 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0xee ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x22 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0xdf ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x3a ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x37 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x2e ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000      0x325 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x34 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x49 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x22 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x8c ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000      0x2c2 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000      0x5f8 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000     0x4649 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000      0x426 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x56 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000      0x5b2 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x16 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_macro   0x0000000000000000       0x34 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_line    0x0000000000000000     0x146a ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_str     0x0000000000000000    0x22a79 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_line_str
+                0x0000000000000000      0x324 ../Simple_UEFI_Bootloader/src/Loader.o
+ .note.gnu.property
+                0x0000000000000000       0x20 ../Simple_UEFI_Bootloader/src/Loader.o
+ .debug_frame   0x0000000000000000       0x78 ../Simple_UEFI_Bootloader/src/Loader.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .group         0x0000000000000000        0xc ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_info    0x0000000000000000     0x1495 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_abbrev  0x0000000000000000      0x2cf ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_loclists
+                0x0000000000000000      0x287 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_aranges
+                0x0000000000000000       0x30 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_rnglists
+                0x0000000000000000       0x1a ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000      0x1ae ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000      0x946 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x28 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000      0x34e ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0xcc ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0xd2 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000      0x282 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000      0x134 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000      0x2bf ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000      0x2db ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x5e ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x1c ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000      0x121 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x61 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000      0x1e7 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x64 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0xee ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x22 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0xdf ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x3a ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x37 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x2e ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000      0x325 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x34 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x49 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x22 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x8c ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000      0x2c2 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000      0x5f8 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000     0x4649 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000      0x426 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x56 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000      0x5b2 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x16 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x10 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_macro   0x0000000000000000       0x34 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_line    0x0000000000000000      0x4c7 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_str     0x0000000000000000    0x21223 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_line_str
+                0x0000000000000000      0x324 ../Simple_UEFI_Bootloader/src/Memory.o
+ .note.gnu.property
+                0x0000000000000000       0x20 ../Simple_UEFI_Bootloader/src/Memory.o
+ .debug_frame   0x0000000000000000      0x100 ../Simple_UEFI_Bootloader/src/Memory.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD gnu-efi-3.0.9/lib/misc.o
+LOAD gnu-efi-3.0.9/lib/print.o
+LOAD gnu-efi-3.0.9/lib/smbios.o
+LOAD gnu-efi-3.0.9/lib/sread.o
+LOAD gnu-efi-3.0.9/lib/str.o
+LOAD gnu-efi-3.0.9/lib/boxdraw.o
+LOAD gnu-efi-3.0.9/lib/cmdline.o
+LOAD gnu-efi-3.0.9/lib/console.o
+LOAD gnu-efi-3.0.9/lib/crc.o
+LOAD gnu-efi-3.0.9/lib/data.o
+LOAD gnu-efi-3.0.9/lib/debug.o
+LOAD gnu-efi-3.0.9/lib/dpath.o
+LOAD gnu-efi-3.0.9/lib/error.o
+LOAD gnu-efi-3.0.9/lib/event.o
+LOAD gnu-efi-3.0.9/lib/exit.o
+LOAD gnu-efi-3.0.9/lib/guid.o
+LOAD gnu-efi-3.0.9/lib/hand.o
+LOAD gnu-efi-3.0.9/lib/hw.o
+LOAD gnu-efi-3.0.9/lib/init.o
+LOAD gnu-efi-3.0.9/lib/lock.o
+LOAD gnu-efi-3.0.9/lib/x86_64/callwrap.o
+LOAD gnu-efi-3.0.9/lib/x86_64/initplat.o
+LOAD gnu-efi-3.0.9/lib/x86_64/math.o
+LOAD gnu-efi-3.0.9/lib/runtime/efirtlib.o
+LOAD gnu-efi-3.0.9/lib/runtime/rtdata.o
+LOAD gnu-efi-3.0.9/lib/runtime/rtlock.o
+LOAD gnu-efi-3.0.9/lib/runtime/rtstr.o
+LOAD gnu-efi-3.0.9/lib/runtime/vm.o
+LOAD gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+LOAD gnu-efi-3.0.9/lib/x86_64/efi_stub.o
+LOAD gnu-efi-3.0.9/lib/x86_64/setjmp.o
+LOAD gnu-efi-3.0.9/gnuefi/crt0-efi-x86_64.o
+LOAD ../Simple_UEFI_Bootloader/src/Bootloader.o
+LOAD ../Simple_UEFI_Bootloader/src/Graphics.o
+LOAD ../Simple_UEFI_Bootloader/src/Loader.o
+LOAD ../Simple_UEFI_Bootloader/src/Memory.o
+                0x0000000000000000                . = 0x0
+                0x0000000000000000                ImageBase = .
+
+.hash
+ *(.hash)
+
+.gnu.hash       0x0000000000000000       0x1c
+ *(.gnu.hash)
+ .gnu.hash      0x0000000000000000       0x1c gnu-efi-3.0.9/lib/misc.o
+                0x0000000000001000                . = ALIGN (0x1000)
+
+.eh_frame       0x0000000000001000     0x1f48
+ *(.eh_frame)
+ .eh_frame      0x0000000000001000      0x400 gnu-efi-3.0.9/lib/misc.o
+ .eh_frame      0x0000000000001400        0x0 gnu-efi-3.0.9/lib/misc.o
+ .eh_frame      0x0000000000001400        0x0 gnu-efi-3.0.9/lib/misc.o
+ .eh_frame      0x0000000000001400      0x590 gnu-efi-3.0.9/lib/print.o
+                                        0x5a8 (size before relaxing)
+ .eh_frame      0x0000000000001990       0x50 gnu-efi-3.0.9/lib/smbios.o
+                                         0x68 (size before relaxing)
+ .eh_frame      0x00000000000019e0       0xc8 gnu-efi-3.0.9/lib/sread.o
+                                         0xe0 (size before relaxing)
+ .eh_frame      0x0000000000001aa8      0x2b8 gnu-efi-3.0.9/lib/str.o
+                                        0x2d0 (size before relaxing)
+ .eh_frame      0x0000000000001d60       0x40 gnu-efi-3.0.9/lib/boxdraw.o
+                                         0x58 (size before relaxing)
+ .eh_frame      0x0000000000001da0       0x50 gnu-efi-3.0.9/lib/cmdline.o
+                                         0x68 (size before relaxing)
+ .eh_frame      0x0000000000001df0       0x80 gnu-efi-3.0.9/lib/console.o
+                                         0x98 (size before relaxing)
+ .eh_frame      0x0000000000001e70       0x68 gnu-efi-3.0.9/lib/crc.o
+                                         0x80 (size before relaxing)
+ .eh_frame      0x0000000000001ed8       0x20 gnu-efi-3.0.9/lib/debug.o
+                                         0x38 (size before relaxing)
+ .eh_frame      0x0000000000001ef8      0x798 gnu-efi-3.0.9/lib/dpath.o
+                                        0x7b0 (size before relaxing)
+ .eh_frame      0x0000000000002690       0x18 gnu-efi-3.0.9/lib/error.o
+                                         0x30 (size before relaxing)
+ .eh_frame      0x00000000000026a8       0xc8 gnu-efi-3.0.9/lib/event.o
+                                         0xe0 (size before relaxing)
+ .eh_frame      0x0000000000002770       0x20 gnu-efi-3.0.9/lib/exit.o
+                                         0x38 (size before relaxing)
+ .eh_frame      0x0000000000002790       0x80 gnu-efi-3.0.9/lib/guid.o
+                                         0x98 (size before relaxing)
+ .eh_frame      0x0000000000002810      0x290 gnu-efi-3.0.9/lib/hand.o
+                                        0x2a8 (size before relaxing)
+ .eh_frame      0x0000000000002aa0       0x98 gnu-efi-3.0.9/lib/hw.o
+                                         0xb0 (size before relaxing)
+ .eh_frame      0x0000000000002b38       0xd0 gnu-efi-3.0.9/lib/init.o
+                                         0xe8 (size before relaxing)
+ .eh_frame      0x0000000000002c08       0x40 gnu-efi-3.0.9/lib/lock.o
+                                         0x58 (size before relaxing)
+ .eh_frame      0x0000000000002c48       0x18 gnu-efi-3.0.9/lib/x86_64/initplat.o
+                                         0x30 (size before relaxing)
+ .eh_frame      0x0000000000002c60       0x50 gnu-efi-3.0.9/lib/x86_64/math.o
+                                         0x68 (size before relaxing)
+ .eh_frame      0x0000000000002cb0       0x68 gnu-efi-3.0.9/lib/runtime/efirtlib.o
+                                         0x80 (size before relaxing)
+ .eh_frame      0x0000000000002d18       0x40 gnu-efi-3.0.9/lib/runtime/rtlock.o
+                                         0x58 (size before relaxing)
+ .eh_frame      0x0000000000002d58      0x170 gnu-efi-3.0.9/lib/runtime/rtstr.o
+                                        0x188 (size before relaxing)
+ .eh_frame      0x0000000000002ec8       0x80 gnu-efi-3.0.9/lib/runtime/vm.o
+                                         0x98 (size before relaxing)
+                0x0000000000003000                . = ALIGN (0x1000)
+
+.text           0x0000000000003000     0xc920
+                0x0000000000003000                _text = .
+ *(.text)
+ .text          0x0000000000003000      0xa57 gnu-efi-3.0.9/lib/misc.o
+                0x0000000000003000                AllocatePool
+                0x0000000000003040                AllocateZeroPool
+                0x0000000000003090                ReallocatePool
+                0x0000000000003120                FreePool
+                0x0000000000003140                ZeroMem
+                0x0000000000003150                SetMem
+                0x0000000000003160                CopyMem
+                0x0000000000003170                CompareMem
+                0x0000000000003180                GrowBuffer
+                0x0000000000003260                LibMemoryMap
+                0x0000000000003360                LibGetVariableAndSize
+                0x0000000000003440                LibGetVariable
+                0x0000000000003460                LibDeleteVariable
+                0x00000000000034d0                LibSetNVVariable
+                0x0000000000003500                LibSetVariable
+                0x0000000000003530                LibInsertToTailOfBootOrder
+                0x00000000000036e0                ValidMBR
+                0x00000000000038b0                DecimaltoBCD
+                0x00000000000038c0                BCDtoDecimal
+                0x00000000000038d0                LibGetSystemConfigurationTable
+                0x0000000000003970                LibGetUiString
+ *fill*         0x0000000000003a57        0x9 
+ .text          0x0000000000003a60     0x1ec1 gnu-efi-3.0.9/lib/print.o
+                0x0000000000003a60                _DbgOut
+                0x0000000000003a90                _SPrint
+                0x0000000000003bb0                _PoolPrint
+                0x0000000000003d50                IsLocalPrint
+                0x0000000000003d90                PFLUSH
+                0x0000000000003dd0                PSETATTR
+                0x0000000000003e10                PPUTC
+                0x0000000000003ea0                PGETC
+                0x0000000000003ed0                PITEM
+                0x0000000000004190                ValueToHex
+                0x00000000000041b0                ValueToString
+                0x00000000000042e0                FloatToString
+                0x00000000000043c0                TimeToString
+                0x0000000000004470                _Print
+                0x0000000000004d50                DbgPrint
+                0x0000000000004f60                _PoolCatPrint
+                0x0000000000004fd0                VSPrint
+                0x0000000000005020                VPoolPrint
+                0x0000000000005070                CatPrint
+                0x0000000000005120                PoolPrint
+                0x00000000000051f0                SPrint
+                0x00000000000052b0                _IPrint
+                0x00000000000053b0                Print
+                0x0000000000005470                VPrint
+                0x00000000000054a0                PrintAt
+                0x0000000000005550                IPrint
+                0x0000000000005600                IPrintAt
+                0x00000000000056a0                APrint
+                0x0000000000005760                DumpHex
+ *fill*         0x0000000000005921        0xf 
+ .text          0x0000000000005930      0x1f6 gnu-efi-3.0.9/lib/smbios.o
+                0x0000000000005930                LibGetSmbiosSystemGuidAndSerialNumber
+                0x0000000000005ab0                LibGetSmbiosString
+ *fill*         0x0000000000005b26        0xa 
+ .text          0x0000000000005b30      0x446 gnu-efi-3.0.9/lib/sread.o
+                0x0000000000005b30                OpenSimpleReadFile
+                0x0000000000005e80                ReadSimpleReadFile
+                0x0000000000005f30                CloseSimpleReadFile
+ *fill*         0x0000000000005f76        0xa 
+ .text          0x0000000000005f80      0x5f0 gnu-efi-3.0.9/lib/str.o
+                0x0000000000005f80                StrCmp
+                0x0000000000005f90                StrnCmp
+                0x0000000000005fe0                LibStubStriCmp
+                0x0000000000006080                LibStubStrLwrUpr
+                0x0000000000006090                StriCmp
+                0x00000000000060b0                StrLwr
+                0x00000000000060d0                StrUpr
+                0x00000000000060f0                StrCpy
+                0x0000000000006100                StrnCpy
+                0x0000000000006110                StpCpy
+                0x0000000000006120                StpnCpy
+                0x0000000000006130                StrCat
+                0x0000000000006140                StrnCat
+                0x0000000000006150                StrnLen
+                0x0000000000006160                StrLen
+                0x0000000000006170                StrSize
+                0x0000000000006180                StrDuplicate
+                0x00000000000061c0                strlena
+                0x00000000000061f0                strcmpa
+                0x0000000000006240                strncmpa
+                0x0000000000006290                xtoi
+                0x0000000000006320                Atoi
+                0x0000000000006370                MetaMatch
+                0x00000000000064b0                LibStubMetaiMatch
+                0x0000000000006550                MetaiMatch
+ .text          0x0000000000006570       0x99 gnu-efi-3.0.9/lib/boxdraw.o
+                0x0000000000006570                LibIsValidTextGraphics
+                0x00000000000065e0                IsValidAscii
+                0x00000000000065f0                IsValidEfiCntlChar
+ *fill*         0x0000000000006609        0x7 
+ .text          0x0000000000006610      0x217 gnu-efi-3.0.9/lib/cmdline.o
+                0x0000000000006610                GetShellArgcArgv
+ *fill*         0x0000000000006827        0x9 
+ .text          0x0000000000006830      0x124 gnu-efi-3.0.9/lib/console.o
+                0x0000000000006830                Output
+                0x0000000000006860                IInput
+                0x0000000000006930                Input
+ *fill*         0x0000000000006954        0xc 
+ .text          0x0000000000006960      0x1f3 gnu-efi-3.0.9/lib/crc.o
+                0x0000000000006960                SetCrc
+                0x00000000000069c0                SetCrcAltSize
+                0x0000000000006a20                CheckCrc
+                0x0000000000006aa0                CheckCrcAltSize
+                0x0000000000006b10                CalculateCrc
+ .text          0x0000000000006b53        0x0 gnu-efi-3.0.9/lib/data.o
+ *fill*         0x0000000000006b53        0xd 
+ .text          0x0000000000006b60       0x28 gnu-efi-3.0.9/lib/debug.o
+                0x0000000000006b60                DbgAssert
+ *fill*         0x0000000000006b88        0x8 
+ .text          0x0000000000006b90     0x1b3c gnu-efi-3.0.9/lib/dpath.o
+                0x0000000000007dd0                DevicePathFromHandle
+                0x0000000000007e20                DevicePathInstance
+                0x0000000000007ed0                DevicePathInstanceCount
+                0x0000000000007f10                DevicePathSize
+                0x0000000000007f40                DuplicateDevicePath
+                0x0000000000007fa0                AppendDevicePath
+                0x0000000000008110                AppendDevicePathNode
+                0x0000000000008190                FileDevicePath
+                0x0000000000008260                UnpackDevicePath
+                0x0000000000008320                AppendDevicePathInstance
+                0x0000000000008400                LibDevicePathToInterface
+                0x00000000000084a0                DevicePathToStr
+                0x00000000000085e0                LibMatchDevicePaths
+                0x0000000000008660                LibDuplicateDevicePathInstance
+ *fill*         0x00000000000086cc        0x4 
+ .text          0x00000000000086d0       0x50 gnu-efi-3.0.9/lib/error.o
+                0x00000000000086d0                StatusToString
+ .text          0x0000000000008720      0x1f4 gnu-efi-3.0.9/lib/event.o
+                0x0000000000008720                LibCreateProtocolNotifyEvent
+                0x00000000000087a0                WaitForSingleEvent
+                0x0000000000008880                WaitForEventWithTimeout
+ *fill*         0x0000000000008914        0xc 
+ .text          0x0000000000008920       0x29 gnu-efi-3.0.9/lib/exit.o
+                0x0000000000008920                Exit
+ *fill*         0x0000000000008949        0x7 
+ .text          0x0000000000008950      0x109 gnu-efi-3.0.9/lib/guid.o
+                0x0000000000008950                InitializeGuid
+                0x0000000000008960                CompareGuid
+                0x0000000000008970                GuidToString
+ *fill*         0x0000000000008a59        0x7 
+ .text          0x0000000000008a60      0xb7a gnu-efi-3.0.9/lib/hand.o
+                0x0000000000008a60                LibLocateHandle
+                0x0000000000008b20                LibLocateProtocol
+                0x0000000000008be0                LibLocateHandleByDiskSignature
+                0x0000000000008f40                LibOpenRoot
+                0x0000000000008fb0                LibFileInfo
+                0x0000000000009040                LibFileSystemInfo
+                0x00000000000090d0                LibFileSystemVolumeLabelInfo
+                0x0000000000009160                LibInstallProtocolInterfaces
+                0x0000000000009320                LibUninstallProtocolInterfaces
+                0x00000000000093f0                LibReinstallProtocolInterfaces
+ *fill*         0x00000000000095da        0x6 
+ .text          0x00000000000095e0      0x171 gnu-efi-3.0.9/lib/hw.o
+                0x00000000000095e0                InitializeGlobalIoDevice
+                0x0000000000009680                ReadPort
+                0x00000000000096b0                WritePort
+                0x00000000000096f0                ReadPciConfig
+                0x0000000000009720                WritePciConfig
+ *fill*         0x0000000000009751        0xf 
+ .text          0x0000000000009760      0x313 gnu-efi-3.0.9/lib/init.o
+                0x0000000000009760                InitializeUnicodeSupport
+                0x0000000000009870                EFIDebugVariable
+                0x00000000000098d0                InitializeLib
+                0x0000000000009a00                memset
+                0x0000000000009a50                memcpy
+ *fill*         0x0000000000009a73        0xd 
+ .text          0x0000000000009a80       0x39 gnu-efi-3.0.9/lib/lock.o
+                0x0000000000009a80                InitializeLock
+                0x0000000000009aa0                AcquireLock
+                0x0000000000009ab0                ReleaseLock
+ .text          0x0000000000009ab9        0x0 gnu-efi-3.0.9/lib/x86_64/callwrap.o
+ *fill*         0x0000000000009ab9        0x7 
+ .text          0x0000000000009ac0        0x5 gnu-efi-3.0.9/lib/x86_64/initplat.o
+                0x0000000000009ac0                InitializeLibPlatform
+ *fill*         0x0000000000009ac5        0xb 
+ .text          0x0000000000009ad0       0x50 gnu-efi-3.0.9/lib/x86_64/math.o
+                0x0000000000009ad0                LShiftU64
+                0x0000000000009ae0                RShiftU64
+                0x0000000000009af0                MultU64x32
+                0x0000000000009b00                DivU64x32
+ .text          0x0000000000009b20      0x113 gnu-efi-3.0.9/lib/runtime/efirtlib.o
+                0x0000000000009b20                RtZeroMem
+                0x0000000000009b60                RtSetMem
+                0x0000000000009ba0                RtCopyMem
+                0x0000000000009bd0                RtCompareMem
+                0x0000000000009c10                RtCompareGuid
+ .text          0x0000000000009c33        0x0 gnu-efi-3.0.9/lib/runtime/rtdata.o
+ *fill*         0x0000000000009c33        0xd 
+ .text          0x0000000000009c40       0x8e gnu-efi-3.0.9/lib/runtime/rtlock.o
+                0x0000000000009c40                RtAcquireLock
+                0x0000000000009c90                RtReleaseLock
+ *fill*         0x0000000000009cce        0x2 
+ .text          0x0000000000009cd0      0x357 gnu-efi-3.0.9/lib/runtime/rtstr.o
+                0x0000000000009cd0                RtStrCmp
+                0x0000000000009d20                RtStrCpy
+                0x0000000000009d50                RtStrnCpy
+                0x0000000000009dc0                RtStpCpy
+                0x0000000000009df0                RtStpnCpy
+                0x0000000000009e80                RtStrCat
+                0x0000000000009ed0                RtStrnCat
+                0x0000000000009f40                RtStrLen
+                0x0000000000009f70                RtStrnLen
+                0x0000000000009fb0                RtStrSize
+                0x0000000000009fe0                RtBCDtoDecimal
+                0x000000000000a000                RtDecimaltoBCD
+ *fill*         0x000000000000a027        0x9 
+ .text          0x000000000000a030      0x103 gnu-efi-3.0.9/lib/runtime/vm.o
+                0x000000000000a030                RtLibEnableVirtualMappings
+                0x000000000000a0a0                RtConvertList
+ .text          0x000000000000a133       0xa0 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+                0x000000000000a133                _relocate
+ .text          0x000000000000a1d3      0x17b gnu-efi-3.0.9/lib/x86_64/efi_stub.o
+                0x000000000000a1d3                efi_call0
+                0x000000000000a1de                efi_call1
+                0x000000000000a1ec                efi_call2
+                0x000000000000a1fa                efi_call3
+                0x000000000000a20b                efi_call4
+                0x000000000000a21f                efi_call5
+                0x000000000000a238                efi_call6
+                0x000000000000a25b                efi_call7
+                0x000000000000a288                efi_call8
+                0x000000000000a2bf                efi_call9
+                0x000000000000a300                efi_call10
+ .text          0x000000000000a34e       0x56 gnu-efi-3.0.9/lib/x86_64/setjmp.o
+                0x000000000000a34e                setjmp
+                0x000000000000a373                longjmp
+ .text          0x000000000000a3a4       0x29 gnu-efi-3.0.9/gnuefi/crt0-efi-x86_64.o
+                0x000000000000a3a4                _start
+ .text          0x000000000000a3cd      0x4d5 ../Simple_UEFI_Bootloader/src/Bootloader.o
+                0x000000000000a3cd                Keywait
+                0x000000000000a47c                efi_main
+ .text          0x000000000000a8a2     0x29ed ../Simple_UEFI_Bootloader/src/Graphics.o
+                0x000000000000a8a2                apple_set_os
+                0x000000000000a991                InitUEFI_GOP
+ .text          0x000000000000d28f     0x2179 ../Simple_UEFI_Bootloader/src/Loader.o
+                0x000000000000d28f                GoTime
+ .text          0x000000000000f408      0x518 ../Simple_UEFI_Bootloader/src/Memory.o
+                0x000000000000f408                compare
+                0x000000000000f431                VerifyZeroMem
+                0x000000000000f457                ActuallyFreeAddress
+                0x000000000000f5b9                ActuallyFreeAddressByPage
+                0x000000000000f752                print_memmap
+ *(.text.*)
+ *(.gnu.linkonce.t.*)
+                0x000000000000f920                . = ALIGN (0x10)
+                0x000000000000f920                _etext = .
+                0x000000000000c920                _text_size = (. - _text)
+
+.plt            0x000000000000f920        0x0
+ .plt           0x000000000000f920        0x0 gnu-efi-3.0.9/lib/misc.o
+
+.plt.got        0x000000000000f920        0x0
+ .plt.got       0x000000000000f920        0x0 gnu-efi-3.0.9/lib/misc.o
+
+.rela.dyn       0x000000000000f920        0x0
+ .rela.plt      0x000000000000f920        0x0 gnu-efi-3.0.9/lib/misc.o
+ .rela.bss      0x000000000000f920        0x0 gnu-efi-3.0.9/lib/misc.o
+ .rela.ifunc    0x000000000000f920        0x0 gnu-efi-3.0.9/lib/misc.o
+ .rela.text     0x000000000000f920        0x0 gnu-efi-3.0.9/lib/misc.o
+                0x0000000000010000                . = ALIGN (0x1000)
+
+.reloc          0x0000000000010000        0xa
+ *(.reloc)
+ .reloc         0x0000000000010000        0xa gnu-efi-3.0.9/gnuefi/crt0-efi-x86_64.o
+                0x0000000000011000                . = ALIGN (0x1000)
+
+.data           0x0000000000011000     0x8088
+                0x0000000000011000                _data = .
+ *(.rodata*)
+ .rodata        0x0000000000011000       0x14 gnu-efi-3.0.9/lib/misc.o
+ *fill*         0x0000000000011014        0xc 
+ .rodata        0x0000000000011020      0x240 gnu-efi-3.0.9/lib/print.o
+ .rodata        0x0000000000011260       0x20 gnu-efi-3.0.9/lib/cmdline.o
+ .rodata        0x0000000000011280        0x8 gnu-efi-3.0.9/lib/console.o
+ .rodata        0x0000000000011288       0x1f gnu-efi-3.0.9/lib/debug.o
+ *fill*         0x00000000000112a7        0x1 
+ .rodata        0x00000000000112a8      0x73c gnu-efi-3.0.9/lib/dpath.o
+ *fill*         0x00000000000119e4        0x4 
+ .rodata        0x00000000000119e8      0x452 gnu-efi-3.0.9/lib/error.o
+ *fill*         0x0000000000011e3a        0x6 
+ .rodata        0x0000000000011e40      0x4a0 gnu-efi-3.0.9/lib/guid.o
+ .rodata        0x00000000000122e0       0x1c gnu-efi-3.0.9/lib/init.o
+ *fill*         0x00000000000122fc        0x4 
+ .rodata        0x0000000000012300      0x714 ../Simple_UEFI_Bootloader/src/Bootloader.o
+                0x0000000000012a08                AppleFirmwareVendor
+ *fill*         0x0000000000012a14        0xc 
+ .rodata        0x0000000000012a20     0x16ea ../Simple_UEFI_Bootloader/src/Graphics.o
+                0x0000000000014060                PxFormats
+ *fill*         0x000000000001410a        0x6 
+ .rodata        0x0000000000014110     0x2854 ../Simple_UEFI_Bootloader/src/Loader.o
+ *fill*         0x0000000000016964       0x1c 
+ .rodata        0x0000000000016980      0x8c0 ../Simple_UEFI_Bootloader/src/Memory.o
+                0x0000000000016ee0                mem_types
+ *(.got.plt)
+ .got.plt       0x0000000000017240        0x0 gnu-efi-3.0.9/lib/misc.o
+ *(.got)
+ .got           0x0000000000017240        0x0 gnu-efi-3.0.9/lib/misc.o
+ *(.data*)
+ .data          0x0000000000017240        0x0 gnu-efi-3.0.9/lib/misc.o
+ .data.rel.ro   0x0000000000017240        0x0 gnu-efi-3.0.9/lib/misc.o
+ .data          0x0000000000017240       0x10 gnu-efi-3.0.9/lib/print.o
+                0x0000000000017240                Hex
+ .data          0x0000000000017250        0x0 gnu-efi-3.0.9/lib/smbios.o
+ .data          0x0000000000017250        0x0 gnu-efi-3.0.9/lib/sread.o
+ .data          0x0000000000017250        0x0 gnu-efi-3.0.9/lib/str.o
+ *fill*         0x0000000000017250       0x10 
+ .data          0x0000000000017260       0xc4 gnu-efi-3.0.9/lib/boxdraw.o
+                0x0000000000017260                UnicodeToPcAnsiOrAscii
+ .data          0x0000000000017324        0x0 gnu-efi-3.0.9/lib/cmdline.o
+ .data          0x0000000000017324        0x0 gnu-efi-3.0.9/lib/console.o
+ *fill*         0x0000000000017324       0x1c 
+ .data          0x0000000000017340      0x400 gnu-efi-3.0.9/lib/crc.o
+                0x0000000000017340                CRCTable
+ .data          0x0000000000017740      0x6c0 gnu-efi-3.0.9/lib/data.o
+                0x0000000000017740                gEfiDebugSupportProtocolGuid
+                0x0000000000017750                gEfiDebugImageInfoTableGuid
+                0x0000000000017760                AbsolutePointerProtocol
+                0x0000000000017770                SimplePointerProtocol
+                0x0000000000017780                Tcp4Protocol
+                0x0000000000017790                Tcp4ServiceBindingProtocol
+                0x00000000000177a0                Udp4Protocol
+                0x00000000000177b0                Udp4ServiceBindingProtocol
+                0x00000000000177c0                Ip4Protocol
+                0x00000000000177d0                Ip4ServiceBindingProtocol
+                0x00000000000177e0                SalSystemTableGuid
+                0x00000000000177f0                SMBIOSTableGuid
+                0x0000000000017800                Acpi20TableGuid
+                0x0000000000017810                AcpiTableGuid
+                0x0000000000017820                MpsTableGuid
+                0x0000000000017830                UnknownDevice
+                0x0000000000017840                EfiPartTypeLegacyMbrGuid
+                0x0000000000017850                EfiPartTypeSystemPartitionGuid
+                0x0000000000017860                gEfiVTUTF8Guid
+                0x0000000000017870                gEfiVT100PlusGuid
+                0x0000000000017880                gEfiVT100Guid
+                0x0000000000017890                gEfiPcAnsiGuid
+                0x00000000000178a0                AdapterDebugProtocol
+                0x00000000000178b0                gEfiEdidOverrideProtocolGuid
+                0x00000000000178c0                gEfiEdidActiveProtocolGuid
+                0x00000000000178d0                gEfiEdidDiscoveredProtocolGuid
+                0x00000000000178e0                gEfiGraphicsOutputProtocolGuid
+                0x00000000000178f0                TextInSpliterProtocol
+                0x0000000000017900                ErrorOutSpliterProtocol
+                0x0000000000017910                TextOutSpliterProtocol
+                0x0000000000017920                VgaClassProtocol
+                0x0000000000017930                LegacyBootProtocol
+                0x0000000000017940                VariableStoreProtocol
+                0x0000000000017950                InternalShellProtocol
+                0x0000000000017960                gEfiFileSystemVolumeLabelInfoIdGuid
+                0x0000000000017970                gEfiFileSystemInfoGuid
+                0x0000000000017980                gEfiFileInfoGuid
+                0x0000000000017990                gEfiEbcProtocolGuid
+                0x00000000000179a0                gEfiDriverFamilyOverrideProtocolGuid
+                0x00000000000179b0                gEfiBusSpecificDriverOverrideProtocolGuid
+                0x00000000000179c0                gEfiPlatformDriverOverrideProtocolGuid
+                0x00000000000179d0                gEfiHashProtocolGuid
+                0x00000000000179e0                gEfiComponentName2ProtocolGuid
+                0x00000000000179f0                gEfiComponentNameProtocolGuid
+                0x0000000000017a00                gEfiDriverBindingProtocolGuid
+                0x0000000000017a10                gEfiPciRootBridgeIoProtocolGuid
+                0x0000000000017a20                gEfiPciIoProtocolGuid
+                0x0000000000017a30                gEFiUiInterfaceProtocolGuid
+                0x0000000000017a40                gEfiNetworkInterfaceIdentifierProtocolGuid
+                0x0000000000017a50                gEfiPxeBaseCodeCallbackProtocolGuid
+                0x0000000000017a60                gEfiPxeBaseCodeProtocolGuid
+                0x0000000000017a70                gEfiSimpleNetworkProtocolGuid
+                0x0000000000017a80                gEfiSerialIoProtocolGuid
+                0x0000000000017a90                gEfiUnicodeCollationProtocolGuid
+                0x0000000000017aa0                gEfiDeviceIoProtocolGuid
+                0x0000000000017ab0                gEfiLoadFileProtocolGuid
+                0x0000000000017ac0                gEfiSimpleFileSystemProtocolGuid
+                0x0000000000017ad0                gEfiDiskIo2ProtocolGuid
+                0x0000000000017ae0                gEfiDiskIoProtocolGuid
+                0x0000000000017af0                gEfiBlockIo2ProtocolGuid
+                0x0000000000017b00                gEfiBlockIoProtocolGuid
+                0x0000000000017b10                gEfiSimpleTextOutProtocolGuid
+                0x0000000000017b20                gEfiSimpleTextInProtocolGuid
+                0x0000000000017b30                gEfiLoadedImageProtocolGuid
+                0x0000000000017b40                gEfiLoadedImageDevicePathProtocolGuid
+                0x0000000000017b50                gEfiDevicePathFromTextProtocolGuid
+                0x0000000000017b60                gEfiDevicePathToTextProtocolGuid
+                0x0000000000017b70                gEfiDevicePathProtocolGuid
+                0x0000000000017b80                gIntelGopGuid
+                0x0000000000017b90                gPchSataControllerDriverGuid
+                0x0000000000017ba0                gAhciBusInitProtocolGuid
+                0x0000000000017bb0                gHddSecurityEndProtocolGuid
+                0x0000000000017bc0                gHddUnlockedGuid
+                0x0000000000017bd0                gHotPlugDeviceGuid
+                0x0000000000017be0                gAmiEfikeycodeProtocolGuid
+                0x0000000000017bf0                gEfiNetworkInterfaceIdentifierProtocolGuid_31
+                0x0000000000017c00                gEfiHiiConfigAccessProtocolGuid
+                0x0000000000017c10                gEfiStorageSecurityCommandProtocolGuid
+                0x0000000000017c20                gEfiIdeControllerInitProtocolGuid
+                0x0000000000017c30                gEfiSioProtocolGuid
+                0x0000000000017c40                gEfiLoadFile2ProtocolGuid
+                0x0000000000017c50                gEfiFirmwareVolumeDispatchProtocolGuid
+                0x0000000000017c60                gEfiFirmwareVolumeBlockProtocolGuid
+                0x0000000000017c70                gEfiFirmwareVolume2ProtocolGuid
+                0x0000000000017c80                gEfiExtScsiPassThruProtocolGuid
+                0x0000000000017c90                gEfiScsiIoProtocolGuid
+                0x0000000000017ca0                gEfiDiskInfoProtocolGuid
+                0x0000000000017cb0                gEfiSimpleTextInExProtocolGuid
+                0x0000000000017cc0                gEfiPlatformIDEProtocolGuid
+                0x0000000000017cd0                gEfiConsoleOutDevicesStartedGuid
+                0x0000000000017ce0                gEfiConsoleInDevicesStartedGuid
+                0x0000000000017cf0                gEfiDataHubProtocolGuid
+                0x0000000000017d00                gEfiUsbHcProtocolGuid
+                0x0000000000017d10                gEfiUsb2HcProtocolGuid
+                0x0000000000017d20                gEfiUsbIoProtocolGuid
+                0x0000000000017d30                gEfiUsbTimingPolicyProtocolGuid
+                0x0000000000017d40                gEfiUsbPolicyProtocolGuid
+                0x0000000000017d50                gEfiDriverConfigurationProtocolGuid
+                0x0000000000017d60                gEfiDriverDiagnostics2ProtocolGuid
+                0x0000000000017d70                gEfiDriverDiagnosticsProtocolGuid
+                0x0000000000017d80                gEfiDriverSupportedEfiVersionProtocolGuid
+                0x0000000000017d90                gEfiConsoleInDeviceGuid
+                0x0000000000017da0                gEfiConsoleOutDeviceGuid
+                0x0000000000017db0                gEfiUgaDrawProtocolGuid
+                0x0000000000017dc0                gEfiStandardErrorDeviceGuid
+                0x0000000000017dd0                gEfiConsoleControlProtocolGuid
+                0x0000000000017de0                gEfiGlobalVariableGuid
+                0x0000000000017df0                EndInstanceDevicePath
+                0x0000000000017df4                EndDevicePath
+                0x0000000000017df8                RootDevicePath
+                0x0000000000017dfc                PoolAllocationType
+ .data.rel.local
+                0x0000000000017e00       0x58 gnu-efi-3.0.9/lib/data.o
+                0x0000000000017e00                UnicodeInterface
+                0x0000000000017e20                LibStubUnicodeInterface
+ .data          0x0000000000017e58        0x0 gnu-efi-3.0.9/lib/debug.o
+ .data          0x0000000000017e58        0x0 gnu-efi-3.0.9/lib/dpath.o
+ *fill*         0x0000000000017e58        0x8 
+ .data.rel.local
+                0x0000000000017e60      0x1e0 gnu-efi-3.0.9/lib/dpath.o
+                0x0000000000017e60                DevPathTable
+ .data          0x0000000000018040        0x0 gnu-efi-3.0.9/lib/error.o
+ .data.rel.local
+                0x0000000000018040      0x250 gnu-efi-3.0.9/lib/error.o
+                0x0000000000018040                ErrorCodeTable
+ .data          0x0000000000018290        0x0 gnu-efi-3.0.9/lib/event.o
+ .data          0x0000000000018290        0x0 gnu-efi-3.0.9/lib/exit.o
+ .data          0x0000000000018290       0x50 gnu-efi-3.0.9/lib/guid.o
+ .data.rel.ro.local
+                0x00000000000182e0      0x400 gnu-efi-3.0.9/lib/guid.o
+ .data          0x00000000000186e0        0x0 gnu-efi-3.0.9/lib/hand.o
+ .data          0x00000000000186e0        0x0 gnu-efi-3.0.9/lib/hw.o
+ .data          0x00000000000186e0        0x0 gnu-efi-3.0.9/lib/init.o
+ .data          0x00000000000186e0        0x0 gnu-efi-3.0.9/lib/lock.o
+ .data          0x00000000000186e0        0x0 gnu-efi-3.0.9/lib/x86_64/callwrap.o
+ .data          0x00000000000186e0        0x0 gnu-efi-3.0.9/lib/x86_64/initplat.o
+ .data          0x00000000000186e0        0x0 gnu-efi-3.0.9/lib/x86_64/math.o
+ .data          0x00000000000186e0        0x0 gnu-efi-3.0.9/lib/runtime/efirtlib.o
+ .data          0x00000000000186e0        0x8 gnu-efi-3.0.9/lib/runtime/rtdata.o
+                0x00000000000186e0                EFIDebug
+ .data          0x00000000000186e8        0x0 gnu-efi-3.0.9/lib/runtime/rtlock.o
+ .data          0x00000000000186e8        0x0 gnu-efi-3.0.9/lib/runtime/rtstr.o
+ .data          0x00000000000186e8        0x0 gnu-efi-3.0.9/lib/runtime/vm.o
+ .data          0x00000000000186e8        0x0 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .data          0x00000000000186e8        0x0 gnu-efi-3.0.9/lib/x86_64/efi_stub.o
+ .data          0x00000000000186e8        0x0 gnu-efi-3.0.9/lib/x86_64/setjmp.o
+ .data          0x00000000000186e8        0x4 gnu-efi-3.0.9/gnuefi/crt0-efi-x86_64.o
+ .data          0x00000000000186ec        0x1 ../Simple_UEFI_Bootloader/src/Bootloader.o
+                0x00000000000186ec                IsApple
+ *fill*         0x00000000000186ed        0x3 
+ .data          0x00000000000186f0       0x10 ../Simple_UEFI_Bootloader/src/Graphics.o
+                0x00000000000186f0                APPLE_SET_OS_GUID
+ .data          0x0000000000018700        0x0 ../Simple_UEFI_Bootloader/src/Loader.o
+ .data          0x0000000000018700        0x0 ../Simple_UEFI_Bootloader/src/Memory.o
+ *(.sdata)
+ *(.sbss)
+ *(.scommon)
+ *(.dynbss)
+ .dynbss        0x0000000000018700        0x0 gnu-efi-3.0.9/lib/misc.o
+ *(.bss)
+ .bss           0x0000000000018700        0x0 gnu-efi-3.0.9/lib/misc.o
+ .bss           0x0000000000018700        0x0 gnu-efi-3.0.9/lib/print.o
+ .bss           0x0000000000018700        0x0 gnu-efi-3.0.9/lib/smbios.o
+ .bss           0x0000000000018700        0x0 gnu-efi-3.0.9/lib/sread.o
+ .bss           0x0000000000018700        0x0 gnu-efi-3.0.9/lib/str.o
+ .bss           0x0000000000018700        0x0 gnu-efi-3.0.9/lib/boxdraw.o
+ .bss           0x0000000000018700      0x920 gnu-efi-3.0.9/lib/cmdline.o
+ .bss           0x0000000000019020        0x0 gnu-efi-3.0.9/lib/console.o
+ .bss           0x0000000000019020        0x0 gnu-efi-3.0.9/lib/crc.o
+ .bss           0x0000000000019020       0x29 gnu-efi-3.0.9/lib/data.o
+                0x0000000000019020                NullGuid
+                0x0000000000019030                BS
+                0x0000000000019038                ST
+                0x0000000000019040                LibImageHandle
+                0x0000000000019048                LibInitialized
+ .bss           0x0000000000019049        0x0 gnu-efi-3.0.9/lib/debug.o
+ .bss           0x0000000000019049        0x0 gnu-efi-3.0.9/lib/dpath.o
+ .bss           0x0000000000019049        0x0 gnu-efi-3.0.9/lib/error.o
+ .bss           0x0000000000019049        0x0 gnu-efi-3.0.9/lib/event.o
+ .bss           0x0000000000019049        0x0 gnu-efi-3.0.9/lib/exit.o
+ *fill*         0x0000000000019049        0x7 
+ .bss           0x0000000000019050       0x10 gnu-efi-3.0.9/lib/guid.o
+                0x0000000000019050                GuidList
+ .bss           0x0000000000019060        0x0 gnu-efi-3.0.9/lib/hand.o
+ .bss           0x0000000000019060        0x0 gnu-efi-3.0.9/lib/hw.o
+ .bss           0x0000000000019060        0x0 gnu-efi-3.0.9/lib/init.o
+ .bss           0x0000000000019060        0x0 gnu-efi-3.0.9/lib/lock.o
+ .bss           0x0000000000019060        0x0 gnu-efi-3.0.9/lib/x86_64/callwrap.o
+ .bss           0x0000000000019060        0x0 gnu-efi-3.0.9/lib/x86_64/initplat.o
+ .bss           0x0000000000019060        0x0 gnu-efi-3.0.9/lib/x86_64/math.o
+ .bss           0x0000000000019060        0x0 gnu-efi-3.0.9/lib/runtime/efirtlib.o
+ .bss           0x0000000000019060       0x28 gnu-efi-3.0.9/lib/runtime/rtdata.o
+                0x0000000000019060                LibRuntimeRestoreTPL
+                0x0000000000019068                LibRuntimeRaiseTPL
+                0x0000000000019070                LibRuntimeDebugOut
+                0x0000000000019078                LibFwInstance
+                0x0000000000019080                RT
+ .bss           0x0000000000019088        0x0 gnu-efi-3.0.9/lib/runtime/rtlock.o
+ .bss           0x0000000000019088        0x0 gnu-efi-3.0.9/lib/runtime/rtstr.o
+ .bss           0x0000000000019088        0x0 gnu-efi-3.0.9/lib/runtime/vm.o
+ .bss           0x0000000000019088        0x0 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .bss           0x0000000000019088        0x0 gnu-efi-3.0.9/lib/x86_64/efi_stub.o
+ .bss           0x0000000000019088        0x0 gnu-efi-3.0.9/lib/x86_64/setjmp.o
+ .bss           0x0000000000019088        0x0 gnu-efi-3.0.9/gnuefi/crt0-efi-x86_64.o
+ .bss           0x0000000000019088        0x0 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .bss           0x0000000000019088        0x0 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .bss           0x0000000000019088        0x0 ../Simple_UEFI_Bootloader/src/Loader.o
+ .bss           0x0000000000019088        0x0 ../Simple_UEFI_Bootloader/src/Memory.o
+ *(COMMON)
+ *(.rel.local)
+
+.note.gnu.build-id
+                0x0000000000019088       0x24
+ *(.note.gnu.build-id)
+ .note.gnu.build-id
+                0x0000000000019088       0x24 gnu-efi-3.0.9/lib/misc.o
+                0x00000000000190ac                _edata = .
+                0x000000000000978c                _data_size = (. - _etext)
+                0x000000000001a000                . = ALIGN (0x1000)
+
+.dynamic        0x000000000001a000      0x110
+ *(.dynamic)
+ .dynamic       0x000000000001a000      0x110 gnu-efi-3.0.9/lib/misc.o
+                0x000000000001a000                _DYNAMIC
+                0x000000000001b000                . = ALIGN (0x1000)
+
+.rela           0x000000000001b000     0x1278
+ *(.rela.data*)
+ .rela.data.rel.ro
+                0x000000000001b000        0x0 gnu-efi-3.0.9/lib/misc.o
+ .rela.data.rel.local
+                0x000000000001b000      0x690 gnu-efi-3.0.9/lib/misc.o
+ .rela.data.rel.ro.local
+                0x000000000001b690      0xbe8 gnu-efi-3.0.9/lib/misc.o
+ *(.rela.got)
+ .rela.got      0x000000000001c278        0x0 gnu-efi-3.0.9/lib/misc.o
+ *(.rela.stab)
+                0x000000000001d000                . = ALIGN (0x1000)
+
+.dynsym         0x000000000001d000       0x18
+ *(.dynsym)
+ .dynsym        0x000000000001d000       0x18 gnu-efi-3.0.9/lib/misc.o
+                0x000000000001e000                . = ALIGN (0x1000)
+
+.dynstr         0x000000000001e000        0x1
+ *(.dynstr)
+ .dynstr        0x000000000001e000        0x1 gnu-efi-3.0.9/lib/misc.o
+                0x000000000001f000                . = ALIGN (0x1000)
+
+.gnu.version_d  0x000000000001f000        0x0
+ .gnu.version_d
+                0x000000000001f000        0x0 gnu-efi-3.0.9/lib/misc.o
+
+.gnu.version    0x000000000001f000        0x0
+ .gnu.version   0x000000000001f000        0x0 gnu-efi-3.0.9/lib/misc.o
+
+.gnu.version_r  0x000000000001f000        0x0
+ .gnu.version_r
+                0x000000000001f000        0x0 gnu-efi-3.0.9/lib/misc.o
+
+.sframe         0x000000000001f000        0x0
+ .sframe        0x000000000001f000        0x0 gnu-efi-3.0.9/lib/misc.o
+
+.eh_frame_hdr   0x000000000001f000      0x61c
+ .eh_frame_hdr  0x000000000001f000      0x61c gnu-efi-3.0.9/lib/misc.o
+                0x000000000001f000                __GNU_EH_FRAME_HDR
+
+.ignored.reloc  0x000000000001f61c        0x0
+ *(.rela.reloc)
+ *(.eh_frame)
+ *(.note.GNU-stack)
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/misc.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/print.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/smbios.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/sread.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/str.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/boxdraw.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/cmdline.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/console.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/crc.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/data.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/debug.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/dpath.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/error.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/event.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/exit.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/guid.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/hand.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/hw.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/init.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/lock.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/x86_64/callwrap.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/x86_64/initplat.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/x86_64/math.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/runtime/efirtlib.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/runtime/rtdata.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/runtime/rtlock.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/runtime/rtstr.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/lib/runtime/vm.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 ../Simple_UEFI_Bootloader/src/Graphics.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 ../Simple_UEFI_Bootloader/src/Loader.o
+ .note.GNU-stack
+                0x000000000001f61c        0x0 ../Simple_UEFI_Bootloader/src/Memory.o
+
+.comment        0x0000000000000000       0x2d
+ *(.comment)
+ .comment       0x0000000000000000       0x2d gnu-efi-3.0.9/lib/misc.o
+                                         0x2e (size before relaxing)
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/print.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/smbios.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/sread.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/str.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/boxdraw.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/cmdline.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/console.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/crc.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/data.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/debug.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/dpath.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/error.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/event.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/exit.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/guid.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/hand.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/hw.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/init.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/lock.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/x86_64/callwrap.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/x86_64/initplat.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/x86_64/math.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/runtime/efirtlib.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/runtime/rtdata.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/runtime/rtlock.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/runtime/rtstr.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/lib/runtime/vm.o
+ .comment       0x000000000000002d       0x2e gnu-efi-3.0.9/gnuefi/reloc_x86_64.o
+ .comment       0x000000000000002d       0x2e ../Simple_UEFI_Bootloader/src/Bootloader.o
+ .comment       0x000000000000002d       0x2e ../Simple_UEFI_Bootloader/src/Graphics.o
+ .comment       0x000000000000002d       0x2e ../Simple_UEFI_Bootloader/src/Loader.o
+ .comment       0x000000000000002d       0x2e ../Simple_UEFI_Bootloader/src/Memory.o
+OUTPUT(program.so elf64-x86-64)
