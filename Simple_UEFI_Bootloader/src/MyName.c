@@ -291,27 +291,57 @@ STATIC VOID DrawCenteredBox(const DRAW_CONTEXT *Ctx, UINTN BoxW, UINTN BoxH, UIN
 
 STATIC VOID GetRandomPosition(const DRAW_CONTEXT *Ctx, const CHAR8 *Name1, const CHAR8 *Name2, UINTN Scale, MYNAME_TRANSFORM Transform, INTN *OutX, INTN *OutY)
 {
-  EFI_TIME Now;
-  UINT32 SeedA = 1234;
-  UINT32 SeedB = 5678;
+  // 1. SOLUCIÓN AL SALTO RARO AL ROTAR (Bounding Box Máximo)
+  // Medimos el texto en estado NORMAL para conocer su largo y alto absolutos.
+  TEXT_EXTENTS T1 = MeasureText5x7(Name1, Scale, TRANSFORM_NORMAL);
+  TEXT_EXTENTS T2 = MeasureText5x7(Name2, Scale, TRANSFORM_NORMAL);
 
-  if(!EFI_ERROR(RT->GetTime(&Now, NULL)))
+  UINTN NormalW = (T1.Width > T2.Width ? T1.Width : T2.Width);
+  UINTN NormalH = T1.Height + NAME_GAP + T2.Height;
+
+  // El tamaño máximo que puede ocupar en CUALQUIER rotación. 
+  // Esto crea un "radio" seguro para el centro.
+  UINTN MaxDim = (NormalW > NormalH) ? NormalW : NormalH;
+  UINTN HalfDim = MaxDim / 2;
+
+  // Definimos los límites de la pantalla donde el CENTRO (X, Y) puede existir sin que
+  // ninguna esquina choque al rotar.
+  UINTN MinX = SCREEN_MARGIN + HalfDim;
+  UINTN MaxX = (Ctx->Width > (SCREEN_MARGIN + HalfDim)) ? (Ctx->Width - SCREEN_MARGIN - HalfDim) : MinX;
+
+  UINTN MinY = SCREEN_MARGIN + HalfDim;
+  // Restamos 50 extra abajo para proteger la barra de instrucciones
+  UINTN MaxY = (Ctx->Height > (SCREEN_MARGIN + HalfDim + 50)) ? (Ctx->Height - SCREEN_MARGIN - HalfDim - 50) : MinY;
+
+  UINTN RangeX = (MaxX > MinX) ? (MaxX - MinX) : 1;
+  UINTN RangeY = (MaxY > MinY) ? (MaxY - MinY) : 1;
+
+  // 2. SOLUCIÓN AL "FALSO RANDOM" (Generador pseudoaleatorio con estado estático)
+  STATIC UINT32 RngState = 0;
+
+  // Inicializar la semilla solo la primera vez que arranca el bootloader
+  if (RngState == 0)
   {
-    SeedA = (UINT32)(Now.Nanosecond ^ (Now.Second << 8) ^ (Now.Minute << 16));
-    SeedB = (UINT32)((Now.Hour << 24) ^ (Now.Day << 16) ^ (Now.Month << 8) ^ Now.Year);
+    EFI_TIME Now;
+    if (!EFI_ERROR(RT->GetTime(&Now, NULL)))
+    {
+      // Mezclamos todas las variables de tiempo usando XOR para mayor entropía
+      RngState = Now.Nanosecond ^ (Now.Second << 8) ^ (Now.Minute << 16) ^ (Now.Hour << 24) ^ 0x1A2B3C4D;
+    }
+    // Si por alguna razón UEFI falla en dar la hora, usamos una semilla por defecto
+    if (RngState == 0) RngState = 0x9E3779B9; 
   }
 
-  TEXT_EXTENTS T1 = MeasureText5x7(Name1, Scale, Transform);
-  TEXT_EXTENTS T2 = MeasureText5x7(Name2, Scale, Transform);
+  // Avanzamos la fórmula matemática para obtener el X
+  RngState = (RngState * 1103515245 + 12345) & 0x7FFFFFFF;
+  UINT32 RandX = RngState;
 
-  UINTN TotalW = (T1.Width > T2.Width ? T1.Width : T2.Width);
-  UINTN TotalH = T1.Height + NAME_GAP + T2.Height;
+  // Avanzamos la fórmula de nuevo para obtener el Y
+  RngState = (RngState * 1103515245 + 12345) & 0x7FFFFFFF;
+  UINT32 RandY = RngState;
 
-  UINTN UsableW = (Ctx->Width  > (TotalW + SCREEN_MARGIN * 2)) ? (Ctx->Width  - TotalW - SCREEN_MARGIN * 2) : 1;
-  UINTN UsableH = (Ctx->Height > (TotalH + SCREEN_MARGIN * 2 + 50)) ? (Ctx->Height - TotalH - SCREEN_MARGIN * 2 - 50) : 1;
-
-  *OutX = (INTN)(SCREEN_MARGIN + (SeedA % UsableW)) + (INTN)(TotalW / 2);
-  *OutY = (INTN)(SCREEN_MARGIN + (SeedB % UsableH)) + (INTN)(TotalH / 2);
+  *OutX = (INTN)(MinX + (RandX % RangeX));
+  *OutY = (INTN)(MinY + (RandY % RangeY));
 }
 
 STATIC UINTN AsciiLen(const CHAR8 *Str)
