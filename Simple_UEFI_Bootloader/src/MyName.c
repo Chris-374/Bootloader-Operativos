@@ -227,20 +227,45 @@ STATIC EFI_STATUS WaitKey(EFI_INPUT_KEY *Key)
 
 STATIC VOID DrawScene(const DRAW_CONTEXT *Ctx, const CHAR8 *Name1, const CHAR8 *Name2, INTN X, INTN Y, MYNAME_TRANSFORM Transform)
 {
-  ClearScreenColor(Ctx, BG_R, BG_G, BG_B);
+    ClearScreenColor(Ctx, BG_R, BG_G, BG_B);
 
-  TEXT_EXTENTS T1 = MeasureText5x7(Name1, LETTER_SCALE, Transform);
-  TEXT_EXTENTS T2 = MeasureText5x7(Name2, LETTER_SCALE, Transform);
+    TEXT_EXTENTS T1 = MeasureText5x7(Name1, LETTER_SCALE, Transform);
+    TEXT_EXTENTS T2 = MeasureText5x7(Name2, LETTER_SCALE, Transform);
 
-  UINTN BoxW = (T1.Width > T2.Width ? T1.Width : T2.Width) + 40;
-  UINTN BoxH = T1.Height + T2.Height + NAME_GAP + 40;
+    UINTN TotalW = (T1.Width > T2.Width ? T1.Width : T2.Width);
+    UINTN TotalH = T1.Height + NAME_GAP + T2.Height;
 
-  DrawCenteredBox(Ctx, BoxW, BoxH, 40, 40, 70);
+    UINTN BoxW = TotalW + 40;
+    UINTN BoxH = TotalH + 40;
 
-  DrawText5x7(Ctx, Name1, X, Y, LETTER_SCALE, Transform, FG_R, FG_G, FG_B);
-  DrawText5x7(Ctx, Name2, X, Y + (INTN)T1.Height + NAME_GAP, LETTER_SCALE, Transform, FG_R, FG_G, FG_B);
+    INTN BoxX = ((INTN)Ctx->Width - (INTN)BoxW) / 2;
+    INTN BoxY = ((INTN)Ctx->Height - (INTN)BoxH) / 2;
 
-  DrawInstructionBar(Ctx);
+    FillRect(Ctx, BoxX, BoxY, BoxW, BoxH, 40, 40, 70);
+    FillRect(Ctx, BoxX + 6, BoxY + 6, BoxW - 12, BoxH - 12, BG_R, BG_G, BG_B);
+
+    //
+    // Recentrar el bloque completo usando X,Y como centro aproximado
+    //
+    INTN StartX = X - ((INTN)TotalW / 2);
+    INTN StartY = Y - ((INTN)TotalH / 2);
+
+    //
+    // Mantenerlo dentro de pantalla
+    //
+    if(StartX < SCREEN_MARGIN) StartX = SCREEN_MARGIN;
+    if(StartY < SCREEN_MARGIN) StartY = SCREEN_MARGIN;
+
+    if(StartX + (INTN)TotalW >= (INTN)Ctx->Width - SCREEN_MARGIN)
+        StartX = (INTN)Ctx->Width - SCREEN_MARGIN - (INTN)TotalW;
+
+    if(StartY + (INTN)TotalH >= (INTN)Ctx->Height - SCREEN_MARGIN - 50)
+        StartY = (INTN)Ctx->Height - SCREEN_MARGIN - 50 - (INTN)TotalH;
+
+    DrawText5x7(Ctx, Name1, StartX, StartY, LETTER_SCALE, Transform, FG_R, FG_G, FG_B);
+    DrawText5x7(Ctx, Name2, StartX, StartY + (INTN)T1.Height + NAME_GAP, LETTER_SCALE, Transform, FG_R, FG_G, FG_B);
+
+    DrawInstructionBar(Ctx);
 }
 
 STATIC VOID DrawInstructionBar(const DRAW_CONTEXT *Ctx)
@@ -285,8 +310,8 @@ STATIC VOID GetRandomPosition(const DRAW_CONTEXT *Ctx, const CHAR8 *Name1, const
   UINTN UsableW = (Ctx->Width  > (TotalW + SCREEN_MARGIN * 2)) ? (Ctx->Width  - TotalW - SCREEN_MARGIN * 2) : 1;
   UINTN UsableH = (Ctx->Height > (TotalH + SCREEN_MARGIN * 2 + 50)) ? (Ctx->Height - TotalH - SCREEN_MARGIN * 2 - 50) : 1;
 
-  *OutX = (INTN)(SCREEN_MARGIN + (SeedA % UsableW));
-  *OutY = (INTN)(SCREEN_MARGIN + (SeedB % UsableH));
+  *OutX = (INTN)(SCREEN_MARGIN + (SeedA % UsableW)) + (INTN)(TotalW / 2);
+  *OutY = (INTN)(SCREEN_MARGIN + (SeedB % UsableH)) + (INTN)(TotalH / 2);
 }
 
 STATIC UINTN AsciiLen(const CHAR8 *Str)
@@ -355,14 +380,18 @@ STATIC VOID DrawText5x7(const DRAW_CONTEXT *Ctx, const CHAR8 *Text, INTN X, INTN
   {
     DrawGlyph5x7(Ctx, Text[i], CursorX, CursorY, Scale, Transform, R, G, B);
 
-    if(Transform == TRANSFORM_ROT_LEFT_90 || Transform == TRANSFORM_ROT_RIGHT_90)
-    {
-      CursorY += (INTN)GlyphSize.Height + (INTN)(LETTER_SPACING * Scale);
-    }
-    else
-    {
-      CursorX += (INTN)(5 * Scale) + (INTN)(LETTER_SPACING * Scale);
-    }
+      if(Transform == TRANSFORM_ROT_LEFT_90)
+      {
+          CursorY -= (INTN)GlyphSize.Height + (INTN)(LETTER_SPACING * Scale);
+      }
+      else if(Transform == TRANSFORM_ROT_RIGHT_90)
+      {
+          CursorY += (INTN)GlyphSize.Height + (INTN)(LETTER_SPACING * Scale);
+      }
+      else
+      {
+          CursorX += (INTN)(5 * Scale) + (INTN)(LETTER_SPACING * Scale);
+      }
   }
 }
 
