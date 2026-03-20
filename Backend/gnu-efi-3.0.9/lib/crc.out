@@ -1,0 +1,794 @@
+   1              		.file	"crc.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	CalculateCrc
+   7              		.hidden	CalculateCrc
+   9              	CalculateCrc:
+  10              	.LVL0:
+  11              	.LFB4:
+  12              		.file 1 "../Backend/gnu-efi-3.0.9/lib/crc.c"
+   1:../Backend/gnu-efi-3.0.9/lib/crc.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/crc.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/crc.c ****     
+   5:../Backend/gnu-efi-3.0.9/lib/crc.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/crc.c ****     crc.c
+   8:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/crc.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/crc.c ****     CRC32 functions
+  12:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  15:../Backend/gnu-efi-3.0.9/lib/crc.c **** Revision History
+  16:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  17:../Backend/gnu-efi-3.0.9/lib/crc.c **** --*/
+  18:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  19:../Backend/gnu-efi-3.0.9/lib/crc.c **** #include "lib.h"
+  20:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  21:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  22:../Backend/gnu-efi-3.0.9/lib/crc.c **** UINT32 CRCTable[256] = {
+  23:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x00000000, 0x77073096, 0xEE0E612C, 0x990951BA, 0x076DC419, 0x706AF48F,
+  24:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0xE963A535, 0x9E6495A3, 0x0EDB8832, 0x79DCB8A4, 0xE0D5E91E, 0x97D2D988,
+  25:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x09B64C2B, 0x7EB17CBD, 0xE7B82D07, 0x90BF1D91, 0x1DB71064, 0x6AB020F2,
+  26:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0xF3B97148, 0x84BE41DE, 0x1ADAD47D, 0x6DDDE4EB, 0xF4D4B551, 0x83D385C7,
+  27:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x136C9856, 0x646BA8C0, 0xFD62F97A, 0x8A65C9EC, 0x14015C4F, 0x63066CD9,
+  28:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0xFA0F3D63, 0x8D080DF5, 0x3B6E20C8, 0x4C69105E, 0xD56041E4, 0xA2677172,
+  29:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x3C03E4D1, 0x4B04D447, 0xD20D85FD, 0xA50AB56B, 0x35B5A8FA, 0x42B2986C,
+  30:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0xDBBBC9D6, 0xACBCF940, 0x32D86CE3, 0x45DF5C75, 0xDCD60DCF, 0xABD13D59,
+  31:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x26D930AC, 0x51DE003A, 0xC8D75180, 0xBFD06116, 0x21B4F4B5, 0x56B3C423,
+  32:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0xCFBA9599, 0xB8BDA50F, 0x2802B89E, 0x5F058808, 0xC60CD9B2, 0xB10BE924,
+  33:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x2F6F7C87, 0x58684C11, 0xC1611DAB, 0xB6662D3D, 0x76DC4190, 0x01DB7106,
+  34:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x98D220BC, 0xEFD5102A, 0x71B18589, 0x06B6B51F, 0x9FBFE4A5, 0xE8B8D433,
+  35:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x7807C9A2, 0x0F00F934, 0x9609A88E, 0xE10E9818, 0x7F6A0DBB, 0x086D3D2D,
+  36:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x91646C97, 0xE6635C01, 0x6B6B51F4, 0x1C6C6162, 0x856530D8, 0xF262004E,
+  37:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x6C0695ED, 0x1B01A57B, 0x8208F4C1, 0xF50FC457, 0x65B0D9C6, 0x12B7E950,
+  38:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x8BBEB8EA, 0xFCB9887C, 0x62DD1DDF, 0x15DA2D49, 0x8CD37CF3, 0xFBD44C65,
+  39:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x4DB26158, 0x3AB551CE, 0xA3BC0074, 0xD4BB30E2, 0x4ADFA541, 0x3DD895D7,
+  40:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0xA4D1C46D, 0xD3D6F4FB, 0x4369E96A, 0x346ED9FC, 0xAD678846, 0xDA60B8D0,
+  41:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x44042D73, 0x33031DE5, 0xAA0A4C5F, 0xDD0D7CC9, 0x5005713C, 0x270241AA,
+  42:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0xBE0B1010, 0xC90C2086, 0x5768B525, 0x206F85B3, 0xB966D409, 0xCE61E49F,
+  43:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x5EDEF90E, 0x29D9C998, 0xB0D09822, 0xC7D7A8B4, 0x59B33D17, 0x2EB40D81,
+  44:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0xB7BD5C3B, 0xC0BA6CAD, 0xEDB88320, 0x9ABFB3B6, 0x03B6E20C, 0x74B1D29A,
+  45:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0xEAD54739, 0x9DD277AF, 0x04DB2615, 0x73DC1683, 0xE3630B12, 0x94643B84,
+  46:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x0D6D6A3E, 0x7A6A5AA8, 0xE40ECF0B, 0x9309FF9D, 0x0A00AE27, 0x7D079EB1,
+  47:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0xF00F9344, 0x8708A3D2, 0x1E01F268, 0x6906C2FE, 0xF762575D, 0x806567CB,
+  48:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x196C3671, 0x6E6B06E7, 0xFED41B76, 0x89D32BE0, 0x10DA7A5A, 0x67DD4ACC,
+  49:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0xF9B9DF6F, 0x8EBEEFF9, 0x17B7BE43, 0x60B08ED5, 0xD6D6A3E8, 0xA1D1937E,
+  50:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x38D8C2C4, 0x4FDFF252, 0xD1BB67F1, 0xA6BC5767, 0x3FB506DD, 0x48B2364B,
+  51:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0xD80D2BDA, 0xAF0A1B4C, 0x36034AF6, 0x41047A60, 0xDF60EFC3, 0xA867DF55,
+  52:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x316E8EEF, 0x4669BE79, 0xCB61B38C, 0xBC66831A, 0x256FD2A0, 0x5268E236,
+  53:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0xCC0C7795, 0xBB0B4703, 0x220216B9, 0x5505262F, 0xC5BA3BBE, 0xB2BD0B28,
+  54:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x2BB45A92, 0x5CB36A04, 0xC2D7FFA7, 0xB5D0CF31, 0x2CD99E8B, 0x5BDEAE1D,
+  55:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x9B64C2B0, 0xEC63F226, 0x756AA39C, 0x026D930A, 0x9C0906A9, 0xEB0E363F,
+  56:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x72076785, 0x05005713, 0x95BF4A82, 0xE2B87A14, 0x7BB12BAE, 0x0CB61B38,
+  57:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x92D28E9B, 0xE5D5BE0D, 0x7CDCEFB7, 0x0BDBDF21, 0x86D3D2D4, 0xF1D4E242,
+  58:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x68DDB3F8, 0x1FDA836E, 0x81BE16CD, 0xF6B9265B, 0x6FB077E1, 0x18B74777,
+  59:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x88085AE6, 0xFF0F6A70, 0x66063BCA, 0x11010B5C, 0x8F659EFF, 0xF862AE69,
+  60:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x616BFFD3, 0x166CCF45, 0xA00AE278, 0xD70DD2EE, 0x4E048354, 0x3903B3C2,
+  61:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0xA7672661, 0xD06016F7, 0x4969474D, 0x3E6E77DB, 0xAED16A4A, 0xD9D65ADC,
+  62:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x40DF0B66, 0x37D83BF0, 0xA9BCAE53, 0xDEBB9EC5, 0x47B2CF7F, 0x30B5FFE9,
+  63:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0xBDBDF21C, 0xCABAC28A, 0x53B39330, 0x24B4A3A6, 0xBAD03605, 0xCDD70693,
+  64:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0x54DE5729, 0x23D967BF, 0xB3667A2E, 0xC4614AB8, 0x5D681B02, 0x2A6F2B94,
+  65:../Backend/gnu-efi-3.0.9/lib/crc.c ****     0xB40BBE37, 0xC30C8EA1, 0x5A05DF1B, 0x2D02EF8D 
+  66:../Backend/gnu-efi-3.0.9/lib/crc.c ****     };
+  67:../Backend/gnu-efi-3.0.9/lib/crc.c ****     
+  68:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  69:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  70:../Backend/gnu-efi-3.0.9/lib/crc.c **** VOID
+  71:../Backend/gnu-efi-3.0.9/lib/crc.c **** SetCrc (
+  72:../Backend/gnu-efi-3.0.9/lib/crc.c ****     IN OUT EFI_TABLE_HEADER *Hdr
+  73:../Backend/gnu-efi-3.0.9/lib/crc.c ****     )
+  74:../Backend/gnu-efi-3.0.9/lib/crc.c **** /*++
+  75:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  76:../Backend/gnu-efi-3.0.9/lib/crc.c **** Routine Description:
+  77:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  78:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Updates the CRC32 value in the table header
+  79:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  80:../Backend/gnu-efi-3.0.9/lib/crc.c **** Arguments:
+  81:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  82:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Hdr     - The table to update
+  83:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  84:../Backend/gnu-efi-3.0.9/lib/crc.c **** Returns:
+  85:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  86:../Backend/gnu-efi-3.0.9/lib/crc.c ****     None
+  87:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  88:../Backend/gnu-efi-3.0.9/lib/crc.c **** --*/
+  89:../Backend/gnu-efi-3.0.9/lib/crc.c **** {
+  90:../Backend/gnu-efi-3.0.9/lib/crc.c ****     SetCrcAltSize (Hdr->HeaderSize, Hdr);
+  91:../Backend/gnu-efi-3.0.9/lib/crc.c **** }
+  92:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  93:../Backend/gnu-efi-3.0.9/lib/crc.c **** VOID
+  94:../Backend/gnu-efi-3.0.9/lib/crc.c **** SetCrcAltSize (
+  95:../Backend/gnu-efi-3.0.9/lib/crc.c ****     IN UINTN                 Size,
+  96:../Backend/gnu-efi-3.0.9/lib/crc.c ****     IN OUT EFI_TABLE_HEADER *Hdr
+  97:../Backend/gnu-efi-3.0.9/lib/crc.c ****     )
+  98:../Backend/gnu-efi-3.0.9/lib/crc.c **** /*++
+  99:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 100:../Backend/gnu-efi-3.0.9/lib/crc.c **** Routine Description:
+ 101:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 102:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Updates the CRC32 value in the table header
+ 103:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 104:../Backend/gnu-efi-3.0.9/lib/crc.c **** Arguments:
+ 105:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 106:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Hdr     - The table to update
+ 107:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 108:../Backend/gnu-efi-3.0.9/lib/crc.c **** Returns:
+ 109:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 110:../Backend/gnu-efi-3.0.9/lib/crc.c ****     None
+ 111:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 112:../Backend/gnu-efi-3.0.9/lib/crc.c **** --*/
+ 113:../Backend/gnu-efi-3.0.9/lib/crc.c **** {
+ 114:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Hdr->CRC32 = 0;
+ 115:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Hdr->CRC32 = CalculateCrc((UINT8 *)Hdr, Size);
+ 116:../Backend/gnu-efi-3.0.9/lib/crc.c **** }
+ 117:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 118:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 119:../Backend/gnu-efi-3.0.9/lib/crc.c **** BOOLEAN
+ 120:../Backend/gnu-efi-3.0.9/lib/crc.c **** CheckCrc (
+ 121:../Backend/gnu-efi-3.0.9/lib/crc.c ****     IN UINTN                 MaxSize,
+ 122:../Backend/gnu-efi-3.0.9/lib/crc.c ****     IN OUT EFI_TABLE_HEADER *Hdr
+ 123:../Backend/gnu-efi-3.0.9/lib/crc.c ****     )
+ 124:../Backend/gnu-efi-3.0.9/lib/crc.c **** /*++
+ 125:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 126:../Backend/gnu-efi-3.0.9/lib/crc.c **** Routine Description:
+ 127:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 128:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Checks the CRC32 value in the table header
+ 129:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 130:../Backend/gnu-efi-3.0.9/lib/crc.c **** Arguments:
+ 131:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 132:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Hdr     - The table to check
+ 133:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 134:../Backend/gnu-efi-3.0.9/lib/crc.c **** Returns:
+ 135:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 136:../Backend/gnu-efi-3.0.9/lib/crc.c ****     TRUE if the CRC is OK in the table
+ 137:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 138:../Backend/gnu-efi-3.0.9/lib/crc.c **** --*/
+ 139:../Backend/gnu-efi-3.0.9/lib/crc.c **** {
+ 140:../Backend/gnu-efi-3.0.9/lib/crc.c ****     return CheckCrcAltSize (MaxSize, Hdr->HeaderSize, Hdr);
+ 141:../Backend/gnu-efi-3.0.9/lib/crc.c **** }
+ 142:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 143:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 144:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 145:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 146:../Backend/gnu-efi-3.0.9/lib/crc.c **** BOOLEAN
+ 147:../Backend/gnu-efi-3.0.9/lib/crc.c **** CheckCrcAltSize (
+ 148:../Backend/gnu-efi-3.0.9/lib/crc.c ****     IN UINTN                 MaxSize,
+ 149:../Backend/gnu-efi-3.0.9/lib/crc.c ****     IN UINTN                 Size,
+ 150:../Backend/gnu-efi-3.0.9/lib/crc.c ****     IN OUT EFI_TABLE_HEADER *Hdr
+ 151:../Backend/gnu-efi-3.0.9/lib/crc.c ****     )
+ 152:../Backend/gnu-efi-3.0.9/lib/crc.c **** /*++
+ 153:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 154:../Backend/gnu-efi-3.0.9/lib/crc.c **** Routine Description:
+ 155:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 156:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Checks the CRC32 value in the table header
+ 157:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 158:../Backend/gnu-efi-3.0.9/lib/crc.c **** Arguments:
+ 159:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 160:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Hdr     - The table to check
+ 161:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 162:../Backend/gnu-efi-3.0.9/lib/crc.c **** Returns:
+ 163:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 164:../Backend/gnu-efi-3.0.9/lib/crc.c ****     TRUE if the CRC is OK in the table
+ 165:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 166:../Backend/gnu-efi-3.0.9/lib/crc.c **** --*/
+ 167:../Backend/gnu-efi-3.0.9/lib/crc.c **** {
+ 168:../Backend/gnu-efi-3.0.9/lib/crc.c ****     UINT32      Crc;
+ 169:../Backend/gnu-efi-3.0.9/lib/crc.c ****     UINT32      OrgCrc;
+ 170:../Backend/gnu-efi-3.0.9/lib/crc.c ****     BOOLEAN     f;
+ 171:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 172:../Backend/gnu-efi-3.0.9/lib/crc.c ****     if (Size == 0) {
+ 173:../Backend/gnu-efi-3.0.9/lib/crc.c ****         //
+ 174:../Backend/gnu-efi-3.0.9/lib/crc.c ****         // If header size is 0 CRC will pass so return FALSE here
+ 175:../Backend/gnu-efi-3.0.9/lib/crc.c ****         //
+ 176:../Backend/gnu-efi-3.0.9/lib/crc.c ****         return FALSE;
+ 177:../Backend/gnu-efi-3.0.9/lib/crc.c ****     }
+ 178:../Backend/gnu-efi-3.0.9/lib/crc.c ****     if (MaxSize && Size > MaxSize) {
+ 179:../Backend/gnu-efi-3.0.9/lib/crc.c ****         DEBUG((D_ERROR, "CheckCrc32: Size > MaxSize\n"));
+ 180:../Backend/gnu-efi-3.0.9/lib/crc.c ****         return FALSE;
+ 181:../Backend/gnu-efi-3.0.9/lib/crc.c ****     }
+ 182:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 183:../Backend/gnu-efi-3.0.9/lib/crc.c ****     // clear old crc from header
+ 184:../Backend/gnu-efi-3.0.9/lib/crc.c ****     OrgCrc = Hdr->CRC32;
+ 185:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Hdr->CRC32 = 0;
+ 186:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Crc = CalculateCrc((UINT8 *)Hdr, Size);
+ 187:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 188:../Backend/gnu-efi-3.0.9/lib/crc.c ****     // set restults
+ 189:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Hdr->CRC32 = OrgCrc;
+ 190:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 191:../Backend/gnu-efi-3.0.9/lib/crc.c ****     // return status
+ 192:../Backend/gnu-efi-3.0.9/lib/crc.c ****     f = OrgCrc == (UINT32) Crc;
+ 193:../Backend/gnu-efi-3.0.9/lib/crc.c ****     if (!f) {
+ 194:../Backend/gnu-efi-3.0.9/lib/crc.c ****         DEBUG((D_ERROR, "CheckCrc32: Crc check failed\n"));
+ 195:../Backend/gnu-efi-3.0.9/lib/crc.c ****     }
+ 196:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 197:../Backend/gnu-efi-3.0.9/lib/crc.c ****     return f;
+ 198:../Backend/gnu-efi-3.0.9/lib/crc.c **** }
+ 199:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 200:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 201:../Backend/gnu-efi-3.0.9/lib/crc.c **** UINT32
+ 202:../Backend/gnu-efi-3.0.9/lib/crc.c **** CalculateCrc (
+ 203:../Backend/gnu-efi-3.0.9/lib/crc.c ****     UINT8 *pt,
+ 204:../Backend/gnu-efi-3.0.9/lib/crc.c ****     UINTN Size
+ 205:../Backend/gnu-efi-3.0.9/lib/crc.c ****     )
+ 206:../Backend/gnu-efi-3.0.9/lib/crc.c **** {
+  13              		.loc 1 206 1 view -0
+  14              		.cfi_startproc
+  15              		.loc 1 206 1 is_stmt 0 view .LVU1
+  16 0000 F30F1EFA 		endbr64
+ 207:../Backend/gnu-efi-3.0.9/lib/crc.c ****     UINTN Crc;
+  17              		.loc 1 207 5 is_stmt 1 view .LVU2
+ 208:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 209:../Backend/gnu-efi-3.0.9/lib/crc.c ****     // compute crc
+ 210:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Crc = 0xffffffff;
+  18              		.loc 1 210 5 view .LVU3
+  19              	.LVL1:
+ 211:../Backend/gnu-efi-3.0.9/lib/crc.c ****     while (Size) {
+  20              		.loc 1 211 5 view .LVU4
+ 210:../Backend/gnu-efi-3.0.9/lib/crc.c ****     while (Size) {
+  21              		.loc 1 210 9 is_stmt 0 view .LVU5
+  22 0004 B8FFFFFF 		movl	$4294967295, %eax
+  22      FF
+  23              		.loc 1 211 11 view .LVU6
+  24 0009 EB21     		jmp	.L2
+  25              	.LVL2:
+  26              	.L3:
+ 212:../Backend/gnu-efi-3.0.9/lib/crc.c ****         Crc = (Crc >> 8) ^ CRCTable[(UINT8) Crc ^ *pt];
+  27              		.loc 1 212 9 is_stmt 1 view .LVU7
+  28              		.loc 1 212 20 is_stmt 0 view .LVU8
+  29 000b 4889C2   		movq	%rax, %rdx
+  30 000e 48C1EA08 		shrq	$8, %rdx
+  31              		.loc 1 212 49 view .LVU9
+  32 0012 3207     		xorb	(%rdi), %al
+  33              	.LVL3:
+  34              		.loc 1 212 36 view .LVU10
+  35 0014 0FB6C0   		movzbl	%al, %eax
+  36 0017 488D0D00 		leaq	CRCTable(%rip), %rcx
+  36      000000
+  37 001e 8B0481   		movl	(%rcx,%rax,4), %eax
+  38              		.loc 1 212 13 view .LVU11
+  39 0021 4831D0   		xorq	%rdx, %rax
+  40              	.LVL4:
+ 213:../Backend/gnu-efi-3.0.9/lib/crc.c ****         pt += 1;
+  41              		.loc 1 213 9 is_stmt 1 view .LVU12
+  42              		.loc 1 213 12 is_stmt 0 view .LVU13
+  43 0024 4883C701 		addq	$1, %rdi
+  44              	.LVL5:
+ 214:../Backend/gnu-efi-3.0.9/lib/crc.c ****         Size -= 1;
+  45              		.loc 1 214 9 is_stmt 1 view .LVU14
+  46              		.loc 1 214 14 is_stmt 0 view .LVU15
+  47 0028 4883EE01 		subq	$1, %rsi
+  48              	.LVL6:
+  49              	.L2:
+ 211:../Backend/gnu-efi-3.0.9/lib/crc.c ****         Crc = (Crc >> 8) ^ CRCTable[(UINT8) Crc ^ *pt];
+  50              		.loc 1 211 12 is_stmt 1 view .LVU16
+  51 002c 4885F6   		testq	%rsi, %rsi
+  52 002f 75DA     		jne	.L3
+ 215:../Backend/gnu-efi-3.0.9/lib/crc.c ****     }
+ 216:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Crc = Crc ^ 0xffffffff;
+  53              		.loc 1 216 5 view .LVU17
+  54              	.LVL7:
+ 217:../Backend/gnu-efi-3.0.9/lib/crc.c ****     return (UINT32)Crc;
+  55              		.loc 1 217 5 view .LVU18
+  56              		.loc 1 217 12 is_stmt 0 view .LVU19
+  57 0031 F7D0     		notl	%eax
+  58              	.LVL8:
+ 218:../Backend/gnu-efi-3.0.9/lib/crc.c **** }
+  59              		.loc 1 218 1 view .LVU20
+  60 0033 C3       		ret
+  61              		.cfi_endproc
+  62              	.LFE4:
+  64              		.globl	SetCrcAltSize
+  65              		.hidden	SetCrcAltSize
+  67              	SetCrcAltSize:
+  68              	.LVL9:
+  69              	.LFB1:
+ 113:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Hdr->CRC32 = 0;
+  70              		.loc 1 113 1 is_stmt 1 view -0
+  71              		.cfi_startproc
+ 113:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Hdr->CRC32 = 0;
+  72              		.loc 1 113 1 is_stmt 0 view .LVU22
+  73 0034 F30F1EFA 		endbr64
+  74 0038 53       		pushq	%rbx
+  75              		.cfi_def_cfa_offset 16
+  76              		.cfi_offset 3, -16
+  77 0039 4889F3   		movq	%rsi, %rbx
+ 114:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Hdr->CRC32 = CalculateCrc((UINT8 *)Hdr, Size);
+  78              		.loc 1 114 5 is_stmt 1 view .LVU23
+ 114:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Hdr->CRC32 = CalculateCrc((UINT8 *)Hdr, Size);
+  79              		.loc 1 114 16 is_stmt 0 view .LVU24
+  80 003c C7461000 		movl	$0, 16(%rsi)
+  80      000000
+ 115:../Backend/gnu-efi-3.0.9/lib/crc.c **** }
+  81              		.loc 1 115 5 is_stmt 1 view .LVU25
+ 115:../Backend/gnu-efi-3.0.9/lib/crc.c **** }
+  82              		.loc 1 115 18 is_stmt 0 view .LVU26
+  83 0043 4889FE   		movq	%rdi, %rsi
+  84              	.LVL10:
+ 115:../Backend/gnu-efi-3.0.9/lib/crc.c **** }
+  85              		.loc 1 115 18 view .LVU27
+  86 0046 4889DF   		movq	%rbx, %rdi
+  87              	.LVL11:
+ 115:../Backend/gnu-efi-3.0.9/lib/crc.c **** }
+  88              		.loc 1 115 18 view .LVU28
+  89 0049 E8000000 		call	CalculateCrc
+  89      00
+  90              	.LVL12:
+ 115:../Backend/gnu-efi-3.0.9/lib/crc.c **** }
+  91              		.loc 1 115 16 discriminator 1 view .LVU29
+  92 004e 894310   		movl	%eax, 16(%rbx)
+ 116:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  93              		.loc 1 116 1 view .LVU30
+  94 0051 5B       		popq	%rbx
+  95              		.cfi_restore 3
+  96              		.cfi_def_cfa_offset 8
+  97              	.LVL13:
+ 116:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+  98              		.loc 1 116 1 view .LVU31
+  99 0052 C3       		ret
+ 100              		.cfi_endproc
+ 101              	.LFE1:
+ 103              		.globl	SetCrc
+ 104              		.hidden	SetCrc
+ 106              	SetCrc:
+ 107              	.LVL14:
+ 108              	.LFB0:
+  89:../Backend/gnu-efi-3.0.9/lib/crc.c ****     SetCrcAltSize (Hdr->HeaderSize, Hdr);
+ 109              		.loc 1 89 1 is_stmt 1 view -0
+ 110              		.cfi_startproc
+  89:../Backend/gnu-efi-3.0.9/lib/crc.c ****     SetCrcAltSize (Hdr->HeaderSize, Hdr);
+ 111              		.loc 1 89 1 is_stmt 0 view .LVU33
+ 112 0053 F30F1EFA 		endbr64
+ 113 0057 4889FE   		movq	%rdi, %rsi
+  90:../Backend/gnu-efi-3.0.9/lib/crc.c **** }
+ 114              		.loc 1 90 5 is_stmt 1 view .LVU34
+ 115 005a 8B7F0C   		movl	12(%rdi), %edi
+ 116              	.LVL15:
+  90:../Backend/gnu-efi-3.0.9/lib/crc.c **** }
+ 117              		.loc 1 90 5 is_stmt 0 view .LVU35
+ 118 005d E8000000 		call	SetCrcAltSize
+ 118      00
+ 119              	.LVL16:
+  91:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 120              		.loc 1 91 1 view .LVU36
+ 121 0062 C3       		ret
+ 122              		.cfi_endproc
+ 123              	.LFE0:
+ 125              		.globl	CheckCrcAltSize
+ 126              		.hidden	CheckCrcAltSize
+ 128              	CheckCrcAltSize:
+ 129              	.LVL17:
+ 130              	.LFB3:
+ 167:../Backend/gnu-efi-3.0.9/lib/crc.c ****     UINT32      Crc;
+ 131              		.loc 1 167 1 is_stmt 1 view -0
+ 132              		.cfi_startproc
+ 167:../Backend/gnu-efi-3.0.9/lib/crc.c ****     UINT32      Crc;
+ 133              		.loc 1 167 1 is_stmt 0 view .LVU38
+ 134 0063 F30F1EFA 		endbr64
+ 168:../Backend/gnu-efi-3.0.9/lib/crc.c ****     UINT32      OrgCrc;
+ 135              		.loc 1 168 5 is_stmt 1 view .LVU39
+ 169:../Backend/gnu-efi-3.0.9/lib/crc.c ****     BOOLEAN     f;
+ 136              		.loc 1 169 5 view .LVU40
+ 170:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 137              		.loc 1 170 5 view .LVU41
+ 172:../Backend/gnu-efi-3.0.9/lib/crc.c ****         //
+ 138              		.loc 1 172 5 view .LVU42
+ 172:../Backend/gnu-efi-3.0.9/lib/crc.c ****         //
+ 139              		.loc 1 172 8 is_stmt 0 view .LVU43
+ 140 0067 4885F6   		testq	%rsi, %rsi
+ 141 006a 7432     		je	.L9
+ 167:../Backend/gnu-efi-3.0.9/lib/crc.c ****     UINT32      Crc;
+ 142              		.loc 1 167 1 view .LVU44
+ 143 006c 55       		pushq	%rbp
+ 144              		.cfi_def_cfa_offset 16
+ 145              		.cfi_offset 6, -16
+ 146 006d 53       		pushq	%rbx
+ 147              		.cfi_def_cfa_offset 24
+ 148              		.cfi_offset 3, -24
+ 149 006e 4889D3   		movq	%rdx, %rbx
+ 178:../Backend/gnu-efi-3.0.9/lib/crc.c ****         DEBUG((D_ERROR, "CheckCrc32: Size > MaxSize\n"));
+ 150              		.loc 1 178 5 is_stmt 1 view .LVU45
+ 178:../Backend/gnu-efi-3.0.9/lib/crc.c ****         DEBUG((D_ERROR, "CheckCrc32: Size > MaxSize\n"));
+ 151              		.loc 1 178 9 is_stmt 0 view .LVU46
+ 152 0071 4885FF   		testq	%rdi, %rdi
+ 153 0074 0F95C2   		setne	%dl
+ 154              	.LVL18:
+ 178:../Backend/gnu-efi-3.0.9/lib/crc.c ****         DEBUG((D_ERROR, "CheckCrc32: Size > MaxSize\n"));
+ 155              		.loc 1 178 25 view .LVU47
+ 156 0077 4839F7   		cmpq	%rsi, %rdi
+ 157 007a 0F92C0   		setb	%al
+ 178:../Backend/gnu-efi-3.0.9/lib/crc.c ****         DEBUG((D_ERROR, "CheckCrc32: Size > MaxSize\n"));
+ 158              		.loc 1 178 8 view .LVU48
+ 159 007d 84C2     		testb	%al, %dl
+ 160 007f 7523     		jne	.L10
+ 184:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Hdr->CRC32 = 0;
+ 161              		.loc 1 184 5 is_stmt 1 view .LVU49
+ 184:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Hdr->CRC32 = 0;
+ 162              		.loc 1 184 12 is_stmt 0 view .LVU50
+ 163 0081 8B6B10   		movl	16(%rbx), %ebp
+ 164              	.LVL19:
+ 185:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Crc = CalculateCrc((UINT8 *)Hdr, Size);
+ 165              		.loc 1 185 5 is_stmt 1 view .LVU51
+ 185:../Backend/gnu-efi-3.0.9/lib/crc.c ****     Crc = CalculateCrc((UINT8 *)Hdr, Size);
+ 166              		.loc 1 185 16 is_stmt 0 view .LVU52
+ 167 0084 C7431000 		movl	$0, 16(%rbx)
+ 167      000000
+ 186:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 168              		.loc 1 186 5 is_stmt 1 view .LVU53
+ 186:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 169              		.loc 1 186 11 is_stmt 0 view .LVU54
+ 170 008b 4889DF   		movq	%rbx, %rdi
+ 171              	.LVL20:
+ 186:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 172              		.loc 1 186 11 view .LVU55
+ 173 008e E8000000 		call	CalculateCrc
+ 173      00
+ 174              	.LVL21:
+ 189:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 175              		.loc 1 189 5 is_stmt 1 view .LVU56
+ 189:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 176              		.loc 1 189 16 is_stmt 0 view .LVU57
+ 177 0093 896B10   		movl	%ebp, 16(%rbx)
+ 192:../Backend/gnu-efi-3.0.9/lib/crc.c ****     if (!f) {
+ 178              		.loc 1 192 5 is_stmt 1 view .LVU58
+ 192:../Backend/gnu-efi-3.0.9/lib/crc.c ****     if (!f) {
+ 179              		.loc 1 192 16 is_stmt 0 view .LVU59
+ 180 0096 39C5     		cmpl	%eax, %ebp
+ 192:../Backend/gnu-efi-3.0.9/lib/crc.c ****     if (!f) {
+ 181              		.loc 1 192 7 view .LVU60
+ 182 0098 0F94C0   		sete	%al
+ 183              	.LVL22:
+ 193:../Backend/gnu-efi-3.0.9/lib/crc.c ****         DEBUG((D_ERROR, "CheckCrc32: Crc check failed\n"));
+ 184              		.loc 1 193 5 is_stmt 1 view .LVU61
+ 194:../Backend/gnu-efi-3.0.9/lib/crc.c ****     }
+ 185              		.loc 1 194 59 view .LVU62
+ 197:../Backend/gnu-efi-3.0.9/lib/crc.c **** }
+ 186              		.loc 1 197 5 view .LVU63
+ 187              	.L7:
+ 198:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 188              		.loc 1 198 1 is_stmt 0 view .LVU64
+ 189 009b 5B       		popq	%rbx
+ 190              		.cfi_restore 3
+ 191              		.cfi_def_cfa_offset 16
+ 192              	.LVL23:
+ 198:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 193              		.loc 1 198 1 view .LVU65
+ 194 009c 5D       		popq	%rbp
+ 195              		.cfi_restore 6
+ 196              		.cfi_def_cfa_offset 8
+ 197 009d C3       		ret
+ 198              	.LVL24:
+ 199              	.L9:
+ 176:../Backend/gnu-efi-3.0.9/lib/crc.c ****     }
+ 200              		.loc 1 176 16 view .LVU66
+ 201 009e B8000000 		movl	$0, %eax
+ 201      00
+ 198:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 202              		.loc 1 198 1 view .LVU67
+ 203 00a3 C3       		ret
+ 204              	.LVL25:
+ 205              	.L10:
+ 206              		.cfi_def_cfa_offset 24
+ 207              		.cfi_offset 3, -24
+ 208              		.cfi_offset 6, -16
+ 180:../Backend/gnu-efi-3.0.9/lib/crc.c ****     }
+ 209              		.loc 1 180 16 view .LVU68
+ 210 00a4 B8000000 		movl	$0, %eax
+ 210      00
+ 211 00a9 EBF0     		jmp	.L7
+ 212              		.cfi_endproc
+ 213              	.LFE3:
+ 215              		.globl	CheckCrc
+ 216              		.hidden	CheckCrc
+ 218              	CheckCrc:
+ 219              	.LVL26:
+ 220              	.LFB2:
+ 139:../Backend/gnu-efi-3.0.9/lib/crc.c ****     return CheckCrcAltSize (MaxSize, Hdr->HeaderSize, Hdr);
+ 221              		.loc 1 139 1 is_stmt 1 view -0
+ 222              		.cfi_startproc
+ 139:../Backend/gnu-efi-3.0.9/lib/crc.c ****     return CheckCrcAltSize (MaxSize, Hdr->HeaderSize, Hdr);
+ 223              		.loc 1 139 1 is_stmt 0 view .LVU70
+ 224 00ab F30F1EFA 		endbr64
+ 225 00af 4889F2   		movq	%rsi, %rdx
+ 140:../Backend/gnu-efi-3.0.9/lib/crc.c **** }
+ 226              		.loc 1 140 5 is_stmt 1 view .LVU71
+ 140:../Backend/gnu-efi-3.0.9/lib/crc.c **** }
+ 227              		.loc 1 140 12 is_stmt 0 view .LVU72
+ 228 00b2 8B760C   		movl	12(%rsi), %esi
+ 229              	.LVL27:
+ 140:../Backend/gnu-efi-3.0.9/lib/crc.c **** }
+ 230              		.loc 1 140 12 view .LVU73
+ 231 00b5 E8000000 		call	CheckCrcAltSize
+ 231      00
+ 232              	.LVL28:
+ 141:../Backend/gnu-efi-3.0.9/lib/crc.c **** 
+ 233              		.loc 1 141 1 view .LVU74
+ 234 00ba C3       		ret
+ 235              		.cfi_endproc
+ 236              	.LFE2:
+ 238              		.hidden	CRCTable
+ 239              		.globl	CRCTable
+ 240              		.data
+ 241              		.align 32
+ 244              	CRCTable:
+ 245 0000 00000000 		.long	0
+ 246 0004 96300777 		.long	1996959894
+ 247 0008 2C610EEE 		.long	-301047508
+ 248 000c BA510999 		.long	-1727442502
+ 249 0010 19C46D07 		.long	124634137
+ 250 0014 8FF46A70 		.long	1886057615
+ 251 0018 35A563E9 		.long	-379345611
+ 252 001c A395649E 		.long	-1637575261
+ 253 0020 3288DB0E 		.long	249268274
+ 254 0024 A4B8DC79 		.long	2044508324
+ 255 0028 1EE9D5E0 		.long	-522852066
+ 256 002c 88D9D297 		.long	-1747789432
+ 257 0030 2B4CB609 		.long	162941995
+ 258 0034 BD7CB17E 		.long	2125561021
+ 259 0038 072DB8E7 		.long	-407360249
+ 260 003c 911DBF90 		.long	-1866523247
+ 261 0040 6410B71D 		.long	498536548
+ 262 0044 F220B06A 		.long	1789927666
+ 263 0048 4871B9F3 		.long	-205950648
+ 264 004c DE41BE84 		.long	-2067906082
+ 265 0050 7DD4DA1A 		.long	450548861
+ 266 0054 EBE4DD6D 		.long	1843258603
+ 267 0058 51B5D4F4 		.long	-187386543
+ 268 005c C785D383 		.long	-2083289657
+ 269 0060 56986C13 		.long	325883990
+ 270 0064 C0A86B64 		.long	1684777152
+ 271 0068 7AF962FD 		.long	-43845254
+ 272 006c ECC9658A 		.long	-1973040660
+ 273 0070 4F5C0114 		.long	335633487
+ 274 0074 D96C0663 		.long	1661365465
+ 275 0078 633D0FFA 		.long	-99664541
+ 276 007c F50D088D 		.long	-1928851979
+ 277 0080 C8206E3B 		.long	997073096
+ 278 0084 5E10694C 		.long	1281953886
+ 279 0088 E44160D5 		.long	-715111964
+ 280 008c 727167A2 		.long	-1570279054
+ 281 0090 D1E4033C 		.long	1006888145
+ 282 0094 47D4044B 		.long	1258607687
+ 283 0098 FD850DD2 		.long	-770865667
+ 284 009c 6BB50AA5 		.long	-1526024853
+ 285 00a0 FAA8B535 		.long	901097722
+ 286 00a4 6C98B242 		.long	1119000684
+ 287 00a8 D6C9BBDB 		.long	-608450090
+ 288 00ac 40F9BCAC 		.long	-1396901568
+ 289 00b0 E36CD832 		.long	853044451
+ 290 00b4 755CDF45 		.long	1172266101
+ 291 00b8 CF0DD6DC 		.long	-589951537
+ 292 00bc 593DD1AB 		.long	-1412350631
+ 293 00c0 AC30D926 		.long	651767980
+ 294 00c4 3A00DE51 		.long	1373503546
+ 295 00c8 8051D7C8 		.long	-925412992
+ 296 00cc 1661D0BF 		.long	-1076862698
+ 297 00d0 B5F4B421 		.long	565507253
+ 298 00d4 23C4B356 		.long	1454621731
+ 299 00d8 9995BACF 		.long	-809855591
+ 300 00dc 0FA5BDB8 		.long	-1195530993
+ 301 00e0 9EB80228 		.long	671266974
+ 302 00e4 0888055F 		.long	1594198024
+ 303 00e8 B2D90CC6 		.long	-972236366
+ 304 00ec 24E90BB1 		.long	-1324619484
+ 305 00f0 877C6F2F 		.long	795835527
+ 306 00f4 114C6858 		.long	1483230225
+ 307 00f8 AB1D61C1 		.long	-1050600021
+ 308 00fc 3D2D66B6 		.long	-1234817731
+ 309 0100 9041DC76 		.long	1994146192
+ 310 0104 0671DB01 		.long	31158534
+ 311 0108 BC20D298 		.long	-1731059524
+ 312 010c 2A10D5EF 		.long	-271249366
+ 313 0110 8985B171 		.long	1907459465
+ 314 0114 1FB5B606 		.long	112637215
+ 315 0118 A5E4BF9F 		.long	-1614814043
+ 316 011c 33D4B8E8 		.long	-390540237
+ 317 0120 A2C90778 		.long	2013776290
+ 318 0124 34F9000F 		.long	251722036
+ 319 0128 8EA80996 		.long	-1777751922
+ 320 012c 18980EE1 		.long	-519137256
+ 321 0130 BB0D6A7F 		.long	2137656763
+ 322 0134 2D3D6D08 		.long	141376813
+ 323 0138 976C6491 		.long	-1855689577
+ 324 013c 015C63E6 		.long	-429695999
+ 325 0140 F4516B6B 		.long	1802195444
+ 326 0144 62616C1C 		.long	476864866
+ 327 0148 D8306585 		.long	-2056965928
+ 328 014c 4E0062F2 		.long	-228458418
+ 329 0150 ED95066C 		.long	1812370925
+ 330 0154 7BA5011B 		.long	453092731
+ 331 0158 C1F40882 		.long	-2113342271
+ 332 015c 57C40FF5 		.long	-183516073
+ 333 0160 C6D9B065 		.long	1706088902
+ 334 0164 50E9B712 		.long	314042704
+ 335 0168 EAB8BE8B 		.long	-1950435094
+ 336 016c 7C88B9FC 		.long	-54949764
+ 337 0170 DF1DDD62 		.long	1658658271
+ 338 0174 492DDA15 		.long	366619977
+ 339 0178 F37CD38C 		.long	-1932296973
+ 340 017c 654CD4FB 		.long	-69972891
+ 341 0180 5861B24D 		.long	1303535960
+ 342 0184 CE51B53A 		.long	984961486
+ 343 0188 7400BCA3 		.long	-1547960204
+ 344 018c E230BBD4 		.long	-725929758
+ 345 0190 41A5DF4A 		.long	1256170817
+ 346 0194 D795D83D 		.long	1037604311
+ 347 0198 6DC4D1A4 		.long	-1529756563
+ 348 019c FBF4D6D3 		.long	-740887301
+ 349 01a0 6AE96943 		.long	1131014506
+ 350 01a4 FCD96E34 		.long	879679996
+ 351 01a8 468867AD 		.long	-1385723834
+ 352 01ac D0B860DA 		.long	-631195440
+ 353 01b0 732D0444 		.long	1141124467
+ 354 01b4 E51D0333 		.long	855842277
+ 355 01b8 5F4C0AAA 		.long	-1442165665
+ 356 01bc C97C0DDD 		.long	-586318647
+ 357 01c0 3C710550 		.long	1342533948
+ 358 01c4 AA410227 		.long	654459306
+ 359 01c8 10100BBE 		.long	-1106571248
+ 360 01cc 86200CC9 		.long	-921952122
+ 361 01d0 25B56857 		.long	1466479909
+ 362 01d4 B3856F20 		.long	544179635
+ 363 01d8 09D466B9 		.long	-1184443383
+ 364 01dc 9FE461CE 		.long	-832445281
+ 365 01e0 0EF9DE5E 		.long	1591671054
+ 366 01e4 98C9D929 		.long	702138776
+ 367 01e8 2298D0B0 		.long	-1328506846
+ 368 01ec B4A8D7C7 		.long	-942167884
+ 369 01f0 173DB359 		.long	1504918807
+ 370 01f4 810DB42E 		.long	783551873
+ 371 01f8 3B5CBDB7 		.long	-1212326853
+ 372 01fc AD6CBAC0 		.long	-1061524307
+ 373 0200 2083B8ED 		.long	-306674912
+ 374 0204 B6B3BF9A 		.long	-1698712650
+ 375 0208 0CE2B603 		.long	62317068
+ 376 020c 9AD2B174 		.long	1957810842
+ 377 0210 3947D5EA 		.long	-355121351
+ 378 0214 AF77D29D 		.long	-1647151185
+ 379 0218 1526DB04 		.long	81470997
+ 380 021c 8316DC73 		.long	1943803523
+ 381 0220 120B63E3 		.long	-480048366
+ 382 0224 843B6494 		.long	-1805370492
+ 383 0228 3E6A6D0D 		.long	225274430
+ 384 022c A85A6A7A 		.long	2053790376
+ 385 0230 0BCF0EE4 		.long	-468791541
+ 386 0234 9DFF0993 		.long	-1828061283
+ 387 0238 27AE000A 		.long	167816743
+ 388 023c B19E077D 		.long	2097651377
+ 389 0240 44930FF0 		.long	-267414716
+ 390 0244 D2A30887 		.long	-2029476910
+ 391 0248 68F2011E 		.long	503444072
+ 392 024c FEC20669 		.long	1762050814
+ 393 0250 5D5762F7 		.long	-144550051
+ 394 0254 CB676580 		.long	-2140837941
+ 395 0258 71366C19 		.long	426522225
+ 396 025c E7066B6E 		.long	1852507879
+ 397 0260 761BD4FE 		.long	-19653770
+ 398 0264 E02BD389 		.long	-1982649376
+ 399 0268 5A7ADA10 		.long	282753626
+ 400 026c CC4ADD67 		.long	1742555852
+ 401 0270 6FDFB9F9 		.long	-105259153
+ 402 0274 F9EFBE8E 		.long	-1900089351
+ 403 0278 43BEB717 		.long	397917763
+ 404 027c D58EB060 		.long	1622183637
+ 405 0280 E8A3D6D6 		.long	-690576408
+ 406 0284 7E93D1A1 		.long	-1580100738
+ 407 0288 C4C2D838 		.long	953729732
+ 408 028c 52F2DF4F 		.long	1340076626
+ 409 0290 F167BBD1 		.long	-776247311
+ 410 0294 6757BCA6 		.long	-1497606297
+ 411 0298 DD06B53F 		.long	1068828381
+ 412 029c 4B36B248 		.long	1219638859
+ 413 02a0 DA2B0DD8 		.long	-670225446
+ 414 02a4 4C1B0AAF 		.long	-1358292148
+ 415 02a8 F64A0336 		.long	906185462
+ 416 02ac 607A0441 		.long	1090812512
+ 417 02b0 C3EF60DF 		.long	-547295293
+ 418 02b4 55DF67A8 		.long	-1469587627
+ 419 02b8 EF8E6E31 		.long	829329135
+ 420 02bc 79BE6946 		.long	1181335161
+ 421 02c0 8CB361CB 		.long	-882789492
+ 422 02c4 1A8366BC 		.long	-1134132454
+ 423 02c8 A0D26F25 		.long	628085408
+ 424 02cc 36E26852 		.long	1382605366
+ 425 02d0 95770CCC 		.long	-871598187
+ 426 02d4 03470BBB 		.long	-1156888829
+ 427 02d8 B9160222 		.long	570562233
+ 428 02dc 2F260555 		.long	1426400815
+ 429 02e0 BE3BBAC5 		.long	-977650754
+ 430 02e4 280BBDB2 		.long	-1296233688
+ 431 02e8 925AB42B 		.long	733239954
+ 432 02ec 046AB35C 		.long	1555261956
+ 433 02f0 A7FFD7C2 		.long	-1026031705
+ 434 02f4 31CFD0B5 		.long	-1244606671
+ 435 02f8 8B9ED92C 		.long	752459403
+ 436 02fc 1DAEDE5B 		.long	1541320221
+ 437 0300 B0C2649B 		.long	-1687895376
+ 438 0304 26F263EC 		.long	-328994266
+ 439 0308 9CA36A75 		.long	1969922972
+ 440 030c 0A936D02 		.long	40735498
+ 441 0310 A906099C 		.long	-1677130071
+ 442 0314 3F360EEB 		.long	-351390145
+ 443 0318 85670772 		.long	1913087877
+ 444 031c 13570005 		.long	83908371
+ 445 0320 824ABF95 		.long	-1782625662
+ 446 0324 147AB8E2 		.long	-491226604
+ 447 0328 AE2BB17B 		.long	2075208622
+ 448 032c 381BB60C 		.long	213261112
+ 449 0330 9B8ED292 		.long	-1831694693
+ 450 0334 0DBED5E5 		.long	-438977011
+ 451 0338 B7EFDC7C 		.long	2094854071
+ 452 033c 21DFDB0B 		.long	198958881
+ 453 0340 D4D2D386 		.long	-2032938284
+ 454 0344 42E2D4F1 		.long	-237706686
+ 455 0348 F8B3DD68 		.long	1759359992
+ 456 034c 6E83DA1F 		.long	534414190
+ 457 0350 CD16BE81 		.long	-2118248755
+ 458 0354 5B26B9F6 		.long	-155638181
+ 459 0358 E177B06F 		.long	1873836001
+ 460 035c 7747B718 		.long	414664567
+ 461 0360 E65A0888 		.long	-2012718362
+ 462 0364 706A0FFF 		.long	-15766928
+ 463 0368 CA3B0666 		.long	1711684554
+ 464 036c 5C0B0111 		.long	285281116
+ 465 0370 FF9E658F 		.long	-1889165569
+ 466 0374 69AE62F8 		.long	-127750551
+ 467 0378 D3FF6B61 		.long	1634467795
+ 468 037c 45CF6C16 		.long	376229701
+ 469 0380 78E20AA0 		.long	-1609899400
+ 470 0384 EED20DD7 		.long	-686959890
+ 471 0388 5483044E 		.long	1308918612
+ 472 038c C2B30339 		.long	956543938
+ 473 0390 612667A7 		.long	-1486412191
+ 474 0394 F71660D0 		.long	-799009033
+ 475 0398 4D476949 		.long	1231636301
+ 476 039c DB776E3E 		.long	1047427035
+ 477 03a0 4A6AD1AE 		.long	-1362007478
+ 478 03a4 DC5AD6D9 		.long	-640263460
+ 479 03a8 660BDF40 		.long	1088359270
+ 480 03ac F03BD837 		.long	936918000
+ 481 03b0 53AEBCA9 		.long	-1447252397
+ 482 03b4 C59EBBDE 		.long	-558129467
+ 483 03b8 7FCFB247 		.long	1202900863
+ 484 03bc E9FFB530 		.long	817233897
+ 485 03c0 1CF2BDBD 		.long	-1111625188
+ 486 03c4 8AC2BACA 		.long	-893730166
+ 487 03c8 3093B353 		.long	1404277552
+ 488 03cc A6A3B424 		.long	615818150
+ 489 03d0 0536D0BA 		.long	-1160759803
+ 490 03d4 9306D7CD 		.long	-841546093
+ 491 03d8 2957DE54 		.long	1423857449
+ 492 03dc BF67D923 		.long	601450431
+ 493 03e0 2E7A66B3 		.long	-1285129682
+ 494 03e4 B84A61C4 		.long	-1000256840
+ 495 03e8 021B685D 		.long	1567103746
+ 496 03ec 942B6F2A 		.long	711928724
+ 497 03f0 37BE0BB4 		.long	-1274298825
+ 498 03f4 A18E0CC3 		.long	-1022587231
+ 499 03f8 1BDF055A 		.long	1510334235
+ 500 03fc 8DEF022D 		.long	755167117
+ 501              		.text
+ 502              	.Letext0:
+ 503              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 504              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 505              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 506              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efiapi.h"
+ 9685              		.section	.note.gnu.property,"a"
+ 9686              		.align 8
+ 9687 0000 04000000 		.long	1f - 0f
+ 9688 0004 10000000 		.long	4f - 1f
+ 9689 0008 05000000 		.long	5
+ 9690              	0:
+ 9691 000c 474E5500 		.string	"GNU"
+ 9692              	1:
+ 9693              		.align 8
+ 9694 0010 020000C0 		.long	0xc0000002
+ 9695 0014 04000000 		.long	3f - 2f
+ 9696              	2:
+ 9697 0018 03000000 		.long	0x3
+ 9698              	3:
+ 9699 001c 00000000 		.align 8
+ 9700              	4:

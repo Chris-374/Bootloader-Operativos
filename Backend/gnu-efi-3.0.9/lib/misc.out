@@ -1,0 +1,2481 @@
+   1              		.file	"misc.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	AllocatePool
+   7              		.hidden	AllocatePool
+   9              	AllocatePool:
+  10              	.LVL0:
+  11              	.LFB0:
+  12              		.file 1 "../Backend/gnu-efi-3.0.9/lib/misc.c"
+   1:../Backend/gnu-efi-3.0.9/lib/misc.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/misc.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/misc.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/misc.c ****     misc.c
+   8:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/misc.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  12:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/misc.c **** Revision History
+  15:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  16:../Backend/gnu-efi-3.0.9/lib/misc.c **** --*/
+  17:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  18:../Backend/gnu-efi-3.0.9/lib/misc.c **** #include "lib.h"
+  19:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  20:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  21:../Backend/gnu-efi-3.0.9/lib/misc.c **** //
+  22:../Backend/gnu-efi-3.0.9/lib/misc.c **** //
+  23:../Backend/gnu-efi-3.0.9/lib/misc.c **** //
+  24:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  25:../Backend/gnu-efi-3.0.9/lib/misc.c **** VOID *
+  26:../Backend/gnu-efi-3.0.9/lib/misc.c **** AllocatePool (
+  27:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN UINTN                Size
+  28:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+  29:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+  13              		.loc 1 29 1 view -0
+  14              		.cfi_startproc
+  15              		.loc 1 29 1 is_stmt 0 view .LVU1
+  16 0000 F30F1EFA 		endbr64
+  17 0004 4883EC38 		subq	$56, %rsp
+  18              		.cfi_def_cfa_offset 64
+  19 0008 4889FA   		movq	%rdi, %rdx
+  30:../Backend/gnu-efi-3.0.9/lib/misc.c ****     EFI_STATUS              Status;
+  20              		.loc 1 30 5 is_stmt 1 view .LVU2
+  31:../Backend/gnu-efi-3.0.9/lib/misc.c ****     VOID                    *p;
+  21              		.loc 1 31 5 view .LVU3
+  32:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  33:../Backend/gnu-efi-3.0.9/lib/misc.c ****     Status = uefi_call_wrapper(BS->AllocatePool, 3, PoolAllocationType, Size, &p);
+  22              		.loc 1 33 5 view .LVU4
+  23              		.loc 1 33 14 is_stmt 0 view .LVU5
+  24 000b 4C8D4424 		leaq	40(%rsp), %r8
+  24      28
+  25 0010 8B0D0000 		movl	PoolAllocationType(%rip), %ecx
+  25      0000
+  26 0016 488B0500 		movq	BS(%rip), %rax
+  26      000000
+  27 001d FF5040   		call	*64(%rax)
+  28              	.LVL1:
+  34:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (EFI_ERROR(Status)) {
+  29              		.loc 1 34 5 is_stmt 1 view .LVU6
+  30              		.loc 1 34 8 is_stmt 0 view .LVU7
+  31 0020 4885C0   		testq	%rax, %rax
+  32 0023 780A     		js	.L4
+  33              	.L2:
+  35:../Backend/gnu-efi-3.0.9/lib/misc.c ****         DEBUG((D_ERROR, "AllocatePool: out of pool  %x\n", Status));
+  36:../Backend/gnu-efi-3.0.9/lib/misc.c ****         p = NULL;
+  37:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+  38:../Backend/gnu-efi-3.0.9/lib/misc.c ****     return p;
+  34              		.loc 1 38 5 is_stmt 1 view .LVU8
+  39:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+  35              		.loc 1 39 1 is_stmt 0 view .LVU9
+  36 0025 488B4424 		movq	40(%rsp), %rax
+  36      28
+  37              	.LVL2:
+  38              		.loc 1 39 1 view .LVU10
+  39 002a 4883C438 		addq	$56, %rsp
+  40              		.cfi_remember_state
+  41              		.cfi_def_cfa_offset 8
+  42 002e C3       		ret
+  43              	.LVL3:
+  44              	.L4:
+  45              		.cfi_restore_state
+  35:../Backend/gnu-efi-3.0.9/lib/misc.c ****         DEBUG((D_ERROR, "AllocatePool: out of pool  %x\n", Status));
+  46              		.loc 1 35 68 is_stmt 1 view .LVU11
+  36:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+  47              		.loc 1 36 9 view .LVU12
+  36:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+  48              		.loc 1 36 11 is_stmt 0 view .LVU13
+  49 002f 48C74424 		movq	$0, 40(%rsp)
+  49      28000000 
+  49      00
+  50 0038 EBEB     		jmp	.L2
+  51              		.cfi_endproc
+  52              	.LFE0:
+  54              		.globl	FreePool
+  55              		.hidden	FreePool
+  57              	FreePool:
+  58              	.LVL4:
+  59              	.LFB3:
+  40:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  41:../Backend/gnu-efi-3.0.9/lib/misc.c **** VOID *
+  42:../Backend/gnu-efi-3.0.9/lib/misc.c **** AllocateZeroPool (
+  43:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN UINTN                Size
+  44:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+  45:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+  46:../Backend/gnu-efi-3.0.9/lib/misc.c ****     VOID                    *p;
+  47:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  48:../Backend/gnu-efi-3.0.9/lib/misc.c ****     p = AllocatePool (Size);
+  49:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (p) {
+  50:../Backend/gnu-efi-3.0.9/lib/misc.c ****         ZeroMem (p, Size);
+  51:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+  52:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  53:../Backend/gnu-efi-3.0.9/lib/misc.c ****     return p;
+  54:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+  55:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  56:../Backend/gnu-efi-3.0.9/lib/misc.c **** VOID *
+  57:../Backend/gnu-efi-3.0.9/lib/misc.c **** ReallocatePool (
+  58:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN VOID                 *OldPool,
+  59:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN UINTN                OldSize,
+  60:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN UINTN                NewSize
+  61:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+  62:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+  63:../Backend/gnu-efi-3.0.9/lib/misc.c ****     VOID                    *NewPool;
+  64:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  65:../Backend/gnu-efi-3.0.9/lib/misc.c ****     NewPool = NULL;
+  66:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (NewSize) {
+  67:../Backend/gnu-efi-3.0.9/lib/misc.c ****         NewPool = AllocatePool (NewSize);
+  68:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+  69:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  70:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (OldPool) {
+  71:../Backend/gnu-efi-3.0.9/lib/misc.c ****         if (NewPool) {
+  72:../Backend/gnu-efi-3.0.9/lib/misc.c ****             CopyMem (NewPool, OldPool, OldSize < NewSize ? OldSize : NewSize);
+  73:../Backend/gnu-efi-3.0.9/lib/misc.c ****         }
+  74:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  75:../Backend/gnu-efi-3.0.9/lib/misc.c ****         FreePool (OldPool);
+  76:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+  77:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  78:../Backend/gnu-efi-3.0.9/lib/misc.c ****     return NewPool;
+  79:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+  80:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  81:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  82:../Backend/gnu-efi-3.0.9/lib/misc.c **** VOID
+  83:../Backend/gnu-efi-3.0.9/lib/misc.c **** FreePool (
+  84:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN VOID                 *Buffer
+  85:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+  86:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+  60              		.loc 1 86 1 is_stmt 1 view -0
+  61              		.cfi_startproc
+  62              		.loc 1 86 1 is_stmt 0 view .LVU15
+  63 003a F30F1EFA 		endbr64
+  64 003e 4883EC28 		subq	$40, %rsp
+  65              		.cfi_def_cfa_offset 48
+  66 0042 4889F9   		movq	%rdi, %rcx
+  87:../Backend/gnu-efi-3.0.9/lib/misc.c ****     uefi_call_wrapper(BS->FreePool, 1, Buffer);
+  67              		.loc 1 87 5 is_stmt 1 view .LVU16
+  68 0045 488B0500 		movq	BS(%rip), %rax
+  68      000000
+  69 004c FF5048   		call	*72(%rax)
+  70              	.LVL5:
+  88:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+  71              		.loc 1 88 1 is_stmt 0 view .LVU17
+  72 004f 4883C428 		addq	$40, %rsp
+  73              		.cfi_def_cfa_offset 8
+  74 0053 C3       		ret
+  75              		.cfi_endproc
+  76              	.LFE3:
+  78              		.globl	ZeroMem
+  79              		.hidden	ZeroMem
+  81              	ZeroMem:
+  82              	.LVL6:
+  83              	.LFB4:
+  89:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  90:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  91:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+  92:../Backend/gnu-efi-3.0.9/lib/misc.c **** VOID
+  93:../Backend/gnu-efi-3.0.9/lib/misc.c **** ZeroMem (
+  94:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN VOID     *Buffer,
+  95:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN UINTN    Size
+  96:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+  97:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+  84              		.loc 1 97 1 is_stmt 1 view -0
+  85              		.cfi_startproc
+  86              		.loc 1 97 1 is_stmt 0 view .LVU19
+  87 0054 F30F1EFA 		endbr64
+  88 0058 4883EC08 		subq	$8, %rsp
+  89              		.cfi_def_cfa_offset 16
+  98:../Backend/gnu-efi-3.0.9/lib/misc.c ****     RtZeroMem (Buffer, Size);
+  90              		.loc 1 98 5 is_stmt 1 view .LVU20
+  91 005c E8000000 		call	RtZeroMem
+  91      00
+  92              	.LVL7:
+  99:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+  93              		.loc 1 99 1 is_stmt 0 view .LVU21
+  94 0061 4883C408 		addq	$8, %rsp
+  95              		.cfi_def_cfa_offset 8
+  96 0065 C3       		ret
+  97              		.cfi_endproc
+  98              	.LFE4:
+ 100              		.globl	AllocateZeroPool
+ 101              		.hidden	AllocateZeroPool
+ 103              	AllocateZeroPool:
+ 104              	.LVL8:
+ 105              	.LFB1:
+  45:../Backend/gnu-efi-3.0.9/lib/misc.c ****     VOID                    *p;
+ 106              		.loc 1 45 1 is_stmt 1 view -0
+ 107              		.cfi_startproc
+  45:../Backend/gnu-efi-3.0.9/lib/misc.c ****     VOID                    *p;
+ 108              		.loc 1 45 1 is_stmt 0 view .LVU23
+ 109 0066 F30F1EFA 		endbr64
+ 110 006a 55       		pushq	%rbp
+ 111              		.cfi_def_cfa_offset 16
+ 112              		.cfi_offset 6, -16
+ 113 006b 53       		pushq	%rbx
+ 114              		.cfi_def_cfa_offset 24
+ 115              		.cfi_offset 3, -24
+ 116 006c 4883EC08 		subq	$8, %rsp
+ 117              		.cfi_def_cfa_offset 32
+ 118 0070 4889FD   		movq	%rdi, %rbp
+  46:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 119              		.loc 1 46 5 is_stmt 1 view .LVU24
+  48:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (p) {
+ 120              		.loc 1 48 5 view .LVU25
+  48:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (p) {
+ 121              		.loc 1 48 9 is_stmt 0 view .LVU26
+ 122 0073 E8000000 		call	AllocatePool
+ 122      00
+ 123              	.LVL9:
+  48:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (p) {
+ 124              		.loc 1 48 9 view .LVU27
+ 125 0078 4889C3   		movq	%rax, %rbx
+ 126              	.LVL10:
+  49:../Backend/gnu-efi-3.0.9/lib/misc.c ****         ZeroMem (p, Size);
+ 127              		.loc 1 49 5 is_stmt 1 view .LVU28
+  49:../Backend/gnu-efi-3.0.9/lib/misc.c ****         ZeroMem (p, Size);
+ 128              		.loc 1 49 8 is_stmt 0 view .LVU29
+ 129 007b 4885C0   		testq	%rax, %rax
+ 130 007e 740B     		je	.L9
+  50:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 131              		.loc 1 50 9 is_stmt 1 view .LVU30
+ 132 0080 4889EE   		movq	%rbp, %rsi
+ 133 0083 4889C7   		movq	%rax, %rdi
+ 134 0086 E8000000 		call	ZeroMem
+ 134      00
+ 135              	.LVL11:
+  53:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 136              		.loc 1 53 5 view .LVU31
+ 137              	.L9:
+  54:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 138              		.loc 1 54 1 is_stmt 0 view .LVU32
+ 139 008b 4889D8   		movq	%rbx, %rax
+ 140 008e 4883C408 		addq	$8, %rsp
+ 141              		.cfi_def_cfa_offset 24
+ 142 0092 5B       		popq	%rbx
+ 143              		.cfi_restore 3
+ 144              		.cfi_def_cfa_offset 16
+ 145              	.LVL12:
+  54:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 146              		.loc 1 54 1 view .LVU33
+ 147 0093 5D       		popq	%rbp
+ 148              		.cfi_restore 6
+ 149              		.cfi_def_cfa_offset 8
+ 150              	.LVL13:
+  54:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 151              		.loc 1 54 1 view .LVU34
+ 152 0094 C3       		ret
+ 153              		.cfi_endproc
+ 154              	.LFE1:
+ 156              		.globl	SetMem
+ 157              		.hidden	SetMem
+ 159              	SetMem:
+ 160              	.LVL14:
+ 161              	.LFB5:
+ 100:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 101:../Backend/gnu-efi-3.0.9/lib/misc.c **** VOID
+ 102:../Backend/gnu-efi-3.0.9/lib/misc.c **** SetMem (
+ 103:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN VOID     *Buffer,
+ 104:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN UINTN    Size,
+ 105:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN UINT8    Value
+ 106:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+ 107:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+ 162              		.loc 1 107 1 is_stmt 1 view -0
+ 163              		.cfi_startproc
+ 164              		.loc 1 107 1 is_stmt 0 view .LVU36
+ 165 0095 F30F1EFA 		endbr64
+ 166 0099 4883EC08 		subq	$8, %rsp
+ 167              		.cfi_def_cfa_offset 16
+ 108:../Backend/gnu-efi-3.0.9/lib/misc.c ****     RtSetMem (Buffer, Size, Value);
+ 168              		.loc 1 108 5 is_stmt 1 view .LVU37
+ 169 009d 0FB6D2   		movzbl	%dl, %edx
+ 170              		.loc 1 108 5 is_stmt 0 view .LVU38
+ 171 00a0 E8000000 		call	RtSetMem
+ 171      00
+ 172              	.LVL15:
+ 109:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 173              		.loc 1 109 1 view .LVU39
+ 174 00a5 4883C408 		addq	$8, %rsp
+ 175              		.cfi_def_cfa_offset 8
+ 176 00a9 C3       		ret
+ 177              		.cfi_endproc
+ 178              	.LFE5:
+ 180              		.globl	CopyMem
+ 181              		.hidden	CopyMem
+ 183              	CopyMem:
+ 184              	.LVL16:
+ 185              	.LFB6:
+ 110:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 111:../Backend/gnu-efi-3.0.9/lib/misc.c **** VOID
+ 112:../Backend/gnu-efi-3.0.9/lib/misc.c **** CopyMem (
+ 113:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN VOID     *Dest,
+ 114:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN CONST VOID     *Src,
+ 115:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN UINTN    len
+ 116:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+ 117:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+ 186              		.loc 1 117 1 is_stmt 1 view -0
+ 187              		.cfi_startproc
+ 188              		.loc 1 117 1 is_stmt 0 view .LVU41
+ 189 00aa F30F1EFA 		endbr64
+ 190 00ae 4883EC08 		subq	$8, %rsp
+ 191              		.cfi_def_cfa_offset 16
+ 118:../Backend/gnu-efi-3.0.9/lib/misc.c ****     RtCopyMem (Dest, Src, len);
+ 192              		.loc 1 118 5 is_stmt 1 view .LVU42
+ 193 00b2 E8000000 		call	RtCopyMem
+ 193      00
+ 194              	.LVL17:
+ 119:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 195              		.loc 1 119 1 is_stmt 0 view .LVU43
+ 196 00b7 4883C408 		addq	$8, %rsp
+ 197              		.cfi_def_cfa_offset 8
+ 198 00bb C3       		ret
+ 199              		.cfi_endproc
+ 200              	.LFE6:
+ 202              		.globl	ReallocatePool
+ 203              		.hidden	ReallocatePool
+ 205              	ReallocatePool:
+ 206              	.LVL18:
+ 207              	.LFB2:
+  62:../Backend/gnu-efi-3.0.9/lib/misc.c ****     VOID                    *NewPool;
+ 208              		.loc 1 62 1 is_stmt 1 view -0
+ 209              		.cfi_startproc
+  62:../Backend/gnu-efi-3.0.9/lib/misc.c ****     VOID                    *NewPool;
+ 210              		.loc 1 62 1 is_stmt 0 view .LVU45
+ 211 00bc F30F1EFA 		endbr64
+ 212 00c0 4155     		pushq	%r13
+ 213              		.cfi_def_cfa_offset 16
+ 214              		.cfi_offset 13, -16
+ 215 00c2 4154     		pushq	%r12
+ 216              		.cfi_def_cfa_offset 24
+ 217              		.cfi_offset 12, -24
+ 218 00c4 55       		pushq	%rbp
+ 219              		.cfi_def_cfa_offset 32
+ 220              		.cfi_offset 6, -32
+ 221 00c5 53       		pushq	%rbx
+ 222              		.cfi_def_cfa_offset 40
+ 223              		.cfi_offset 3, -40
+ 224 00c6 4883EC08 		subq	$8, %rsp
+ 225              		.cfi_def_cfa_offset 48
+ 226 00ca 4889FD   		movq	%rdi, %rbp
+ 227 00cd 4989F5   		movq	%rsi, %r13
+ 228 00d0 4889D3   		movq	%rdx, %rbx
+  63:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 229              		.loc 1 63 5 is_stmt 1 view .LVU46
+  65:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (NewSize) {
+ 230              		.loc 1 65 5 view .LVU47
+ 231              	.LVL19:
+  66:../Backend/gnu-efi-3.0.9/lib/misc.c ****         NewPool = AllocatePool (NewSize);
+ 232              		.loc 1 66 5 view .LVU48
+  66:../Backend/gnu-efi-3.0.9/lib/misc.c ****         NewPool = AllocatePool (NewSize);
+ 233              		.loc 1 66 8 is_stmt 0 view .LVU49
+ 234 00d3 4885D2   		testq	%rdx, %rdx
+ 235 00d6 7440     		je	.L20
+  67:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 236              		.loc 1 67 9 is_stmt 1 view .LVU50
+  67:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 237              		.loc 1 67 19 is_stmt 0 view .LVU51
+ 238 00d8 4889D7   		movq	%rdx, %rdi
+ 239              	.LVL20:
+  67:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 240              		.loc 1 67 19 view .LVU52
+ 241 00db E8000000 		call	AllocatePool
+ 241      00
+ 242              	.LVL21:
+  67:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 243              		.loc 1 67 19 view .LVU53
+ 244 00e0 4989C4   		movq	%rax, %r12
+ 245              	.LVL22:
+ 246              	.L17:
+  70:../Backend/gnu-efi-3.0.9/lib/misc.c ****         if (NewPool) {
+ 247              		.loc 1 70 5 is_stmt 1 view .LVU54
+  70:../Backend/gnu-efi-3.0.9/lib/misc.c ****         if (NewPool) {
+ 248              		.loc 1 70 8 is_stmt 0 view .LVU55
+ 249 00e3 4885ED   		testq	%rbp, %rbp
+ 250 00e6 7422     		je	.L16
+  71:../Backend/gnu-efi-3.0.9/lib/misc.c ****             CopyMem (NewPool, OldPool, OldSize < NewSize ? OldSize : NewSize);
+ 251              		.loc 1 71 9 is_stmt 1 view .LVU56
+  71:../Backend/gnu-efi-3.0.9/lib/misc.c ****             CopyMem (NewPool, OldPool, OldSize < NewSize ? OldSize : NewSize);
+ 252              		.loc 1 71 12 is_stmt 0 view .LVU57
+ 253 00e8 4D85E4   		testq	%r12, %r12
+ 254 00eb 7415     		je	.L19
+  72:../Backend/gnu-efi-3.0.9/lib/misc.c ****         }
+ 255              		.loc 1 72 13 is_stmt 1 view .LVU58
+ 256 00ed 4C39EB   		cmpq	%r13, %rbx
+ 257 00f0 4C89EA   		movq	%r13, %rdx
+ 258 00f3 480F46D3 		cmovbe	%rbx, %rdx
+ 259 00f7 4889EE   		movq	%rbp, %rsi
+ 260 00fa 4C89E7   		movq	%r12, %rdi
+ 261 00fd E8000000 		call	CopyMem
+ 261      00
+ 262              	.LVL23:
+ 263              	.L19:
+  75:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 264              		.loc 1 75 9 view .LVU59
+ 265 0102 4889EF   		movq	%rbp, %rdi
+ 266 0105 E8000000 		call	FreePool
+ 266      00
+ 267              	.LVL24:
+  78:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 268              		.loc 1 78 5 view .LVU60
+ 269              	.L16:
+  79:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 270              		.loc 1 79 1 is_stmt 0 view .LVU61
+ 271 010a 4C89E0   		movq	%r12, %rax
+ 272 010d 4883C408 		addq	$8, %rsp
+ 273              		.cfi_remember_state
+ 274              		.cfi_def_cfa_offset 40
+ 275 0111 5B       		popq	%rbx
+ 276              		.cfi_restore 3
+ 277              		.cfi_def_cfa_offset 32
+ 278              	.LVL25:
+  79:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 279              		.loc 1 79 1 view .LVU62
+ 280 0112 5D       		popq	%rbp
+ 281              		.cfi_restore 6
+ 282              		.cfi_def_cfa_offset 24
+ 283              	.LVL26:
+  79:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 284              		.loc 1 79 1 view .LVU63
+ 285 0113 415C     		popq	%r12
+ 286              		.cfi_restore 12
+ 287              		.cfi_def_cfa_offset 16
+ 288              	.LVL27:
+  79:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 289              		.loc 1 79 1 view .LVU64
+ 290 0115 415D     		popq	%r13
+ 291              		.cfi_restore 13
+ 292              		.cfi_def_cfa_offset 8
+ 293              	.LVL28:
+  79:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 294              		.loc 1 79 1 view .LVU65
+ 295 0117 C3       		ret
+ 296              	.LVL29:
+ 297              	.L20:
+ 298              		.cfi_restore_state
+  65:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (NewSize) {
+ 299              		.loc 1 65 13 view .LVU66
+ 300 0118 41BC0000 		movl	$0, %r12d
+ 300      0000
+ 301 011e EBC3     		jmp	.L17
+ 302              		.cfi_endproc
+ 303              	.LFE2:
+ 305              		.globl	CompareMem
+ 306              		.hidden	CompareMem
+ 308              	CompareMem:
+ 309              	.LVL30:
+ 310              	.LFB7:
+ 120:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 121:../Backend/gnu-efi-3.0.9/lib/misc.c **** INTN
+ 122:../Backend/gnu-efi-3.0.9/lib/misc.c **** CompareMem (
+ 123:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN CONST VOID     *Dest,
+ 124:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN CONST VOID     *Src,
+ 125:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN UINTN    len
+ 126:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+ 127:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+ 311              		.loc 1 127 1 is_stmt 1 view -0
+ 312              		.cfi_startproc
+ 313              		.loc 1 127 1 is_stmt 0 view .LVU68
+ 314 0120 F30F1EFA 		endbr64
+ 315 0124 4883EC08 		subq	$8, %rsp
+ 316              		.cfi_def_cfa_offset 16
+ 128:../Backend/gnu-efi-3.0.9/lib/misc.c ****     return RtCompareMem (Dest, Src, len);
+ 317              		.loc 1 128 5 is_stmt 1 view .LVU69
+ 318              		.loc 1 128 12 is_stmt 0 view .LVU70
+ 319 0128 E8000000 		call	RtCompareMem
+ 319      00
+ 320              	.LVL31:
+ 129:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 321              		.loc 1 129 1 view .LVU71
+ 322 012d 4883C408 		addq	$8, %rsp
+ 323              		.cfi_def_cfa_offset 8
+ 324 0131 C3       		ret
+ 325              		.cfi_endproc
+ 326              	.LFE7:
+ 328              		.globl	GrowBuffer
+ 329              		.hidden	GrowBuffer
+ 331              	GrowBuffer:
+ 332              	.LVL32:
+ 333              	.LFB8:
+ 130:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 131:../Backend/gnu-efi-3.0.9/lib/misc.c **** BOOLEAN
+ 132:../Backend/gnu-efi-3.0.9/lib/misc.c **** GrowBuffer(
+ 133:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN OUT EFI_STATUS   *Status,
+ 134:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN OUT VOID         **Buffer,
+ 135:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN UINTN            BufferSize
+ 136:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+ 137:../Backend/gnu-efi-3.0.9/lib/misc.c **** /*++
+ 138:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 139:../Backend/gnu-efi-3.0.9/lib/misc.c **** Routine Description:
+ 140:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 141:../Backend/gnu-efi-3.0.9/lib/misc.c ****     Helper function called as part of the code needed
+ 142:../Backend/gnu-efi-3.0.9/lib/misc.c ****     to allocate the proper sized buffer for various
+ 143:../Backend/gnu-efi-3.0.9/lib/misc.c ****     EFI interfaces.
+ 144:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 145:../Backend/gnu-efi-3.0.9/lib/misc.c **** Arguments:
+ 146:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 147:../Backend/gnu-efi-3.0.9/lib/misc.c ****     Status      - Current status
+ 148:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 149:../Backend/gnu-efi-3.0.9/lib/misc.c ****     Buffer      - Current allocated buffer, or NULL
+ 150:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 151:../Backend/gnu-efi-3.0.9/lib/misc.c ****     BufferSize  - Current buffer size needed
+ 152:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 153:../Backend/gnu-efi-3.0.9/lib/misc.c **** Returns:
+ 154:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 155:../Backend/gnu-efi-3.0.9/lib/misc.c ****     TRUE - if the buffer was reallocated and the caller
+ 156:../Backend/gnu-efi-3.0.9/lib/misc.c ****     should try the API again.
+ 157:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 158:../Backend/gnu-efi-3.0.9/lib/misc.c **** --*/
+ 159:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+ 334              		.loc 1 159 1 is_stmt 1 view -0
+ 335              		.cfi_startproc
+ 336              		.loc 1 159 1 is_stmt 0 view .LVU73
+ 337 0132 F30F1EFA 		endbr64
+ 338 0136 4154     		pushq	%r12
+ 339              		.cfi_def_cfa_offset 16
+ 340              		.cfi_offset 12, -16
+ 341 0138 55       		pushq	%rbp
+ 342              		.cfi_def_cfa_offset 24
+ 343              		.cfi_offset 6, -24
+ 344 0139 53       		pushq	%rbx
+ 345              		.cfi_def_cfa_offset 32
+ 346              		.cfi_offset 3, -32
+ 347 013a 4989FC   		movq	%rdi, %r12
+ 348 013d 4889F3   		movq	%rsi, %rbx
+ 349 0140 4889D5   		movq	%rdx, %rbp
+ 160:../Backend/gnu-efi-3.0.9/lib/misc.c ****     BOOLEAN         TryAgain;
+ 350              		.loc 1 160 5 is_stmt 1 view .LVU74
+ 161:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 162:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 163:../Backend/gnu-efi-3.0.9/lib/misc.c ****     // If this is an initial request, buffer will be null with a new buffer size
+ 164:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 165:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 166:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (!*Buffer && BufferSize) {
+ 351              		.loc 1 166 5 view .LVU75
+ 352              		.loc 1 166 8 is_stmt 0 view .LVU76
+ 353 0143 48833E00 		cmpq	$0, (%rsi)
+ 354 0147 7421     		je	.L33
+ 355              	.L25:
+ 167:../Backend/gnu-efi-3.0.9/lib/misc.c ****         *Status = EFI_BUFFER_TOO_SMALL;
+ 168:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 169:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 170:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 171:../Backend/gnu-efi-3.0.9/lib/misc.c ****     // If the status code is "buffer too small", resize the buffer
+ 172:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 173:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 174:../Backend/gnu-efi-3.0.9/lib/misc.c ****     TryAgain = FALSE;
+ 356              		.loc 1 174 5 is_stmt 1 view .LVU77
+ 357              	.LVL33:
+ 175:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (*Status == EFI_BUFFER_TOO_SMALL) {
+ 358              		.loc 1 175 5 view .LVU78
+ 359              		.loc 1 175 8 is_stmt 0 view .LVU79
+ 360 0149 48B80500 		movabsq	$-9223372036854775803, %rax
+ 360      00000000 
+ 360      0080
+ 361 0153 49390424 		cmpq	%rax, (%r12)
+ 362 0157 7425     		je	.L34
+ 363              	.LVL34:
+ 364              	.L26:
+ 176:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 177:../Backend/gnu-efi-3.0.9/lib/misc.c ****         if (*Buffer) {
+ 178:../Backend/gnu-efi-3.0.9/lib/misc.c ****             FreePool (*Buffer);
+ 179:../Backend/gnu-efi-3.0.9/lib/misc.c ****         }
+ 180:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 181:../Backend/gnu-efi-3.0.9/lib/misc.c ****         *Buffer = AllocatePool (BufferSize);
+ 182:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 183:../Backend/gnu-efi-3.0.9/lib/misc.c ****         if (*Buffer) {
+ 184:../Backend/gnu-efi-3.0.9/lib/misc.c ****             TryAgain = TRUE;
+ 185:../Backend/gnu-efi-3.0.9/lib/misc.c ****         } else {
+ 186:../Backend/gnu-efi-3.0.9/lib/misc.c ****             *Status = EFI_OUT_OF_RESOURCES;
+ 187:../Backend/gnu-efi-3.0.9/lib/misc.c ****         }
+ 188:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 189:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 190:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 191:../Backend/gnu-efi-3.0.9/lib/misc.c ****     // If there's an error, free the buffer
+ 192:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 193:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 194:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (!TryAgain && EFI_ERROR(*Status) && *Buffer) {
+ 365              		.loc 1 194 19 discriminator 1 view .LVU80
+ 366 0159 49833C24 		cmpq	$0, (%r12)
+ 366      00
+ 367 015e 7852     		js	.L35
+ 368 0160 B8000000 		movl	$0, %eax
+ 368      00
+ 369              	.L24:
+ 195:../Backend/gnu-efi-3.0.9/lib/misc.c ****         FreePool (*Buffer);
+ 196:../Backend/gnu-efi-3.0.9/lib/misc.c ****         *Buffer = NULL;
+ 197:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 198:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 199:../Backend/gnu-efi-3.0.9/lib/misc.c ****     return TryAgain;
+ 200:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 370              		.loc 1 200 1 view .LVU81
+ 371 0165 5B       		popq	%rbx
+ 372              		.cfi_remember_state
+ 373              		.cfi_restore 3
+ 374              		.cfi_def_cfa_offset 24
+ 375              	.LVL35:
+ 376              		.loc 1 200 1 view .LVU82
+ 377 0166 5D       		popq	%rbp
+ 378              		.cfi_restore 6
+ 379              		.cfi_def_cfa_offset 16
+ 380              	.LVL36:
+ 381              		.loc 1 200 1 view .LVU83
+ 382 0167 415C     		popq	%r12
+ 383              		.cfi_restore 12
+ 384              		.cfi_def_cfa_offset 8
+ 385              	.LVL37:
+ 386              		.loc 1 200 1 view .LVU84
+ 387 0169 C3       		ret
+ 388              	.LVL38:
+ 389              	.L33:
+ 390              		.cfi_restore_state
+ 166:../Backend/gnu-efi-3.0.9/lib/misc.c ****         *Status = EFI_BUFFER_TOO_SMALL;
+ 391              		.loc 1 166 18 discriminator 1 view .LVU85
+ 392 016a 4885D2   		testq	%rdx, %rdx
+ 393 016d 74DA     		je	.L25
+ 167:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 394              		.loc 1 167 9 is_stmt 1 view .LVU86
+ 167:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 395              		.loc 1 167 17 is_stmt 0 view .LVU87
+ 396 016f 48B80500 		movabsq	$-9223372036854775803, %rax
+ 396      00000000 
+ 396      0080
+ 397 0179 488907   		movq	%rax, (%rdi)
+ 398 017c EBCB     		jmp	.L25
+ 399              	.LVL39:
+ 400              	.L34:
+ 177:../Backend/gnu-efi-3.0.9/lib/misc.c ****             FreePool (*Buffer);
+ 401              		.loc 1 177 9 is_stmt 1 view .LVU88
+ 177:../Backend/gnu-efi-3.0.9/lib/misc.c ****             FreePool (*Buffer);
+ 402              		.loc 1 177 13 is_stmt 0 view .LVU89
+ 403 017e 488B3B   		movq	(%rbx), %rdi
+ 404              	.LVL40:
+ 177:../Backend/gnu-efi-3.0.9/lib/misc.c ****             FreePool (*Buffer);
+ 405              		.loc 1 177 12 view .LVU90
+ 406 0181 4885FF   		testq	%rdi, %rdi
+ 407 0184 7405     		je	.L27
+ 178:../Backend/gnu-efi-3.0.9/lib/misc.c ****         }
+ 408              		.loc 1 178 13 is_stmt 1 view .LVU91
+ 409 0186 E8000000 		call	FreePool
+ 409      00
+ 410              	.LVL41:
+ 411              	.L27:
+ 181:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 412              		.loc 1 181 9 view .LVU92
+ 181:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 413              		.loc 1 181 19 is_stmt 0 view .LVU93
+ 414 018b 4889EF   		movq	%rbp, %rdi
+ 415 018e E8000000 		call	AllocatePool
+ 415      00
+ 416              	.LVL42:
+ 181:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 417              		.loc 1 181 17 discriminator 1 view .LVU94
+ 418 0193 488903   		movq	%rax, (%rbx)
+ 183:../Backend/gnu-efi-3.0.9/lib/misc.c ****             TryAgain = TRUE;
+ 419              		.loc 1 183 9 is_stmt 1 view .LVU95
+ 183:../Backend/gnu-efi-3.0.9/lib/misc.c ****             TryAgain = TRUE;
+ 420              		.loc 1 183 12 is_stmt 0 view .LVU96
+ 421 0196 4885C0   		testq	%rax, %rax
+ 422 0199 7407     		je	.L36
+ 184:../Backend/gnu-efi-3.0.9/lib/misc.c ****         } else {
+ 423              		.loc 1 184 22 view .LVU97
+ 424 019b B8010000 		movl	$1, %eax
+ 424      00
+ 425 01a0 EBC3     		jmp	.L24
+ 426              	.L36:
+ 186:../Backend/gnu-efi-3.0.9/lib/misc.c ****         }
+ 427              		.loc 1 186 13 is_stmt 1 view .LVU98
+ 186:../Backend/gnu-efi-3.0.9/lib/misc.c ****         }
+ 428              		.loc 1 186 21 is_stmt 0 view .LVU99
+ 429 01a2 48B80900 		movabsq	$-9223372036854775799, %rax
+ 429      00000000 
+ 429      0080
+ 430 01ac 49890424 		movq	%rax, (%r12)
+ 194:../Backend/gnu-efi-3.0.9/lib/misc.c ****         FreePool (*Buffer);
+ 431              		.loc 1 194 5 is_stmt 1 view .LVU100
+ 432 01b0 EBA7     		jmp	.L26
+ 433              	.LVL43:
+ 434              	.L35:
+ 194:../Backend/gnu-efi-3.0.9/lib/misc.c ****         FreePool (*Buffer);
+ 435              		.loc 1 194 44 is_stmt 0 discriminator 2 view .LVU101
+ 436 01b2 488B3B   		movq	(%rbx), %rdi
+ 194:../Backend/gnu-efi-3.0.9/lib/misc.c ****         FreePool (*Buffer);
+ 437              		.loc 1 194 41 discriminator 2 view .LVU102
+ 438 01b5 4885FF   		testq	%rdi, %rdi
+ 439 01b8 7413     		je	.L31
+ 195:../Backend/gnu-efi-3.0.9/lib/misc.c ****         *Buffer = NULL;
+ 440              		.loc 1 195 9 is_stmt 1 view .LVU103
+ 441 01ba E8000000 		call	FreePool
+ 441      00
+ 442              	.LVL44:
+ 196:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 443              		.loc 1 196 9 view .LVU104
+ 196:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 444              		.loc 1 196 17 is_stmt 0 view .LVU105
+ 445 01bf 48C70300 		movq	$0, (%rbx)
+ 445      000000
+ 446 01c6 B8000000 		movl	$0, %eax
+ 446      00
+ 447 01cb EB98     		jmp	.L24
+ 448              	.L31:
+ 449 01cd B8000000 		movl	$0, %eax
+ 449      00
+ 199:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 450              		.loc 1 199 5 is_stmt 1 view .LVU106
+ 199:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 451              		.loc 1 199 12 is_stmt 0 view .LVU107
+ 452 01d2 EB91     		jmp	.L24
+ 453              		.cfi_endproc
+ 454              	.LFE8:
+ 456              		.globl	LibMemoryMap
+ 457              		.hidden	LibMemoryMap
+ 459              	LibMemoryMap:
+ 460              	.LVL45:
+ 461              	.LFB9:
+ 201:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 202:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 203:../Backend/gnu-efi-3.0.9/lib/misc.c **** EFI_MEMORY_DESCRIPTOR *
+ 204:../Backend/gnu-efi-3.0.9/lib/misc.c **** LibMemoryMap (
+ 205:../Backend/gnu-efi-3.0.9/lib/misc.c ****     OUT UINTN               *NoEntries,
+ 206:../Backend/gnu-efi-3.0.9/lib/misc.c ****     OUT UINTN               *MapKey,
+ 207:../Backend/gnu-efi-3.0.9/lib/misc.c ****     OUT UINTN               *DescriptorSize,
+ 208:../Backend/gnu-efi-3.0.9/lib/misc.c ****     OUT UINT32              *DescriptorVersion
+ 209:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+ 210:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+ 462              		.loc 1 210 1 is_stmt 1 view -0
+ 463              		.cfi_startproc
+ 464              		.loc 1 210 1 is_stmt 0 view .LVU109
+ 465 01d4 F30F1EFA 		endbr64
+ 466 01d8 4155     		pushq	%r13
+ 467              		.cfi_def_cfa_offset 16
+ 468              		.cfi_offset 13, -16
+ 469 01da 4154     		pushq	%r12
+ 470              		.cfi_def_cfa_offset 24
+ 471              		.cfi_offset 12, -24
+ 472 01dc 55       		pushq	%rbp
+ 473              		.cfi_def_cfa_offset 32
+ 474              		.cfi_offset 6, -32
+ 475 01dd 53       		pushq	%rbx
+ 476              		.cfi_def_cfa_offset 40
+ 477              		.cfi_offset 3, -40
+ 478 01de 4883EC58 		subq	$88, %rsp
+ 479              		.cfi_def_cfa_offset 128
+ 480 01e2 4989FD   		movq	%rdi, %r13
+ 481 01e5 4989F4   		movq	%rsi, %r12
+ 482 01e8 4889D3   		movq	%rdx, %rbx
+ 483 01eb 4889CD   		movq	%rcx, %rbp
+ 211:../Backend/gnu-efi-3.0.9/lib/misc.c ****     EFI_STATUS              Status;
+ 484              		.loc 1 211 5 is_stmt 1 view .LVU110
+ 212:../Backend/gnu-efi-3.0.9/lib/misc.c ****     EFI_MEMORY_DESCRIPTOR   *Buffer;
+ 485              		.loc 1 212 5 view .LVU111
+ 213:../Backend/gnu-efi-3.0.9/lib/misc.c ****     UINTN                   BufferSize;
+ 486              		.loc 1 213 5 view .LVU112
+ 214:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 215:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 216:../Backend/gnu-efi-3.0.9/lib/misc.c ****     // Initialize for GrowBuffer loop
+ 217:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 218:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 219:../Backend/gnu-efi-3.0.9/lib/misc.c ****     Status = EFI_SUCCESS;
+ 487              		.loc 1 219 5 view .LVU113
+ 488              		.loc 1 219 12 is_stmt 0 view .LVU114
+ 489 01ee 48C74424 		movq	$0, 72(%rsp)
+ 489      48000000 
+ 489      00
+ 220:../Backend/gnu-efi-3.0.9/lib/misc.c ****     Buffer = NULL;
+ 490              		.loc 1 220 5 is_stmt 1 view .LVU115
+ 491              		.loc 1 220 12 is_stmt 0 view .LVU116
+ 492 01f7 48C74424 		movq	$0, 64(%rsp)
+ 492      40000000 
+ 492      00
+ 221:../Backend/gnu-efi-3.0.9/lib/misc.c ****     BufferSize = sizeof(EFI_MEMORY_DESCRIPTOR);
+ 493              		.loc 1 221 5 is_stmt 1 view .LVU117
+ 494              		.loc 1 221 16 is_stmt 0 view .LVU118
+ 495 0200 48C74424 		movq	$40, 56(%rsp)
+ 495      38280000 
+ 495      00
+ 222:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 223:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 224:../Backend/gnu-efi-3.0.9/lib/misc.c ****     // Call the real function
+ 225:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 226:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 227:../Backend/gnu-efi-3.0.9/lib/misc.c ****     while (GrowBuffer (&Status, (VOID **) &Buffer, BufferSize)) {
+ 496              		.loc 1 227 5 is_stmt 1 view .LVU119
+ 497              		.loc 1 227 11 is_stmt 0 view .LVU120
+ 498 0209 EB27     		jmp	.L38
+ 499              	.LVL46:
+ 500              	.L39:
+ 228:../Backend/gnu-efi-3.0.9/lib/misc.c ****         Status = uefi_call_wrapper(BS->GetMemoryMap, 5, &BufferSize, Buffer, MapKey, DescriptorSize
+ 501              		.loc 1 228 9 is_stmt 1 view .LVU121
+ 502              		.loc 1 228 18 is_stmt 0 view .LVU122
+ 503 020b 488B0500 		movq	BS(%rip), %rax
+ 503      000000
+ 504 0212 488B4038 		movq	56(%rax), %rax
+ 505 0216 488D4C24 		leaq	56(%rsp), %rcx
+ 505      38
+ 506 021b 48896C24 		movq	%rbp, 32(%rsp)
+ 506      20
+ 507 0220 4989D9   		movq	%rbx, %r9
+ 508 0223 4D89E0   		movq	%r12, %r8
+ 509 0226 488B5424 		movq	64(%rsp), %rdx
+ 509      40
+ 510 022b FFD0     		call	*%rax
+ 511              	.LVL47:
+ 512              		.loc 1 228 16 discriminator 1 view .LVU123
+ 513 022d 48894424 		movq	%rax, 72(%rsp)
+ 513      48
+ 514              	.L38:
+ 227:../Backend/gnu-efi-3.0.9/lib/misc.c ****         Status = uefi_call_wrapper(BS->GetMemoryMap, 5, &BufferSize, Buffer, MapKey, DescriptorSize
+ 515              		.loc 1 227 12 is_stmt 1 view .LVU124
+ 516 0232 488D7424 		leaq	64(%rsp), %rsi
+ 516      40
+ 517 0237 488D7C24 		leaq	72(%rsp), %rdi
+ 517      48
+ 518 023c 488B5424 		movq	56(%rsp), %rdx
+ 518      38
+ 519 0241 E8000000 		call	GrowBuffer
+ 519      00
+ 520              	.LVL48:
+ 227:../Backend/gnu-efi-3.0.9/lib/misc.c ****         Status = uefi_call_wrapper(BS->GetMemoryMap, 5, &BufferSize, Buffer, MapKey, DescriptorSize
+ 521              		.loc 1 227 12 is_stmt 0 discriminator 1 view .LVU125
+ 522 0246 84C0     		testb	%al, %al
+ 523 0248 75C1     		jne	.L39
+ 229:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 230:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 231:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 232:../Backend/gnu-efi-3.0.9/lib/misc.c ****     // Convert buffer size to NoEntries
+ 233:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 234:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 235:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (!EFI_ERROR(Status)) {
+ 524              		.loc 1 235 5 is_stmt 1 view .LVU126
+ 525              		.loc 1 235 8 is_stmt 0 view .LVU127
+ 526 024a 48837C24 		cmpq	$0, 72(%rsp)
+ 526      4800
+ 527 0250 7811     		js	.L40
+ 236:../Backend/gnu-efi-3.0.9/lib/misc.c ****         *NoEntries = BufferSize / *DescriptorSize;
+ 528              		.loc 1 236 9 is_stmt 1 view .LVU128
+ 529              		.loc 1 236 33 is_stmt 0 view .LVU129
+ 530 0252 488B4424 		movq	56(%rsp), %rax
+ 530      38
+ 531 0257 BA000000 		movl	$0, %edx
+ 531      00
+ 532 025c 48F733   		divq	(%rbx)
+ 533              		.loc 1 236 20 view .LVU130
+ 534 025f 49894500 		movq	%rax, 0(%r13)
+ 535              	.L40:
+ 237:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 238:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 239:../Backend/gnu-efi-3.0.9/lib/misc.c ****     return Buffer;
+ 536              		.loc 1 239 5 is_stmt 1 view .LVU131
+ 240:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 537              		.loc 1 240 1 is_stmt 0 view .LVU132
+ 538 0263 488B4424 		movq	64(%rsp), %rax
+ 538      40
+ 539 0268 4883C458 		addq	$88, %rsp
+ 540              		.cfi_def_cfa_offset 40
+ 541 026c 5B       		popq	%rbx
+ 542              		.cfi_restore 3
+ 543              		.cfi_def_cfa_offset 32
+ 544              	.LVL49:
+ 545              		.loc 1 240 1 view .LVU133
+ 546 026d 5D       		popq	%rbp
+ 547              		.cfi_restore 6
+ 548              		.cfi_def_cfa_offset 24
+ 549              	.LVL50:
+ 550              		.loc 1 240 1 view .LVU134
+ 551 026e 415C     		popq	%r12
+ 552              		.cfi_restore 12
+ 553              		.cfi_def_cfa_offset 16
+ 554              	.LVL51:
+ 555              		.loc 1 240 1 view .LVU135
+ 556 0270 415D     		popq	%r13
+ 557              		.cfi_restore 13
+ 558              		.cfi_def_cfa_offset 8
+ 559              	.LVL52:
+ 560              		.loc 1 240 1 view .LVU136
+ 561 0272 C3       		ret
+ 562              		.cfi_endproc
+ 563              	.LFE9:
+ 565              		.globl	LibGetVariableAndSize
+ 566              		.hidden	LibGetVariableAndSize
+ 568              	LibGetVariableAndSize:
+ 569              	.LVL53:
+ 570              	.LFB10:
+ 241:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 242:../Backend/gnu-efi-3.0.9/lib/misc.c **** VOID *
+ 243:../Backend/gnu-efi-3.0.9/lib/misc.c **** LibGetVariableAndSize (
+ 244:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN CHAR16               *Name,
+ 245:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN EFI_GUID             *VendorGuid,
+ 246:../Backend/gnu-efi-3.0.9/lib/misc.c ****     OUT UINTN               *VarSize
+ 247:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+ 248:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+ 571              		.loc 1 248 1 is_stmt 1 view -0
+ 572              		.cfi_startproc
+ 573              		.loc 1 248 1 is_stmt 0 view .LVU138
+ 574 0273 F30F1EFA 		endbr64
+ 575 0277 4154     		pushq	%r12
+ 576              		.cfi_def_cfa_offset 16
+ 577              		.cfi_offset 12, -16
+ 578 0279 55       		pushq	%rbp
+ 579              		.cfi_def_cfa_offset 24
+ 580              		.cfi_offset 6, -24
+ 581 027a 53       		pushq	%rbx
+ 582              		.cfi_def_cfa_offset 32
+ 583              		.cfi_offset 3, -32
+ 584 027b 4883EC50 		subq	$80, %rsp
+ 585              		.cfi_def_cfa_offset 112
+ 586 027f 4889FD   		movq	%rdi, %rbp
+ 587 0282 4889F3   		movq	%rsi, %rbx
+ 588 0285 4989D4   		movq	%rdx, %r12
+ 249:../Backend/gnu-efi-3.0.9/lib/misc.c ****     EFI_STATUS              Status;
+ 589              		.loc 1 249 5 is_stmt 1 view .LVU139
+ 250:../Backend/gnu-efi-3.0.9/lib/misc.c ****     VOID                    *Buffer;
+ 590              		.loc 1 250 5 view .LVU140
+ 251:../Backend/gnu-efi-3.0.9/lib/misc.c ****     UINTN                   BufferSize;
+ 591              		.loc 1 251 5 view .LVU141
+ 252:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 253:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 254:../Backend/gnu-efi-3.0.9/lib/misc.c ****     // Initialize for GrowBuffer loop
+ 255:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 256:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 257:../Backend/gnu-efi-3.0.9/lib/misc.c ****     Buffer = NULL;
+ 592              		.loc 1 257 5 view .LVU142
+ 593              		.loc 1 257 12 is_stmt 0 view .LVU143
+ 594 0288 48C74424 		movq	$0, 64(%rsp)
+ 594      40000000 
+ 594      00
+ 258:../Backend/gnu-efi-3.0.9/lib/misc.c ****     BufferSize = 100;
+ 595              		.loc 1 258 5 is_stmt 1 view .LVU144
+ 596              		.loc 1 258 16 is_stmt 0 view .LVU145
+ 597 0291 48C74424 		movq	$100, 56(%rsp)
+ 597      38640000 
+ 597      00
+ 259:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 260:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 261:../Backend/gnu-efi-3.0.9/lib/misc.c ****     // Call the real function
+ 262:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 263:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 264:../Backend/gnu-efi-3.0.9/lib/misc.c ****     while (GrowBuffer (&Status, &Buffer, BufferSize)) {
+ 598              		.loc 1 264 5 is_stmt 1 view .LVU146
+ 599              		.loc 1 264 11 is_stmt 0 view .LVU147
+ 600 029a EB2D     		jmp	.L43
+ 601              	.LVL54:
+ 602              	.L44:
+ 265:../Backend/gnu-efi-3.0.9/lib/misc.c ****         Status = uefi_call_wrapper(
+ 603              		.loc 1 265 9 is_stmt 1 view .LVU148
+ 604              		.loc 1 265 18 is_stmt 0 view .LVU149
+ 605 029c 488B0500 		movq	RT(%rip), %rax
+ 605      000000
+ 606 02a3 488B4048 		movq	72(%rax), %rax
+ 607 02a7 488B5424 		movq	64(%rsp), %rdx
+ 607      40
+ 608 02ac 48895424 		movq	%rdx, 32(%rsp)
+ 608      20
+ 609 02b1 4C8D4C24 		leaq	56(%rsp), %r9
+ 609      38
+ 610 02b6 41B80000 		movl	$0, %r8d
+ 610      0000
+ 611 02bc 4889DA   		movq	%rbx, %rdx
+ 612 02bf 4889E9   		movq	%rbp, %rcx
+ 613 02c2 FFD0     		call	*%rax
+ 614              	.LVL55:
+ 615              		.loc 1 265 16 discriminator 1 view .LVU150
+ 616 02c4 48894424 		movq	%rax, 72(%rsp)
+ 616      48
+ 617              	.L43:
+ 264:../Backend/gnu-efi-3.0.9/lib/misc.c ****         Status = uefi_call_wrapper(
+ 618              		.loc 1 264 12 is_stmt 1 view .LVU151
+ 619 02c9 488D7424 		leaq	64(%rsp), %rsi
+ 619      40
+ 620 02ce 488D7C24 		leaq	72(%rsp), %rdi
+ 620      48
+ 621 02d3 488B5424 		movq	56(%rsp), %rdx
+ 621      38
+ 622 02d8 E8000000 		call	GrowBuffer
+ 622      00
+ 623              	.LVL56:
+ 264:../Backend/gnu-efi-3.0.9/lib/misc.c ****         Status = uefi_call_wrapper(
+ 624              		.loc 1 264 12 is_stmt 0 discriminator 1 view .LVU152
+ 625 02dd 84C0     		testb	%al, %al
+ 626 02df 75BB     		jne	.L44
+ 266:../Backend/gnu-efi-3.0.9/lib/misc.c **** 		    RT->GetVariable,
+ 267:../Backend/gnu-efi-3.0.9/lib/misc.c **** 			5,
+ 268:../Backend/gnu-efi-3.0.9/lib/misc.c ****                     Name,
+ 269:../Backend/gnu-efi-3.0.9/lib/misc.c ****                     VendorGuid,
+ 270:../Backend/gnu-efi-3.0.9/lib/misc.c ****                     NULL,
+ 271:../Backend/gnu-efi-3.0.9/lib/misc.c ****                     &BufferSize,
+ 272:../Backend/gnu-efi-3.0.9/lib/misc.c ****                     Buffer
+ 273:../Backend/gnu-efi-3.0.9/lib/misc.c ****                     );
+ 274:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 275:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (Buffer) {
+ 627              		.loc 1 275 5 is_stmt 1 view .LVU153
+ 628              		.loc 1 275 8 is_stmt 0 view .LVU154
+ 629 02e1 48837C24 		cmpq	$0, 64(%rsp)
+ 629      4000
+ 630 02e7 7417     		je	.L45
+ 276:../Backend/gnu-efi-3.0.9/lib/misc.c ****         *VarSize = BufferSize;
+ 631              		.loc 1 276 9 is_stmt 1 view .LVU155
+ 632              		.loc 1 276 18 is_stmt 0 view .LVU156
+ 633 02e9 488B4424 		movq	56(%rsp), %rax
+ 633      38
+ 634 02ee 49890424 		movq	%rax, (%r12)
+ 635              	.L46:
+ 277:../Backend/gnu-efi-3.0.9/lib/misc.c ****     } else {
+ 278:../Backend/gnu-efi-3.0.9/lib/misc.c ****         *VarSize = 0;
+ 279:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 280:../Backend/gnu-efi-3.0.9/lib/misc.c ****     return Buffer;
+ 636              		.loc 1 280 5 is_stmt 1 view .LVU157
+ 281:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 637              		.loc 1 281 1 is_stmt 0 view .LVU158
+ 638 02f2 488B4424 		movq	64(%rsp), %rax
+ 638      40
+ 639 02f7 4883C450 		addq	$80, %rsp
+ 640              		.cfi_remember_state
+ 641              		.cfi_def_cfa_offset 32
+ 642 02fb 5B       		popq	%rbx
+ 643              		.cfi_restore 3
+ 644              		.cfi_def_cfa_offset 24
+ 645              	.LVL57:
+ 646              		.loc 1 281 1 view .LVU159
+ 647 02fc 5D       		popq	%rbp
+ 648              		.cfi_restore 6
+ 649              		.cfi_def_cfa_offset 16
+ 650              	.LVL58:
+ 651              		.loc 1 281 1 view .LVU160
+ 652 02fd 415C     		popq	%r12
+ 653              		.cfi_restore 12
+ 654              		.cfi_def_cfa_offset 8
+ 655              	.LVL59:
+ 656              		.loc 1 281 1 view .LVU161
+ 657 02ff C3       		ret
+ 658              	.LVL60:
+ 659              	.L45:
+ 660              		.cfi_restore_state
+ 278:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 661              		.loc 1 278 9 is_stmt 1 view .LVU162
+ 278:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 662              		.loc 1 278 18 is_stmt 0 view .LVU163
+ 663 0300 49C70424 		movq	$0, (%r12)
+ 663      00000000 
+ 664 0308 EBE8     		jmp	.L46
+ 665              		.cfi_endproc
+ 666              	.LFE10:
+ 668              		.globl	LibGetVariable
+ 669              		.hidden	LibGetVariable
+ 671              	LibGetVariable:
+ 672              	.LVL61:
+ 673              	.LFB11:
+ 282:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 283:../Backend/gnu-efi-3.0.9/lib/misc.c **** VOID *
+ 284:../Backend/gnu-efi-3.0.9/lib/misc.c **** LibGetVariable (
+ 285:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN CHAR16               *Name,
+ 286:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN EFI_GUID             *VendorGuid
+ 287:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+ 288:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+ 674              		.loc 1 288 1 is_stmt 1 view -0
+ 675              		.cfi_startproc
+ 676              		.loc 1 288 1 is_stmt 0 view .LVU165
+ 677 030a F30F1EFA 		endbr64
+ 678 030e 4883EC18 		subq	$24, %rsp
+ 679              		.cfi_def_cfa_offset 32
+ 289:../Backend/gnu-efi-3.0.9/lib/misc.c ****     UINTN   VarSize;
+ 680              		.loc 1 289 5 is_stmt 1 view .LVU166
+ 290:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 291:../Backend/gnu-efi-3.0.9/lib/misc.c ****     return LibGetVariableAndSize (Name, VendorGuid, &VarSize);
+ 681              		.loc 1 291 5 view .LVU167
+ 682              		.loc 1 291 12 is_stmt 0 view .LVU168
+ 683 0312 488D5424 		leaq	8(%rsp), %rdx
+ 683      08
+ 684 0317 E8000000 		call	LibGetVariableAndSize
+ 684      00
+ 685              	.LVL62:
+ 292:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 686              		.loc 1 292 1 view .LVU169
+ 687 031c 4883C418 		addq	$24, %rsp
+ 688              		.cfi_def_cfa_offset 8
+ 689 0320 C3       		ret
+ 690              		.cfi_endproc
+ 691              	.LFE11:
+ 693              		.globl	LibDeleteVariable
+ 694              		.hidden	LibDeleteVariable
+ 696              	LibDeleteVariable:
+ 697              	.LVL63:
+ 698              	.LFB12:
+ 293:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 294:../Backend/gnu-efi-3.0.9/lib/misc.c **** EFI_STATUS
+ 295:../Backend/gnu-efi-3.0.9/lib/misc.c **** LibDeleteVariable (
+ 296:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN CHAR16   *VarName,
+ 297:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN EFI_GUID *VarGuid
+ 298:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+ 299:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+ 699              		.loc 1 299 1 is_stmt 1 view -0
+ 700              		.cfi_startproc
+ 701              		.loc 1 299 1 is_stmt 0 view .LVU171
+ 702 0321 F30F1EFA 		endbr64
+ 703 0325 4154     		pushq	%r12
+ 704              		.cfi_def_cfa_offset 16
+ 705              		.cfi_offset 12, -16
+ 706 0327 55       		pushq	%rbp
+ 707              		.cfi_def_cfa_offset 24
+ 708              		.cfi_offset 6, -24
+ 709 0328 53       		pushq	%rbx
+ 710              		.cfi_def_cfa_offset 32
+ 711              		.cfi_offset 3, -32
+ 712 0329 4883EC30 		subq	$48, %rsp
+ 713              		.cfi_def_cfa_offset 80
+ 714 032d 4989FC   		movq	%rdi, %r12
+ 715 0330 4889F5   		movq	%rsi, %rbp
+ 300:../Backend/gnu-efi-3.0.9/lib/misc.c ****     VOID        *VarBuf;
+ 716              		.loc 1 300 5 is_stmt 1 view .LVU172
+ 301:../Backend/gnu-efi-3.0.9/lib/misc.c ****     EFI_STATUS  Status;
+ 717              		.loc 1 301 5 view .LVU173
+ 302:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 303:../Backend/gnu-efi-3.0.9/lib/misc.c ****     VarBuf = LibGetVariable(VarName,VarGuid);
+ 718              		.loc 1 303 5 view .LVU174
+ 719              		.loc 1 303 14 is_stmt 0 view .LVU175
+ 720 0333 E8000000 		call	LibGetVariable
+ 720      00
+ 721              	.LVL64:
+ 304:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 305:../Backend/gnu-efi-3.0.9/lib/misc.c ****     Status = EFI_NOT_FOUND;
+ 722              		.loc 1 305 5 is_stmt 1 view .LVU176
+ 306:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 307:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (VarBuf) {
+ 723              		.loc 1 307 5 view .LVU177
+ 724              		.loc 1 307 8 is_stmt 0 view .LVU178
+ 725 0338 4885C0   		testq	%rax, %rax
+ 726 033b 7442     		je	.L52
+ 727 033d 4889C3   		movq	%rax, %rbx
+ 308:../Backend/gnu-efi-3.0.9/lib/misc.c ****         //
+ 309:../Backend/gnu-efi-3.0.9/lib/misc.c ****         // Delete variable from Storage
+ 310:../Backend/gnu-efi-3.0.9/lib/misc.c ****         //
+ 311:../Backend/gnu-efi-3.0.9/lib/misc.c ****         Status = uefi_call_wrapper(
+ 728              		.loc 1 311 9 is_stmt 1 view .LVU179
+ 729              		.loc 1 311 18 is_stmt 0 view .LVU180
+ 730 0340 488B0500 		movq	RT(%rip), %rax
+ 730      000000
+ 731              	.LVL65:
+ 732              		.loc 1 311 18 view .LVU181
+ 733 0347 488B4058 		movq	88(%rax), %rax
+ 734 034b 48C74424 		movq	$0, 32(%rsp)
+ 734      20000000 
+ 734      00
+ 735 0354 41B90000 		movl	$0, %r9d
+ 735      0000
+ 736 035a 41B80700 		movl	$7, %r8d
+ 736      0000
+ 737 0360 4889EA   		movq	%rbp, %rdx
+ 738 0363 4C89E1   		movq	%r12, %rcx
+ 739 0366 FFD0     		call	*%rax
+ 740              	.LVL66:
+ 741 0368 4889C5   		movq	%rax, %rbp
+ 742              	.LVL67:
+ 312:../Backend/gnu-efi-3.0.9/lib/misc.c **** 		    RT->SetVariable,
+ 313:../Backend/gnu-efi-3.0.9/lib/misc.c **** 			5,
+ 314:../Backend/gnu-efi-3.0.9/lib/misc.c ****                     VarName, VarGuid,
+ 315:../Backend/gnu-efi-3.0.9/lib/misc.c ****                     EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS | EFI_VARIABLE_NO
+ 316:../Backend/gnu-efi-3.0.9/lib/misc.c ****                     0, NULL
+ 317:../Backend/gnu-efi-3.0.9/lib/misc.c ****                  );
+ 318:../Backend/gnu-efi-3.0.9/lib/misc.c ****         ASSERT (!EFI_ERROR(Status));
+ 743              		.loc 1 318 36 is_stmt 1 view .LVU182
+ 319:../Backend/gnu-efi-3.0.9/lib/misc.c ****         FreePool(VarBuf);
+ 744              		.loc 1 319 9 view .LVU183
+ 745 036b 4889DF   		movq	%rbx, %rdi
+ 746 036e E8000000 		call	FreePool
+ 746      00
+ 747              	.LVL68:
+ 748              	.L50:
+ 320:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 321:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 322:../Backend/gnu-efi-3.0.9/lib/misc.c ****     return (Status);
+ 323:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 749              		.loc 1 323 1 is_stmt 0 view .LVU184
+ 750 0373 4889E8   		movq	%rbp, %rax
+ 751 0376 4883C430 		addq	$48, %rsp
+ 752              		.cfi_remember_state
+ 753              		.cfi_def_cfa_offset 32
+ 754 037a 5B       		popq	%rbx
+ 755              		.cfi_restore 3
+ 756              		.cfi_def_cfa_offset 24
+ 757 037b 5D       		popq	%rbp
+ 758              		.cfi_restore 6
+ 759              		.cfi_def_cfa_offset 16
+ 760 037c 415C     		popq	%r12
+ 761              		.cfi_restore 12
+ 762              		.cfi_def_cfa_offset 8
+ 763              	.LVL69:
+ 764              		.loc 1 323 1 view .LVU185
+ 765 037e C3       		ret
+ 766              	.LVL70:
+ 767              	.L52:
+ 768              		.cfi_restore_state
+ 305:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 769              		.loc 1 305 12 view .LVU186
+ 770 037f 48BD0E00 		movabsq	$-9223372036854775794, %rbp
+ 770      00000000 
+ 770      0080
+ 771              	.LVL71:
+ 322:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 772              		.loc 1 322 5 is_stmt 1 view .LVU187
+ 322:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 773              		.loc 1 322 12 is_stmt 0 view .LVU188
+ 774 0389 EBE8     		jmp	.L50
+ 775              		.cfi_endproc
+ 776              	.LFE12:
+ 778              		.globl	LibSetNVVariable
+ 779              		.hidden	LibSetNVVariable
+ 781              	LibSetNVVariable:
+ 782              	.LVL72:
+ 783              	.LFB13:
+ 324:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 325:../Backend/gnu-efi-3.0.9/lib/misc.c **** EFI_STATUS
+ 326:../Backend/gnu-efi-3.0.9/lib/misc.c **** LibSetNVVariable (
+ 327:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN CHAR16   *VarName,
+ 328:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN EFI_GUID *VarGuid,
+ 329:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN UINTN	 DataSize,
+ 330:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN VOID     *Data
+ 331:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+ 332:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+ 784              		.loc 1 332 1 is_stmt 1 view -0
+ 785              		.cfi_startproc
+ 786              		.loc 1 332 1 is_stmt 0 view .LVU190
+ 787 038b F30F1EFA 		endbr64
+ 788 038f 4883EC38 		subq	$56, %rsp
+ 789              		.cfi_def_cfa_offset 64
+ 790 0393 4989D1   		movq	%rdx, %r9
+ 333:../Backend/gnu-efi-3.0.9/lib/misc.c ****     EFI_STATUS  Status;
+ 791              		.loc 1 333 5 is_stmt 1 view .LVU191
+ 334:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 335:../Backend/gnu-efi-3.0.9/lib/misc.c ****     Status = uefi_call_wrapper(
+ 792              		.loc 1 335 5 view .LVU192
+ 793              		.loc 1 335 14 is_stmt 0 view .LVU193
+ 794 0396 488B0500 		movq	RT(%rip), %rax
+ 794      000000
+ 795 039d 488B4058 		movq	88(%rax), %rax
+ 796 03a1 48894C24 		movq	%rcx, 32(%rsp)
+ 796      20
+ 797 03a6 41B80700 		movl	$7, %r8d
+ 797      0000
+ 798 03ac 4889F2   		movq	%rsi, %rdx
+ 799              	.LVL73:
+ 800              		.loc 1 335 14 view .LVU194
+ 801 03af 4889F9   		movq	%rdi, %rcx
+ 802              	.LVL74:
+ 803              		.loc 1 335 14 view .LVU195
+ 804 03b2 FFD0     		call	*%rax
+ 805              	.LVL75:
+ 336:../Backend/gnu-efi-3.0.9/lib/misc.c **** 	    RT->SetVariable,
+ 337:../Backend/gnu-efi-3.0.9/lib/misc.c **** 	    5,
+ 338:../Backend/gnu-efi-3.0.9/lib/misc.c **** 	    VarName, VarGuid,
+ 339:../Backend/gnu-efi-3.0.9/lib/misc.c **** 	    EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS | EFI_VARIABLE_NON_VOLATILE,
+ 340:../Backend/gnu-efi-3.0.9/lib/misc.c **** 	    DataSize, Data
+ 341:../Backend/gnu-efi-3.0.9/lib/misc.c **** 	    );
+ 342:../Backend/gnu-efi-3.0.9/lib/misc.c ****     ASSERT (!EFI_ERROR(Status));
+ 806              		.loc 1 342 32 is_stmt 1 view .LVU196
+ 343:../Backend/gnu-efi-3.0.9/lib/misc.c ****     return (Status);
+ 807              		.loc 1 343 5 view .LVU197
+ 344:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 808              		.loc 1 344 1 is_stmt 0 view .LVU198
+ 809 03b4 4883C438 		addq	$56, %rsp
+ 810              		.cfi_def_cfa_offset 8
+ 811 03b8 C3       		ret
+ 812              		.cfi_endproc
+ 813              	.LFE13:
+ 815              		.globl	LibSetVariable
+ 816              		.hidden	LibSetVariable
+ 818              	LibSetVariable:
+ 819              	.LVL76:
+ 820              	.LFB14:
+ 345:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 346:../Backend/gnu-efi-3.0.9/lib/misc.c **** EFI_STATUS
+ 347:../Backend/gnu-efi-3.0.9/lib/misc.c **** LibSetVariable (
+ 348:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN CHAR16   *VarName,
+ 349:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN EFI_GUID *VarGuid,
+ 350:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN UINTN	 DataSize,
+ 351:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN VOID     *Data
+ 352:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+ 353:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+ 821              		.loc 1 353 1 is_stmt 1 view -0
+ 822              		.cfi_startproc
+ 823              		.loc 1 353 1 is_stmt 0 view .LVU200
+ 824 03b9 F30F1EFA 		endbr64
+ 825 03bd 4883EC38 		subq	$56, %rsp
+ 826              		.cfi_def_cfa_offset 64
+ 827 03c1 4989D1   		movq	%rdx, %r9
+ 354:../Backend/gnu-efi-3.0.9/lib/misc.c ****     EFI_STATUS  Status;
+ 828              		.loc 1 354 5 is_stmt 1 view .LVU201
+ 355:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 356:../Backend/gnu-efi-3.0.9/lib/misc.c ****     Status = uefi_call_wrapper(
+ 829              		.loc 1 356 5 view .LVU202
+ 830              		.loc 1 356 14 is_stmt 0 view .LVU203
+ 831 03c4 488B0500 		movq	RT(%rip), %rax
+ 831      000000
+ 832 03cb 488B4058 		movq	88(%rax), %rax
+ 833 03cf 48894C24 		movq	%rcx, 32(%rsp)
+ 833      20
+ 834 03d4 41B80600 		movl	$6, %r8d
+ 834      0000
+ 835 03da 4889F2   		movq	%rsi, %rdx
+ 836              	.LVL77:
+ 837              		.loc 1 356 14 view .LVU204
+ 838 03dd 4889F9   		movq	%rdi, %rcx
+ 839              	.LVL78:
+ 840              		.loc 1 356 14 view .LVU205
+ 841 03e0 FFD0     		call	*%rax
+ 842              	.LVL79:
+ 357:../Backend/gnu-efi-3.0.9/lib/misc.c **** 	    RT->SetVariable,
+ 358:../Backend/gnu-efi-3.0.9/lib/misc.c **** 	    5,
+ 359:../Backend/gnu-efi-3.0.9/lib/misc.c **** 	    VarName, VarGuid,
+ 360:../Backend/gnu-efi-3.0.9/lib/misc.c **** 	    EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS,
+ 361:../Backend/gnu-efi-3.0.9/lib/misc.c **** 	    DataSize, Data
+ 362:../Backend/gnu-efi-3.0.9/lib/misc.c **** 	    );
+ 363:../Backend/gnu-efi-3.0.9/lib/misc.c ****     ASSERT (!EFI_ERROR(Status));
+ 843              		.loc 1 363 32 is_stmt 1 view .LVU206
+ 364:../Backend/gnu-efi-3.0.9/lib/misc.c ****     return (Status);
+ 844              		.loc 1 364 5 view .LVU207
+ 365:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 845              		.loc 1 365 1 is_stmt 0 view .LVU208
+ 846 03e2 4883C438 		addq	$56, %rsp
+ 847              		.cfi_def_cfa_offset 8
+ 848 03e6 C3       		ret
+ 849              		.cfi_endproc
+ 850              	.LFE14:
+ 852              		.section	.rodata
+ 853              		.align 2
+ 854              	.LC0:
+ 855 0000 4200     		.string	"B"
+ 856 0002 6F00     		.string	"o"
+ 857 0004 6F00     		.string	"o"
+ 858 0006 7400     		.string	"t"
+ 859 0008 4F00     		.string	"O"
+ 860 000a 7200     		.string	"r"
+ 861 000c 6400     		.string	"d"
+ 862 000e 6500     		.string	"e"
+ 863 0010 7200     		.string	"r"
+ 864 0012 00       		.string	""
+ 865 0013 00       		.string	""
+ 866              		.text
+ 867              		.globl	LibInsertToTailOfBootOrder
+ 868              		.hidden	LibInsertToTailOfBootOrder
+ 870              	LibInsertToTailOfBootOrder:
+ 871              	.LVL80:
+ 872              	.LFB15:
+ 366:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 367:../Backend/gnu-efi-3.0.9/lib/misc.c **** EFI_STATUS
+ 368:../Backend/gnu-efi-3.0.9/lib/misc.c **** LibInsertToTailOfBootOrder (
+ 369:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN  UINT16  BootOption,
+ 370:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN  BOOLEAN OnlyInsertIfEmpty
+ 371:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+ 372:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+ 873              		.loc 1 372 1 is_stmt 1 view -0
+ 874              		.cfi_startproc
+ 875              		.loc 1 372 1 is_stmt 0 view .LVU210
+ 876 03e7 F30F1EFA 		endbr64
+ 877 03eb 4154     		pushq	%r12
+ 878              		.cfi_def_cfa_offset 16
+ 879              		.cfi_offset 12, -16
+ 880 03ed 55       		pushq	%rbp
+ 881              		.cfi_def_cfa_offset 24
+ 882              		.cfi_offset 6, -24
+ 883 03ee 53       		pushq	%rbx
+ 884              		.cfi_def_cfa_offset 32
+ 885              		.cfi_offset 3, -32
+ 886 03ef 4883EC40 		subq	$64, %rsp
+ 887              		.cfi_def_cfa_offset 96
+ 888 03f3 4189FC   		movl	%edi, %r12d
+ 889 03f6 89F3     		movl	%esi, %ebx
+ 373:../Backend/gnu-efi-3.0.9/lib/misc.c ****     UINT16      *BootOptionArray;
+ 890              		.loc 1 373 5 is_stmt 1 view .LVU211
+ 374:../Backend/gnu-efi-3.0.9/lib/misc.c ****     UINT16      *NewBootOptionArray;
+ 891              		.loc 1 374 5 view .LVU212
+ 375:../Backend/gnu-efi-3.0.9/lib/misc.c ****     UINTN       VarSize;
+ 892              		.loc 1 375 5 view .LVU213
+ 376:../Backend/gnu-efi-3.0.9/lib/misc.c ****     UINTN       Index;
+ 893              		.loc 1 376 5 view .LVU214
+ 377:../Backend/gnu-efi-3.0.9/lib/misc.c ****     EFI_STATUS  Status;
+ 894              		.loc 1 377 5 view .LVU215
+ 378:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 379:../Backend/gnu-efi-3.0.9/lib/misc.c ****     BootOptionArray = LibGetVariableAndSize (VarBootOrder, &EfiGlobalVariable, &VarSize);
+ 895              		.loc 1 379 5 view .LVU216
+ 896              		.loc 1 379 23 is_stmt 0 view .LVU217
+ 897 03f8 488D5424 		leaq	56(%rsp), %rdx
+ 897      38
+ 898 03fd 488D3500 		leaq	gEfiGlobalVariableGuid(%rip), %rsi
+ 898      000000
+ 899              	.LVL81:
+ 900              		.loc 1 379 23 view .LVU218
+ 901 0404 488D3D00 		leaq	.LC0(%rip), %rdi
+ 901      000000
+ 902              	.LVL82:
+ 903              		.loc 1 379 23 view .LVU219
+ 904 040b E8000000 		call	LibGetVariableAndSize
+ 904      00
+ 905              	.LVL83:
+ 906 0410 4889C5   		movq	%rax, %rbp
+ 907              	.LVL84:
+ 380:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (VarSize != 0 && OnlyInsertIfEmpty) {
+ 908              		.loc 1 380 5 is_stmt 1 view .LVU220
+ 909              		.loc 1 380 17 is_stmt 0 view .LVU221
+ 910 0413 488B7C24 		movq	56(%rsp), %rdi
+ 910      38
+ 911              		.loc 1 380 8 view .LVU222
+ 912 0418 4885FF   		testq	%rdi, %rdi
+ 913 041b 7404     		je	.L59
+ 914              		.loc 1 380 22 discriminator 1 view .LVU223
+ 915 041d 84DB     		testb	%bl, %bl
+ 916 041f 7518     		jne	.L66
+ 917              	.L59:
+ 381:../Backend/gnu-efi-3.0.9/lib/misc.c ****         if (BootOptionArray) {
+ 382:../Backend/gnu-efi-3.0.9/lib/misc.c ****             FreePool (BootOptionArray);
+ 383:../Backend/gnu-efi-3.0.9/lib/misc.c ****         }
+ 384:../Backend/gnu-efi-3.0.9/lib/misc.c ****         return EFI_UNSUPPORTED;
+ 385:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 386:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 387:../Backend/gnu-efi-3.0.9/lib/misc.c ****     VarSize += sizeof(UINT16);
+ 918              		.loc 1 387 5 is_stmt 1 view .LVU224
+ 919              		.loc 1 387 13 is_stmt 0 view .LVU225
+ 920 0421 4883C702 		addq	$2, %rdi
+ 921 0425 48897C24 		movq	%rdi, 56(%rsp)
+ 921      38
+ 388:../Backend/gnu-efi-3.0.9/lib/misc.c ****     NewBootOptionArray = AllocatePool (VarSize);
+ 922              		.loc 1 388 5 is_stmt 1 view .LVU226
+ 923              		.loc 1 388 26 is_stmt 0 view .LVU227
+ 924 042a E8000000 		call	AllocatePool
+ 924      00
+ 925              	.LVL85:
+ 926              		.loc 1 388 26 view .LVU228
+ 927 042f 4889C3   		movq	%rax, %rbx
+ 928              	.LVL86:
+ 389:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 390:../Backend/gnu-efi-3.0.9/lib/misc.c ****     for (Index = 0; Index < ((VarSize/sizeof(UINT16)) - 1); Index++) {
+ 929              		.loc 1 390 5 is_stmt 1 view .LVU229
+ 930              		.loc 1 390 16 is_stmt 0 view .LVU230
+ 931 0432 BA000000 		movl	$0, %edx
+ 931      00
+ 932              		.loc 1 390 5 view .LVU231
+ 933 0437 EB26     		jmp	.L62
+ 934              	.LVL87:
+ 935              	.L66:
+ 381:../Backend/gnu-efi-3.0.9/lib/misc.c ****             FreePool (BootOptionArray);
+ 936              		.loc 1 381 9 is_stmt 1 view .LVU232
+ 381:../Backend/gnu-efi-3.0.9/lib/misc.c ****             FreePool (BootOptionArray);
+ 937              		.loc 1 381 12 is_stmt 0 view .LVU233
+ 938 0439 4885C0   		testq	%rax, %rax
+ 939 043c 7408     		je	.L60
+ 382:../Backend/gnu-efi-3.0.9/lib/misc.c ****         }
+ 940              		.loc 1 382 13 is_stmt 1 view .LVU234
+ 941 043e 4889C7   		movq	%rax, %rdi
+ 942 0441 E8000000 		call	FreePool
+ 942      00
+ 943              	.LVL88:
+ 944              	.L60:
+ 384:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 945              		.loc 1 384 9 view .LVU235
+ 384:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 946              		.loc 1 384 16 is_stmt 0 view .LVU236
+ 947 0446 49BC0300 		movabsq	$-9223372036854775805, %r12
+ 947      00000000 
+ 947      0080
+ 948              	.LVL89:
+ 384:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 949              		.loc 1 384 16 view .LVU237
+ 950 0450 EB6B     		jmp	.L58
+ 951              	.LVL90:
+ 952              	.L63:
+ 391:../Backend/gnu-efi-3.0.9/lib/misc.c ****         NewBootOptionArray[Index] = BootOptionArray[Index];
+ 953              		.loc 1 391 9 is_stmt 1 view .LVU238
+ 954              		.loc 1 391 52 is_stmt 0 view .LVU239
+ 955 0452 0FB74455 		movzwl	0(%rbp,%rdx,2), %eax
+ 955      00
+ 956              		.loc 1 391 35 view .LVU240
+ 957 0457 66890453 		movw	%ax, (%rbx,%rdx,2)
+ 390:../Backend/gnu-efi-3.0.9/lib/misc.c ****         NewBootOptionArray[Index] = BootOptionArray[Index];
+ 958              		.loc 1 390 66 is_stmt 1 discriminator 3 view .LVU241
+ 959 045b 4883C201 		addq	$1, %rdx
+ 960              	.LVL91:
+ 961              	.L62:
+ 390:../Backend/gnu-efi-3.0.9/lib/misc.c ****         NewBootOptionArray[Index] = BootOptionArray[Index];
+ 962              		.loc 1 390 27 discriminator 1 view .LVU242
+ 390:../Backend/gnu-efi-3.0.9/lib/misc.c ****         NewBootOptionArray[Index] = BootOptionArray[Index];
+ 963              		.loc 1 390 38 is_stmt 0 discriminator 1 view .LVU243
+ 964 045f 488B4424 		movq	56(%rsp), %rax
+ 964      38
+ 965 0464 48D1E8   		shrq	%rax
+ 390:../Backend/gnu-efi-3.0.9/lib/misc.c ****         NewBootOptionArray[Index] = BootOptionArray[Index];
+ 966              		.loc 1 390 55 discriminator 1 view .LVU244
+ 967 0467 4883E801 		subq	$1, %rax
+ 390:../Backend/gnu-efi-3.0.9/lib/misc.c ****         NewBootOptionArray[Index] = BootOptionArray[Index];
+ 968              		.loc 1 390 27 discriminator 1 view .LVU245
+ 969 046b 4839C2   		cmpq	%rax, %rdx
+ 970 046e 72E2     		jb	.L63
+ 392:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 393:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 394:../Backend/gnu-efi-3.0.9/lib/misc.c ****     // Insert in the tail of the array
+ 395:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 396:../Backend/gnu-efi-3.0.9/lib/misc.c ****     NewBootOptionArray[Index] = BootOption;
+ 971              		.loc 1 396 5 is_stmt 1 view .LVU246
+ 972              		.loc 1 396 31 is_stmt 0 view .LVU247
+ 973 0470 66448924 		movw	%r12w, (%rbx,%rdx,2)
+ 973      53
+ 397:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 398:../Backend/gnu-efi-3.0.9/lib/misc.c ****     Status = uefi_call_wrapper(
+ 974              		.loc 1 398 5 is_stmt 1 view .LVU248
+ 975              		.loc 1 398 14 is_stmt 0 view .LVU249
+ 976 0475 488B0500 		movq	RT(%rip), %rax
+ 976      000000
+ 977 047c 488B4058 		movq	88(%rax), %rax
+ 978 0480 48895C24 		movq	%rbx, 32(%rsp)
+ 978      20
+ 979 0485 4C8B4C24 		movq	56(%rsp), %r9
+ 979      38
+ 980 048a 41B80700 		movl	$7, %r8d
+ 980      0000
+ 981 0490 488D1500 		leaq	gEfiGlobalVariableGuid(%rip), %rdx
+ 981      000000
+ 982              	.LVL92:
+ 983              		.loc 1 398 14 view .LVU250
+ 984 0497 488D0D00 		leaq	.LC0(%rip), %rcx
+ 984      000000
+ 985 049e FFD0     		call	*%rax
+ 986              	.LVL93:
+ 987 04a0 4989C4   		movq	%rax, %r12
+ 988              	.LVL94:
+ 399:../Backend/gnu-efi-3.0.9/lib/misc.c **** 		RT->SetVariable,
+ 400:../Backend/gnu-efi-3.0.9/lib/misc.c **** 		5,
+ 401:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 VarBootOrder, &EfiGlobalVariable,
+ 402:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS | EFI_VARIABLE_NON_VO
+ 403:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 VarSize, (VOID*) NewBootOptionArray
+ 404:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 );
+ 405:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 406:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (NewBootOptionArray) {
+ 989              		.loc 1 406 5 is_stmt 1 view .LVU251
+ 990              		.loc 1 406 8 is_stmt 0 view .LVU252
+ 991 04a3 4885DB   		testq	%rbx, %rbx
+ 992 04a6 7408     		je	.L64
+ 407:../Backend/gnu-efi-3.0.9/lib/misc.c ****         FreePool (NewBootOptionArray);
+ 993              		.loc 1 407 9 is_stmt 1 view .LVU253
+ 994 04a8 4889DF   		movq	%rbx, %rdi
+ 995 04ab E8000000 		call	FreePool
+ 995      00
+ 996              	.LVL95:
+ 997              	.L64:
+ 408:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 409:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (BootOptionArray) {
+ 998              		.loc 1 409 5 view .LVU254
+ 999              		.loc 1 409 8 is_stmt 0 view .LVU255
+ 1000 04b0 4885ED   		testq	%rbp, %rbp
+ 1001 04b3 7408     		je	.L58
+ 410:../Backend/gnu-efi-3.0.9/lib/misc.c ****         FreePool (BootOptionArray);
+ 1002              		.loc 1 410 9 is_stmt 1 view .LVU256
+ 1003 04b5 4889EF   		movq	%rbp, %rdi
+ 1004 04b8 E8000000 		call	FreePool
+ 1004      00
+ 1005              	.LVL96:
+ 1006              	.L58:
+ 411:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 412:../Backend/gnu-efi-3.0.9/lib/misc.c ****     return Status;
+ 413:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 1007              		.loc 1 413 1 is_stmt 0 view .LVU257
+ 1008 04bd 4C89E0   		movq	%r12, %rax
+ 1009 04c0 4883C440 		addq	$64, %rsp
+ 1010              		.cfi_def_cfa_offset 32
+ 1011 04c4 5B       		popq	%rbx
+ 1012              		.cfi_restore 3
+ 1013              		.cfi_def_cfa_offset 24
+ 1014 04c5 5D       		popq	%rbp
+ 1015              		.cfi_restore 6
+ 1016              		.cfi_def_cfa_offset 16
+ 1017              	.LVL97:
+ 1018              		.loc 1 413 1 view .LVU258
+ 1019 04c6 415C     		popq	%r12
+ 1020              		.cfi_restore 12
+ 1021              		.cfi_def_cfa_offset 8
+ 1022 04c8 C3       		ret
+ 1023              		.cfi_endproc
+ 1024              	.LFE15:
+ 1026              		.globl	ValidMBR
+ 1027              		.hidden	ValidMBR
+ 1029              	ValidMBR:
+ 1030              	.LVL98:
+ 1031              	.LFB16:
+ 414:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 415:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 416:../Backend/gnu-efi-3.0.9/lib/misc.c **** BOOLEAN
+ 417:../Backend/gnu-efi-3.0.9/lib/misc.c **** ValidMBR(
+ 418:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN  MASTER_BOOT_RECORD  *Mbr,
+ 419:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN  EFI_BLOCK_IO        *BlkIo
+ 420:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+ 421:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+ 1032              		.loc 1 421 1 is_stmt 1 view -0
+ 1033              		.cfi_startproc
+ 1034              		.loc 1 421 1 is_stmt 0 view .LVU260
+ 1035 04c9 F30F1EFA 		endbr64
+ 422:../Backend/gnu-efi-3.0.9/lib/misc.c ****     UINT32      StartingLBA, EndingLBA;
+ 1036              		.loc 1 422 5 is_stmt 1 view .LVU261
+ 423:../Backend/gnu-efi-3.0.9/lib/misc.c ****     UINT32      NewEndingLBA;
+ 1037              		.loc 1 423 5 view .LVU262
+ 424:../Backend/gnu-efi-3.0.9/lib/misc.c ****     INTN        i, j;
+ 1038              		.loc 1 424 5 view .LVU263
+ 425:../Backend/gnu-efi-3.0.9/lib/misc.c ****     BOOLEAN     ValidMbr;
+ 1039              		.loc 1 425 5 view .LVU264
+ 426:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 427:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (Mbr->Signature != MBR_SIGNATURE) {
+ 1040              		.loc 1 427 5 view .LVU265
+ 1041              		.loc 1 427 8 is_stmt 0 view .LVU266
+ 1042 04cd 6681BFFE 		cmpw	$-21931, 510(%rdi)
+ 1042      01000055 
+ 1042      AA
+ 1043 04d6 0F85CE01 		jne	.L77
+ 1043      0000
+ 1044 04dc 4989F2   		movq	%rsi, %r10
+ 428:../Backend/gnu-efi-3.0.9/lib/misc.c ****         //
+ 429:../Backend/gnu-efi-3.0.9/lib/misc.c ****         // The BPB also has this signature, so it can not be used alone.
+ 430:../Backend/gnu-efi-3.0.9/lib/misc.c ****         //
+ 431:../Backend/gnu-efi-3.0.9/lib/misc.c ****         return FALSE;
+ 432:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 433:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 434:../Backend/gnu-efi-3.0.9/lib/misc.c ****     ValidMbr = FALSE;
+ 1045              		.loc 1 434 14 view .LVU267
+ 1046 04df BE000000 		movl	$0, %esi
+ 1046      00
+ 1047              	.LVL99:
+ 435:../Backend/gnu-efi-3.0.9/lib/misc.c ****     for (i=0; i<MAX_MBR_PARTITIONS; i++) {
+ 1048              		.loc 1 435 11 view .LVU268
+ 1049 04e4 41B80000 		movl	$0, %r8d
+ 1049      0000
+ 1050              	.L83:
+ 1051              	.LVL100:
+ 1052              		.loc 1 435 16 is_stmt 1 discriminator 1 view .LVU269
+ 1053 04ea 4983F803 		cmpq	$3, %r8
+ 1054 04ee 0F8FBB01 		jg	.L88
+ 1054      0000
+ 436:../Backend/gnu-efi-3.0.9/lib/misc.c ****         if ( Mbr->Partition[i].OSIndicator == 0x00 || EXTRACT_UINT32(Mbr->Partition[i].SizeInLBA) =
+ 1055              		.loc 1 436 9 view .LVU270
+ 1056              		.loc 1 436 31 is_stmt 0 view .LVU271
+ 1057 04f4 498D401B 		leaq	27(%r8), %rax
+ 1058 04f8 48C1E004 		salq	$4, %rax
+ 1059              		.loc 1 436 12 view .LVU272
+ 1060 04fc 807C0712 		cmpb	$0, 18(%rdi,%rax)
+ 1060      00
+ 1061 0501 0F84C201 		je	.L90
+ 1061      0000
+ 421:../Backend/gnu-efi-3.0.9/lib/misc.c ****     UINT32      StartingLBA, EndingLBA;
+ 1062              		.loc 1 421 1 view .LVU273
+ 1063 0507 53       		pushq	%rbx
+ 1064              		.cfi_def_cfa_offset 16
+ 1065              		.cfi_offset 3, -16
+ 1066 0508 E9F40000 		jmp	.L85
+ 1066      00
+ 1067              	.LVL101:
+ 1068              	.L74:
+ 437:../Backend/gnu-efi-3.0.9/lib/misc.c ****             continue;
+ 438:../Backend/gnu-efi-3.0.9/lib/misc.c ****         }
+ 439:../Backend/gnu-efi-3.0.9/lib/misc.c ****         ValidMbr = TRUE;
+ 440:../Backend/gnu-efi-3.0.9/lib/misc.c ****         StartingLBA = EXTRACT_UINT32(Mbr->Partition[i].StartingLBA);
+ 441:../Backend/gnu-efi-3.0.9/lib/misc.c ****         EndingLBA = StartingLBA + EXTRACT_UINT32(Mbr->Partition[i].SizeInLBA) - 1;
+ 442:../Backend/gnu-efi-3.0.9/lib/misc.c ****         if (EndingLBA > BlkIo->Media->LastBlock) {
+ 443:../Backend/gnu-efi-3.0.9/lib/misc.c ****             //
+ 444:../Backend/gnu-efi-3.0.9/lib/misc.c ****             // Compatability Errata:
+ 445:../Backend/gnu-efi-3.0.9/lib/misc.c ****             //  Some systems try to hide drive space with thier INT 13h driver
+ 446:../Backend/gnu-efi-3.0.9/lib/misc.c ****             //  This does not hide space from the OS driver. This means the MBR
+ 447:../Backend/gnu-efi-3.0.9/lib/misc.c ****             //  that gets created from DOS is smaller than the MBR created from
+ 448:../Backend/gnu-efi-3.0.9/lib/misc.c ****             //  a real OS (NT & Win98). This leads to BlkIo->LastBlock being
+ 449:../Backend/gnu-efi-3.0.9/lib/misc.c ****             //  wrong on some systems FDISKed by the OS.
+ 450:../Backend/gnu-efi-3.0.9/lib/misc.c ****             //
+ 451:../Backend/gnu-efi-3.0.9/lib/misc.c ****             //
+ 452:../Backend/gnu-efi-3.0.9/lib/misc.c ****             if (BlkIo->Media->LastBlock < MIN_MBR_DEVICE_SIZE) {
+ 453:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 //
+ 454:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 // If this is a very small device then trust the BlkIo->LastBlock
+ 455:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 //
+ 456:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 return FALSE;
+ 457:../Backend/gnu-efi-3.0.9/lib/misc.c ****             }
+ 458:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 459:../Backend/gnu-efi-3.0.9/lib/misc.c ****             if (EndingLBA > (BlkIo->Media->LastBlock + MBR_ERRATA_PAD)) {
+ 460:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 return FALSE;
+ 461:../Backend/gnu-efi-3.0.9/lib/misc.c ****             }
+ 462:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 463:../Backend/gnu-efi-3.0.9/lib/misc.c ****         }
+ 464:../Backend/gnu-efi-3.0.9/lib/misc.c ****         for (j=i+1; j<MAX_MBR_PARTITIONS; j++) {
+ 465:../Backend/gnu-efi-3.0.9/lib/misc.c ****             if (Mbr->Partition[j].OSIndicator == 0x00 || EXTRACT_UINT32(Mbr->Partition[j].SizeInLBA
+ 466:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 continue;
+ 467:../Backend/gnu-efi-3.0.9/lib/misc.c ****             }
+ 468:../Backend/gnu-efi-3.0.9/lib/misc.c ****             if (   EXTRACT_UINT32(Mbr->Partition[j].StartingLBA) >= StartingLBA &&
+ 469:../Backend/gnu-efi-3.0.9/lib/misc.c ****                    EXTRACT_UINT32(Mbr->Partition[j].StartingLBA) <= EndingLBA       ) {
+ 470:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 //
+ 471:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 // The Start of this region overlaps with the i'th region
+ 472:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 //
+ 473:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 return FALSE;
+ 474:../Backend/gnu-efi-3.0.9/lib/misc.c ****             }
+ 475:../Backend/gnu-efi-3.0.9/lib/misc.c ****             NewEndingLBA = EXTRACT_UINT32(Mbr->Partition[j].StartingLBA) + EXTRACT_UINT32(Mbr->Part
+ 1069              		.loc 1 475 13 is_stmt 1 view .LVU274
+ 1070              		.loc 1 475 26 is_stmt 0 view .LVU275
+ 1071 050d 8D540AFF 		leal	-1(%rdx,%rcx), %edx
+ 1072              	.LVL102:
+ 476:../Backend/gnu-efi-3.0.9/lib/misc.c ****             if ( NewEndingLBA >= StartingLBA && NewEndingLBA <= EndingLBA ) {
+ 1073              		.loc 1 476 13 is_stmt 1 view .LVU276
+ 1074              		.loc 1 476 31 is_stmt 0 view .LVU277
+ 1075 0511 39F2     		cmpl	%esi, %edx
+ 1076 0513 0F93C1   		setnb	%cl
+ 1077              		.loc 1 476 62 view .LVU278
+ 1078 0516 4139D1   		cmpl	%edx, %r9d
+ 1079 0519 0F93C2   		setnb	%dl
+ 1080              	.LVL103:
+ 1081              		.loc 1 476 16 view .LVU279
+ 1082 051c 84D1     		testb	%dl, %cl
+ 1083 051e 0F859C01 		jne	.L81
+ 1083      0000
+ 1084              	.LVL104:
+ 1085              	.L73:
+ 464:../Backend/gnu-efi-3.0.9/lib/misc.c ****             if (Mbr->Partition[j].OSIndicator == 0x00 || EXTRACT_UINT32(Mbr->Partition[j].SizeInLBA
+ 1086              		.loc 1 464 44 is_stmt 1 discriminator 2 view .LVU280
+ 1087 0524 4883C001 		addq	$1, %rax
+ 1088              	.LVL105:
+ 1089              	.L72:
+ 464:../Backend/gnu-efi-3.0.9/lib/misc.c ****             if (Mbr->Partition[j].OSIndicator == 0x00 || EXTRACT_UINT32(Mbr->Partition[j].SizeInLBA
+ 1090              		.loc 1 464 22 discriminator 1 view .LVU281
+ 1091 0528 4883F803 		cmpq	$3, %rax
+ 1092 052c 0F8FAD00 		jg	.L91
+ 1092      0000
+ 465:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 continue;
+ 1093              		.loc 1 465 13 view .LVU282
+ 465:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 continue;
+ 1094              		.loc 1 465 34 is_stmt 0 view .LVU283
+ 1095 0532 488D501B 		leaq	27(%rax), %rdx
+ 1096 0536 48C1E204 		salq	$4, %rdx
+ 465:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 continue;
+ 1097              		.loc 1 465 16 view .LVU284
+ 1098 053a 807C1712 		cmpb	$0, 18(%rdi,%rdx)
+ 1098      00
+ 1099 053f 74E3     		je	.L73
+ 465:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 continue;
+ 1100              		.loc 1 465 58 discriminator 2 view .LVU285
+ 1101 0541 488D501B 		leaq	27(%rax), %rdx
+ 1102 0545 48C1E204 		salq	$4, %rdx
+ 1103 0549 0FB65417 		movzbl	26(%rdi,%rdx), %edx
+ 1103      1A
+ 1104 054e 4889C1   		movq	%rax, %rcx
+ 1105 0551 48C1E104 		salq	$4, %rcx
+ 1106 0555 4801F9   		addq	%rdi, %rcx
+ 1107 0558 440FB699 		movzbl	459(%rcx), %r11d
+ 1107      CB010000 
+ 1108 0560 41C1E308 		sall	$8, %r11d
+ 1109 0564 4409DA   		orl	%r11d, %edx
+ 1110 0567 440FB699 		movzbl	460(%rcx), %r11d
+ 1110      CC010000 
+ 1111 056f 41C1E310 		sall	$16, %r11d
+ 1112 0573 4409DA   		orl	%r11d, %edx
+ 1113 0576 0FB689CD 		movzbl	461(%rcx), %ecx
+ 1113      010000
+ 1114 057d C1E118   		sall	$24, %ecx
+ 465:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 continue;
+ 1115              		.loc 1 465 55 discriminator 2 view .LVU286
+ 1116 0580 09CA     		orl	%ecx, %edx
+ 1117 0582 74A0     		je	.L73
+ 468:../Backend/gnu-efi-3.0.9/lib/misc.c ****                    EXTRACT_UINT32(Mbr->Partition[j].StartingLBA) <= EndingLBA       ) {
+ 1118              		.loc 1 468 13 is_stmt 1 view .LVU287
+ 468:../Backend/gnu-efi-3.0.9/lib/misc.c ****                    EXTRACT_UINT32(Mbr->Partition[j].StartingLBA) <= EndingLBA       ) {
+ 1119              		.loc 1 468 20 is_stmt 0 view .LVU288
+ 1120 0584 488D481B 		leaq	27(%rax), %rcx
+ 1121 0588 48C1E104 		salq	$4, %rcx
+ 1122 058c 0FB64C0F 		movzbl	22(%rdi,%rcx), %ecx
+ 1122      16
+ 1123 0591 4989C3   		movq	%rax, %r11
+ 1124 0594 49C1E304 		salq	$4, %r11
+ 1125 0598 4901FB   		addq	%rdi, %r11
+ 1126 059b 410FB69B 		movzbl	455(%r11), %ebx
+ 1126      C7010000 
+ 1127 05a3 C1E308   		sall	$8, %ebx
+ 1128 05a6 09D9     		orl	%ebx, %ecx
+ 1129 05a8 410FB69B 		movzbl	456(%r11), %ebx
+ 1129      C8010000 
+ 1130 05b0 C1E310   		sall	$16, %ebx
+ 1131 05b3 09D9     		orl	%ebx, %ecx
+ 1132 05b5 450FB69B 		movzbl	457(%r11), %r11d
+ 1132      C9010000 
+ 1133 05bd 41C1E318 		sall	$24, %r11d
+ 1134 05c1 4409D9   		orl	%r11d, %ecx
+ 468:../Backend/gnu-efi-3.0.9/lib/misc.c ****                    EXTRACT_UINT32(Mbr->Partition[j].StartingLBA) <= EndingLBA       ) {
+ 1135              		.loc 1 468 16 view .LVU289
+ 1136 05c4 39F1     		cmpl	%esi, %ecx
+ 1137 05c6 0F8241FF 		jb	.L74
+ 1137      FFFF
+ 468:../Backend/gnu-efi-3.0.9/lib/misc.c ****                    EXTRACT_UINT32(Mbr->Partition[j].StartingLBA) <= EndingLBA       ) {
+ 1138              		.loc 1 468 81 discriminator 1 view .LVU290
+ 1139 05cc 4139C9   		cmpl	%ecx, %r9d
+ 1140 05cf 0F8238FF 		jb	.L74
+ 1140      FFFF
+ 473:../Backend/gnu-efi-3.0.9/lib/misc.c ****             }
+ 1141              		.loc 1 473 24 view .LVU291
+ 1142 05d5 BE000000 		movl	$0, %esi
+ 1142      00
+ 1143              	.LVL106:
+ 473:../Backend/gnu-efi-3.0.9/lib/misc.c ****             }
+ 1144              		.loc 1 473 24 view .LVU292
+ 1145 05da E9E60000 		jmp	.L67
+ 1145      00
+ 1146              	.LVL107:
+ 1147              	.L91:
+ 439:../Backend/gnu-efi-3.0.9/lib/misc.c ****         StartingLBA = EXTRACT_UINT32(Mbr->Partition[i].StartingLBA);
+ 1148              		.loc 1 439 18 view .LVU293
+ 1149 05df BE010000 		movl	$1, %esi
+ 1149      00
+ 1150              	.LVL108:
+ 1151              	.L70:
+ 435:../Backend/gnu-efi-3.0.9/lib/misc.c ****         if ( Mbr->Partition[i].OSIndicator == 0x00 || EXTRACT_UINT32(Mbr->Partition[i].SizeInLBA) =
+ 1152              		.loc 1 435 38 is_stmt 1 discriminator 2 view .LVU294
+ 1153 05e4 4983C001 		addq	$1, %r8
+ 1154              	.LVL109:
+ 435:../Backend/gnu-efi-3.0.9/lib/misc.c ****         if ( Mbr->Partition[i].OSIndicator == 0x00 || EXTRACT_UINT32(Mbr->Partition[i].SizeInLBA) =
+ 1155              		.loc 1 435 16 discriminator 1 view .LVU295
+ 1156 05e8 4983F803 		cmpq	$3, %r8
+ 1157 05ec 0F8FD300 		jg	.L67
+ 1157      0000
+ 436:../Backend/gnu-efi-3.0.9/lib/misc.c ****             continue;
+ 1158              		.loc 1 436 9 view .LVU296
+ 436:../Backend/gnu-efi-3.0.9/lib/misc.c ****             continue;
+ 1159              		.loc 1 436 31 is_stmt 0 view .LVU297
+ 1160 05f2 498D401B 		leaq	27(%r8), %rax
+ 1161 05f6 48C1E004 		salq	$4, %rax
+ 436:../Backend/gnu-efi-3.0.9/lib/misc.c ****             continue;
+ 1162              		.loc 1 436 12 view .LVU298
+ 1163 05fa 807C0712 		cmpb	$0, 18(%rdi,%rax)
+ 1163      00
+ 1164 05ff 74E3     		je	.L70
+ 1165              	.L85:
+ 436:../Backend/gnu-efi-3.0.9/lib/misc.c ****             continue;
+ 1166              		.loc 1 436 55 discriminator 2 view .LVU299
+ 1167 0601 498D401B 		leaq	27(%r8), %rax
+ 1168 0605 48C1E004 		salq	$4, %rax
+ 1169 0609 0FB64407 		movzbl	26(%rdi,%rax), %eax
+ 1169      1A
+ 1170 060e 4C89C2   		movq	%r8, %rdx
+ 1171 0611 48C1E204 		salq	$4, %rdx
+ 1172 0615 4801FA   		addq	%rdi, %rdx
+ 1173 0618 0FB68ACB 		movzbl	459(%rdx), %ecx
+ 1173      010000
+ 1174 061f C1E108   		sall	$8, %ecx
+ 1175 0622 09C8     		orl	%ecx, %eax
+ 1176 0624 0FB68ACC 		movzbl	460(%rdx), %ecx
+ 1176      010000
+ 1177 062b C1E110   		sall	$16, %ecx
+ 1178 062e 09C8     		orl	%ecx, %eax
+ 1179 0630 0FB692CD 		movzbl	461(%rdx), %edx
+ 1179      010000
+ 1180 0637 C1E218   		sall	$24, %edx
+ 436:../Backend/gnu-efi-3.0.9/lib/misc.c ****             continue;
+ 1181              		.loc 1 436 52 discriminator 2 view .LVU300
+ 1182 063a 09D0     		orl	%edx, %eax
+ 1183 063c 74A6     		je	.L70
+ 439:../Backend/gnu-efi-3.0.9/lib/misc.c ****         StartingLBA = EXTRACT_UINT32(Mbr->Partition[i].StartingLBA);
+ 1184              		.loc 1 439 9 is_stmt 1 view .LVU301
+ 1185              	.LVL110:
+ 440:../Backend/gnu-efi-3.0.9/lib/misc.c ****         EndingLBA = StartingLBA + EXTRACT_UINT32(Mbr->Partition[i].SizeInLBA) - 1;
+ 1186              		.loc 1 440 9 view .LVU302
+ 440:../Backend/gnu-efi-3.0.9/lib/misc.c ****         EndingLBA = StartingLBA + EXTRACT_UINT32(Mbr->Partition[i].SizeInLBA) - 1;
+ 1187              		.loc 1 440 23 is_stmt 0 view .LVU303
+ 1188 063e 498D501B 		leaq	27(%r8), %rdx
+ 1189 0642 48C1E204 		salq	$4, %rdx
+ 1190 0646 0FB67417 		movzbl	22(%rdi,%rdx), %esi
+ 1190      16
+ 1191 064b 4C89C2   		movq	%r8, %rdx
+ 1192 064e 48C1E204 		salq	$4, %rdx
+ 1193 0652 4801FA   		addq	%rdi, %rdx
+ 1194 0655 0FB68AC7 		movzbl	455(%rdx), %ecx
+ 1194      010000
+ 1195 065c C1E108   		sall	$8, %ecx
+ 1196 065f 09CE     		orl	%ecx, %esi
+ 1197 0661 0FB68AC8 		movzbl	456(%rdx), %ecx
+ 1197      010000
+ 1198 0668 C1E110   		sall	$16, %ecx
+ 1199 066b 09CE     		orl	%ecx, %esi
+ 1200 066d 0FB692C9 		movzbl	457(%rdx), %edx
+ 1200      010000
+ 1201 0674 C1E218   		sall	$24, %edx
+ 1202 0677 09D6     		orl	%edx, %esi
+ 1203              	.LVL111:
+ 441:../Backend/gnu-efi-3.0.9/lib/misc.c ****         if (EndingLBA > BlkIo->Media->LastBlock) {
+ 1204              		.loc 1 441 9 is_stmt 1 view .LVU304
+ 441:../Backend/gnu-efi-3.0.9/lib/misc.c ****         if (EndingLBA > BlkIo->Media->LastBlock) {
+ 1205              		.loc 1 441 19 is_stmt 0 view .LVU305
+ 1206 0679 448D4C30 		leal	-1(%rax,%rsi), %r9d
+ 1206      FF
+ 1207              	.LVL112:
+ 442:../Backend/gnu-efi-3.0.9/lib/misc.c ****             //
+ 1208              		.loc 1 442 9 is_stmt 1 view .LVU306
+ 442:../Backend/gnu-efi-3.0.9/lib/misc.c ****             //
+ 1209              		.loc 1 442 23 is_stmt 0 view .LVU307
+ 1210 067e 4489CA   		movl	%r9d, %edx
+ 442:../Backend/gnu-efi-3.0.9/lib/misc.c ****             //
+ 1211              		.loc 1 442 30 view .LVU308
+ 1212 0681 498B4208 		movq	8(%r10), %rax
+ 442:../Backend/gnu-efi-3.0.9/lib/misc.c ****             //
+ 1213              		.loc 1 442 37 view .LVU309
+ 1214 0685 488B4018 		movq	24(%rax), %rax
+ 442:../Backend/gnu-efi-3.0.9/lib/misc.c ****             //
+ 1215              		.loc 1 442 12 view .LVU310
+ 1216 0689 4839D0   		cmpq	%rdx, %rax
+ 1217 068c 7313     		jnb	.L71
+ 452:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 //
+ 1218              		.loc 1 452 13 is_stmt 1 view .LVU311
+ 452:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 //
+ 1219              		.loc 1 452 16 is_stmt 0 view .LVU312
+ 1220 068e 483DFFFF 		cmpq	$524287, %rax
+ 1220      0700
+ 1221 0694 761C     		jbe	.L78
+ 459:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 return FALSE;
+ 1222              		.loc 1 459 13 is_stmt 1 view .LVU313
+ 459:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 return FALSE;
+ 1223              		.loc 1 459 54 is_stmt 0 view .LVU314
+ 1224 0696 48050000 		addq	$262144, %rax
+ 1224      0400
+ 459:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 return FALSE;
+ 1225              		.loc 1 459 16 view .LVU315
+ 1226 069c 4839D0   		cmpq	%rdx, %rax
+ 1227 069f 7218     		jb	.L79
+ 1228              	.L71:
+ 464:../Backend/gnu-efi-3.0.9/lib/misc.c ****             if (Mbr->Partition[j].OSIndicator == 0x00 || EXTRACT_UINT32(Mbr->Partition[j].SizeInLBA
+ 1229              		.loc 1 464 9 is_stmt 1 view .LVU316
+ 464:../Backend/gnu-efi-3.0.9/lib/misc.c ****             if (Mbr->Partition[j].OSIndicator == 0x00 || EXTRACT_UINT32(Mbr->Partition[j].SizeInLBA
+ 1230              		.loc 1 464 15 is_stmt 0 view .LVU317
+ 1231 06a1 498D4001 		leaq	1(%r8), %rax
+ 1232              	.LVL113:
+ 464:../Backend/gnu-efi-3.0.9/lib/misc.c ****             if (Mbr->Partition[j].OSIndicator == 0x00 || EXTRACT_UINT32(Mbr->Partition[j].SizeInLBA
+ 1233              		.loc 1 464 9 view .LVU318
+ 1234 06a5 E97EFEFF 		jmp	.L72
+ 1234      FF
+ 1235              	.LVL114:
+ 1236              	.L77:
+ 1237              		.cfi_def_cfa_offset 8
+ 1238              		.cfi_restore 3
+ 431:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 1239              		.loc 1 431 16 view .LVU319
+ 1240 06aa BE000000 		movl	$0, %esi
+ 1240      00
+ 1241              	.LVL115:
+ 1242              	.L88:
+ 477:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 //
+ 478:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 // The End of this region overlaps with the i'th region
+ 479:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 //
+ 480:../Backend/gnu-efi-3.0.9/lib/misc.c ****                 return FALSE;
+ 481:../Backend/gnu-efi-3.0.9/lib/misc.c ****             }
+ 482:../Backend/gnu-efi-3.0.9/lib/misc.c ****         }
+ 483:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 484:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 485:../Backend/gnu-efi-3.0.9/lib/misc.c ****     // Non of the regions overlapped so MBR is O.K.
+ 486:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 487:../Backend/gnu-efi-3.0.9/lib/misc.c ****     return ValidMbr;
+ 488:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 1243              		.loc 1 488 1 view .LVU320
+ 1244 06af 89F0     		movl	%esi, %eax
+ 1245 06b1 C3       		ret
+ 1246              	.LVL116:
+ 1247              	.L78:
+ 1248              		.cfi_def_cfa_offset 16
+ 1249              		.cfi_offset 3, -16
+ 456:../Backend/gnu-efi-3.0.9/lib/misc.c ****             }
+ 1250              		.loc 1 456 24 view .LVU321
+ 1251 06b2 BE000000 		movl	$0, %esi
+ 1251      00
+ 1252              	.LVL117:
+ 456:../Backend/gnu-efi-3.0.9/lib/misc.c ****             }
+ 1253              		.loc 1 456 24 view .LVU322
+ 1254 06b7 EB0C     		jmp	.L67
+ 1255              	.LVL118:
+ 1256              	.L79:
+ 460:../Backend/gnu-efi-3.0.9/lib/misc.c ****             }
+ 1257              		.loc 1 460 24 view .LVU323
+ 1258 06b9 BE000000 		movl	$0, %esi
+ 1258      00
+ 1259              	.LVL119:
+ 460:../Backend/gnu-efi-3.0.9/lib/misc.c ****             }
+ 1260              		.loc 1 460 24 view .LVU324
+ 1261 06be EB05     		jmp	.L67
+ 1262              	.LVL120:
+ 1263              	.L81:
+ 480:../Backend/gnu-efi-3.0.9/lib/misc.c ****             }
+ 1264              		.loc 1 480 24 view .LVU325
+ 1265 06c0 BE000000 		movl	$0, %esi
+ 1265      00
+ 1266              	.LVL121:
+ 1267              	.L67:
+ 1268              		.loc 1 488 1 view .LVU326
+ 1269 06c5 89F0     		movl	%esi, %eax
+ 1270 06c7 5B       		popq	%rbx
+ 1271              		.cfi_restore 3
+ 1272              		.cfi_def_cfa_offset 8
+ 1273 06c8 C3       		ret
+ 1274              	.LVL122:
+ 1275              	.L90:
+ 435:../Backend/gnu-efi-3.0.9/lib/misc.c ****         if ( Mbr->Partition[i].OSIndicator == 0x00 || EXTRACT_UINT32(Mbr->Partition[i].SizeInLBA) =
+ 1276              		.loc 1 435 38 is_stmt 1 discriminator 2 view .LVU327
+ 1277 06c9 4983C001 		addq	$1, %r8
+ 1278              	.LVL123:
+ 435:../Backend/gnu-efi-3.0.9/lib/misc.c ****         if ( Mbr->Partition[i].OSIndicator == 0x00 || EXTRACT_UINT32(Mbr->Partition[i].SizeInLBA) =
+ 1279              		.loc 1 435 38 is_stmt 0 discriminator 2 view .LVU328
+ 1280 06cd E918FEFF 		jmp	.L83
+ 1280      FF
+ 1281              		.cfi_endproc
+ 1282              	.LFE16:
+ 1284              		.globl	DecimaltoBCD
+ 1285              		.hidden	DecimaltoBCD
+ 1287              	DecimaltoBCD:
+ 1288              	.LVL124:
+ 1289              	.LFB17:
+ 489:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 490:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 491:../Backend/gnu-efi-3.0.9/lib/misc.c **** UINT8
+ 492:../Backend/gnu-efi-3.0.9/lib/misc.c **** DecimaltoBCD(
+ 493:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN  UINT8 DecValue
+ 494:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+ 495:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+ 1290              		.loc 1 495 1 is_stmt 1 view -0
+ 1291              		.cfi_startproc
+ 1292              		.loc 1 495 1 is_stmt 0 view .LVU330
+ 1293 06d2 F30F1EFA 		endbr64
+ 1294 06d6 4883EC08 		subq	$8, %rsp
+ 1295              		.cfi_def_cfa_offset 16
+ 496:../Backend/gnu-efi-3.0.9/lib/misc.c ****     return RtDecimaltoBCD (DecValue);
+ 1296              		.loc 1 496 5 is_stmt 1 view .LVU331
+ 1297              		.loc 1 496 12 is_stmt 0 view .LVU332
+ 1298 06da 400FB6FF 		movzbl	%dil, %edi
+ 1299              		.loc 1 496 12 view .LVU333
+ 1300 06de E8000000 		call	RtDecimaltoBCD
+ 1300      00
+ 1301              	.LVL125:
+ 497:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 1302              		.loc 1 497 1 view .LVU334
+ 1303 06e3 4883C408 		addq	$8, %rsp
+ 1304              		.cfi_def_cfa_offset 8
+ 1305 06e7 C3       		ret
+ 1306              		.cfi_endproc
+ 1307              	.LFE17:
+ 1309              		.globl	BCDtoDecimal
+ 1310              		.hidden	BCDtoDecimal
+ 1312              	BCDtoDecimal:
+ 1313              	.LVL126:
+ 1314              	.LFB18:
+ 498:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 499:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 500:../Backend/gnu-efi-3.0.9/lib/misc.c **** UINT8
+ 501:../Backend/gnu-efi-3.0.9/lib/misc.c **** BCDtoDecimal(
+ 502:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN  UINT8 BcdValue
+ 503:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+ 504:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+ 1315              		.loc 1 504 1 is_stmt 1 view -0
+ 1316              		.cfi_startproc
+ 1317              		.loc 1 504 1 is_stmt 0 view .LVU336
+ 1318 06e8 F30F1EFA 		endbr64
+ 1319 06ec 4883EC08 		subq	$8, %rsp
+ 1320              		.cfi_def_cfa_offset 16
+ 505:../Backend/gnu-efi-3.0.9/lib/misc.c ****     return RtBCDtoDecimal (BcdValue);
+ 1321              		.loc 1 505 5 is_stmt 1 view .LVU337
+ 1322              		.loc 1 505 12 is_stmt 0 view .LVU338
+ 1323 06f0 400FB6FF 		movzbl	%dil, %edi
+ 1324              		.loc 1 505 12 view .LVU339
+ 1325 06f4 E8000000 		call	RtBCDtoDecimal
+ 1325      00
+ 1326              	.LVL127:
+ 506:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 1327              		.loc 1 506 1 view .LVU340
+ 1328 06f9 4883C408 		addq	$8, %rsp
+ 1329              		.cfi_def_cfa_offset 8
+ 1330 06fd C3       		ret
+ 1331              		.cfi_endproc
+ 1332              	.LFE18:
+ 1334              		.globl	LibGetSystemConfigurationTable
+ 1335              		.hidden	LibGetSystemConfigurationTable
+ 1337              	LibGetSystemConfigurationTable:
+ 1338              	.LVL128:
+ 1339              	.LFB19:
+ 507:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 508:../Backend/gnu-efi-3.0.9/lib/misc.c **** EFI_STATUS
+ 509:../Backend/gnu-efi-3.0.9/lib/misc.c **** LibGetSystemConfigurationTable(
+ 510:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN EFI_GUID *TableGuid,
+ 511:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN OUT VOID **Table
+ 512:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+ 513:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 514:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+ 1340              		.loc 1 514 1 is_stmt 1 view -0
+ 1341              		.cfi_startproc
+ 1342              		.loc 1 514 1 is_stmt 0 view .LVU342
+ 1343 06fe F30F1EFA 		endbr64
+ 1344 0702 4155     		pushq	%r13
+ 1345              		.cfi_def_cfa_offset 16
+ 1346              		.cfi_offset 13, -16
+ 1347 0704 4154     		pushq	%r12
+ 1348              		.cfi_def_cfa_offset 24
+ 1349              		.cfi_offset 12, -24
+ 1350 0706 55       		pushq	%rbp
+ 1351              		.cfi_def_cfa_offset 32
+ 1352              		.cfi_offset 6, -32
+ 1353 0707 53       		pushq	%rbx
+ 1354              		.cfi_def_cfa_offset 40
+ 1355              		.cfi_offset 3, -40
+ 1356 0708 4883EC08 		subq	$8, %rsp
+ 1357              		.cfi_def_cfa_offset 48
+ 1358 070c 4989FD   		movq	%rdi, %r13
+ 1359 070f 4989F4   		movq	%rsi, %r12
+ 515:../Backend/gnu-efi-3.0.9/lib/misc.c ****     UINTN Index;
+ 1360              		.loc 1 515 5 is_stmt 1 view .LVU343
+ 516:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 517:../Backend/gnu-efi-3.0.9/lib/misc.c ****     for(Index=0;Index<ST->NumberOfTableEntries;Index++) {
+ 1361              		.loc 1 517 5 view .LVU344
+ 1362              	.LVL129:
+ 1363              		.loc 1 517 14 is_stmt 0 view .LVU345
+ 1364 0712 BB000000 		movl	$0, %ebx
+ 1364      00
+ 1365              		.loc 1 517 5 view .LVU346
+ 1366 0717 EB04     		jmp	.L97
+ 1367              	.LVL130:
+ 1368              	.L98:
+ 1369              		.loc 1 517 53 is_stmt 1 discriminator 2 view .LVU347
+ 1370 0719 4883C301 		addq	$1, %rbx
+ 1371              	.LVL131:
+ 1372              	.L97:
+ 1373              		.loc 1 517 22 discriminator 1 view .LVU348
+ 1374              		.loc 1 517 25 is_stmt 0 discriminator 1 view .LVU349
+ 1375 071d 488B0500 		movq	ST(%rip), %rax
+ 1375      000000
+ 1376              		.loc 1 517 22 discriminator 1 view .LVU350
+ 1377 0724 483B5868 		cmpq	104(%rax), %rbx
+ 1378 0728 7336     		jnb	.L102
+ 518:../Backend/gnu-efi-3.0.9/lib/misc.c ****         if (CompareGuid(TableGuid,&(ST->ConfigurationTable[Index].VendorGuid))==0) {
+ 1379              		.loc 1 518 9 is_stmt 1 view .LVU351
+ 1380              		.loc 1 518 59 is_stmt 0 view .LVU352
+ 1381 072a 488D2C5B 		leaq	(%rbx,%rbx,2), %rbp
+ 1382 072e 48C1E503 		salq	$3, %rbp
+ 1383 0732 4889EE   		movq	%rbp, %rsi
+ 1384 0735 48037070 		addq	112(%rax), %rsi
+ 1385              		.loc 1 518 13 view .LVU353
+ 1386 0739 4C89EF   		movq	%r13, %rdi
+ 1387 073c E8000000 		call	CompareGuid
+ 1387      00
+ 1388              	.LVL132:
+ 1389              		.loc 1 518 12 discriminator 1 view .LVU354
+ 1390 0741 4885C0   		testq	%rax, %rax
+ 1391 0744 75D3     		jne	.L98
+ 519:../Backend/gnu-efi-3.0.9/lib/misc.c ****             *Table = ST->ConfigurationTable[Index].VendorTable;
+ 1392              		.loc 1 519 13 is_stmt 1 view .LVU355
+ 1393              		.loc 1 519 44 is_stmt 0 view .LVU356
+ 1394 0746 488B0500 		movq	ST(%rip), %rax
+ 1394      000000
+ 1395 074d 48036870 		addq	112(%rax), %rbp
+ 1396              		.loc 1 519 51 view .LVU357
+ 1397 0751 488B4510 		movq	16(%rbp), %rax
+ 1398              		.loc 1 519 20 view .LVU358
+ 1399 0755 49890424 		movq	%rax, (%r12)
+ 520:../Backend/gnu-efi-3.0.9/lib/misc.c ****             return EFI_SUCCESS;
+ 1400              		.loc 1 520 13 is_stmt 1 view .LVU359
+ 1401              		.loc 1 520 20 is_stmt 0 view .LVU360
+ 1402 0759 B8000000 		movl	$0, %eax
+ 1402      00
+ 1403 075e EB0A     		jmp	.L96
+ 1404              	.L102:
+ 521:../Backend/gnu-efi-3.0.9/lib/misc.c ****         }
+ 522:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 523:../Backend/gnu-efi-3.0.9/lib/misc.c ****     return EFI_NOT_FOUND;
+ 1405              		.loc 1 523 12 view .LVU361
+ 1406 0760 48B80E00 		movabsq	$-9223372036854775794, %rax
+ 1406      00000000 
+ 1406      0080
+ 1407              	.L96:
+ 524:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 1408              		.loc 1 524 1 view .LVU362
+ 1409 076a 4883C408 		addq	$8, %rsp
+ 1410              		.cfi_def_cfa_offset 40
+ 1411 076e 5B       		popq	%rbx
+ 1412              		.cfi_restore 3
+ 1413              		.cfi_def_cfa_offset 32
+ 1414              	.LVL133:
+ 1415              		.loc 1 524 1 view .LVU363
+ 1416 076f 5D       		popq	%rbp
+ 1417              		.cfi_restore 6
+ 1418              		.cfi_def_cfa_offset 24
+ 1419 0770 415C     		popq	%r12
+ 1420              		.cfi_restore 12
+ 1421              		.cfi_def_cfa_offset 16
+ 1422              	.LVL134:
+ 1423              		.loc 1 524 1 view .LVU364
+ 1424 0772 415D     		popq	%r13
+ 1425              		.cfi_restore 13
+ 1426              		.cfi_def_cfa_offset 8
+ 1427              	.LVL135:
+ 1428              		.loc 1 524 1 view .LVU365
+ 1429 0774 C3       		ret
+ 1430              		.cfi_endproc
+ 1431              	.LFE19:
+ 1433              		.globl	LibGetUiString
+ 1434              		.hidden	LibGetUiString
+ 1436              	LibGetUiString:
+ 1437              	.LVL136:
+ 1438              	.LFB20:
+ 525:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 526:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 527:../Backend/gnu-efi-3.0.9/lib/misc.c **** CHAR16 *
+ 528:../Backend/gnu-efi-3.0.9/lib/misc.c **** LibGetUiString (
+ 529:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN  EFI_HANDLE      Handle,
+ 530:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN  UI_STRING_TYPE  StringType,
+ 531:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN  ISO_639_2       *LangCode,
+ 532:../Backend/gnu-efi-3.0.9/lib/misc.c ****     IN  BOOLEAN         ReturnDevicePathStrOnMismatch
+ 533:../Backend/gnu-efi-3.0.9/lib/misc.c ****     )
+ 534:../Backend/gnu-efi-3.0.9/lib/misc.c **** {
+ 1439              		.loc 1 534 1 is_stmt 1 view -0
+ 1440              		.cfi_startproc
+ 1441              		.loc 1 534 1 is_stmt 0 view .LVU367
+ 1442 0775 F30F1EFA 		endbr64
+ 1443 0779 4156     		pushq	%r14
+ 1444              		.cfi_def_cfa_offset 16
+ 1445              		.cfi_offset 14, -16
+ 1446 077b 4155     		pushq	%r13
+ 1447              		.cfi_def_cfa_offset 24
+ 1448              		.cfi_offset 13, -24
+ 1449 077d 4154     		pushq	%r12
+ 1450              		.cfi_def_cfa_offset 32
+ 1451              		.cfi_offset 12, -32
+ 1452 077f 55       		pushq	%rbp
+ 1453              		.cfi_def_cfa_offset 40
+ 1454              		.cfi_offset 6, -40
+ 1455 0780 53       		pushq	%rbx
+ 1456              		.cfi_def_cfa_offset 48
+ 1457              		.cfi_offset 3, -48
+ 1458 0781 4883EC40 		subq	$64, %rsp
+ 1459              		.cfi_def_cfa_offset 112
+ 1460 0785 4989FC   		movq	%rdi, %r12
+ 1461 0788 4189F6   		movl	%esi, %r14d
+ 1462 078b 4889D5   		movq	%rdx, %rbp
+ 1463 078e 4189CD   		movl	%ecx, %r13d
+ 535:../Backend/gnu-efi-3.0.9/lib/misc.c ****     UI_INTERFACE    *Ui;
+ 1464              		.loc 1 535 5 is_stmt 1 view .LVU368
+ 536:../Backend/gnu-efi-3.0.9/lib/misc.c ****     UI_STRING_TYPE  Index;
+ 1465              		.loc 1 536 5 view .LVU369
+ 537:../Backend/gnu-efi-3.0.9/lib/misc.c ****     UI_STRING_ENTRY *Array;
+ 1466              		.loc 1 537 5 view .LVU370
+ 538:../Backend/gnu-efi-3.0.9/lib/misc.c ****     EFI_STATUS      Status;
+ 1467              		.loc 1 538 5 view .LVU371
+ 539:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 540:../Backend/gnu-efi-3.0.9/lib/misc.c **** //    Status = uefi_call_wrapper(BS->HandleProtocol, 3, Handle, &UiProtocol, (VOID *)&Ui); // Legac
+ 541:../Backend/gnu-efi-3.0.9/lib/misc.c ****     Status = uefi_call_wrapper(BS->OpenProtocol, 6, Handle, &UiProtocol, (VOID *)&Ui, NULL, NULL, E
+ 1468              		.loc 1 541 5 view .LVU372
+ 1469              		.loc 1 541 14 is_stmt 0 view .LVU373
+ 1470 0791 488B0500 		movq	BS(%rip), %rax
+ 1470      000000
+ 1471 0798 488B8018 		movq	280(%rax), %rax
+ 1471      010000
+ 1472 079f C7442428 		movl	$2, 40(%rsp)
+ 1472      02000000 
+ 1473 07a7 48C74424 		movq	$0, 32(%rsp)
+ 1473      20000000 
+ 1473      00
+ 1474 07b0 41B90000 		movl	$0, %r9d
+ 1474      0000
+ 1475 07b6 4C8D4424 		leaq	56(%rsp), %r8
+ 1475      38
+ 1476 07bb 488D1500 		leaq	gEFiUiInterfaceProtocolGuid(%rip), %rdx
+ 1476      000000
+ 1477              	.LVL137:
+ 1478              		.loc 1 541 14 view .LVU374
+ 1479 07c2 4889F9   		movq	%rdi, %rcx
+ 1480              	.LVL138:
+ 1481              		.loc 1 541 14 view .LVU375
+ 1482 07c5 FFD0     		call	*%rax
+ 1483              	.LVL139:
+ 542:../Backend/gnu-efi-3.0.9/lib/misc.c ****     if (EFI_ERROR(Status)) {
+ 1484              		.loc 1 542 5 is_stmt 1 view .LVU376
+ 1485              		.loc 1 542 8 is_stmt 0 view .LVU377
+ 1486 07c7 4885C0   		testq	%rax, %rax
+ 1487 07ca 7810     		js	.L114
+ 543:../Backend/gnu-efi-3.0.9/lib/misc.c ****         return (ReturnDevicePathStrOnMismatch) ? DevicePathToStr(DevicePathFromHandle(Handle)) : NU
+ 544:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 545:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 546:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 547:../Backend/gnu-efi-3.0.9/lib/misc.c ****     // Skip the first strings
+ 548:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 549:../Backend/gnu-efi-3.0.9/lib/misc.c ****     for (Index = UiDeviceString, Array = Ui->Entry; Index < StringType; Index++, Array++) {
+ 1488              		.loc 1 549 5 is_stmt 1 view .LVU378
+ 1489              	.LVL140:
+ 1490              		.loc 1 549 44 is_stmt 0 view .LVU379
+ 1491 07cc 488B4424 		movq	56(%rsp), %rax
+ 1491      38
+ 1492              	.LVL141:
+ 1493              		.loc 1 549 40 view .LVU380
+ 1494 07d1 488B5808 		movq	8(%rax), %rbx
+ 1495              	.LVL142:
+ 1496              		.loc 1 549 16 view .LVU381
+ 1497 07d5 B8000000 		movl	$0, %eax
+ 1497      00
+ 1498              		.loc 1 549 5 view .LVU382
+ 1499 07da EB32     		jmp	.L107
+ 1500              	.LVL143:
+ 1501              	.L114:
+ 543:../Backend/gnu-efi-3.0.9/lib/misc.c ****         return (ReturnDevicePathStrOnMismatch) ? DevicePathToStr(DevicePathFromHandle(Handle)) : NU
+ 1502              		.loc 1 543 9 is_stmt 1 view .LVU383
+ 543:../Backend/gnu-efi-3.0.9/lib/misc.c ****         return (ReturnDevicePathStrOnMismatch) ? DevicePathToStr(DevicePathFromHandle(Handle)) : NU
+ 1503              		.loc 1 543 96 is_stmt 0 view .LVU384
+ 1504 07dc 4584ED   		testb	%r13b, %r13b
+ 1505 07df 7507     		jne	.L115
+ 543:../Backend/gnu-efi-3.0.9/lib/misc.c ****         return (ReturnDevicePathStrOnMismatch) ? DevicePathToStr(DevicePathFromHandle(Handle)) : NU
+ 1506              		.loc 1 543 96 discriminator 2 view .LVU385
+ 1507 07e1 BF000000 		movl	$0, %edi
+ 1507      00
+ 543:../Backend/gnu-efi-3.0.9/lib/misc.c ****         return (ReturnDevicePathStrOnMismatch) ? DevicePathToStr(DevicePathFromHandle(Handle)) : NU
+ 1508              		.loc 1 543 96 view .LVU386
+ 1509 07e6 EB44     		jmp	.L103
+ 1510              	.L115:
+ 543:../Backend/gnu-efi-3.0.9/lib/misc.c ****         return (ReturnDevicePathStrOnMismatch) ? DevicePathToStr(DevicePathFromHandle(Handle)) : NU
+ 1511              		.loc 1 543 50 discriminator 1 view .LVU387
+ 1512 07e8 4C89E7   		movq	%r12, %rdi
+ 1513 07eb E8000000 		call	DevicePathFromHandle
+ 1513      00
+ 1514              	.LVL144:
+ 543:../Backend/gnu-efi-3.0.9/lib/misc.c ****         return (ReturnDevicePathStrOnMismatch) ? DevicePathToStr(DevicePathFromHandle(Handle)) : NU
+ 1515              		.loc 1 543 50 discriminator 1 view .LVU388
+ 1516 07f0 4889C7   		movq	%rax, %rdi
+ 1517 07f3 E8000000 		call	DevicePathToStr
+ 1517      00
+ 1518              	.LVL145:
+ 1519 07f8 4889C7   		movq	%rax, %rdi
+ 1520 07fb EB2F     		jmp	.L103
+ 1521              	.LVL146:
+ 1522              	.L108:
+ 550:../Backend/gnu-efi-3.0.9/lib/misc.c ****         while (Array->LangCode) {
+ 551:../Backend/gnu-efi-3.0.9/lib/misc.c ****             Array++;
+ 1523              		.loc 1 551 13 is_stmt 1 view .LVU389
+ 1524              		.loc 1 551 18 is_stmt 0 view .LVU390
+ 1525 07fd 4883C310 		addq	$16, %rbx
+ 1526              	.LVL147:
+ 1527              	.L109:
+ 550:../Backend/gnu-efi-3.0.9/lib/misc.c ****         while (Array->LangCode) {
+ 1528              		.loc 1 550 16 is_stmt 1 view .LVU391
+ 1529 0801 48833B00 		cmpq	$0, (%rbx)
+ 1530 0805 75F6     		jne	.L108
+ 549:../Backend/gnu-efi-3.0.9/lib/misc.c ****         while (Array->LangCode) {
+ 1531              		.loc 1 549 80 discriminator 2 view .LVU392
+ 549:../Backend/gnu-efi-3.0.9/lib/misc.c ****         while (Array->LangCode) {
+ 1532              		.loc 1 549 78 is_stmt 0 discriminator 2 view .LVU393
+ 1533 0807 83C001   		addl	$1, %eax
+ 1534              	.LVL148:
+ 549:../Backend/gnu-efi-3.0.9/lib/misc.c ****         while (Array->LangCode) {
+ 1535              		.loc 1 549 87 discriminator 2 view .LVU394
+ 1536 080a 4883C310 		addq	$16, %rbx
+ 1537              	.LVL149:
+ 1538              	.L107:
+ 549:../Backend/gnu-efi-3.0.9/lib/misc.c ****         while (Array->LangCode) {
+ 1539              		.loc 1 549 59 is_stmt 1 discriminator 1 view .LVU395
+ 1540 080e 4439F0   		cmpl	%r14d, %eax
+ 1541 0811 72EE     		jb	.L109
+ 1542              	.LVL150:
+ 1543              	.L110:
+ 552:../Backend/gnu-efi-3.0.9/lib/misc.c ****         }
+ 553:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 554:../Backend/gnu-efi-3.0.9/lib/misc.c **** 
+ 555:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 556:../Backend/gnu-efi-3.0.9/lib/misc.c ****     // Search for the match
+ 557:../Backend/gnu-efi-3.0.9/lib/misc.c ****     //
+ 558:../Backend/gnu-efi-3.0.9/lib/misc.c ****     while (Array->LangCode) {
+ 1544              		.loc 1 558 12 view .LVU396
+ 1545              		.loc 1 558 17 is_stmt 0 view .LVU397
+ 1546 0813 488B3B   		movq	(%rbx), %rdi
+ 1547              		.loc 1 558 12 view .LVU398
+ 1548 0816 4885FF   		testq	%rdi, %rdi
+ 1549 0819 7421     		je	.L116
+ 559:../Backend/gnu-efi-3.0.9/lib/misc.c ****         if (strcmpa (Array->LangCode, LangCode) == 0) {
+ 1550              		.loc 1 559 9 is_stmt 1 view .LVU399
+ 1551              		.loc 1 559 13 is_stmt 0 view .LVU400
+ 1552 081b 4889EE   		movq	%rbp, %rsi
+ 1553 081e E8000000 		call	strcmpa
+ 1553      00
+ 1554              	.LVL151:
+ 1555              		.loc 1 559 12 discriminator 1 view .LVU401
+ 1556 0823 4885C0   		testq	%rax, %rax
+ 1557 0826 75EB     		jne	.L110
+ 560:../Backend/gnu-efi-3.0.9/lib/misc.c ****             return Array->UiString;
+ 1558              		.loc 1 560 13 is_stmt 1 view .LVU402
+ 1559              		.loc 1 560 25 is_stmt 0 view .LVU403
+ 1560 0828 488B7B08 		movq	8(%rbx), %rdi
+ 1561              	.LVL152:
+ 1562              	.L103:
+ 561:../Backend/gnu-efi-3.0.9/lib/misc.c ****         }
+ 562:../Backend/gnu-efi-3.0.9/lib/misc.c ****     }
+ 563:../Backend/gnu-efi-3.0.9/lib/misc.c ****     return (ReturnDevicePathStrOnMismatch) ? DevicePathToStr(DevicePathFromHandle(Handle)) : NULL;
+ 564:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 1563              		.loc 1 564 1 view .LVU404
+ 1564 082c 4889F8   		movq	%rdi, %rax
+ 1565 082f 4883C440 		addq	$64, %rsp
+ 1566              		.cfi_remember_state
+ 1567              		.cfi_def_cfa_offset 48
+ 1568 0833 5B       		popq	%rbx
+ 1569              		.cfi_restore 3
+ 1570              		.cfi_def_cfa_offset 40
+ 1571 0834 5D       		popq	%rbp
+ 1572              		.cfi_restore 6
+ 1573              		.cfi_def_cfa_offset 32
+ 1574              	.LVL153:
+ 1575              		.loc 1 564 1 view .LVU405
+ 1576 0835 415C     		popq	%r12
+ 1577              		.cfi_restore 12
+ 1578              		.cfi_def_cfa_offset 24
+ 1579              	.LVL154:
+ 1580              		.loc 1 564 1 view .LVU406
+ 1581 0837 415D     		popq	%r13
+ 1582              		.cfi_restore 13
+ 1583              		.cfi_def_cfa_offset 16
+ 1584              	.LVL155:
+ 1585              		.loc 1 564 1 view .LVU407
+ 1586 0839 415E     		popq	%r14
+ 1587              		.cfi_restore 14
+ 1588              		.cfi_def_cfa_offset 8
+ 1589              	.LVL156:
+ 1590              		.loc 1 564 1 view .LVU408
+ 1591 083b C3       		ret
+ 1592              	.LVL157:
+ 1593              	.L116:
+ 1594              		.cfi_restore_state
+ 563:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 1595              		.loc 1 563 5 is_stmt 1 view .LVU409
+ 563:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 1596              		.loc 1 563 92 is_stmt 0 view .LVU410
+ 1597 083c 4584ED   		testb	%r13b, %r13b
+ 1598 083f 74EB     		je	.L103
+ 563:../Backend/gnu-efi-3.0.9/lib/misc.c **** }
+ 1599              		.loc 1 563 46 discriminator 1 view .LVU411
+ 1600 0841 4C89E7   		movq	%r12, %rdi
+ 1601 0844 E8000000 		call	DevicePathFromHandle
+ 1601      00
+ 1602              	.LVL158:
+ 1603 0849 4889C7   		movq	%rax, %rdi
+ 1604 084c E8000000 		call	DevicePathToStr
+ 1604      00
+ 1605              	.LVL159:
+ 1606 0851 4889C7   		movq	%rax, %rdi
+ 1607 0854 EBD6     		jmp	.L103
+ 1608              		.cfi_endproc
+ 1609              	.LFE20:
+ 1611              	.Letext0:
+ 1612              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 1613              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 1614              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 1615              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efidevp.h"
+ 1616              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efiprot.h"
+ 1617              		.file 7 "../Backend/gnu-efi-3.0.9/inc/efiapi.h"
+ 1618              		.file 8 "../Backend/gnu-efi-3.0.9/inc/eficon.h"
+ 1619              		.file 9 "../Backend/gnu-efi-3.0.9/inc/efiui.h"
+ 1620              		.file 10 "../Backend/gnu-efi-3.0.9/inc/efipart.h"
+ 1621              		.file 11 "../Backend/gnu-efi-3.0.9/inc/efilib.h"
+ 1622              		.file 12 "../Backend/gnu-efi-3.0.9/inc/efirtlib.h"
+ 18565              		.section	.note.gnu.property,"a"
+ 18566              		.align 8
+ 18567 0000 04000000 		.long	1f - 0f
+ 18568 0004 10000000 		.long	4f - 1f
+ 18569 0008 05000000 		.long	5
+ 18570              	0:
+ 18571 000c 474E5500 		.string	"GNU"
+ 18572              	1:
+ 18573              		.align 8
+ 18574 0010 020000C0 		.long	0xc0000002
+ 18575 0014 04000000 		.long	3f - 2f
+ 18576              	2:
+ 18577 0018 03000000 		.long	0x3
+ 18578              	3:
+ 18579 001c 00000000 		.align 8
+ 18580              	4:

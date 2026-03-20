@@ -1,0 +1,2828 @@
+   1              		.file	"hand.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	LibLocateHandle
+   7              		.hidden	LibLocateHandle
+   9              	LibLocateHandle:
+  10              	.LVL0:
+  11              	.LFB1:
+  12              		.file 1 "../Backend/gnu-efi-3.0.9/lib/hand.c"
+   1:../Backend/gnu-efi-3.0.9/lib/hand.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/hand.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/hand.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/hand.c ****     hand.c
+   8:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/hand.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  12:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/hand.c **** Revision History
+  15:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  16:../Backend/gnu-efi-3.0.9/lib/hand.c **** --*/
+  17:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  18:../Backend/gnu-efi-3.0.9/lib/hand.c **** #include "lib.h"
+  19:../Backend/gnu-efi-3.0.9/lib/hand.c **** #include "efistdarg.h"                        // !!!
+  20:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  21:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  22:../Backend/gnu-efi-3.0.9/lib/hand.c **** EFI_STATUS
+  23:../Backend/gnu-efi-3.0.9/lib/hand.c **** LibLocateProtocol (
+  24:../Backend/gnu-efi-3.0.9/lib/hand.c ****     IN  EFI_GUID    *ProtocolGuid,
+  25:../Backend/gnu-efi-3.0.9/lib/hand.c ****     OUT VOID        **Interface
+  26:../Backend/gnu-efi-3.0.9/lib/hand.c ****     )
+  27:../Backend/gnu-efi-3.0.9/lib/hand.c **** //
+  28:../Backend/gnu-efi-3.0.9/lib/hand.c **** // Find the first instance of this Protocol in the system and return it's interface
+  29:../Backend/gnu-efi-3.0.9/lib/hand.c **** //
+  30:../Backend/gnu-efi-3.0.9/lib/hand.c **** {
+  31:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_STATUS      Status;
+  32:../Backend/gnu-efi-3.0.9/lib/hand.c ****     UINTN           NumberHandles, Index;
+  33:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_HANDLE      *Handles;
+  34:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  35:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  36:../Backend/gnu-efi-3.0.9/lib/hand.c ****     *Interface = NULL;
+  37:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Status = LibLocateHandle (ByProtocol, ProtocolGuid, NULL, &NumberHandles, &Handles);
+  38:../Backend/gnu-efi-3.0.9/lib/hand.c ****     if (EFI_ERROR(Status)) {
+  39:../Backend/gnu-efi-3.0.9/lib/hand.c ****         DEBUG((D_INFO, "LibLocateProtocol: Handle not found\n"));
+  40:../Backend/gnu-efi-3.0.9/lib/hand.c ****         return Status;
+  41:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+  42:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  43:../Backend/gnu-efi-3.0.9/lib/hand.c ****     for (Index=0; Index < NumberHandles; Index++) {
+  44:../Backend/gnu-efi-3.0.9/lib/hand.c **** //        Status = uefi_call_wrapper(BS->HandleProtocol, 3, Handles[Index], ProtocolGuid, Interface
+  45:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Status = uefi_call_wrapper(BS->OpenProtocol, 6, Handles[Index], ProtocolGuid, Interface, NU
+  46:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (!EFI_ERROR(Status)) {
+  47:../Backend/gnu-efi-3.0.9/lib/hand.c ****             break;
+  48:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+  49:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+  50:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  51:../Backend/gnu-efi-3.0.9/lib/hand.c ****     if (Handles) {
+  52:../Backend/gnu-efi-3.0.9/lib/hand.c ****         FreePool (Handles);
+  53:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+  54:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  55:../Backend/gnu-efi-3.0.9/lib/hand.c ****     return Status;
+  56:../Backend/gnu-efi-3.0.9/lib/hand.c **** }
+  57:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  58:../Backend/gnu-efi-3.0.9/lib/hand.c **** EFI_STATUS
+  59:../Backend/gnu-efi-3.0.9/lib/hand.c **** LibLocateHandle (
+  60:../Backend/gnu-efi-3.0.9/lib/hand.c ****     IN EFI_LOCATE_SEARCH_TYPE       SearchType,
+  61:../Backend/gnu-efi-3.0.9/lib/hand.c ****     IN EFI_GUID                     *Protocol OPTIONAL,
+  62:../Backend/gnu-efi-3.0.9/lib/hand.c ****     IN VOID                         *SearchKey OPTIONAL,
+  63:../Backend/gnu-efi-3.0.9/lib/hand.c ****     IN OUT UINTN                    *NoHandles,
+  64:../Backend/gnu-efi-3.0.9/lib/hand.c ****     OUT EFI_HANDLE                  **Buffer
+  65:../Backend/gnu-efi-3.0.9/lib/hand.c ****     )
+  66:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  67:../Backend/gnu-efi-3.0.9/lib/hand.c **** {
+  13              		.loc 1 67 1 view -0
+  14              		.cfi_startproc
+  15              		.loc 1 67 1 is_stmt 0 view .LVU1
+  16 0000 F30F1EFA 		endbr64
+  17 0004 4156     		pushq	%r14
+  18              		.cfi_def_cfa_offset 16
+  19              		.cfi_offset 14, -16
+  20 0006 4155     		pushq	%r13
+  21              		.cfi_def_cfa_offset 24
+  22              		.cfi_offset 13, -24
+  23 0008 4154     		pushq	%r12
+  24              		.cfi_def_cfa_offset 32
+  25              		.cfi_offset 12, -32
+  26 000a 55       		pushq	%rbp
+  27              		.cfi_def_cfa_offset 40
+  28              		.cfi_offset 6, -40
+  29 000b 53       		pushq	%rbx
+  30              		.cfi_def_cfa_offset 48
+  31              		.cfi_offset 3, -48
+  32 000c 4883EC40 		subq	$64, %rsp
+  33              		.cfi_def_cfa_offset 112
+  34 0010 4189FD   		movl	%edi, %r13d
+  35 0013 4989F4   		movq	%rsi, %r12
+  36 0016 4889D5   		movq	%rdx, %rbp
+  37 0019 4989CE   		movq	%rcx, %r14
+  38 001c 4C89C3   		movq	%r8, %rbx
+  68:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_STATUS          Status;
+  39              		.loc 1 68 5 is_stmt 1 view .LVU2
+  69:../Backend/gnu-efi-3.0.9/lib/hand.c ****     UINTN               BufferSize;
+  40              		.loc 1 69 5 view .LVU3
+  70:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  71:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+  72:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Initialize for GrowBuffer loop
+  73:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+  74:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  75:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Status = EFI_SUCCESS;
+  41              		.loc 1 75 5 view .LVU4
+  42              		.loc 1 75 12 is_stmt 0 view .LVU5
+  43 001f 48C74424 		movq	$0, 56(%rsp)
+  43      38000000 
+  43      00
+  76:../Backend/gnu-efi-3.0.9/lib/hand.c ****     *Buffer = NULL;
+  44              		.loc 1 76 5 is_stmt 1 view .LVU6
+  45              		.loc 1 76 13 is_stmt 0 view .LVU7
+  46 0028 49C70000 		movq	$0, (%r8)
+  46      000000
+  77:../Backend/gnu-efi-3.0.9/lib/hand.c ****     BufferSize = 50 * sizeof(EFI_HANDLE);
+  47              		.loc 1 77 5 is_stmt 1 view .LVU8
+  48              		.loc 1 77 16 is_stmt 0 view .LVU9
+  49 002f 48C74424 		movq	$400, 48(%rsp)
+  49      30900100 
+  49      00
+  78:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  79:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+  80:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Call the real function
+  81:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+  82:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  83:../Backend/gnu-efi-3.0.9/lib/hand.c ****     while (GrowBuffer (&Status, (VOID **) Buffer, BufferSize)) {
+  50              		.loc 1 83 5 is_stmt 1 view .LVU10
+  51              		.loc 1 83 11 is_stmt 0 view .LVU11
+  52 0038 EB2B     		jmp	.L2
+  53              	.LVL1:
+  54              	.L3:
+  84:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  85:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Status = uefi_call_wrapper(
+  55              		.loc 1 85 9 is_stmt 1 view .LVU12
+  56              		.loc 1 85 18 is_stmt 0 view .LVU13
+  57 003a 488B0500 		movq	BS(%rip), %rax
+  57      000000
+  58 0041 488B80B0 		movq	176(%rax), %rax
+  58      000000
+  59 0048 488B13   		movq	(%rbx), %rdx
+  60 004b 48895424 		movq	%rdx, 32(%rsp)
+  60      20
+  61 0050 4C8D4C24 		leaq	48(%rsp), %r9
+  61      30
+  62 0055 4989E8   		movq	%rbp, %r8
+  63 0058 4C89E2   		movq	%r12, %rdx
+  64 005b 4489E9   		movl	%r13d, %ecx
+  65 005e FFD0     		call	*%rax
+  66              	.LVL2:
+  67              		.loc 1 85 16 discriminator 1 view .LVU14
+  68 0060 48894424 		movq	%rax, 56(%rsp)
+  68      38
+  69              	.L2:
+  83:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  70              		.loc 1 83 12 is_stmt 1 view .LVU15
+  71 0065 488D7C24 		leaq	56(%rsp), %rdi
+  71      38
+  72 006a 488B5424 		movq	48(%rsp), %rdx
+  72      30
+  73 006f 4889DE   		movq	%rbx, %rsi
+  74 0072 E8000000 		call	GrowBuffer
+  74      00
+  75              	.LVL3:
+  83:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  76              		.loc 1 83 12 is_stmt 0 discriminator 1 view .LVU16
+  77 0077 84C0     		testb	%al, %al
+  78 0079 75BF     		jne	.L3
+  86:../Backend/gnu-efi-3.0.9/lib/hand.c **** 			BS->LocateHandle,
+  87:../Backend/gnu-efi-3.0.9/lib/hand.c **** 			5,
+  88:../Backend/gnu-efi-3.0.9/lib/hand.c ****                         SearchType,
+  89:../Backend/gnu-efi-3.0.9/lib/hand.c ****                         Protocol,
+  90:../Backend/gnu-efi-3.0.9/lib/hand.c ****                         SearchKey,
+  91:../Backend/gnu-efi-3.0.9/lib/hand.c ****                         &BufferSize,
+  92:../Backend/gnu-efi-3.0.9/lib/hand.c ****                         *Buffer
+  93:../Backend/gnu-efi-3.0.9/lib/hand.c ****                         );
+  94:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  95:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+  96:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+  97:../Backend/gnu-efi-3.0.9/lib/hand.c ****     *NoHandles = BufferSize / sizeof (EFI_HANDLE);
+  79              		.loc 1 97 5 is_stmt 1 view .LVU17
+  80              		.loc 1 97 29 is_stmt 0 view .LVU18
+  81 007b 488B4424 		movq	48(%rsp), %rax
+  81      30
+  82 0080 48C1E803 		shrq	$3, %rax
+  83              		.loc 1 97 16 view .LVU19
+  84 0084 498906   		movq	%rax, (%r14)
+  98:../Backend/gnu-efi-3.0.9/lib/hand.c ****     if (EFI_ERROR(Status)) {
+  85              		.loc 1 98 5 is_stmt 1 view .LVU20
+  86              		.loc 1 98 8 is_stmt 0 view .LVU21
+  87 0087 48837C24 		cmpq	$0, 56(%rsp)
+  87      3800
+  88 008d 7812     		js	.L6
+  89              	.L4:
+  99:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *NoHandles = 0;
+ 100:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 101:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 102:../Backend/gnu-efi-3.0.9/lib/hand.c ****     return Status;
+  90              		.loc 1 102 5 is_stmt 1 view .LVU22
+ 103:../Backend/gnu-efi-3.0.9/lib/hand.c **** }
+  91              		.loc 1 103 1 is_stmt 0 view .LVU23
+  92 008f 488B4424 		movq	56(%rsp), %rax
+  92      38
+  93 0094 4883C440 		addq	$64, %rsp
+  94              		.cfi_remember_state
+  95              		.cfi_def_cfa_offset 48
+  96 0098 5B       		popq	%rbx
+  97              		.cfi_restore 3
+  98              		.cfi_def_cfa_offset 40
+  99              	.LVL4:
+ 100              		.loc 1 103 1 view .LVU24
+ 101 0099 5D       		popq	%rbp
+ 102              		.cfi_restore 6
+ 103              		.cfi_def_cfa_offset 32
+ 104              	.LVL5:
+ 105              		.loc 1 103 1 view .LVU25
+ 106 009a 415C     		popq	%r12
+ 107              		.cfi_restore 12
+ 108              		.cfi_def_cfa_offset 24
+ 109              	.LVL6:
+ 110              		.loc 1 103 1 view .LVU26
+ 111 009c 415D     		popq	%r13
+ 112              		.cfi_restore 13
+ 113              		.cfi_def_cfa_offset 16
+ 114              	.LVL7:
+ 115              		.loc 1 103 1 view .LVU27
+ 116 009e 415E     		popq	%r14
+ 117              		.cfi_restore 14
+ 118              		.cfi_def_cfa_offset 8
+ 119              	.LVL8:
+ 120              		.loc 1 103 1 view .LVU28
+ 121 00a0 C3       		ret
+ 122              	.LVL9:
+ 123              	.L6:
+ 124              		.cfi_restore_state
+  99:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *NoHandles = 0;
+ 125              		.loc 1 99 9 is_stmt 1 view .LVU29
+  99:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *NoHandles = 0;
+ 126              		.loc 1 99 20 is_stmt 0 view .LVU30
+ 127 00a1 49C70600 		movq	$0, (%r14)
+ 127      000000
+ 128 00a8 EBE5     		jmp	.L4
+ 129              		.cfi_endproc
+ 130              	.LFE1:
+ 132              		.globl	LibLocateProtocol
+ 133              		.hidden	LibLocateProtocol
+ 135              	LibLocateProtocol:
+ 136              	.LVL10:
+ 137              	.LFB0:
+  30:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_STATUS      Status;
+ 138              		.loc 1 30 1 is_stmt 1 view -0
+ 139              		.cfi_startproc
+  30:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_STATUS      Status;
+ 140              		.loc 1 30 1 is_stmt 0 view .LVU32
+ 141 00aa F30F1EFA 		endbr64
+ 142 00ae 4155     		pushq	%r13
+ 143              		.cfi_def_cfa_offset 16
+ 144              		.cfi_offset 13, -16
+ 145 00b0 4154     		pushq	%r12
+ 146              		.cfi_def_cfa_offset 24
+ 147              		.cfi_offset 12, -24
+ 148 00b2 55       		pushq	%rbp
+ 149              		.cfi_def_cfa_offset 32
+ 150              		.cfi_offset 6, -32
+ 151 00b3 53       		pushq	%rbx
+ 152              		.cfi_def_cfa_offset 40
+ 153              		.cfi_offset 3, -40
+ 154 00b4 4883EC48 		subq	$72, %rsp
+ 155              		.cfi_def_cfa_offset 112
+ 156 00b8 4989FC   		movq	%rdi, %r12
+ 157 00bb 4989F5   		movq	%rsi, %r13
+  31:../Backend/gnu-efi-3.0.9/lib/hand.c ****     UINTN           NumberHandles, Index;
+ 158              		.loc 1 31 5 is_stmt 1 view .LVU33
+  32:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_HANDLE      *Handles;
+ 159              		.loc 1 32 5 view .LVU34
+  33:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 160              		.loc 1 33 5 view .LVU35
+  36:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Status = LibLocateHandle (ByProtocol, ProtocolGuid, NULL, &NumberHandles, &Handles);
+ 161              		.loc 1 36 5 view .LVU36
+  36:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Status = LibLocateHandle (ByProtocol, ProtocolGuid, NULL, &NumberHandles, &Handles);
+ 162              		.loc 1 36 16 is_stmt 0 view .LVU37
+ 163 00be 48C70600 		movq	$0, (%rsi)
+ 163      000000
+  37:../Backend/gnu-efi-3.0.9/lib/hand.c ****     if (EFI_ERROR(Status)) {
+ 164              		.loc 1 37 5 is_stmt 1 view .LVU38
+  37:../Backend/gnu-efi-3.0.9/lib/hand.c ****     if (EFI_ERROR(Status)) {
+ 165              		.loc 1 37 14 is_stmt 0 view .LVU39
+ 166 00c5 488D4C24 		leaq	56(%rsp), %rcx
+ 166      38
+ 167 00ca 4C8D4424 		leaq	48(%rsp), %r8
+ 167      30
+ 168 00cf BA000000 		movl	$0, %edx
+ 168      00
+ 169 00d4 4889FE   		movq	%rdi, %rsi
+ 170              	.LVL11:
+  37:../Backend/gnu-efi-3.0.9/lib/hand.c ****     if (EFI_ERROR(Status)) {
+ 171              		.loc 1 37 14 view .LVU40
+ 172 00d7 BF020000 		movl	$2, %edi
+ 172      00
+ 173              	.LVL12:
+  37:../Backend/gnu-efi-3.0.9/lib/hand.c ****     if (EFI_ERROR(Status)) {
+ 174              		.loc 1 37 14 view .LVU41
+ 175 00dc E8000000 		call	LibLocateHandle
+ 175      00
+ 176              	.LVL13:
+  37:../Backend/gnu-efi-3.0.9/lib/hand.c ****     if (EFI_ERROR(Status)) {
+ 177              		.loc 1 37 14 view .LVU42
+ 178 00e1 4889C3   		movq	%rax, %rbx
+ 179              	.LVL14:
+  38:../Backend/gnu-efi-3.0.9/lib/hand.c ****         DEBUG((D_INFO, "LibLocateProtocol: Handle not found\n"));
+ 180              		.loc 1 38 5 is_stmt 1 view .LVU43
+  38:../Backend/gnu-efi-3.0.9/lib/hand.c ****         DEBUG((D_INFO, "LibLocateProtocol: Handle not found\n"));
+ 181              		.loc 1 38 8 is_stmt 0 view .LVU44
+ 182 00e4 4885C0   		testq	%rax, %rax
+ 183 00e7 785F     		js	.L7
+  43:../Backend/gnu-efi-3.0.9/lib/hand.c **** //        Status = uefi_call_wrapper(BS->HandleProtocol, 3, Handles[Index], ProtocolGuid, Interface
+ 184              		.loc 1 43 15 view .LVU45
+ 185 00e9 BD000000 		movl	$0, %ebp
+ 185      00
+ 186              	.L9:
+ 187              	.LVL15:
+  43:../Backend/gnu-efi-3.0.9/lib/hand.c **** //        Status = uefi_call_wrapper(BS->HandleProtocol, 3, Handles[Index], ProtocolGuid, Interface
+ 188              		.loc 1 43 25 is_stmt 1 discriminator 1 view .LVU46
+ 189 00ee 483B6C24 		cmpq	56(%rsp), %rbp
+ 189      38
+ 190 00f3 7344     		jnb	.L10
+  45:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (!EFI_ERROR(Status)) {
+ 191              		.loc 1 45 9 view .LVU47
+  45:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (!EFI_ERROR(Status)) {
+ 192              		.loc 1 45 18 is_stmt 0 view .LVU48
+ 193 00f5 488B0500 		movq	BS(%rip), %rax
+ 193      000000
+ 194              	.LVL16:
+  45:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (!EFI_ERROR(Status)) {
+ 195              		.loc 1 45 18 view .LVU49
+ 196 00fc 488B8018 		movq	280(%rax), %rax
+ 196      010000
+ 197 0103 488B5424 		movq	48(%rsp), %rdx
+ 197      30
+ 198 0108 488B0CEA 		movq	(%rdx,%rbp,8), %rcx
+ 199 010c C7442428 		movl	$2, 40(%rsp)
+ 199      02000000 
+ 200 0114 48C74424 		movq	$0, 32(%rsp)
+ 200      20000000 
+ 200      00
+ 201 011d 41B90000 		movl	$0, %r9d
+ 201      0000
+ 202 0123 4D89E8   		movq	%r13, %r8
+ 203 0126 4C89E2   		movq	%r12, %rdx
+ 204 0129 FFD0     		call	*%rax
+ 205              	.LVL17:
+ 206 012b 4889C3   		movq	%rax, %rbx
+ 207              	.LVL18:
+  46:../Backend/gnu-efi-3.0.9/lib/hand.c ****             break;
+ 208              		.loc 1 46 9 is_stmt 1 view .LVU50
+  46:../Backend/gnu-efi-3.0.9/lib/hand.c ****             break;
+ 209              		.loc 1 46 12 is_stmt 0 view .LVU51
+ 210 012e 4885C0   		testq	%rax, %rax
+ 211 0131 7906     		jns	.L10
+  43:../Backend/gnu-efi-3.0.9/lib/hand.c **** //        Status = uefi_call_wrapper(BS->HandleProtocol, 3, Handles[Index], ProtocolGuid, Interface
+ 212              		.loc 1 43 47 is_stmt 1 discriminator 2 view .LVU52
+ 213 0133 4883C501 		addq	$1, %rbp
+ 214              	.LVL19:
+  43:../Backend/gnu-efi-3.0.9/lib/hand.c **** //        Status = uefi_call_wrapper(BS->HandleProtocol, 3, Handles[Index], ProtocolGuid, Interface
+ 215              		.loc 1 43 47 is_stmt 0 discriminator 2 view .LVU53
+ 216 0137 EBB5     		jmp	.L9
+ 217              	.L10:
+  51:../Backend/gnu-efi-3.0.9/lib/hand.c ****         FreePool (Handles);
+ 218              		.loc 1 51 5 is_stmt 1 view .LVU54
+  51:../Backend/gnu-efi-3.0.9/lib/hand.c ****         FreePool (Handles);
+ 219              		.loc 1 51 9 is_stmt 0 view .LVU55
+ 220 0139 488B7C24 		movq	48(%rsp), %rdi
+ 220      30
+  51:../Backend/gnu-efi-3.0.9/lib/hand.c ****         FreePool (Handles);
+ 221              		.loc 1 51 8 view .LVU56
+ 222 013e 4885FF   		testq	%rdi, %rdi
+ 223 0141 7405     		je	.L7
+  52:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 224              		.loc 1 52 9 is_stmt 1 view .LVU57
+ 225 0143 E8000000 		call	FreePool
+ 225      00
+ 226              	.LVL20:
+ 227              	.L7:
+  56:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 228              		.loc 1 56 1 is_stmt 0 view .LVU58
+ 229 0148 4889D8   		movq	%rbx, %rax
+ 230 014b 4883C448 		addq	$72, %rsp
+ 231              		.cfi_def_cfa_offset 40
+ 232 014f 5B       		popq	%rbx
+ 233              		.cfi_restore 3
+ 234              		.cfi_def_cfa_offset 32
+ 235              	.LVL21:
+  56:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 236              		.loc 1 56 1 view .LVU59
+ 237 0150 5D       		popq	%rbp
+ 238              		.cfi_restore 6
+ 239              		.cfi_def_cfa_offset 24
+ 240 0151 415C     		popq	%r12
+ 241              		.cfi_restore 12
+ 242              		.cfi_def_cfa_offset 16
+ 243              	.LVL22:
+  56:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 244              		.loc 1 56 1 view .LVU60
+ 245 0153 415D     		popq	%r13
+ 246              		.cfi_restore 13
+ 247              		.cfi_def_cfa_offset 8
+ 248              	.LVL23:
+  56:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 249              		.loc 1 56 1 view .LVU61
+ 250 0155 C3       		ret
+ 251              		.cfi_endproc
+ 252              	.LFE0:
+ 254              		.globl	LibLocateHandleByDiskSignature
+ 255              		.hidden	LibLocateHandleByDiskSignature
+ 257              	LibLocateHandleByDiskSignature:
+ 258              	.LVL24:
+ 259              	.LFB2:
+ 104:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 105:../Backend/gnu-efi-3.0.9/lib/hand.c **** EFI_STATUS
+ 106:../Backend/gnu-efi-3.0.9/lib/hand.c **** LibLocateHandleByDiskSignature (
+ 107:../Backend/gnu-efi-3.0.9/lib/hand.c ****     IN UINT8                        MBRType,
+ 108:../Backend/gnu-efi-3.0.9/lib/hand.c ****     IN UINT8                        SignatureType,
+ 109:../Backend/gnu-efi-3.0.9/lib/hand.c ****     IN VOID                         *Signature,
+ 110:../Backend/gnu-efi-3.0.9/lib/hand.c ****     IN OUT UINTN                    *NoHandles,
+ 111:../Backend/gnu-efi-3.0.9/lib/hand.c ****     OUT EFI_HANDLE                  **Buffer
+ 112:../Backend/gnu-efi-3.0.9/lib/hand.c ****     )
+ 113:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 114:../Backend/gnu-efi-3.0.9/lib/hand.c **** {
+ 260              		.loc 1 114 1 is_stmt 1 view -0
+ 261              		.cfi_startproc
+ 262              		.loc 1 114 1 is_stmt 0 view .LVU63
+ 263 0156 F30F1EFA 		endbr64
+ 264 015a 4157     		pushq	%r15
+ 265              		.cfi_def_cfa_offset 16
+ 266              		.cfi_offset 15, -16
+ 267 015c 4156     		pushq	%r14
+ 268              		.cfi_def_cfa_offset 24
+ 269              		.cfi_offset 14, -24
+ 270 015e 4155     		pushq	%r13
+ 271              		.cfi_def_cfa_offset 32
+ 272              		.cfi_offset 13, -32
+ 273 0160 4154     		pushq	%r12
+ 274              		.cfi_def_cfa_offset 40
+ 275              		.cfi_offset 12, -40
+ 276 0162 55       		pushq	%rbp
+ 277              		.cfi_def_cfa_offset 48
+ 278              		.cfi_offset 6, -48
+ 279 0163 53       		pushq	%rbx
+ 280              		.cfi_def_cfa_offset 56
+ 281              		.cfi_offset 3, -56
+ 282 0164 4883EC78 		subq	$120, %rsp
+ 283              		.cfi_def_cfa_offset 176
+ 284 0168 48895424 		movq	%rdx, 72(%rsp)
+ 284      48
+ 285 016d 4989CF   		movq	%rcx, %r15
+ 286 0170 4C894424 		movq	%r8, 56(%rsp)
+ 286      38
+ 287 0175 40887C24 		movb	%dil, 70(%rsp)
+ 287      46
+ 288 017a 40887424 		movb	%sil, 71(%rsp)
+ 288      47
+ 115:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_STATUS            Status;
+ 289              		.loc 1 115 5 is_stmt 1 view .LVU64
+ 116:../Backend/gnu-efi-3.0.9/lib/hand.c ****     UINTN                 BufferSize;
+ 290              		.loc 1 116 5 view .LVU65
+ 117:../Backend/gnu-efi-3.0.9/lib/hand.c ****     UINTN                 NoBlockIoHandles;
+ 291              		.loc 1 117 5 view .LVU66
+ 118:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_HANDLE            *BlockIoBuffer;
+ 292              		.loc 1 118 5 view .LVU67
+ 119:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_DEVICE_PATH       *DevicePath;
+ 293              		.loc 1 119 5 view .LVU68
+ 120:../Backend/gnu-efi-3.0.9/lib/hand.c ****     UINTN                 Index;
+ 294              		.loc 1 120 5 view .LVU69
+ 121:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_DEVICE_PATH       *Next, *DevPath;
+ 295              		.loc 1 121 5 view .LVU70
+ 122:../Backend/gnu-efi-3.0.9/lib/hand.c ****     HARDDRIVE_DEVICE_PATH *HardDriveDevicePath;
+ 296              		.loc 1 122 5 view .LVU71
+ 123:../Backend/gnu-efi-3.0.9/lib/hand.c ****     BOOLEAN               Match;
+ 297              		.loc 1 123 5 view .LVU72
+ 124:../Backend/gnu-efi-3.0.9/lib/hand.c ****     BOOLEAN               PreviousNodeIsHardDriveDevicePath;
+ 298              		.loc 1 124 5 view .LVU73
+ 125:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 126:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 127:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Initialize for GrowBuffer loop
+ 128:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 129:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 130:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Status = EFI_SUCCESS;
+ 299              		.loc 1 130 5 view .LVU74
+ 300              		.loc 1 130 12 is_stmt 0 view .LVU75
+ 301 017f 48C74424 		movq	$0, 104(%rsp)
+ 301      68000000 
+ 301      00
+ 131:../Backend/gnu-efi-3.0.9/lib/hand.c ****     BlockIoBuffer = NULL;
+ 302              		.loc 1 131 5 is_stmt 1 view .LVU76
+ 303              		.loc 1 131 19 is_stmt 0 view .LVU77
+ 304 0188 48C74424 		movq	$0, 88(%rsp)
+ 304      58000000 
+ 304      00
+ 132:../Backend/gnu-efi-3.0.9/lib/hand.c ****     BufferSize = 50 * sizeof(EFI_HANDLE);
+ 305              		.loc 1 132 5 is_stmt 1 view .LVU78
+ 306              		.loc 1 132 16 is_stmt 0 view .LVU79
+ 307 0191 48C74424 		movq	$400, 96(%rsp)
+ 307      60900100 
+ 307      00
+ 133:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 134:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 135:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Call the real function
+ 136:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 137:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 138:../Backend/gnu-efi-3.0.9/lib/hand.c ****     while (GrowBuffer (&Status, (VOID **)&BlockIoBuffer, BufferSize)) {
+ 308              		.loc 1 138 5 is_stmt 1 view .LVU80
+ 309              		.loc 1 138 11 is_stmt 0 view .LVU81
+ 310 019a EB36     		jmp	.L14
+ 311              	.LVL25:
+ 312              	.L15:
+ 139:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 140:../Backend/gnu-efi-3.0.9/lib/hand.c ****         //
+ 141:../Backend/gnu-efi-3.0.9/lib/hand.c ****         // Get list of device handles that support the BLOCK_IO Protocol.
+ 142:../Backend/gnu-efi-3.0.9/lib/hand.c ****         //
+ 143:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 144:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Status = uefi_call_wrapper(
+ 313              		.loc 1 144 9 is_stmt 1 view .LVU82
+ 314              		.loc 1 144 18 is_stmt 0 view .LVU83
+ 315 019c 488B0500 		movq	BS(%rip), %rax
+ 315      000000
+ 316 01a3 488B80B0 		movq	176(%rax), %rax
+ 316      000000
+ 317 01aa 488B5424 		movq	88(%rsp), %rdx
+ 317      58
+ 318 01af 48895424 		movq	%rdx, 32(%rsp)
+ 318      20
+ 319 01b4 4C8D4C24 		leaq	96(%rsp), %r9
+ 319      60
+ 320 01b9 41B80000 		movl	$0, %r8d
+ 320      0000
+ 321 01bf 488D1500 		leaq	gEfiBlockIoProtocolGuid(%rip), %rdx
+ 321      000000
+ 322 01c6 B9020000 		movl	$2, %ecx
+ 322      00
+ 323 01cb FFD0     		call	*%rax
+ 324              	.LVL26:
+ 325              		.loc 1 144 16 discriminator 1 view .LVU84
+ 326 01cd 48894424 		movq	%rax, 104(%rsp)
+ 326      68
+ 327              	.L14:
+ 138:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 328              		.loc 1 138 12 is_stmt 1 view .LVU85
+ 329 01d2 488D7424 		leaq	88(%rsp), %rsi
+ 329      58
+ 330 01d7 488D7C24 		leaq	104(%rsp), %rdi
+ 330      68
+ 331 01dc 488B5424 		movq	96(%rsp), %rdx
+ 331      60
+ 332 01e1 E8000000 		call	GrowBuffer
+ 332      00
+ 333              	.LVL27:
+ 334 01e6 89C5     		movl	%eax, %ebp
+ 138:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 335              		.loc 1 138 12 is_stmt 0 discriminator 1 view .LVU86
+ 336 01e8 84C0     		testb	%al, %al
+ 337 01ea 75B0     		jne	.L15
+ 145:../Backend/gnu-efi-3.0.9/lib/hand.c **** 			BS->LocateHandle,
+ 146:../Backend/gnu-efi-3.0.9/lib/hand.c **** 			5,
+ 147:../Backend/gnu-efi-3.0.9/lib/hand.c ****                         ByProtocol,
+ 148:../Backend/gnu-efi-3.0.9/lib/hand.c ****                         &BlockIoProtocol,
+ 149:../Backend/gnu-efi-3.0.9/lib/hand.c ****                         NULL,
+ 150:../Backend/gnu-efi-3.0.9/lib/hand.c ****                         &BufferSize,
+ 151:../Backend/gnu-efi-3.0.9/lib/hand.c ****                         BlockIoBuffer
+ 152:../Backend/gnu-efi-3.0.9/lib/hand.c ****                         );
+ 153:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 154:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 155:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 156:../Backend/gnu-efi-3.0.9/lib/hand.c ****     NoBlockIoHandles = BufferSize / sizeof (EFI_HANDLE);
+ 338              		.loc 1 156 5 is_stmt 1 view .LVU87
+ 339              		.loc 1 156 35 is_stmt 0 view .LVU88
+ 340 01ec 488B4424 		movq	96(%rsp), %rax
+ 340      60
+ 341              		.loc 1 156 22 view .LVU89
+ 342 01f1 4889C7   		movq	%rax, %rdi
+ 343 01f4 48C1EF03 		shrq	$3, %rdi
+ 344 01f8 48897C24 		movq	%rdi, 48(%rsp)
+ 344      30
+ 345              	.LVL28:
+ 157:../Backend/gnu-efi-3.0.9/lib/hand.c ****     if (EFI_ERROR(Status)) {
+ 346              		.loc 1 157 5 is_stmt 1 view .LVU90
+ 347              		.loc 1 157 8 is_stmt 0 view .LVU91
+ 348 01fd 48837C24 		cmpq	$0, 104(%rsp)
+ 348      6800
+ 349 0203 7818     		js	.L16
+ 158:../Backend/gnu-efi-3.0.9/lib/hand.c ****         NoBlockIoHandles = 0;
+ 159:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 160:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 161:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 162:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // If there was an error or there are no device handles that support
+ 163:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // the BLOCK_IO Protocol, then return.
+ 164:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 165:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 166:../Backend/gnu-efi-3.0.9/lib/hand.c ****     if (NoBlockIoHandles == 0) {
+ 350              		.loc 1 166 5 is_stmt 1 view .LVU92
+ 351              		.loc 1 166 8 is_stmt 0 view .LVU93
+ 352 0205 4883F807 		cmpq	$7, %rax
+ 353 0209 7612     		jbe	.L16
+ 167:../Backend/gnu-efi-3.0.9/lib/hand.c ****         FreePool(BlockIoBuffer);
+ 168:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *NoHandles = 0;
+ 169:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *Buffer = NULL;
+ 170:../Backend/gnu-efi-3.0.9/lib/hand.c ****         return Status;
+ 171:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 172:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 173:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 174:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Loop through all the device handles that support the BLOCK_IO Protocol
+ 175:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 176:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 177:../Backend/gnu-efi-3.0.9/lib/hand.c ****     *NoHandles = 0;
+ 354              		.loc 1 177 5 is_stmt 1 view .LVU94
+ 355              		.loc 1 177 16 is_stmt 0 view .LVU95
+ 356 020b 49C70700 		movq	$0, (%r15)
+ 356      000000
+ 178:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 179:../Backend/gnu-efi-3.0.9/lib/hand.c ****     for(Index=0;Index<NoBlockIoHandles;Index++) {
+ 357              		.loc 1 179 5 is_stmt 1 view .LVU96
+ 358              	.LVL29:
+ 359              		.loc 1 179 14 is_stmt 0 view .LVU97
+ 360 0212 41BE0000 		movl	$0, %r14d
+ 360      0000
+ 361              		.loc 1 179 5 view .LVU98
+ 362 0218 E9280100 		jmp	.L19
+ 362      00
+ 363              	.LVL30:
+ 364              	.L16:
+ 167:../Backend/gnu-efi-3.0.9/lib/hand.c ****         FreePool(BlockIoBuffer);
+ 365              		.loc 1 167 9 is_stmt 1 view .LVU99
+ 366 021d 488B7C24 		movq	88(%rsp), %rdi
+ 366      58
+ 367 0222 E8000000 		call	FreePool
+ 367      00
+ 368              	.LVL31:
+ 168:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *Buffer = NULL;
+ 369              		.loc 1 168 9 view .LVU100
+ 168:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *Buffer = NULL;
+ 370              		.loc 1 168 20 is_stmt 0 view .LVU101
+ 371 0227 49C70700 		movq	$0, (%r15)
+ 371      000000
+ 169:../Backend/gnu-efi-3.0.9/lib/hand.c ****         return Status;
+ 372              		.loc 1 169 9 is_stmt 1 view .LVU102
+ 169:../Backend/gnu-efi-3.0.9/lib/hand.c ****         return Status;
+ 373              		.loc 1 169 17 is_stmt 0 view .LVU103
+ 374 022e 488B4424 		movq	56(%rsp), %rax
+ 374      38
+ 375 0233 48C70000 		movq	$0, (%rax)
+ 375      000000
+ 170:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 376              		.loc 1 170 9 is_stmt 1 view .LVU104
+ 170:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 377              		.loc 1 170 16 is_stmt 0 view .LVU105
+ 378 023a 488B5C24 		movq	104(%rsp), %rbx
+ 378      68
+ 379              	.L13:
+ 180:../Backend/gnu-efi-3.0.9/lib/hand.c **** /* // Legacy EFI 1.0 version
+ 181:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Status = uefi_call_wrapper(
+ 182:../Backend/gnu-efi-3.0.9/lib/hand.c **** 				     BS->HandleProtocol,
+ 183:../Backend/gnu-efi-3.0.9/lib/hand.c **** 					3,
+ 184:../Backend/gnu-efi-3.0.9/lib/hand.c **** 				     BlockIoBuffer[Index],
+ 185:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                      &DevicePathProtocol,
+ 186:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                      (VOID*)&DevicePath
+ 187:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                      );
+ 188:../Backend/gnu-efi-3.0.9/lib/hand.c **** */
+ 189:../Backend/gnu-efi-3.0.9/lib/hand.c **** // UEFI 2.x version
+ 190:../Backend/gnu-efi-3.0.9/lib/hand.c ****          Status = uefi_call_wrapper(
+ 191:../Backend/gnu-efi-3.0.9/lib/hand.c ****  				     BS->OpenProtocol,
+ 192:../Backend/gnu-efi-3.0.9/lib/hand.c ****  					6,
+ 193:../Backend/gnu-efi-3.0.9/lib/hand.c ****  				     BlockIoBuffer[Index],
+ 194:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                       &DevicePathProtocol,
+ 195:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                       (VOID*)&DevicePath,
+ 196:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                       NULL,
+ 197:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                       NULL,
+ 198:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                       EFI_OPEN_PROTOCOL_GET_PROTOCOL
+ 199:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                       );
+ 200:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 201:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 202:../Backend/gnu-efi-3.0.9/lib/hand.c ****         //
+ 203:../Backend/gnu-efi-3.0.9/lib/hand.c ****         // Search DevicePath for a Hard Drive Media Device Path node.
+ 204:../Backend/gnu-efi-3.0.9/lib/hand.c ****         // If one is found, then see if it matches the signature that was
+ 205:../Backend/gnu-efi-3.0.9/lib/hand.c ****         // passed in.  If it does match, and the next node is the End of the
+ 206:../Backend/gnu-efi-3.0.9/lib/hand.c ****         // device path, and the previous node is not a Hard Drive Media Device
+ 207:../Backend/gnu-efi-3.0.9/lib/hand.c ****         // Path, then we have found a match.
+ 208:../Backend/gnu-efi-3.0.9/lib/hand.c ****         //
+ 209:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 210:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Match = FALSE;
+ 211:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 212:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (DevicePath != NULL) {
+ 213:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 214:../Backend/gnu-efi-3.0.9/lib/hand.c ****             PreviousNodeIsHardDriveDevicePath = FALSE;
+ 215:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 216:../Backend/gnu-efi-3.0.9/lib/hand.c ****             DevPath = DevicePath;
+ 217:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 218:../Backend/gnu-efi-3.0.9/lib/hand.c ****             //
+ 219:../Backend/gnu-efi-3.0.9/lib/hand.c ****             // Check for end of device path type
+ 220:../Backend/gnu-efi-3.0.9/lib/hand.c ****             //
+ 221:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 222:../Backend/gnu-efi-3.0.9/lib/hand.c ****             for (; ;) {
+ 223:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 224:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 if ((DevicePathType(DevPath) == MEDIA_DEVICE_PATH) &&
+ 225:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     (DevicePathSubType(DevPath) == MEDIA_HARDDRIVE_DP)) {
+ 226:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 227:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     HardDriveDevicePath = (HARDDRIVE_DEVICE_PATH *)(DevPath);
+ 228:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 229:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     if (PreviousNodeIsHardDriveDevicePath == FALSE) {
+ 230:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 231:../Backend/gnu-efi-3.0.9/lib/hand.c ****                         Next = NextDevicePathNode(DevPath);
+ 232:../Backend/gnu-efi-3.0.9/lib/hand.c ****                         if (IsDevicePathEndType(Next)) {
+ 233:../Backend/gnu-efi-3.0.9/lib/hand.c ****                             if ((HardDriveDevicePath->MBRType == MBRType) &&
+ 234:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                 (HardDriveDevicePath->SignatureType == SignatureType)) {
+ 235:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                     switch(SignatureType) {
+ 236:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                         case SIGNATURE_TYPE_MBR:
+ 237:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                             if (*((UINT32 *)(Signature)) == *(UINT32 *)(&(HardDrive
+ 238:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                                 Match = TRUE;
+ 239:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                             }
+ 240:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                             break;
+ 241:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                         case SIGNATURE_TYPE_GUID:
+ 242:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                             if (CompareGuid((EFI_GUID *)Signature,(EFI_GUID *)(&(Ha
+ 243:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                                 Match = TRUE;
+ 244:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                             }
+ 245:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                             break;
+ 246:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                     }
+ 247:../Backend/gnu-efi-3.0.9/lib/hand.c ****                             }
+ 248:../Backend/gnu-efi-3.0.9/lib/hand.c ****                         }
+ 249:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     }
+ 250:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     PreviousNodeIsHardDriveDevicePath = TRUE;
+ 251:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 } else {
+ 252:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     PreviousNodeIsHardDriveDevicePath = FALSE;
+ 253:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 }
+ 254:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 255:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 if (IsDevicePathEnd(DevPath)) {
+ 256:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     break;
+ 257:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 }
+ 258:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 259:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 DevPath = NextDevicePathNode(DevPath);
+ 260:../Backend/gnu-efi-3.0.9/lib/hand.c ****             }
+ 261:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 262:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 263:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 264:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (Match == FALSE) {
+ 265:../Backend/gnu-efi-3.0.9/lib/hand.c ****             BlockIoBuffer[Index] = NULL;
+ 266:../Backend/gnu-efi-3.0.9/lib/hand.c ****         } else {
+ 267:../Backend/gnu-efi-3.0.9/lib/hand.c ****             *NoHandles = *NoHandles + 1;
+ 268:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 269:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 270:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 271:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 272:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // If there are no matches, then return
+ 273:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 274:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 275:../Backend/gnu-efi-3.0.9/lib/hand.c ****     if (*NoHandles == 0) {
+ 276:../Backend/gnu-efi-3.0.9/lib/hand.c ****         FreePool(BlockIoBuffer);
+ 277:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *NoHandles = 0;
+ 278:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *Buffer = NULL;
+ 279:../Backend/gnu-efi-3.0.9/lib/hand.c ****         return EFI_SUCCESS;
+ 280:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 281:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 282:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 283:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Allocate space for the return buffer of device handles.
+ 284:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 285:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 286:../Backend/gnu-efi-3.0.9/lib/hand.c ****     *Buffer = AllocatePool(*NoHandles * sizeof(EFI_HANDLE));
+ 287:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 288:../Backend/gnu-efi-3.0.9/lib/hand.c ****     if (*Buffer == NULL) {
+ 289:../Backend/gnu-efi-3.0.9/lib/hand.c ****         FreePool(BlockIoBuffer);
+ 290:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *NoHandles = 0;
+ 291:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *Buffer = NULL;
+ 292:../Backend/gnu-efi-3.0.9/lib/hand.c ****         return EFI_OUT_OF_RESOURCES;
+ 293:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 294:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 295:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 296:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Build list of matching device handles.
+ 297:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 298:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 299:../Backend/gnu-efi-3.0.9/lib/hand.c ****     *NoHandles = 0;
+ 300:../Backend/gnu-efi-3.0.9/lib/hand.c ****     for(Index=0;Index<NoBlockIoHandles;Index++) {
+ 301:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (BlockIoBuffer[Index] != NULL) {
+ 302:../Backend/gnu-efi-3.0.9/lib/hand.c ****             (*Buffer)[*NoHandles] = BlockIoBuffer[Index];
+ 303:../Backend/gnu-efi-3.0.9/lib/hand.c ****             *NoHandles = *NoHandles + 1;
+ 304:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 305:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 306:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 307:../Backend/gnu-efi-3.0.9/lib/hand.c ****     FreePool(BlockIoBuffer);
+ 308:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 309:../Backend/gnu-efi-3.0.9/lib/hand.c ****     return EFI_SUCCESS;
+ 310:../Backend/gnu-efi-3.0.9/lib/hand.c **** }
+ 380              		.loc 1 310 1 view .LVU106
+ 381 023f 4889D8   		movq	%rbx, %rax
+ 382 0242 4883C478 		addq	$120, %rsp
+ 383              		.cfi_remember_state
+ 384              		.cfi_def_cfa_offset 56
+ 385 0246 5B       		popq	%rbx
+ 386              		.cfi_restore 3
+ 387              		.cfi_def_cfa_offset 48
+ 388 0247 5D       		popq	%rbp
+ 389              		.cfi_restore 6
+ 390              		.cfi_def_cfa_offset 40
+ 391 0248 415C     		popq	%r12
+ 392              		.cfi_restore 12
+ 393              		.cfi_def_cfa_offset 32
+ 394 024a 415D     		popq	%r13
+ 395              		.cfi_restore 13
+ 396              		.cfi_def_cfa_offset 24
+ 397 024c 415E     		popq	%r14
+ 398              		.cfi_restore 14
+ 399              		.cfi_def_cfa_offset 16
+ 400 024e 415F     		popq	%r15
+ 401              		.cfi_restore 15
+ 402              		.cfi_def_cfa_offset 8
+ 403              	.LVL32:
+ 404              		.loc 1 310 1 view .LVU107
+ 405 0250 C3       		ret
+ 406              	.LVL33:
+ 407              	.L47:
+ 408              		.cfi_restore_state
+ 225:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 409              		.loc 1 225 22 view .LVU108
+ 410 0251 440FB663 		movzbl	1(%rbx), %r12d
+ 410      01
+ 224:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     (DevicePathSubType(DevPath) == MEDIA_HARDDRIVE_DP)) {
+ 411              		.loc 1 224 68 discriminator 1 view .LVU109
+ 412 0256 4180FC01 		cmpb	$1, %r12b
+ 413 025a 7407     		je	.L43
+ 252:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 }
+ 414              		.loc 1 252 55 view .LVU110
+ 415 025c 89E9     		movl	%ebp, %ecx
+ 416              	.LVL34:
+ 252:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 }
+ 417              		.loc 1 252 55 view .LVU111
+ 418 025e E9BB0000 		jmp	.L21
+ 418      00
+ 419              	.LVL35:
+ 420              	.L43:
+ 227:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 421              		.loc 1 227 21 is_stmt 1 view .LVU112
+ 229:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 422              		.loc 1 229 21 view .LVU113
+ 229:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 423              		.loc 1 229 24 is_stmt 0 view .LVU114
+ 424 0263 84C9     		testb	%cl, %cl
+ 425 0265 0F85B300 		jne	.L21
+ 425      0000
+ 231:../Backend/gnu-efi-3.0.9/lib/hand.c ****                         if (IsDevicePathEndType(Next)) {
+ 426              		.loc 1 231 25 is_stmt 1 view .LVU115
+ 231:../Backend/gnu-efi-3.0.9/lib/hand.c ****                         if (IsDevicePathEndType(Next)) {
+ 427              		.loc 1 231 32 is_stmt 0 view .LVU116
+ 428 026b 0FB64302 		movzbl	2(%rbx), %eax
+ 429 026f 0FB65303 		movzbl	3(%rbx), %edx
+ 430 0273 C1E208   		sall	$8, %edx
+ 431 0276 09D0     		orl	%edx, %eax
+ 432 0278 4898     		cltq
+ 433              	.LVL36:
+ 232:../Backend/gnu-efi-3.0.9/lib/hand.c ****                             if ((HardDriveDevicePath->MBRType == MBRType) &&
+ 434              		.loc 1 232 25 is_stmt 1 view .LVU117
+ 232:../Backend/gnu-efi-3.0.9/lib/hand.c ****                             if ((HardDriveDevicePath->MBRType == MBRType) &&
+ 435              		.loc 1 232 29 is_stmt 0 view .LVU118
+ 436 027a 0FB60403 		movzbl	(%rbx,%rax), %eax
+ 437              	.LVL37:
+ 232:../Backend/gnu-efi-3.0.9/lib/hand.c ****                             if ((HardDriveDevicePath->MBRType == MBRType) &&
+ 438              		.loc 1 232 28 view .LVU119
+ 439 027e F7D0     		notl	%eax
+ 440 0280 A87F     		testb	$127, %al
+ 441 0282 7408     		je	.L44
+ 250:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 } else {
+ 442              		.loc 1 250 55 view .LVU120
+ 443 0284 4489E1   		movl	%r12d, %ecx
+ 444              	.LVL38:
+ 250:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 } else {
+ 445              		.loc 1 250 55 view .LVU121
+ 446 0287 E9920000 		jmp	.L21
+ 446      00
+ 447              	.LVL39:
+ 448              	.L44:
+ 233:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                 (HardDriveDevicePath->SignatureType == SignatureType)) {
+ 449              		.loc 1 233 29 is_stmt 1 view .LVU122
+ 233:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                 (HardDriveDevicePath->SignatureType == SignatureType)) {
+ 450              		.loc 1 233 32 is_stmt 0 view .LVU123
+ 451 028c 0FB64424 		movzbl	70(%rsp), %eax
+ 451      46
+ 452 0291 384328   		cmpb	%al, 40(%rbx)
+ 453 0294 7408     		je	.L45
+ 250:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 } else {
+ 454              		.loc 1 250 55 view .LVU124
+ 455 0296 4489E1   		movl	%r12d, %ecx
+ 456              	.LVL40:
+ 250:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 } else {
+ 457              		.loc 1 250 55 view .LVU125
+ 458 0299 E9800000 		jmp	.L21
+ 458      00
+ 459              	.LVL41:
+ 460              	.L45:
+ 233:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                 (HardDriveDevicePath->SignatureType == SignatureType)) {
+ 461              		.loc 1 233 75 discriminator 1 view .LVU126
+ 462 029e 0FB64424 		movzbl	71(%rsp), %eax
+ 462      47
+ 463 02a3 384329   		cmpb	%al, 41(%rbx)
+ 464 02a6 7405     		je	.L46
+ 250:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 } else {
+ 465              		.loc 1 250 55 view .LVU127
+ 466 02a8 4489E1   		movl	%r12d, %ecx
+ 467              	.LVL42:
+ 250:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 } else {
+ 468              		.loc 1 250 55 view .LVU128
+ 469 02ab EB71     		jmp	.L21
+ 470              	.LVL43:
+ 471              	.L46:
+ 235:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                         case SIGNATURE_TYPE_MBR:
+ 472              		.loc 1 235 37 is_stmt 1 view .LVU129
+ 473 02ad 3C01     		cmpb	$1, %al
+ 474 02af 7409     		je	.L22
+ 475 02b1 3C02     		cmpb	$2, %al
+ 476 02b3 7418     		je	.L23
+ 477 02b5 4489E1   		movl	%r12d, %ecx
+ 478              	.LVL44:
+ 235:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                         case SIGNATURE_TYPE_MBR:
+ 479              		.loc 1 235 37 is_stmt 0 view .LVU130
+ 480 02b8 EB64     		jmp	.L21
+ 481              	.LVL45:
+ 482              	.L22:
+ 237:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                                 Match = TRUE;
+ 483              		.loc 1 237 45 is_stmt 1 view .LVU131
+ 237:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                                 Match = TRUE;
+ 484              		.loc 1 237 48 is_stmt 0 view .LVU132
+ 485 02ba 488B4424 		movq	72(%rsp), %rax
+ 485      48
+ 486 02bf 8B7318   		movl	24(%rbx), %esi
+ 487 02c2 3930     		cmpl	%esi, (%rax)
+ 488 02c4 741F     		je	.L40
+ 250:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 } else {
+ 489              		.loc 1 250 55 view .LVU133
+ 490 02c6 0FB64C24 		movzbl	71(%rsp), %ecx
+ 490      47
+ 491              	.LVL46:
+ 250:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 } else {
+ 492              		.loc 1 250 55 view .LVU134
+ 493 02cb EB51     		jmp	.L21
+ 494              	.LVL47:
+ 495              	.L23:
+ 242:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                                 Match = TRUE;
+ 496              		.loc 1 242 45 is_stmt 1 view .LVU135
+ 242:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                                 Match = TRUE;
+ 497              		.loc 1 242 96 is_stmt 0 view .LVU136
+ 498 02cd 488D7318 		leaq	24(%rbx), %rsi
+ 242:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                                 Match = TRUE;
+ 499              		.loc 1 242 49 view .LVU137
+ 500 02d1 488B7C24 		movq	72(%rsp), %rdi
+ 500      48
+ 501 02d6 E8000000 		call	CompareGuid
+ 501      00
+ 502              	.LVL48:
+ 242:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                                 Match = TRUE;
+ 503              		.loc 1 242 48 discriminator 1 view .LVU138
+ 504 02db 4885C0   		testq	%rax, %rax
+ 505 02de 7412     		je	.L41
+ 250:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 } else {
+ 506              		.loc 1 250 55 view .LVU139
+ 507 02e0 4489E1   		movl	%r12d, %ecx
+ 508 02e3 EB39     		jmp	.L21
+ 509              	.LVL49:
+ 510              	.L40:
+ 250:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 } else {
+ 511              		.loc 1 250 55 view .LVU140
+ 512 02e5 0FB64424 		movzbl	71(%rsp), %eax
+ 512      47
+ 513 02ea 89C1     		movl	%eax, %ecx
+ 514              	.LVL50:
+ 238:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                             }
+ 515              		.loc 1 238 55 view .LVU141
+ 516 02ec 88442445 		movb	%al, 69(%rsp)
+ 517              	.LVL51:
+ 238:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                             }
+ 518              		.loc 1 238 55 view .LVU142
+ 519 02f0 EB2C     		jmp	.L21
+ 520              	.LVL52:
+ 521              	.L41:
+ 250:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 } else {
+ 522              		.loc 1 250 55 view .LVU143
+ 523 02f2 4489E1   		movl	%r12d, %ecx
+ 243:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                             }
+ 524              		.loc 1 243 55 view .LVU144
+ 525 02f5 44886424 		movb	%r12b, 69(%rsp)
+ 525      45
+ 526              	.LVL53:
+ 243:../Backend/gnu-efi-3.0.9/lib/hand.c ****                                             }
+ 527              		.loc 1 243 55 view .LVU145
+ 528 02fa EB22     		jmp	.L21
+ 529              	.LVL54:
+ 530              	.L24:
+ 259:../Backend/gnu-efi-3.0.9/lib/hand.c ****             }
+ 531              		.loc 1 259 17 is_stmt 1 view .LVU146
+ 259:../Backend/gnu-efi-3.0.9/lib/hand.c ****             }
+ 532              		.loc 1 259 27 is_stmt 0 view .LVU147
+ 533 02fc 0FB64302 		movzbl	2(%rbx), %eax
+ 534 0300 0FB65303 		movzbl	3(%rbx), %edx
+ 535 0304 C1E208   		sall	$8, %edx
+ 536 0307 09D0     		orl	%edx, %eax
+ 537 0309 4898     		cltq
+ 259:../Backend/gnu-efi-3.0.9/lib/hand.c ****             }
+ 538              		.loc 1 259 25 view .LVU148
+ 539 030b 4801C3   		addq	%rax, %rbx
+ 540              	.LVL55:
+ 222:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 541              		.loc 1 222 13 is_stmt 1 view .LVU149
+ 542              	.L26:
+ 222:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 543              		.loc 1 222 13 view .LVU150
+ 224:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     (DevicePathSubType(DevPath) == MEDIA_HARDDRIVE_DP)) {
+ 544              		.loc 1 224 17 view .LVU151
+ 224:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     (DevicePathSubType(DevPath) == MEDIA_HARDDRIVE_DP)) {
+ 545              		.loc 1 224 20 is_stmt 0 view .LVU152
+ 546 030e 0FB603   		movzbl	(%rbx), %eax
+ 547 0311 83E07F   		andl	$127, %eax
+ 548 0314 3C04     		cmpb	$4, %al
+ 549 0316 0F8435FF 		je	.L47
+ 549      FFFF
+ 252:../Backend/gnu-efi-3.0.9/lib/hand.c ****                 }
+ 550              		.loc 1 252 55 view .LVU153
+ 551 031c 89E9     		movl	%ebp, %ecx
+ 552              	.LVL56:
+ 553              	.L21:
+ 255:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     break;
+ 554              		.loc 1 255 17 is_stmt 1 view .LVU154
+ 255:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     break;
+ 555              		.loc 1 255 21 is_stmt 0 view .LVU155
+ 556 031e 0FB603   		movzbl	(%rbx), %eax
+ 255:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     break;
+ 557              		.loc 1 255 20 view .LVU156
+ 558 0321 F7D0     		notl	%eax
+ 559 0323 A87F     		testb	$127, %al
+ 560 0325 75D5     		jne	.L24
+ 255:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     break;
+ 561              		.loc 1 255 21 discriminator 1 view .LVU157
+ 562 0327 807B01FF 		cmpb	$-1, 1(%rbx)
+ 563 032b 75CF     		jne	.L24
+ 264:../Backend/gnu-efi-3.0.9/lib/hand.c ****             BlockIoBuffer[Index] = NULL;
+ 564              		.loc 1 264 9 is_stmt 1 view .LVU158
+ 264:../Backend/gnu-efi-3.0.9/lib/hand.c ****             BlockIoBuffer[Index] = NULL;
+ 565              		.loc 1 264 12 is_stmt 0 view .LVU159
+ 566 032d 807C2445 		cmpb	$0, 69(%rsp)
+ 566      00
+ 567 0332 757C     		jne	.L27
+ 568              	.LVL57:
+ 569              	.L20:
+ 265:../Backend/gnu-efi-3.0.9/lib/hand.c ****         } else {
+ 570              		.loc 1 265 13 is_stmt 1 view .LVU160
+ 265:../Backend/gnu-efi-3.0.9/lib/hand.c ****         } else {
+ 571              		.loc 1 265 26 is_stmt 0 view .LVU161
+ 572 0334 4C036C24 		addq	88(%rsp), %r13
+ 572      58
+ 265:../Backend/gnu-efi-3.0.9/lib/hand.c ****         } else {
+ 573              		.loc 1 265 34 view .LVU162
+ 574 0339 49C74500 		movq	$0, 0(%r13)
+ 574      00000000 
+ 575              	.L28:
+ 179:../Backend/gnu-efi-3.0.9/lib/hand.c **** /* // Legacy EFI 1.0 version
+ 576              		.loc 1 179 45 is_stmt 1 discriminator 2 view .LVU163
+ 577 0341 4983C601 		addq	$1, %r14
+ 578              	.LVL58:
+ 579              	.L19:
+ 179:../Backend/gnu-efi-3.0.9/lib/hand.c **** /* // Legacy EFI 1.0 version
+ 580              		.loc 1 179 22 discriminator 1 view .LVU164
+ 581 0345 488B4424 		movq	48(%rsp), %rax
+ 581      30
+ 582 034a 4939C6   		cmpq	%rax, %r14
+ 583 034d 736D     		jnb	.L48
+ 190:../Backend/gnu-efi-3.0.9/lib/hand.c ****  				     BS->OpenProtocol,
+ 584              		.loc 1 190 10 view .LVU165
+ 190:../Backend/gnu-efi-3.0.9/lib/hand.c ****  				     BS->OpenProtocol,
+ 585              		.loc 1 190 19 is_stmt 0 view .LVU166
+ 586 034f 488B0500 		movq	BS(%rip), %rax
+ 586      000000
+ 587 0356 488B8018 		movq	280(%rax), %rax
+ 587      010000
+ 588 035d 4E8D2CF5 		leaq	0(,%r14,8), %r13
+ 588      00000000 
+ 589 0365 4C89EA   		movq	%r13, %rdx
+ 590 0368 48035424 		addq	88(%rsp), %rdx
+ 590      58
+ 591 036d 488B0A   		movq	(%rdx), %rcx
+ 592 0370 C7442428 		movl	$2, 40(%rsp)
+ 592      02000000 
+ 593 0378 48C74424 		movq	$0, 32(%rsp)
+ 593      20000000 
+ 593      00
+ 594 0381 41B90000 		movl	$0, %r9d
+ 594      0000
+ 595 0387 4C8D4424 		leaq	80(%rsp), %r8
+ 595      50
+ 596 038c 488D1500 		leaq	gEfiDevicePathProtocolGuid(%rip), %rdx
+ 596      000000
+ 597 0393 FFD0     		call	*%rax
+ 598              	.LVL59:
+ 190:../Backend/gnu-efi-3.0.9/lib/hand.c ****  				     BS->OpenProtocol,
+ 599              		.loc 1 190 17 discriminator 1 view .LVU167
+ 600 0395 48894424 		movq	%rax, 104(%rsp)
+ 600      68
+ 210:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 601              		.loc 1 210 9 is_stmt 1 view .LVU168
+ 602              	.LVL60:
+ 212:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 603              		.loc 1 212 9 view .LVU169
+ 212:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 604              		.loc 1 212 24 is_stmt 0 view .LVU170
+ 605 039a 488B5C24 		movq	80(%rsp), %rbx
+ 605      50
+ 212:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 606              		.loc 1 212 12 view .LVU171
+ 607 039f 4885DB   		testq	%rbx, %rbx
+ 608 03a2 7490     		je	.L20
+ 214:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 609              		.loc 1 214 47 view .LVU172
+ 610 03a4 89E9     		movl	%ebp, %ecx
+ 210:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 611              		.loc 1 210 15 view .LVU173
+ 612 03a6 40886C24 		movb	%bpl, 69(%rsp)
+ 612      45
+ 613 03ab E95EFFFF 		jmp	.L26
+ 613      FF
+ 614              	.LVL61:
+ 615              	.L27:
+ 267:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 616              		.loc 1 267 13 is_stmt 1 view .LVU174
+ 267:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 617              		.loc 1 267 37 is_stmt 0 view .LVU175
+ 618 03b0 498B07   		movq	(%r15), %rax
+ 619 03b3 4883C001 		addq	$1, %rax
+ 267:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 620              		.loc 1 267 24 view .LVU176
+ 621 03b7 498907   		movq	%rax, (%r15)
+ 622 03ba EB85     		jmp	.L28
+ 623              	.LVL62:
+ 624              	.L48:
+ 275:../Backend/gnu-efi-3.0.9/lib/hand.c ****         FreePool(BlockIoBuffer);
+ 625              		.loc 1 275 5 is_stmt 1 view .LVU177
+ 275:../Backend/gnu-efi-3.0.9/lib/hand.c ****         FreePool(BlockIoBuffer);
+ 626              		.loc 1 275 9 is_stmt 0 view .LVU178
+ 627 03bc 498B1F   		movq	(%r15), %rbx
+ 275:../Backend/gnu-efi-3.0.9/lib/hand.c ****         FreePool(BlockIoBuffer);
+ 628              		.loc 1 275 8 view .LVU179
+ 629 03bf 4885DB   		testq	%rbx, %rbx
+ 630 03c2 7428     		je	.L49
+ 286:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 631              		.loc 1 286 5 is_stmt 1 view .LVU180
+ 286:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 632              		.loc 1 286 15 is_stmt 0 view .LVU181
+ 633 03c4 488D3CDD 		leaq	0(,%rbx,8), %rdi
+ 633      00000000 
+ 634 03cc E8000000 		call	AllocatePool
+ 634      00
+ 635              	.LVL63:
+ 286:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 636              		.loc 1 286 13 discriminator 1 view .LVU182
+ 637 03d1 488B7424 		movq	56(%rsp), %rsi
+ 637      38
+ 638 03d6 488906   		movq	%rax, (%rsi)
+ 288:../Backend/gnu-efi-3.0.9/lib/hand.c ****         FreePool(BlockIoBuffer);
+ 639              		.loc 1 288 5 is_stmt 1 view .LVU183
+ 288:../Backend/gnu-efi-3.0.9/lib/hand.c ****         FreePool(BlockIoBuffer);
+ 640              		.loc 1 288 8 is_stmt 0 view .LVU184
+ 641 03d9 4885C0   		testq	%rax, %rax
+ 642 03dc 7430     		je	.L50
+ 299:../Backend/gnu-efi-3.0.9/lib/hand.c ****     for(Index=0;Index<NoBlockIoHandles;Index++) {
+ 643              		.loc 1 299 5 is_stmt 1 view .LVU185
+ 299:../Backend/gnu-efi-3.0.9/lib/hand.c ****     for(Index=0;Index<NoBlockIoHandles;Index++) {
+ 644              		.loc 1 299 16 is_stmt 0 view .LVU186
+ 645 03de 49C70700 		movq	$0, (%r15)
+ 645      000000
+ 300:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (BlockIoBuffer[Index] != NULL) {
+ 646              		.loc 1 300 5 is_stmt 1 view .LVU187
+ 647              	.LVL64:
+ 300:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (BlockIoBuffer[Index] != NULL) {
+ 648              		.loc 1 300 14 is_stmt 0 view .LVU188
+ 649 03e5 B8000000 		movl	$0, %eax
+ 649      00
+ 300:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (BlockIoBuffer[Index] != NULL) {
+ 650              		.loc 1 300 5 view .LVU189
+ 651 03ea EB52     		jmp	.L32
+ 652              	.LVL65:
+ 653              	.L49:
+ 276:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *NoHandles = 0;
+ 654              		.loc 1 276 9 is_stmt 1 view .LVU190
+ 655 03ec 488B7C24 		movq	88(%rsp), %rdi
+ 655      58
+ 656 03f1 E8000000 		call	FreePool
+ 656      00
+ 657              	.LVL66:
+ 277:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *Buffer = NULL;
+ 658              		.loc 1 277 9 view .LVU191
+ 277:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *Buffer = NULL;
+ 659              		.loc 1 277 20 is_stmt 0 view .LVU192
+ 660 03f6 49C70700 		movq	$0, (%r15)
+ 660      000000
+ 278:../Backend/gnu-efi-3.0.9/lib/hand.c ****         return EFI_SUCCESS;
+ 661              		.loc 1 278 9 is_stmt 1 view .LVU193
+ 278:../Backend/gnu-efi-3.0.9/lib/hand.c ****         return EFI_SUCCESS;
+ 662              		.loc 1 278 17 is_stmt 0 view .LVU194
+ 663 03fd 488B4424 		movq	56(%rsp), %rax
+ 663      38
+ 664 0402 48C70000 		movq	$0, (%rax)
+ 664      000000
+ 279:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 665              		.loc 1 279 9 is_stmt 1 view .LVU195
+ 279:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 666              		.loc 1 279 16 is_stmt 0 view .LVU196
+ 667 0409 E931FEFF 		jmp	.L13
+ 667      FF
+ 668              	.L50:
+ 289:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *NoHandles = 0;
+ 669              		.loc 1 289 9 is_stmt 1 view .LVU197
+ 670 040e 488B7C24 		movq	88(%rsp), %rdi
+ 670      58
+ 671 0413 E8000000 		call	FreePool
+ 671      00
+ 672              	.LVL67:
+ 290:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *Buffer = NULL;
+ 673              		.loc 1 290 9 view .LVU198
+ 290:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *Buffer = NULL;
+ 674              		.loc 1 290 20 is_stmt 0 view .LVU199
+ 675 0418 49C70700 		movq	$0, (%r15)
+ 675      000000
+ 291:../Backend/gnu-efi-3.0.9/lib/hand.c ****         return EFI_OUT_OF_RESOURCES;
+ 676              		.loc 1 291 9 is_stmt 1 view .LVU200
+ 291:../Backend/gnu-efi-3.0.9/lib/hand.c ****         return EFI_OUT_OF_RESOURCES;
+ 677              		.loc 1 291 17 is_stmt 0 view .LVU201
+ 678 041f 488B4424 		movq	56(%rsp), %rax
+ 678      38
+ 679 0424 48C70000 		movq	$0, (%rax)
+ 679      000000
+ 292:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 680              		.loc 1 292 9 is_stmt 1 view .LVU202
+ 292:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 681              		.loc 1 292 16 is_stmt 0 view .LVU203
+ 682 042b 48BB0900 		movabsq	$-9223372036854775799, %rbx
+ 682      00000000 
+ 682      0080
+ 683 0435 E905FEFF 		jmp	.L13
+ 683      FF
+ 684              	.LVL68:
+ 685              	.L33:
+ 300:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (BlockIoBuffer[Index] != NULL) {
+ 686              		.loc 1 300 45 is_stmt 1 discriminator 2 view .LVU204
+ 687 043a 4883C001 		addq	$1, %rax
+ 688              	.LVL69:
+ 689              	.L32:
+ 300:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (BlockIoBuffer[Index] != NULL) {
+ 690              		.loc 1 300 22 discriminator 1 view .LVU205
+ 691 043e 488B7424 		movq	48(%rsp), %rsi
+ 691      30
+ 692 0443 4839F0   		cmpq	%rsi, %rax
+ 693 0446 7330     		jnb	.L51
+ 301:../Backend/gnu-efi-3.0.9/lib/hand.c ****             (*Buffer)[*NoHandles] = BlockIoBuffer[Index];
+ 694              		.loc 1 301 9 view .LVU206
+ 301:../Backend/gnu-efi-3.0.9/lib/hand.c ****             (*Buffer)[*NoHandles] = BlockIoBuffer[Index];
+ 695              		.loc 1 301 26 is_stmt 0 view .LVU207
+ 696 0448 488B5424 		movq	88(%rsp), %rdx
+ 696      58
+ 697 044d 488B0CC2 		movq	(%rdx,%rax,8), %rcx
+ 301:../Backend/gnu-efi-3.0.9/lib/hand.c ****             (*Buffer)[*NoHandles] = BlockIoBuffer[Index];
+ 698              		.loc 1 301 12 view .LVU208
+ 699 0451 4885C9   		testq	%rcx, %rcx
+ 700 0454 74E4     		je	.L33
+ 302:../Backend/gnu-efi-3.0.9/lib/hand.c ****             *NoHandles = *NoHandles + 1;
+ 701              		.loc 1 302 13 is_stmt 1 view .LVU209
+ 302:../Backend/gnu-efi-3.0.9/lib/hand.c ****             *NoHandles = *NoHandles + 1;
+ 702              		.loc 1 302 22 is_stmt 0 view .LVU210
+ 703 0456 498B3F   		movq	(%r15), %rdi
+ 704 0459 488D14FD 		leaq	0(,%rdi,8), %rdx
+ 704      00000000 
+ 705 0461 488B7C24 		movq	56(%rsp), %rdi
+ 705      38
+ 706 0466 480317   		addq	(%rdi), %rdx
+ 302:../Backend/gnu-efi-3.0.9/lib/hand.c ****             *NoHandles = *NoHandles + 1;
+ 707              		.loc 1 302 35 view .LVU211
+ 708 0469 48890A   		movq	%rcx, (%rdx)
+ 303:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 709              		.loc 1 303 13 is_stmt 1 view .LVU212
+ 303:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 710              		.loc 1 303 37 is_stmt 0 view .LVU213
+ 711 046c 498B37   		movq	(%r15), %rsi
+ 712 046f 488D5601 		leaq	1(%rsi), %rdx
+ 303:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 713              		.loc 1 303 24 view .LVU214
+ 714 0473 498917   		movq	%rdx, (%r15)
+ 715 0476 EBC2     		jmp	.L33
+ 716              	.L51:
+ 307:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 717              		.loc 1 307 5 is_stmt 1 view .LVU215
+ 718 0478 488B7C24 		movq	88(%rsp), %rdi
+ 718      58
+ 719 047d E8000000 		call	FreePool
+ 719      00
+ 720              	.LVL70:
+ 309:../Backend/gnu-efi-3.0.9/lib/hand.c **** }
+ 721              		.loc 1 309 5 view .LVU216
+ 309:../Backend/gnu-efi-3.0.9/lib/hand.c **** }
+ 722              		.loc 1 309 12 is_stmt 0 view .LVU217
+ 723 0482 BB000000 		movl	$0, %ebx
+ 723      00
+ 724 0487 E9B3FDFF 		jmp	.L13
+ 724      FF
+ 725              		.cfi_endproc
+ 726              	.LFE2:
+ 728              		.globl	LibOpenRoot
+ 729              		.hidden	LibOpenRoot
+ 731              	LibOpenRoot:
+ 732              	.LVL71:
+ 733              	.LFB3:
+ 311:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 312:../Backend/gnu-efi-3.0.9/lib/hand.c **** EFI_FILE_HANDLE
+ 313:../Backend/gnu-efi-3.0.9/lib/hand.c **** LibOpenRoot (
+ 314:../Backend/gnu-efi-3.0.9/lib/hand.c ****     IN EFI_HANDLE               DeviceHandle
+ 315:../Backend/gnu-efi-3.0.9/lib/hand.c ****     )
+ 316:../Backend/gnu-efi-3.0.9/lib/hand.c **** {
+ 734              		.loc 1 316 1 is_stmt 1 view -0
+ 735              		.cfi_startproc
+ 736              		.loc 1 316 1 is_stmt 0 view .LVU219
+ 737 048c F30F1EFA 		endbr64
+ 738 0490 4883EC48 		subq	$72, %rsp
+ 739              		.cfi_def_cfa_offset 80
+ 740 0494 4889F9   		movq	%rdi, %rcx
+ 317:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_STATUS                  Status;
+ 741              		.loc 1 317 5 is_stmt 1 view .LVU220
+ 318:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_FILE_IO_INTERFACE       *Volume;
+ 742              		.loc 1 318 5 view .LVU221
+ 319:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_FILE_HANDLE             File;
+ 743              		.loc 1 319 5 view .LVU222
+ 320:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 321:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 322:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 323:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // File the file system interface to the device
+ 324:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 325:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 326:../Backend/gnu-efi-3.0.9/lib/hand.c **** //    Status = uefi_call_wrapper(BS->HandleProtocol, 3, DeviceHandle, &FileSystemProtocol, (VOID*)&
+ 327:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Status = uefi_call_wrapper(BS->OpenProtocol, 6, DeviceHandle, &FileSystemProtocol, (VOID*)&Volu
+ 744              		.loc 1 327 5 view .LVU223
+ 745              		.loc 1 327 14 is_stmt 0 view .LVU224
+ 746 0497 488B0500 		movq	BS(%rip), %rax
+ 746      000000
+ 747 049e 488B8018 		movq	280(%rax), %rax
+ 747      010000
+ 748 04a5 C7442428 		movl	$2, 40(%rsp)
+ 748      02000000 
+ 749 04ad 48C74424 		movq	$0, 32(%rsp)
+ 749      20000000 
+ 749      00
+ 750 04b6 41B90000 		movl	$0, %r9d
+ 750      0000
+ 751 04bc 4C8D4424 		leaq	56(%rsp), %r8
+ 751      38
+ 752 04c1 488D1500 		leaq	gEfiSimpleFileSystemProtocolGuid(%rip), %rdx
+ 752      000000
+ 753 04c8 FFD0     		call	*%rax
+ 754              	.LVL72:
+ 328:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 329:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 330:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Open the root directory of the volume
+ 331:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 332:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 333:../Backend/gnu-efi-3.0.9/lib/hand.c ****     if (!EFI_ERROR(Status)) {
+ 755              		.loc 1 333 5 is_stmt 1 view .LVU225
+ 756              		.loc 1 333 8 is_stmt 0 view .LVU226
+ 757 04ca 4885C0   		testq	%rax, %rax
+ 758 04cd 781F     		js	.L54
+ 334:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Status = uefi_call_wrapper(Volume->OpenVolume, 2, Volume, &File);
+ 759              		.loc 1 334 9 is_stmt 1 view .LVU227
+ 760              		.loc 1 334 18 is_stmt 0 view .LVU228
+ 761 04cf 488B4424 		movq	56(%rsp), %rax
+ 761      38
+ 762              	.LVL73:
+ 763              		.loc 1 334 18 view .LVU229
+ 764 04d4 488D5424 		leaq	48(%rsp), %rdx
+ 764      30
+ 765 04d9 4889C1   		movq	%rax, %rcx
+ 766 04dc FF5008   		call	*8(%rax)
+ 767              	.LVL74:
+ 335:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 336:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 337:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 338:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Done
+ 339:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 340:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 341:../Backend/gnu-efi-3.0.9/lib/hand.c ****     return EFI_ERROR(Status) ? NULL : File;
+ 768              		.loc 1 341 5 is_stmt 1 view .LVU230
+ 769              		.loc 1 341 37 is_stmt 0 view .LVU231
+ 770 04df 4885C0   		testq	%rax, %rax
+ 771 04e2 7811     		js	.L55
+ 772              		.loc 1 341 37 discriminator 1 view .LVU232
+ 773 04e4 488B4424 		movq	48(%rsp), %rax
+ 773      30
+ 774              	.LVL75:
+ 775              	.L52:
+ 342:../Backend/gnu-efi-3.0.9/lib/hand.c **** }
+ 776              		.loc 1 342 1 view .LVU233
+ 777 04e9 4883C448 		addq	$72, %rsp
+ 778              		.cfi_remember_state
+ 779              		.cfi_def_cfa_offset 8
+ 780 04ed C3       		ret
+ 781              	.LVL76:
+ 782              	.L54:
+ 783              		.cfi_restore_state
+ 341:../Backend/gnu-efi-3.0.9/lib/hand.c **** }
+ 784              		.loc 1 341 37 discriminator 2 view .LVU234
+ 785 04ee B8000000 		movl	$0, %eax
+ 785      00
+ 786              	.LVL77:
+ 341:../Backend/gnu-efi-3.0.9/lib/hand.c **** }
+ 787              		.loc 1 341 37 discriminator 2 view .LVU235
+ 788 04f3 EBF4     		jmp	.L52
+ 789              	.LVL78:
+ 790              	.L55:
+ 341:../Backend/gnu-efi-3.0.9/lib/hand.c **** }
+ 791              		.loc 1 341 37 discriminator 2 view .LVU236
+ 792 04f5 B8000000 		movl	$0, %eax
+ 792      00
+ 793              	.LVL79:
+ 341:../Backend/gnu-efi-3.0.9/lib/hand.c **** }
+ 794              		.loc 1 341 37 view .LVU237
+ 795 04fa EBED     		jmp	.L52
+ 796              		.cfi_endproc
+ 797              	.LFE3:
+ 799              		.globl	LibFileInfo
+ 800              		.hidden	LibFileInfo
+ 802              	LibFileInfo:
+ 803              	.LVL80:
+ 804              	.LFB4:
+ 343:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 344:../Backend/gnu-efi-3.0.9/lib/hand.c **** EFI_FILE_INFO *
+ 345:../Backend/gnu-efi-3.0.9/lib/hand.c **** LibFileInfo (
+ 346:../Backend/gnu-efi-3.0.9/lib/hand.c ****     IN EFI_FILE_HANDLE      FHand
+ 347:../Backend/gnu-efi-3.0.9/lib/hand.c ****     )
+ 348:../Backend/gnu-efi-3.0.9/lib/hand.c **** {
+ 805              		.loc 1 348 1 is_stmt 1 view -0
+ 806              		.cfi_startproc
+ 807              		.loc 1 348 1 is_stmt 0 view .LVU239
+ 808 04fc F30F1EFA 		endbr64
+ 809 0500 53       		pushq	%rbx
+ 810              		.cfi_def_cfa_offset 16
+ 811              		.cfi_offset 3, -16
+ 812 0501 4883EC40 		subq	$64, %rsp
+ 813              		.cfi_def_cfa_offset 80
+ 814 0505 4889FB   		movq	%rdi, %rbx
+ 349:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_STATUS              Status;
+ 815              		.loc 1 349 5 is_stmt 1 view .LVU240
+ 350:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_FILE_INFO           *Buffer;
+ 816              		.loc 1 350 5 view .LVU241
+ 351:../Backend/gnu-efi-3.0.9/lib/hand.c ****     UINTN                   BufferSize;
+ 817              		.loc 1 351 5 view .LVU242
+ 352:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 353:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 354:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Initialize for GrowBuffer loop
+ 355:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 356:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 357:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Status = EFI_SUCCESS;
+ 818              		.loc 1 357 5 view .LVU243
+ 819              		.loc 1 357 12 is_stmt 0 view .LVU244
+ 820 0508 48C74424 		movq	$0, 56(%rsp)
+ 820      38000000 
+ 820      00
+ 358:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Buffer = NULL;
+ 821              		.loc 1 358 5 is_stmt 1 view .LVU245
+ 822              		.loc 1 358 12 is_stmt 0 view .LVU246
+ 823 0511 48C74424 		movq	$0, 48(%rsp)
+ 823      30000000 
+ 823      00
+ 359:../Backend/gnu-efi-3.0.9/lib/hand.c ****     BufferSize = SIZE_OF_EFI_FILE_INFO + 200;
+ 824              		.loc 1 359 5 is_stmt 1 view .LVU247
+ 825              		.loc 1 359 16 is_stmt 0 view .LVU248
+ 826 051a 48C74424 		movq	$280, 40(%rsp)
+ 826      28180100 
+ 826      00
+ 360:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 361:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 362:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Call the real function
+ 363:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 364:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 365:../Backend/gnu-efi-3.0.9/lib/hand.c ****     while (GrowBuffer (&Status, (VOID **) &Buffer, BufferSize)) {
+ 827              		.loc 1 365 5 is_stmt 1 view .LVU249
+ 828              		.loc 1 365 11 is_stmt 0 view .LVU250
+ 829 0523 EB1C     		jmp	.L58
+ 830              	.LVL81:
+ 831              	.L59:
+ 366:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Status = uefi_call_wrapper(
+ 832              		.loc 1 366 9 is_stmt 1 view .LVU251
+ 833              		.loc 1 366 18 is_stmt 0 view .LVU252
+ 834 0525 4C8B4C24 		movq	48(%rsp), %r9
+ 834      30
+ 835 052a 4C8D4424 		leaq	40(%rsp), %r8
+ 835      28
+ 836 052f 488D1500 		leaq	gEfiFileInfoGuid(%rip), %rdx
+ 836      000000
+ 837 0536 4889D9   		movq	%rbx, %rcx
+ 838 0539 FF5340   		call	*64(%rbx)
+ 839              	.LVL82:
+ 840              		.loc 1 366 16 discriminator 1 view .LVU253
+ 841 053c 48894424 		movq	%rax, 56(%rsp)
+ 841      38
+ 842              	.L58:
+ 365:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Status = uefi_call_wrapper(
+ 843              		.loc 1 365 12 is_stmt 1 view .LVU254
+ 844 0541 488D7424 		leaq	48(%rsp), %rsi
+ 844      30
+ 845 0546 488D7C24 		leaq	56(%rsp), %rdi
+ 845      38
+ 846 054b 488B5424 		movq	40(%rsp), %rdx
+ 846      28
+ 847 0550 E8000000 		call	GrowBuffer
+ 847      00
+ 848              	.LVL83:
+ 365:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Status = uefi_call_wrapper(
+ 849              		.loc 1 365 12 is_stmt 0 discriminator 1 view .LVU255
+ 850 0555 84C0     		testb	%al, %al
+ 851 0557 75CC     		jne	.L59
+ 367:../Backend/gnu-efi-3.0.9/lib/hand.c **** 		    FHand->GetInfo,
+ 368:../Backend/gnu-efi-3.0.9/lib/hand.c **** 			4,
+ 369:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     FHand,
+ 370:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     &GenericFileInfo,
+ 371:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     &BufferSize,
+ 372:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     Buffer
+ 373:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     );
+ 374:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 375:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 376:../Backend/gnu-efi-3.0.9/lib/hand.c ****     return Buffer;
+ 852              		.loc 1 376 5 is_stmt 1 view .LVU256
+ 377:../Backend/gnu-efi-3.0.9/lib/hand.c **** }
+ 853              		.loc 1 377 1 is_stmt 0 view .LVU257
+ 854 0559 488B4424 		movq	48(%rsp), %rax
+ 854      30
+ 855 055e 4883C440 		addq	$64, %rsp
+ 856              		.cfi_def_cfa_offset 16
+ 857 0562 5B       		popq	%rbx
+ 858              		.cfi_restore 3
+ 859              		.cfi_def_cfa_offset 8
+ 860              	.LVL84:
+ 861              		.loc 1 377 1 view .LVU258
+ 862 0563 C3       		ret
+ 863              		.cfi_endproc
+ 864              	.LFE4:
+ 866              		.globl	LibFileSystemInfo
+ 867              		.hidden	LibFileSystemInfo
+ 869              	LibFileSystemInfo:
+ 870              	.LVL85:
+ 871              	.LFB5:
+ 378:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 379:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 380:../Backend/gnu-efi-3.0.9/lib/hand.c **** EFI_FILE_SYSTEM_INFO *
+ 381:../Backend/gnu-efi-3.0.9/lib/hand.c **** LibFileSystemInfo (
+ 382:../Backend/gnu-efi-3.0.9/lib/hand.c ****     IN EFI_FILE_HANDLE      FHand
+ 383:../Backend/gnu-efi-3.0.9/lib/hand.c ****     )
+ 384:../Backend/gnu-efi-3.0.9/lib/hand.c **** {
+ 872              		.loc 1 384 1 is_stmt 1 view -0
+ 873              		.cfi_startproc
+ 874              		.loc 1 384 1 is_stmt 0 view .LVU260
+ 875 0564 F30F1EFA 		endbr64
+ 876 0568 53       		pushq	%rbx
+ 877              		.cfi_def_cfa_offset 16
+ 878              		.cfi_offset 3, -16
+ 879 0569 4883EC40 		subq	$64, %rsp
+ 880              		.cfi_def_cfa_offset 80
+ 881 056d 4889FB   		movq	%rdi, %rbx
+ 385:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_STATUS              Status;
+ 882              		.loc 1 385 5 is_stmt 1 view .LVU261
+ 386:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_FILE_SYSTEM_INFO    *Buffer;
+ 883              		.loc 1 386 5 view .LVU262
+ 387:../Backend/gnu-efi-3.0.9/lib/hand.c ****     UINTN                   BufferSize;
+ 884              		.loc 1 387 5 view .LVU263
+ 388:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 389:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 390:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Initialize for GrowBuffer loop
+ 391:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 392:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 393:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Status = EFI_SUCCESS;
+ 885              		.loc 1 393 5 view .LVU264
+ 886              		.loc 1 393 12 is_stmt 0 view .LVU265
+ 887 0570 48C74424 		movq	$0, 56(%rsp)
+ 887      38000000 
+ 887      00
+ 394:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Buffer = NULL;
+ 888              		.loc 1 394 5 is_stmt 1 view .LVU266
+ 889              		.loc 1 394 12 is_stmt 0 view .LVU267
+ 890 0579 48C74424 		movq	$0, 48(%rsp)
+ 890      30000000 
+ 890      00
+ 395:../Backend/gnu-efi-3.0.9/lib/hand.c ****     BufferSize = SIZE_OF_EFI_FILE_SYSTEM_INFO + 200;
+ 891              		.loc 1 395 5 is_stmt 1 view .LVU268
+ 892              		.loc 1 395 16 is_stmt 0 view .LVU269
+ 893 0582 48C74424 		movq	$236, 40(%rsp)
+ 893      28EC0000 
+ 893      00
+ 396:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 397:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 398:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Call the real function
+ 399:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 400:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 401:../Backend/gnu-efi-3.0.9/lib/hand.c ****     while (GrowBuffer (&Status, (VOID **) &Buffer, BufferSize)) {
+ 894              		.loc 1 401 5 is_stmt 1 view .LVU270
+ 895              		.loc 1 401 11 is_stmt 0 view .LVU271
+ 896 058b EB1C     		jmp	.L62
+ 897              	.LVL86:
+ 898              	.L63:
+ 402:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Status = uefi_call_wrapper(
+ 899              		.loc 1 402 9 is_stmt 1 view .LVU272
+ 900              		.loc 1 402 18 is_stmt 0 view .LVU273
+ 901 058d 4C8B4C24 		movq	48(%rsp), %r9
+ 901      30
+ 902 0592 4C8D4424 		leaq	40(%rsp), %r8
+ 902      28
+ 903 0597 488D1500 		leaq	gEfiFileSystemInfoGuid(%rip), %rdx
+ 903      000000
+ 904 059e 4889D9   		movq	%rbx, %rcx
+ 905 05a1 FF5340   		call	*64(%rbx)
+ 906              	.LVL87:
+ 907              		.loc 1 402 16 discriminator 1 view .LVU274
+ 908 05a4 48894424 		movq	%rax, 56(%rsp)
+ 908      38
+ 909              	.L62:
+ 401:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Status = uefi_call_wrapper(
+ 910              		.loc 1 401 12 is_stmt 1 view .LVU275
+ 911 05a9 488D7424 		leaq	48(%rsp), %rsi
+ 911      30
+ 912 05ae 488D7C24 		leaq	56(%rsp), %rdi
+ 912      38
+ 913 05b3 488B5424 		movq	40(%rsp), %rdx
+ 913      28
+ 914 05b8 E8000000 		call	GrowBuffer
+ 914      00
+ 915              	.LVL88:
+ 401:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Status = uefi_call_wrapper(
+ 916              		.loc 1 401 12 is_stmt 0 discriminator 1 view .LVU276
+ 917 05bd 84C0     		testb	%al, %al
+ 918 05bf 75CC     		jne	.L63
+ 403:../Backend/gnu-efi-3.0.9/lib/hand.c **** 		    FHand->GetInfo,
+ 404:../Backend/gnu-efi-3.0.9/lib/hand.c **** 			4,
+ 405:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     FHand,
+ 406:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     &FileSystemInfo,
+ 407:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     &BufferSize,
+ 408:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     Buffer
+ 409:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     );
+ 410:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 411:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 412:../Backend/gnu-efi-3.0.9/lib/hand.c ****     return Buffer;
+ 919              		.loc 1 412 5 is_stmt 1 view .LVU277
+ 413:../Backend/gnu-efi-3.0.9/lib/hand.c **** }
+ 920              		.loc 1 413 1 is_stmt 0 view .LVU278
+ 921 05c1 488B4424 		movq	48(%rsp), %rax
+ 921      30
+ 922 05c6 4883C440 		addq	$64, %rsp
+ 923              		.cfi_def_cfa_offset 16
+ 924 05ca 5B       		popq	%rbx
+ 925              		.cfi_restore 3
+ 926              		.cfi_def_cfa_offset 8
+ 927              	.LVL89:
+ 928              		.loc 1 413 1 view .LVU279
+ 929 05cb C3       		ret
+ 930              		.cfi_endproc
+ 931              	.LFE5:
+ 933              		.globl	LibFileSystemVolumeLabelInfo
+ 934              		.hidden	LibFileSystemVolumeLabelInfo
+ 936              	LibFileSystemVolumeLabelInfo:
+ 937              	.LVL90:
+ 938              	.LFB6:
+ 414:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 415:../Backend/gnu-efi-3.0.9/lib/hand.c **** EFI_FILE_SYSTEM_VOLUME_LABEL_INFO *
+ 416:../Backend/gnu-efi-3.0.9/lib/hand.c **** LibFileSystemVolumeLabelInfo (
+ 417:../Backend/gnu-efi-3.0.9/lib/hand.c ****     IN EFI_FILE_HANDLE      FHand
+ 418:../Backend/gnu-efi-3.0.9/lib/hand.c ****     )
+ 419:../Backend/gnu-efi-3.0.9/lib/hand.c **** {
+ 939              		.loc 1 419 1 is_stmt 1 view -0
+ 940              		.cfi_startproc
+ 941              		.loc 1 419 1 is_stmt 0 view .LVU281
+ 942 05cc F30F1EFA 		endbr64
+ 943 05d0 53       		pushq	%rbx
+ 944              		.cfi_def_cfa_offset 16
+ 945              		.cfi_offset 3, -16
+ 946 05d1 4883EC40 		subq	$64, %rsp
+ 947              		.cfi_def_cfa_offset 80
+ 948 05d5 4889FB   		movq	%rdi, %rbx
+ 420:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_STATUS                        Status;
+ 949              		.loc 1 420 5 is_stmt 1 view .LVU282
+ 421:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_FILE_SYSTEM_VOLUME_LABEL_INFO *Buffer;
+ 950              		.loc 1 421 5 view .LVU283
+ 422:../Backend/gnu-efi-3.0.9/lib/hand.c ****     UINTN                             BufferSize;
+ 951              		.loc 1 422 5 view .LVU284
+ 423:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 424:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 425:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Initialize for GrowBuffer loop
+ 426:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 427:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 428:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Status = EFI_SUCCESS;
+ 952              		.loc 1 428 5 view .LVU285
+ 953              		.loc 1 428 12 is_stmt 0 view .LVU286
+ 954 05d8 48C74424 		movq	$0, 56(%rsp)
+ 954      38000000 
+ 954      00
+ 429:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Buffer = NULL;
+ 955              		.loc 1 429 5 is_stmt 1 view .LVU287
+ 956              		.loc 1 429 12 is_stmt 0 view .LVU288
+ 957 05e1 48C74424 		movq	$0, 48(%rsp)
+ 957      30000000 
+ 957      00
+ 430:../Backend/gnu-efi-3.0.9/lib/hand.c ****     BufferSize = SIZE_OF_EFI_FILE_SYSTEM_VOLUME_LABEL_INFO + 200;
+ 958              		.loc 1 430 5 is_stmt 1 view .LVU289
+ 959              		.loc 1 430 16 is_stmt 0 view .LVU290
+ 960 05ea 48C74424 		movq	$200, 40(%rsp)
+ 960      28C80000 
+ 960      00
+ 431:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 432:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 433:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Call the real function
+ 434:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 435:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 436:../Backend/gnu-efi-3.0.9/lib/hand.c ****     while (GrowBuffer (&Status, (VOID **) &Buffer, BufferSize)) {
+ 961              		.loc 1 436 5 is_stmt 1 view .LVU291
+ 962              		.loc 1 436 11 is_stmt 0 view .LVU292
+ 963 05f3 EB1C     		jmp	.L66
+ 964              	.LVL91:
+ 965              	.L67:
+ 437:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Status = uefi_call_wrapper(
+ 966              		.loc 1 437 9 is_stmt 1 view .LVU293
+ 967              		.loc 1 437 18 is_stmt 0 view .LVU294
+ 968 05f5 4C8B4C24 		movq	48(%rsp), %r9
+ 968      30
+ 969 05fa 4C8D4424 		leaq	40(%rsp), %r8
+ 969      28
+ 970 05ff 488D1500 		leaq	gEfiFileSystemVolumeLabelInfoIdGuid(%rip), %rdx
+ 970      000000
+ 971 0606 4889D9   		movq	%rbx, %rcx
+ 972 0609 FF5340   		call	*64(%rbx)
+ 973              	.LVL92:
+ 974              		.loc 1 437 16 discriminator 1 view .LVU295
+ 975 060c 48894424 		movq	%rax, 56(%rsp)
+ 975      38
+ 976              	.L66:
+ 436:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Status = uefi_call_wrapper(
+ 977              		.loc 1 436 12 is_stmt 1 view .LVU296
+ 978 0611 488D7424 		leaq	48(%rsp), %rsi
+ 978      30
+ 979 0616 488D7C24 		leaq	56(%rsp), %rdi
+ 979      38
+ 980 061b 488B5424 		movq	40(%rsp), %rdx
+ 980      28
+ 981 0620 E8000000 		call	GrowBuffer
+ 981      00
+ 982              	.LVL93:
+ 436:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Status = uefi_call_wrapper(
+ 983              		.loc 1 436 12 is_stmt 0 discriminator 1 view .LVU297
+ 984 0625 84C0     		testb	%al, %al
+ 985 0627 75CC     		jne	.L67
+ 438:../Backend/gnu-efi-3.0.9/lib/hand.c **** 		    FHand->GetInfo,
+ 439:../Backend/gnu-efi-3.0.9/lib/hand.c **** 			4,
+ 440:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     FHand,
+ 441:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     &FileSystemVolumeLabelInfo,
+ 442:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     &BufferSize,
+ 443:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     Buffer
+ 444:../Backend/gnu-efi-3.0.9/lib/hand.c ****                     );
+ 445:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 446:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 447:../Backend/gnu-efi-3.0.9/lib/hand.c ****     return Buffer;
+ 986              		.loc 1 447 5 is_stmt 1 view .LVU298
+ 448:../Backend/gnu-efi-3.0.9/lib/hand.c **** }
+ 987              		.loc 1 448 1 is_stmt 0 view .LVU299
+ 988 0629 488B4424 		movq	48(%rsp), %rax
+ 988      30
+ 989 062e 4883C440 		addq	$64, %rsp
+ 990              		.cfi_def_cfa_offset 16
+ 991 0632 5B       		popq	%rbx
+ 992              		.cfi_restore 3
+ 993              		.cfi_def_cfa_offset 8
+ 994              	.LVL94:
+ 995              		.loc 1 448 1 view .LVU300
+ 996 0633 C3       		ret
+ 997              		.cfi_endproc
+ 998              	.LFE6:
+ 1000              		.globl	LibInstallProtocolInterfaces
+ 1001              		.hidden	LibInstallProtocolInterfaces
+ 1003              	LibInstallProtocolInterfaces:
+ 1004              	.LVL95:
+ 1005              	.LFB7:
+ 449:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 450:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 451:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 452:../Backend/gnu-efi-3.0.9/lib/hand.c **** EFI_STATUS
+ 453:../Backend/gnu-efi-3.0.9/lib/hand.c **** LibInstallProtocolInterfaces (
+ 454:../Backend/gnu-efi-3.0.9/lib/hand.c ****     IN OUT EFI_HANDLE           *Handle,
+ 455:../Backend/gnu-efi-3.0.9/lib/hand.c ****     ...
+ 456:../Backend/gnu-efi-3.0.9/lib/hand.c ****     )
+ 457:../Backend/gnu-efi-3.0.9/lib/hand.c **** {
+ 1006              		.loc 1 457 1 is_stmt 1 view -0
+ 1007              		.cfi_startproc
+ 1008              		.loc 1 457 1 is_stmt 0 view .LVU302
+ 1009 0634 F30F1EFA 		endbr64
+ 1010 0638 4156     		pushq	%r14
+ 1011              		.cfi_def_cfa_offset 16
+ 1012              		.cfi_offset 14, -16
+ 1013 063a 4155     		pushq	%r13
+ 1014              		.cfi_def_cfa_offset 24
+ 1015              		.cfi_offset 13, -24
+ 1016 063c 4154     		pushq	%r12
+ 1017              		.cfi_def_cfa_offset 32
+ 1018              		.cfi_offset 12, -32
+ 1019 063e 55       		pushq	%rbp
+ 1020              		.cfi_def_cfa_offset 40
+ 1021              		.cfi_offset 6, -40
+ 1022 063f 53       		pushq	%rbx
+ 1023              		.cfi_def_cfa_offset 48
+ 1024              		.cfi_offset 3, -48
+ 1025 0640 4881ECF0 		subq	$240, %rsp
+ 1025      000000
+ 1026              		.cfi_def_cfa_offset 288
+ 1027 0647 4989FC   		movq	%rdi, %r12
+ 1028 064a 48897424 		movq	%rsi, 72(%rsp)
+ 1028      48
+ 1029 064f 48895424 		movq	%rdx, 80(%rsp)
+ 1029      50
+ 1030 0654 48894C24 		movq	%rcx, 88(%rsp)
+ 1030      58
+ 1031 0659 4C894424 		movq	%r8, 96(%rsp)
+ 1031      60
+ 1032 065e 4C894C24 		movq	%r9, 104(%rsp)
+ 1032      68
+ 1033 0663 84C0     		testb	%al, %al
+ 1034 0665 743D     		je	.L85
+ 1035 0667 0F294424 		movaps	%xmm0, 112(%rsp)
+ 1035      70
+ 1036 066c 0F298C24 		movaps	%xmm1, 128(%rsp)
+ 1036      80000000 
+ 1037 0674 0F299424 		movaps	%xmm2, 144(%rsp)
+ 1037      90000000 
+ 1038 067c 0F299C24 		movaps	%xmm3, 160(%rsp)
+ 1038      A0000000 
+ 1039 0684 0F29A424 		movaps	%xmm4, 176(%rsp)
+ 1039      B0000000 
+ 1040 068c 0F29AC24 		movaps	%xmm5, 192(%rsp)
+ 1040      C0000000 
+ 1041 0694 0F29B424 		movaps	%xmm6, 208(%rsp)
+ 1041      D0000000 
+ 1042 069c 0F29BC24 		movaps	%xmm7, 224(%rsp)
+ 1042      E0000000 
+ 1043              	.L85:
+ 458:../Backend/gnu-efi-3.0.9/lib/hand.c ****     va_list         args;
+ 1044              		.loc 1 458 5 is_stmt 1 view .LVU303
+ 459:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_STATUS      Status;
+ 1045              		.loc 1 459 5 view .LVU304
+ 460:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_GUID        *Protocol;
+ 1046              		.loc 1 460 5 view .LVU305
+ 461:../Backend/gnu-efi-3.0.9/lib/hand.c ****     VOID            *Interface;
+ 1047              		.loc 1 461 5 view .LVU306
+ 462:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_TPL         OldTpl;
+ 1048              		.loc 1 462 5 view .LVU307
+ 463:../Backend/gnu-efi-3.0.9/lib/hand.c ****     UINTN           Index;
+ 1049              		.loc 1 463 5 view .LVU308
+ 464:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_HANDLE      OldHandle;
+ 1050              		.loc 1 464 5 view .LVU309
+ 465:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 466:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 467:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Syncronize with notifcations
+ 468:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 469:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 470:../Backend/gnu-efi-3.0.9/lib/hand.c ****     OldTpl = uefi_call_wrapper(BS->RaiseTPL, 1, TPL_NOTIFY);
+ 1051              		.loc 1 470 5 view .LVU310
+ 1052              		.loc 1 470 14 is_stmt 0 view .LVU311
+ 1053 06a4 B9100000 		movl	$16, %ecx
+ 1053      00
+ 1054 06a9 488B0500 		movq	BS(%rip), %rax
+ 1054      000000
+ 1055 06b0 FF5018   		call	*24(%rax)
+ 1056              	.LVL96:
+ 1057              		.loc 1 470 14 view .LVU312
+ 1058 06b3 4989C5   		movq	%rax, %r13
+ 1059              	.LVL97:
+ 471:../Backend/gnu-efi-3.0.9/lib/hand.c ****     OldHandle = *Handle;
+ 1060              		.loc 1 471 5 is_stmt 1 view .LVU313
+ 1061              		.loc 1 471 15 is_stmt 0 view .LVU314
+ 1062 06b6 4D8B3424 		movq	(%r12), %r14
+ 1063              	.LVL98:
+ 472:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 473:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 474:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Install the protocol interfaces
+ 475:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 476:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 477:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Index = 0;
+ 1064              		.loc 1 477 5 is_stmt 1 view .LVU315
+ 478:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Status = EFI_SUCCESS;
+ 1065              		.loc 1 478 5 view .LVU316
+ 479:../Backend/gnu-efi-3.0.9/lib/hand.c ****     va_start (args, Handle);
+ 1066              		.loc 1 479 5 view .LVU317
+ 1067 06ba C7442428 		movl	$8, 40(%rsp)
+ 1067      08000000 
+ 1068 06c2 C744242C 		movl	$48, 44(%rsp)
+ 1068      30000000 
+ 1069 06ca 488D8424 		leaq	288(%rsp), %rax
+ 1069      20010000 
+ 1070              	.LVL99:
+ 1071              		.loc 1 479 5 is_stmt 0 view .LVU318
+ 1072 06d2 48894424 		movq	%rax, 48(%rsp)
+ 1072      30
+ 1073 06d7 488D4424 		leaq	64(%rsp), %rax
+ 1073      40
+ 1074 06dc 48894424 		movq	%rax, 56(%rsp)
+ 1074      38
+ 480:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 481:../Backend/gnu-efi-3.0.9/lib/hand.c ****     while (!EFI_ERROR(Status)) {
+ 1075              		.loc 1 481 5 is_stmt 1 view .LVU319
+ 477:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Status = EFI_SUCCESS;
+ 1076              		.loc 1 477 11 is_stmt 0 view .LVU320
+ 1077 06e1 BD000000 		movl	$0, %ebp
+ 1077      00
+ 478:../Backend/gnu-efi-3.0.9/lib/hand.c ****     va_start (args, Handle);
+ 1078              		.loc 1 478 12 view .LVU321
+ 1079 06e6 BB000000 		movl	$0, %ebx
+ 1079      00
+ 1080              		.loc 1 481 11 view .LVU322
+ 1081 06eb EB43     		jmp	.L71
+ 1082              	.LVL100:
+ 1083              	.L72:
+ 482:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 483:../Backend/gnu-efi-3.0.9/lib/hand.c ****         //
+ 484:../Backend/gnu-efi-3.0.9/lib/hand.c ****         // If protocol is NULL, then it's the end of the list
+ 485:../Backend/gnu-efi-3.0.9/lib/hand.c ****         //
+ 486:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 487:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Protocol = va_arg(args, EFI_GUID *);
+ 1084              		.loc 1 487 18 view .LVU323
+ 1085 06ed 488B4424 		movq	48(%rsp), %rax
+ 1085      30
+ 1086 06f2 488D5008 		leaq	8(%rax), %rdx
+ 1087 06f6 48895424 		movq	%rdx, 48(%rsp)
+ 1087      30
+ 1088 06fb EB4D     		jmp	.L73
+ 1089              	.L75:
+ 488:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (!Protocol) {
+ 489:../Backend/gnu-efi-3.0.9/lib/hand.c ****             break;
+ 490:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 491:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 492:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Interface = va_arg(args, VOID *);
+ 1090              		.loc 1 492 19 view .LVU324
+ 1091 06fd 488B4424 		movq	48(%rsp), %rax
+ 1091      30
+ 1092 0702 488D4808 		leaq	8(%rax), %rcx
+ 1093 0706 48894C24 		movq	%rcx, 48(%rsp)
+ 1093      30
+ 1094              	.L76:
+ 493:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 494:../Backend/gnu-efi-3.0.9/lib/hand.c ****         //
+ 495:../Backend/gnu-efi-3.0.9/lib/hand.c ****         // Install it
+ 496:../Backend/gnu-efi-3.0.9/lib/hand.c ****         //
+ 497:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 498:../Backend/gnu-efi-3.0.9/lib/hand.c ****         DEBUG((D_INFO, "LibInstallProtocolInterface: %d %x\n", Protocol, Interface));
+ 1095              		.loc 1 498 85 is_stmt 1 view .LVU325
+ 499:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Status = uefi_call_wrapper(BS->InstallProtocolInterface, 4, Handle, Protocol, EFI_NATIVE_IN
+ 1096              		.loc 1 499 9 view .LVU326
+ 1097              		.loc 1 499 18 is_stmt 0 view .LVU327
+ 1098 070b 4C8B08   		movq	(%rax), %r9
+ 1099 070e 41B80000 		movl	$0, %r8d
+ 1099      0000
+ 1100 0714 4C89E1   		movq	%r12, %rcx
+ 1101 0717 488B0500 		movq	BS(%rip), %rax
+ 1101      000000
+ 1102 071e FF908000 		call	*128(%rax)
+ 1102      0000
+ 1103              	.LVL101:
+ 1104 0724 4889C3   		movq	%rax, %rbx
+ 1105              	.LVL102:
+ 500:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (EFI_ERROR(Status)) {
+ 1106              		.loc 1 500 9 is_stmt 1 view .LVU328
+ 1107              		.loc 1 500 12 is_stmt 0 view .LVU329
+ 1108 0727 4885C0   		testq	%rax, %rax
+ 1109 072a 783D     		js	.L74
+ 501:../Backend/gnu-efi-3.0.9/lib/hand.c ****             break;
+ 502:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 503:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 504:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Index += 1;
+ 1110              		.loc 1 504 9 is_stmt 1 view .LVU330
+ 1111              		.loc 1 504 15 is_stmt 0 view .LVU331
+ 1112 072c 4883C501 		addq	$1, %rbp
+ 1113              	.LVL103:
+ 1114              	.L71:
+ 481:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1115              		.loc 1 481 12 is_stmt 1 view .LVU332
+ 1116 0730 4885DB   		testq	%rbx, %rbx
+ 1117 0733 7834     		js	.L74
+ 487:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (!Protocol) {
+ 1118              		.loc 1 487 9 view .LVU333
+ 487:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (!Protocol) {
+ 1119              		.loc 1 487 18 is_stmt 0 view .LVU334
+ 1120 0735 837C2428 		cmpl	$47, 40(%rsp)
+ 1120      2F
+ 1121 073a 77B1     		ja	.L72
+ 1122 073c 8B442428 		movl	40(%rsp), %eax
+ 1123 0740 48034424 		addq	56(%rsp), %rax
+ 1123      38
+ 1124 0745 83442428 		addl	$8, 40(%rsp)
+ 1124      08
+ 1125              	.L73:
+ 1126 074a 488B10   		movq	(%rax), %rdx
+ 488:../Backend/gnu-efi-3.0.9/lib/hand.c ****             break;
+ 1127              		.loc 1 488 9 is_stmt 1 view .LVU335
+ 488:../Backend/gnu-efi-3.0.9/lib/hand.c ****             break;
+ 1128              		.loc 1 488 12 is_stmt 0 view .LVU336
+ 1129 074d 4885D2   		testq	%rdx, %rdx
+ 1130 0750 7417     		je	.L74
+ 492:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1131              		.loc 1 492 9 is_stmt 1 view .LVU337
+ 492:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1132              		.loc 1 492 19 is_stmt 0 view .LVU338
+ 1133 0752 837C2428 		cmpl	$47, 40(%rsp)
+ 1133      2F
+ 1134 0757 77A4     		ja	.L75
+ 1135 0759 8B442428 		movl	40(%rsp), %eax
+ 1136 075d 48034424 		addq	56(%rsp), %rax
+ 1136      38
+ 1137 0762 83442428 		addl	$8, 40(%rsp)
+ 1137      08
+ 1138 0767 EBA2     		jmp	.L76
+ 1139              	.L74:
+ 505:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 506:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 507:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 508:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // If there was an error, remove all the interfaces that were
+ 509:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // installed without any errors
+ 510:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 511:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 512:../Backend/gnu-efi-3.0.9/lib/hand.c ****     if (EFI_ERROR(Status)) {
+ 1140              		.loc 1 512 5 is_stmt 1 view .LVU339
+ 1141              		.loc 1 512 8 is_stmt 0 view .LVU340
+ 1142 0769 4885DB   		testq	%rbx, %rbx
+ 1143 076c 7820     		js	.L87
+ 1144              	.L78:
+ 513:../Backend/gnu-efi-3.0.9/lib/hand.c ****         va_start (args, Handle);
+ 514:../Backend/gnu-efi-3.0.9/lib/hand.c ****         while (Index) {
+ 515:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 516:../Backend/gnu-efi-3.0.9/lib/hand.c ****             Protocol = va_arg(args, EFI_GUID *);
+ 517:../Backend/gnu-efi-3.0.9/lib/hand.c ****             Interface = va_arg(args, VOID *);
+ 518:../Backend/gnu-efi-3.0.9/lib/hand.c ****             uefi_call_wrapper(BS->UninstallProtocolInterface, 3, *Handle, Protocol, Interface);
+ 519:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 520:../Backend/gnu-efi-3.0.9/lib/hand.c ****             Index -= 1;
+ 521:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 522:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 523:../Backend/gnu-efi-3.0.9/lib/hand.c ****         *Handle = OldHandle;
+ 524:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 525:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 526:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 527:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Done
+ 528:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 529:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 530:../Backend/gnu-efi-3.0.9/lib/hand.c ****     uefi_call_wrapper(BS->RestoreTPL, 1, OldTpl);
+ 1145              		.loc 1 530 5 is_stmt 1 view .LVU341
+ 1146 076e 4C89E9   		movq	%r13, %rcx
+ 1147 0771 488B0500 		movq	BS(%rip), %rax
+ 1147      000000
+ 1148 0778 FF5020   		call	*32(%rax)
+ 1149              	.LVL104:
+ 531:../Backend/gnu-efi-3.0.9/lib/hand.c ****     return Status;
+ 1150              		.loc 1 531 5 view .LVU342
+ 532:../Backend/gnu-efi-3.0.9/lib/hand.c **** }
+ 1151              		.loc 1 532 1 is_stmt 0 view .LVU343
+ 1152 077b 4889D8   		movq	%rbx, %rax
+ 1153 077e 4881C4F0 		addq	$240, %rsp
+ 1153      000000
+ 1154              		.cfi_remember_state
+ 1155              		.cfi_def_cfa_offset 48
+ 1156 0785 5B       		popq	%rbx
+ 1157              		.cfi_restore 3
+ 1158              		.cfi_def_cfa_offset 40
+ 1159              	.LVL105:
+ 1160              		.loc 1 532 1 view .LVU344
+ 1161 0786 5D       		popq	%rbp
+ 1162              		.cfi_restore 6
+ 1163              		.cfi_def_cfa_offset 32
+ 1164              	.LVL106:
+ 1165              		.loc 1 532 1 view .LVU345
+ 1166 0787 415C     		popq	%r12
+ 1167              		.cfi_restore 12
+ 1168              		.cfi_def_cfa_offset 24
+ 1169              	.LVL107:
+ 1170              		.loc 1 532 1 view .LVU346
+ 1171 0789 415D     		popq	%r13
+ 1172              		.cfi_restore 13
+ 1173              		.cfi_def_cfa_offset 16
+ 1174              	.LVL108:
+ 1175              		.loc 1 532 1 view .LVU347
+ 1176 078b 415E     		popq	%r14
+ 1177              		.cfi_restore 14
+ 1178              		.cfi_def_cfa_offset 8
+ 1179              	.LVL109:
+ 1180              		.loc 1 532 1 view .LVU348
+ 1181 078d C3       		ret
+ 1182              	.LVL110:
+ 1183              	.L87:
+ 1184              		.cfi_restore_state
+ 513:../Backend/gnu-efi-3.0.9/lib/hand.c ****         va_start (args, Handle);
+ 1185              		.loc 1 513 9 is_stmt 1 view .LVU349
+ 1186 078e C7442428 		movl	$8, 40(%rsp)
+ 1186      08000000 
+ 1187 0796 C744242C 		movl	$48, 44(%rsp)
+ 1187      30000000 
+ 1188 079e 488D8424 		leaq	288(%rsp), %rax
+ 1188      20010000 
+ 1189 07a6 48894424 		movq	%rax, 48(%rsp)
+ 1189      30
+ 1190 07ab 488D4424 		leaq	64(%rsp), %rax
+ 1190      40
+ 1191 07b0 48894424 		movq	%rax, 56(%rsp)
+ 1191      38
+ 514:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1192              		.loc 1 514 9 view .LVU350
+ 514:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1193              		.loc 1 514 15 is_stmt 0 view .LVU351
+ 1194 07b5 EB36     		jmp	.L79
+ 1195              	.L80:
+ 516:../Backend/gnu-efi-3.0.9/lib/hand.c ****             Interface = va_arg(args, VOID *);
+ 1196              		.loc 1 516 22 view .LVU352
+ 1197 07b7 488B4424 		movq	48(%rsp), %rax
+ 1197      30
+ 1198 07bc 488D5008 		leaq	8(%rax), %rdx
+ 1199 07c0 48895424 		movq	%rdx, 48(%rsp)
+ 1199      30
+ 1200 07c5 EB40     		jmp	.L81
+ 1201              	.L82:
+ 517:../Backend/gnu-efi-3.0.9/lib/hand.c ****             uefi_call_wrapper(BS->UninstallProtocolInterface, 3, *Handle, Protocol, Interface);
+ 1202              		.loc 1 517 23 view .LVU353
+ 1203 07c7 488B4424 		movq	48(%rsp), %rax
+ 1203      30
+ 1204 07cc 488D4808 		leaq	8(%rax), %rcx
+ 1205 07d0 48894C24 		movq	%rcx, 48(%rsp)
+ 1205      30
+ 1206              	.L83:
+ 518:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1207              		.loc 1 518 13 is_stmt 1 view .LVU354
+ 1208 07d5 498B0C24 		movq	(%r12), %rcx
+ 1209 07d9 4C8B00   		movq	(%rax), %r8
+ 1210 07dc 488B0500 		movq	BS(%rip), %rax
+ 1210      000000
+ 1211 07e3 FF909000 		call	*144(%rax)
+ 1211      0000
+ 1212              	.LVL111:
+ 520:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 1213              		.loc 1 520 13 view .LVU355
+ 520:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 1214              		.loc 1 520 19 is_stmt 0 view .LVU356
+ 1215 07e9 4883ED01 		subq	$1, %rbp
+ 1216              	.LVL112:
+ 1217              	.L79:
+ 514:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1218              		.loc 1 514 16 is_stmt 1 view .LVU357
+ 1219 07ed 4885ED   		testq	%rbp, %rbp
+ 1220 07f0 742F     		je	.L88
+ 516:../Backend/gnu-efi-3.0.9/lib/hand.c ****             Interface = va_arg(args, VOID *);
+ 1221              		.loc 1 516 13 view .LVU358
+ 516:../Backend/gnu-efi-3.0.9/lib/hand.c ****             Interface = va_arg(args, VOID *);
+ 1222              		.loc 1 516 22 is_stmt 0 view .LVU359
+ 1223 07f2 837C2428 		cmpl	$47, 40(%rsp)
+ 1223      2F
+ 1224 07f7 77BE     		ja	.L80
+ 1225 07f9 8B442428 		movl	40(%rsp), %eax
+ 1226 07fd 48034424 		addq	56(%rsp), %rax
+ 1226      38
+ 1227 0802 83442428 		addl	$8, 40(%rsp)
+ 1227      08
+ 1228              	.L81:
+ 1229 0807 488B10   		movq	(%rax), %rdx
+ 517:../Backend/gnu-efi-3.0.9/lib/hand.c ****             uefi_call_wrapper(BS->UninstallProtocolInterface, 3, *Handle, Protocol, Interface);
+ 1230              		.loc 1 517 13 is_stmt 1 view .LVU360
+ 517:../Backend/gnu-efi-3.0.9/lib/hand.c ****             uefi_call_wrapper(BS->UninstallProtocolInterface, 3, *Handle, Protocol, Interface);
+ 1231              		.loc 1 517 23 is_stmt 0 view .LVU361
+ 1232 080a 837C2428 		cmpl	$47, 40(%rsp)
+ 1232      2F
+ 1233 080f 77B6     		ja	.L82
+ 1234 0811 8B442428 		movl	40(%rsp), %eax
+ 1235 0815 48034424 		addq	56(%rsp), %rax
+ 1235      38
+ 1236 081a 83442428 		addl	$8, 40(%rsp)
+ 1236      08
+ 1237 081f EBB4     		jmp	.L83
+ 1238              	.L88:
+ 523:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 1239              		.loc 1 523 9 is_stmt 1 view .LVU362
+ 523:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 1240              		.loc 1 523 17 is_stmt 0 view .LVU363
+ 1241 0821 4D893424 		movq	%r14, (%r12)
+ 1242 0825 E944FFFF 		jmp	.L78
+ 1242      FF
+ 1243              		.cfi_endproc
+ 1244              	.LFE7:
+ 1246              		.globl	LibUninstallProtocolInterfaces
+ 1247              		.hidden	LibUninstallProtocolInterfaces
+ 1249              	LibUninstallProtocolInterfaces:
+ 1250              	.LVL113:
+ 1251              	.LFB8:
+ 533:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 534:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 535:../Backend/gnu-efi-3.0.9/lib/hand.c **** VOID
+ 536:../Backend/gnu-efi-3.0.9/lib/hand.c **** LibUninstallProtocolInterfaces (
+ 537:../Backend/gnu-efi-3.0.9/lib/hand.c ****     IN EFI_HANDLE           Handle,
+ 538:../Backend/gnu-efi-3.0.9/lib/hand.c ****     ...
+ 539:../Backend/gnu-efi-3.0.9/lib/hand.c ****     )
+ 540:../Backend/gnu-efi-3.0.9/lib/hand.c **** {
+ 1252              		.loc 1 540 1 is_stmt 1 view -0
+ 1253              		.cfi_startproc
+ 1254              		.loc 1 540 1 is_stmt 0 view .LVU365
+ 1255 082a F30F1EFA 		endbr64
+ 1256 082e 53       		pushq	%rbx
+ 1257              		.cfi_def_cfa_offset 16
+ 1258              		.cfi_offset 3, -16
+ 1259 082f 4881ECF0 		subq	$240, %rsp
+ 1259      000000
+ 1260              		.cfi_def_cfa_offset 256
+ 1261 0836 4889FB   		movq	%rdi, %rbx
+ 1262 0839 48897424 		movq	%rsi, 72(%rsp)
+ 1262      48
+ 1263 083e 48895424 		movq	%rdx, 80(%rsp)
+ 1263      50
+ 1264 0843 48894C24 		movq	%rcx, 88(%rsp)
+ 1264      58
+ 1265 0848 4C894424 		movq	%r8, 96(%rsp)
+ 1265      60
+ 1266 084d 4C894C24 		movq	%r9, 104(%rsp)
+ 1266      68
+ 1267 0852 84C0     		testb	%al, %al
+ 1268 0854 743D     		je	.L97
+ 1269 0856 0F294424 		movaps	%xmm0, 112(%rsp)
+ 1269      70
+ 1270 085b 0F298C24 		movaps	%xmm1, 128(%rsp)
+ 1270      80000000 
+ 1271 0863 0F299424 		movaps	%xmm2, 144(%rsp)
+ 1271      90000000 
+ 1272 086b 0F299C24 		movaps	%xmm3, 160(%rsp)
+ 1272      A0000000 
+ 1273 0873 0F29A424 		movaps	%xmm4, 176(%rsp)
+ 1273      B0000000 
+ 1274 087b 0F29AC24 		movaps	%xmm5, 192(%rsp)
+ 1274      C0000000 
+ 1275 0883 0F29B424 		movaps	%xmm6, 208(%rsp)
+ 1275      D0000000 
+ 1276 088b 0F29BC24 		movaps	%xmm7, 224(%rsp)
+ 1276      E0000000 
+ 1277              	.L97:
+ 541:../Backend/gnu-efi-3.0.9/lib/hand.c ****     va_list         args;
+ 1278              		.loc 1 541 5 is_stmt 1 view .LVU366
+ 542:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_STATUS      Status;
+ 1279              		.loc 1 542 5 view .LVU367
+ 543:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_GUID        *Protocol;
+ 1280              		.loc 1 543 5 view .LVU368
+ 544:../Backend/gnu-efi-3.0.9/lib/hand.c ****     VOID            *Interface;
+ 1281              		.loc 1 544 5 view .LVU369
+ 545:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 546:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 547:../Backend/gnu-efi-3.0.9/lib/hand.c ****     va_start (args, Handle);
+ 1282              		.loc 1 547 5 view .LVU370
+ 1283 0893 C7442428 		movl	$8, 40(%rsp)
+ 1283      08000000 
+ 1284 089b C744242C 		movl	$48, 44(%rsp)
+ 1284      30000000 
+ 1285 08a3 488D8424 		leaq	256(%rsp), %rax
+ 1285      00010000 
+ 1286 08ab 48894424 		movq	%rax, 48(%rsp)
+ 1286      30
+ 1287 08b0 488D4424 		leaq	64(%rsp), %rax
+ 1287      40
+ 1288 08b5 48894424 		movq	%rax, 56(%rsp)
+ 1288      38
+ 1289 08ba EB31     		jmp	.L96
+ 1290              	.LVL114:
+ 1291              	.L91:
+ 548:../Backend/gnu-efi-3.0.9/lib/hand.c ****     for (; ;) {
+ 549:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 550:../Backend/gnu-efi-3.0.9/lib/hand.c ****         //
+ 551:../Backend/gnu-efi-3.0.9/lib/hand.c ****         // If protocol is NULL, then it's the end of the list
+ 552:../Backend/gnu-efi-3.0.9/lib/hand.c ****         //
+ 553:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 554:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Protocol = va_arg(args, EFI_GUID *);
+ 1292              		.loc 1 554 18 is_stmt 0 view .LVU371
+ 1293 08bc 488B4424 		movq	48(%rsp), %rax
+ 1293      30
+ 1294 08c1 488D5008 		leaq	8(%rax), %rdx
+ 1295 08c5 48895424 		movq	%rdx, 48(%rsp)
+ 1295      30
+ 1296 08ca EB36     		jmp	.L92
+ 1297              	.L94:
+ 555:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (!Protocol) {
+ 556:../Backend/gnu-efi-3.0.9/lib/hand.c ****             break;
+ 557:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 558:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 559:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Interface = va_arg(args, VOID *);
+ 1298              		.loc 1 559 19 view .LVU372
+ 1299 08cc 488B4424 		movq	48(%rsp), %rax
+ 1299      30
+ 1300 08d1 488D4808 		leaq	8(%rax), %rcx
+ 1301 08d5 48894C24 		movq	%rcx, 48(%rsp)
+ 1301      30
+ 1302              	.L95:
+ 560:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 561:../Backend/gnu-efi-3.0.9/lib/hand.c ****         //
+ 562:../Backend/gnu-efi-3.0.9/lib/hand.c ****         // Uninstall it
+ 563:../Backend/gnu-efi-3.0.9/lib/hand.c ****         //
+ 564:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 565:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Status = uefi_call_wrapper(BS->UninstallProtocolInterface, 3, Handle, Protocol, Interface);
+ 1303              		.loc 1 565 9 is_stmt 1 view .LVU373
+ 1304              		.loc 1 565 18 is_stmt 0 view .LVU374
+ 1305 08da 4C8B00   		movq	(%rax), %r8
+ 1306 08dd 4889D9   		movq	%rbx, %rcx
+ 1307 08e0 488B0500 		movq	BS(%rip), %rax
+ 1307      000000
+ 1308 08e7 FF909000 		call	*144(%rax)
+ 1308      0000
+ 1309              	.LVL115:
+ 566:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (EFI_ERROR(Status)) {
+ 1310              		.loc 1 566 9 is_stmt 1 view .LVU375
+ 567:../Backend/gnu-efi-3.0.9/lib/hand.c ****             DEBUG((D_ERROR, "LibUninstallProtocolInterfaces: failed %g, %r\n", Protocol, Handle));
+ 1311              		.loc 1 567 98 view .LVU376
+ 548:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1312              		.loc 1 548 5 view .LVU377
+ 1313              	.L96:
+ 548:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1314              		.loc 1 548 5 view .LVU378
+ 554:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (!Protocol) {
+ 1315              		.loc 1 554 9 view .LVU379
+ 554:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (!Protocol) {
+ 1316              		.loc 1 554 18 is_stmt 0 view .LVU380
+ 1317 08ed 837C2428 		cmpl	$47, 40(%rsp)
+ 1317      2F
+ 1318 08f2 77C8     		ja	.L91
+ 1319 08f4 8B442428 		movl	40(%rsp), %eax
+ 1320 08f8 48034424 		addq	56(%rsp), %rax
+ 1320      38
+ 1321 08fd 83442428 		addl	$8, 40(%rsp)
+ 1321      08
+ 1322              	.L92:
+ 1323 0902 488B10   		movq	(%rax), %rdx
+ 555:../Backend/gnu-efi-3.0.9/lib/hand.c ****             break;
+ 1324              		.loc 1 555 9 is_stmt 1 view .LVU381
+ 555:../Backend/gnu-efi-3.0.9/lib/hand.c ****             break;
+ 1325              		.loc 1 555 12 is_stmt 0 view .LVU382
+ 1326 0905 4885D2   		testq	%rdx, %rdx
+ 1327 0908 7417     		je	.L89
+ 559:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1328              		.loc 1 559 9 is_stmt 1 view .LVU383
+ 559:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1329              		.loc 1 559 19 is_stmt 0 view .LVU384
+ 1330 090a 837C2428 		cmpl	$47, 40(%rsp)
+ 1330      2F
+ 1331 090f 77BB     		ja	.L94
+ 1332 0911 8B442428 		movl	40(%rsp), %eax
+ 1333 0915 48034424 		addq	56(%rsp), %rax
+ 1333      38
+ 1334 091a 83442428 		addl	$8, 40(%rsp)
+ 1334      08
+ 1335 091f EBB9     		jmp	.L95
+ 1336              	.L89:
+ 568:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 569:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 570:../Backend/gnu-efi-3.0.9/lib/hand.c **** }
+ 1337              		.loc 1 570 1 view .LVU385
+ 1338 0921 4881C4F0 		addq	$240, %rsp
+ 1338      000000
+ 1339              		.cfi_def_cfa_offset 16
+ 1340 0928 5B       		popq	%rbx
+ 1341              		.cfi_restore 3
+ 1342              		.cfi_def_cfa_offset 8
+ 1343              	.LVL116:
+ 1344              		.loc 1 570 1 view .LVU386
+ 1345 0929 C3       		ret
+ 1346              		.cfi_endproc
+ 1347              	.LFE8:
+ 1349              		.globl	LibReinstallProtocolInterfaces
+ 1350              		.hidden	LibReinstallProtocolInterfaces
+ 1352              	LibReinstallProtocolInterfaces:
+ 1353              	.LVL117:
+ 1354              	.LFB9:
+ 571:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 572:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 573:../Backend/gnu-efi-3.0.9/lib/hand.c **** EFI_STATUS
+ 574:../Backend/gnu-efi-3.0.9/lib/hand.c **** LibReinstallProtocolInterfaces (
+ 575:../Backend/gnu-efi-3.0.9/lib/hand.c ****     IN OUT EFI_HANDLE           *Handle,
+ 576:../Backend/gnu-efi-3.0.9/lib/hand.c ****     ...
+ 577:../Backend/gnu-efi-3.0.9/lib/hand.c ****     )
+ 578:../Backend/gnu-efi-3.0.9/lib/hand.c **** {
+ 1355              		.loc 1 578 1 is_stmt 1 view -0
+ 1356              		.cfi_startproc
+ 1357              		.loc 1 578 1 is_stmt 0 view .LVU388
+ 1358 092a F30F1EFA 		endbr64
+ 1359 092e 4155     		pushq	%r13
+ 1360              		.cfi_def_cfa_offset 16
+ 1361              		.cfi_offset 13, -16
+ 1362 0930 4154     		pushq	%r12
+ 1363              		.cfi_def_cfa_offset 24
+ 1364              		.cfi_offset 12, -24
+ 1365 0932 55       		pushq	%rbp
+ 1366              		.cfi_def_cfa_offset 32
+ 1367              		.cfi_offset 6, -32
+ 1368 0933 53       		pushq	%rbx
+ 1369              		.cfi_def_cfa_offset 40
+ 1370              		.cfi_offset 3, -40
+ 1371 0934 4881ECF8 		subq	$248, %rsp
+ 1371      000000
+ 1372              		.cfi_def_cfa_offset 288
+ 1373 093b 4989FC   		movq	%rdi, %r12
+ 1374 093e 48897424 		movq	%rsi, 72(%rsp)
+ 1374      48
+ 1375 0943 48895424 		movq	%rdx, 80(%rsp)
+ 1375      50
+ 1376 0948 48894C24 		movq	%rcx, 88(%rsp)
+ 1376      58
+ 1377 094d 4C894424 		movq	%r8, 96(%rsp)
+ 1377      60
+ 1378 0952 4C894C24 		movq	%r9, 104(%rsp)
+ 1378      68
+ 1379 0957 84C0     		testb	%al, %al
+ 1380 0959 743D     		je	.L119
+ 1381 095b 0F294424 		movaps	%xmm0, 112(%rsp)
+ 1381      70
+ 1382 0960 0F298C24 		movaps	%xmm1, 128(%rsp)
+ 1382      80000000 
+ 1383 0968 0F299424 		movaps	%xmm2, 144(%rsp)
+ 1383      90000000 
+ 1384 0970 0F299C24 		movaps	%xmm3, 160(%rsp)
+ 1384      A0000000 
+ 1385 0978 0F29A424 		movaps	%xmm4, 176(%rsp)
+ 1385      B0000000 
+ 1386 0980 0F29AC24 		movaps	%xmm5, 192(%rsp)
+ 1386      C0000000 
+ 1387 0988 0F29B424 		movaps	%xmm6, 208(%rsp)
+ 1387      D0000000 
+ 1388 0990 0F29BC24 		movaps	%xmm7, 224(%rsp)
+ 1388      E0000000 
+ 1389              	.L119:
+ 579:../Backend/gnu-efi-3.0.9/lib/hand.c ****     va_list         args;
+ 1390              		.loc 1 579 5 is_stmt 1 view .LVU389
+ 580:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_STATUS      Status;
+ 1391              		.loc 1 580 5 view .LVU390
+ 581:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_GUID        *Protocol;
+ 1392              		.loc 1 581 5 view .LVU391
+ 582:../Backend/gnu-efi-3.0.9/lib/hand.c ****     VOID            *OldInterface, *NewInterface;
+ 1393              		.loc 1 582 5 view .LVU392
+ 583:../Backend/gnu-efi-3.0.9/lib/hand.c ****     EFI_TPL         OldTpl;
+ 1394              		.loc 1 583 5 view .LVU393
+ 584:../Backend/gnu-efi-3.0.9/lib/hand.c ****     UINTN           Index;
+ 1395              		.loc 1 584 5 view .LVU394
+ 585:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 586:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 587:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Syncronize with notifcations
+ 588:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 589:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 590:../Backend/gnu-efi-3.0.9/lib/hand.c ****     OldTpl = uefi_call_wrapper(BS->RaiseTPL, 1, TPL_NOTIFY);
+ 1396              		.loc 1 590 5 view .LVU395
+ 1397              		.loc 1 590 14 is_stmt 0 view .LVU396
+ 1398 0998 B9100000 		movl	$16, %ecx
+ 1398      00
+ 1399 099d 488B0500 		movq	BS(%rip), %rax
+ 1399      000000
+ 1400 09a4 FF5018   		call	*24(%rax)
+ 1401              	.LVL118:
+ 1402              		.loc 1 590 14 view .LVU397
+ 1403 09a7 4989C5   		movq	%rax, %r13
+ 1404              	.LVL119:
+ 591:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 592:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 593:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Install the protocol interfaces
+ 594:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 595:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 596:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Index = 0;
+ 1405              		.loc 1 596 5 is_stmt 1 view .LVU398
+ 597:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Status = EFI_SUCCESS;
+ 1406              		.loc 1 597 5 view .LVU399
+ 598:../Backend/gnu-efi-3.0.9/lib/hand.c ****     va_start (args, Handle);
+ 1407              		.loc 1 598 5 view .LVU400
+ 1408 09aa C7442428 		movl	$8, 40(%rsp)
+ 1408      08000000 
+ 1409 09b2 C744242C 		movl	$48, 44(%rsp)
+ 1409      30000000 
+ 1410 09ba 488D8424 		leaq	288(%rsp), %rax
+ 1410      20010000 
+ 1411              	.LVL120:
+ 1412              		.loc 1 598 5 is_stmt 0 view .LVU401
+ 1413 09c2 48894424 		movq	%rax, 48(%rsp)
+ 1413      30
+ 1414 09c7 488D4424 		leaq	64(%rsp), %rax
+ 1414      40
+ 1415 09cc 48894424 		movq	%rax, 56(%rsp)
+ 1415      38
+ 599:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 600:../Backend/gnu-efi-3.0.9/lib/hand.c ****     while (!EFI_ERROR(Status)) {
+ 1416              		.loc 1 600 5 is_stmt 1 view .LVU402
+ 596:../Backend/gnu-efi-3.0.9/lib/hand.c ****     Status = EFI_SUCCESS;
+ 1417              		.loc 1 596 11 is_stmt 0 view .LVU403
+ 1418 09d1 BD000000 		movl	$0, %ebp
+ 1418      00
+ 597:../Backend/gnu-efi-3.0.9/lib/hand.c ****     va_start (args, Handle);
+ 1419              		.loc 1 597 12 view .LVU404
+ 1420 09d6 BB000000 		movl	$0, %ebx
+ 1420      00
+ 1421              		.loc 1 600 11 view .LVU405
+ 1422 09db EB4D     		jmp	.L101
+ 1423              	.LVL121:
+ 1424              	.L102:
+ 601:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 602:../Backend/gnu-efi-3.0.9/lib/hand.c ****         //
+ 603:../Backend/gnu-efi-3.0.9/lib/hand.c ****         // If protocol is NULL, then it's the end of the list
+ 604:../Backend/gnu-efi-3.0.9/lib/hand.c ****         //
+ 605:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 606:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Protocol = va_arg(args, EFI_GUID *);
+ 1425              		.loc 1 606 18 view .LVU406
+ 1426 09dd 488B4424 		movq	48(%rsp), %rax
+ 1426      30
+ 1427 09e2 488D5008 		leaq	8(%rax), %rdx
+ 1428 09e6 48895424 		movq	%rdx, 48(%rsp)
+ 1428      30
+ 1429 09eb EB57     		jmp	.L103
+ 1430              	.L105:
+ 607:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (!Protocol) {
+ 608:../Backend/gnu-efi-3.0.9/lib/hand.c ****             break;
+ 609:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 610:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 611:../Backend/gnu-efi-3.0.9/lib/hand.c ****         OldInterface = va_arg(args, VOID *);
+ 1431              		.loc 1 611 22 view .LVU407
+ 1432 09ed 488B4424 		movq	48(%rsp), %rax
+ 1432      30
+ 1433 09f2 488D4808 		leaq	8(%rax), %rcx
+ 1434 09f6 48894C24 		movq	%rcx, 48(%rsp)
+ 1434      30
+ 1435 09fb EB64     		jmp	.L106
+ 1436              	.L107:
+ 612:../Backend/gnu-efi-3.0.9/lib/hand.c ****         NewInterface = va_arg(args, VOID *);
+ 1437              		.loc 1 612 22 view .LVU408
+ 1438 09fd 488B4424 		movq	48(%rsp), %rax
+ 1438      30
+ 1439 0a02 488D4808 		leaq	8(%rax), %rcx
+ 1440 0a06 48894C24 		movq	%rcx, 48(%rsp)
+ 1440      30
+ 1441              	.L108:
+ 613:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 614:../Backend/gnu-efi-3.0.9/lib/hand.c ****         //
+ 615:../Backend/gnu-efi-3.0.9/lib/hand.c ****         // Reinstall it
+ 616:../Backend/gnu-efi-3.0.9/lib/hand.c ****         //
+ 617:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 618:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Status = uefi_call_wrapper(BS->ReinstallProtocolInterface, 4, Handle, Protocol, OldInterfac
+ 1442              		.loc 1 618 9 is_stmt 1 view .LVU409
+ 1443              		.loc 1 618 18 is_stmt 0 view .LVU410
+ 1444 0a0b 4C8B08   		movq	(%rax), %r9
+ 1445 0a0e 4C89E1   		movq	%r12, %rcx
+ 1446 0a11 488B0500 		movq	BS(%rip), %rax
+ 1446      000000
+ 1447 0a18 FF908800 		call	*136(%rax)
+ 1447      0000
+ 1448              	.LVL122:
+ 1449 0a1e 4889C3   		movq	%rax, %rbx
+ 1450              	.LVL123:
+ 619:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (EFI_ERROR(Status)) {
+ 1451              		.loc 1 619 9 is_stmt 1 view .LVU411
+ 1452              		.loc 1 619 12 is_stmt 0 view .LVU412
+ 1453 0a21 4885C0   		testq	%rax, %rax
+ 1454 0a24 7855     		js	.L104
+ 620:../Backend/gnu-efi-3.0.9/lib/hand.c ****             break;
+ 621:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 622:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 623:../Backend/gnu-efi-3.0.9/lib/hand.c ****         Index += 1;
+ 1455              		.loc 1 623 9 is_stmt 1 view .LVU413
+ 1456              		.loc 1 623 15 is_stmt 0 view .LVU414
+ 1457 0a26 4883C501 		addq	$1, %rbp
+ 1458              	.LVL124:
+ 1459              	.L101:
+ 600:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1460              		.loc 1 600 12 is_stmt 1 view .LVU415
+ 1461 0a2a 4885DB   		testq	%rbx, %rbx
+ 1462 0a2d 784C     		js	.L104
+ 606:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (!Protocol) {
+ 1463              		.loc 1 606 9 view .LVU416
+ 606:../Backend/gnu-efi-3.0.9/lib/hand.c ****         if (!Protocol) {
+ 1464              		.loc 1 606 18 is_stmt 0 view .LVU417
+ 1465 0a2f 837C2428 		cmpl	$47, 40(%rsp)
+ 1465      2F
+ 1466 0a34 77A7     		ja	.L102
+ 1467 0a36 8B442428 		movl	40(%rsp), %eax
+ 1468 0a3a 48034424 		addq	56(%rsp), %rax
+ 1468      38
+ 1469 0a3f 83442428 		addl	$8, 40(%rsp)
+ 1469      08
+ 1470              	.L103:
+ 1471 0a44 488B10   		movq	(%rax), %rdx
+ 607:../Backend/gnu-efi-3.0.9/lib/hand.c ****             break;
+ 1472              		.loc 1 607 9 is_stmt 1 view .LVU418
+ 607:../Backend/gnu-efi-3.0.9/lib/hand.c ****             break;
+ 1473              		.loc 1 607 12 is_stmt 0 view .LVU419
+ 1474 0a47 4885D2   		testq	%rdx, %rdx
+ 1475 0a4a 742F     		je	.L104
+ 611:../Backend/gnu-efi-3.0.9/lib/hand.c ****         NewInterface = va_arg(args, VOID *);
+ 1476              		.loc 1 611 9 is_stmt 1 view .LVU420
+ 611:../Backend/gnu-efi-3.0.9/lib/hand.c ****         NewInterface = va_arg(args, VOID *);
+ 1477              		.loc 1 611 22 is_stmt 0 view .LVU421
+ 1478 0a4c 837C2428 		cmpl	$47, 40(%rsp)
+ 1478      2F
+ 1479 0a51 779A     		ja	.L105
+ 1480 0a53 8B442428 		movl	40(%rsp), %eax
+ 1481 0a57 48034424 		addq	56(%rsp), %rax
+ 1481      38
+ 1482 0a5c 83442428 		addl	$8, 40(%rsp)
+ 1482      08
+ 1483              	.L106:
+ 1484 0a61 4C8B00   		movq	(%rax), %r8
+ 612:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1485              		.loc 1 612 9 is_stmt 1 view .LVU422
+ 612:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1486              		.loc 1 612 22 is_stmt 0 view .LVU423
+ 1487 0a64 837C2428 		cmpl	$47, 40(%rsp)
+ 1487      2F
+ 1488 0a69 7792     		ja	.L107
+ 1489 0a6b 8B442428 		movl	40(%rsp), %eax
+ 1490 0a6f 48034424 		addq	56(%rsp), %rax
+ 1490      38
+ 1491 0a74 83442428 		addl	$8, 40(%rsp)
+ 1491      08
+ 1492 0a79 EB90     		jmp	.L108
+ 1493              	.L104:
+ 624:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 625:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 626:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 627:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // If there was an error, undo all the interfaces that were
+ 628:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // reinstalled without any errors
+ 629:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 630:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 631:../Backend/gnu-efi-3.0.9/lib/hand.c ****     if (EFI_ERROR(Status)) {
+ 1494              		.loc 1 631 5 is_stmt 1 view .LVU424
+ 1495              		.loc 1 631 8 is_stmt 0 view .LVU425
+ 1496 0a7b 4885DB   		testq	%rbx, %rbx
+ 1497 0a7e 781E     		js	.L121
+ 1498              	.L110:
+ 632:../Backend/gnu-efi-3.0.9/lib/hand.c ****         va_start (args, Handle);
+ 633:../Backend/gnu-efi-3.0.9/lib/hand.c ****         while (Index) {
+ 634:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 635:../Backend/gnu-efi-3.0.9/lib/hand.c ****             Protocol = va_arg(args, EFI_GUID *);
+ 636:../Backend/gnu-efi-3.0.9/lib/hand.c ****             OldInterface = va_arg(args, VOID *);
+ 637:../Backend/gnu-efi-3.0.9/lib/hand.c ****             NewInterface = va_arg(args, VOID *);
+ 638:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 639:../Backend/gnu-efi-3.0.9/lib/hand.c ****             uefi_call_wrapper(BS->ReinstallProtocolInterface, 4, Handle, Protocol, NewInterface, Ol
+ 640:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 641:../Backend/gnu-efi-3.0.9/lib/hand.c ****             Index -= 1;
+ 642:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 643:../Backend/gnu-efi-3.0.9/lib/hand.c ****     }
+ 644:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 645:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 646:../Backend/gnu-efi-3.0.9/lib/hand.c ****     // Done
+ 647:../Backend/gnu-efi-3.0.9/lib/hand.c ****     //
+ 648:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 649:../Backend/gnu-efi-3.0.9/lib/hand.c ****     uefi_call_wrapper(BS->RestoreTPL, 1, OldTpl);
+ 1499              		.loc 1 649 5 is_stmt 1 view .LVU426
+ 1500 0a80 4C89E9   		movq	%r13, %rcx
+ 1501 0a83 488B0500 		movq	BS(%rip), %rax
+ 1501      000000
+ 1502 0a8a FF5020   		call	*32(%rax)
+ 1503              	.LVL125:
+ 650:../Backend/gnu-efi-3.0.9/lib/hand.c ****     return Status;
+ 1504              		.loc 1 650 5 view .LVU427
+ 651:../Backend/gnu-efi-3.0.9/lib/hand.c **** }
+ 1505              		.loc 1 651 1 is_stmt 0 view .LVU428
+ 1506 0a8d 4889D8   		movq	%rbx, %rax
+ 1507 0a90 4881C4F8 		addq	$248, %rsp
+ 1507      000000
+ 1508              		.cfi_remember_state
+ 1509              		.cfi_def_cfa_offset 40
+ 1510 0a97 5B       		popq	%rbx
+ 1511              		.cfi_restore 3
+ 1512              		.cfi_def_cfa_offset 32
+ 1513              	.LVL126:
+ 1514              		.loc 1 651 1 view .LVU429
+ 1515 0a98 5D       		popq	%rbp
+ 1516              		.cfi_restore 6
+ 1517              		.cfi_def_cfa_offset 24
+ 1518              	.LVL127:
+ 1519              		.loc 1 651 1 view .LVU430
+ 1520 0a99 415C     		popq	%r12
+ 1521              		.cfi_restore 12
+ 1522              		.cfi_def_cfa_offset 16
+ 1523              	.LVL128:
+ 1524              		.loc 1 651 1 view .LVU431
+ 1525 0a9b 415D     		popq	%r13
+ 1526              		.cfi_restore 13
+ 1527              		.cfi_def_cfa_offset 8
+ 1528              	.LVL129:
+ 1529              		.loc 1 651 1 view .LVU432
+ 1530 0a9d C3       		ret
+ 1531              	.LVL130:
+ 1532              	.L121:
+ 1533              		.cfi_restore_state
+ 632:../Backend/gnu-efi-3.0.9/lib/hand.c ****         va_start (args, Handle);
+ 1534              		.loc 1 632 9 is_stmt 1 view .LVU433
+ 1535 0a9e C7442428 		movl	$8, 40(%rsp)
+ 1535      08000000 
+ 1536 0aa6 C744242C 		movl	$48, 44(%rsp)
+ 1536      30000000 
+ 1537 0aae 488D8424 		leaq	288(%rsp), %rax
+ 1537      20010000 
+ 1538 0ab6 48894424 		movq	%rax, 48(%rsp)
+ 1538      30
+ 1539 0abb 488D4424 		leaq	64(%rsp), %rax
+ 1539      40
+ 1540 0ac0 48894424 		movq	%rax, 56(%rsp)
+ 1540      38
+ 633:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1541              		.loc 1 633 9 view .LVU434
+ 633:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1542              		.loc 1 633 15 is_stmt 0 view .LVU435
+ 1543 0ac5 EB45     		jmp	.L111
+ 1544              	.L112:
+ 635:../Backend/gnu-efi-3.0.9/lib/hand.c ****             OldInterface = va_arg(args, VOID *);
+ 1545              		.loc 1 635 22 view .LVU436
+ 1546 0ac7 488B4424 		movq	48(%rsp), %rax
+ 1546      30
+ 1547 0acc 488D5008 		leaq	8(%rax), %rdx
+ 1548 0ad0 48895424 		movq	%rdx, 48(%rsp)
+ 1548      30
+ 1549 0ad5 EB53     		jmp	.L113
+ 1550              	.L114:
+ 636:../Backend/gnu-efi-3.0.9/lib/hand.c ****             NewInterface = va_arg(args, VOID *);
+ 1551              		.loc 1 636 26 view .LVU437
+ 1552 0ad7 488B4424 		movq	48(%rsp), %rax
+ 1552      30
+ 1553 0adc 488D4808 		leaq	8(%rax), %rcx
+ 1554 0ae0 48894C24 		movq	%rcx, 48(%rsp)
+ 1554      30
+ 1555 0ae5 EB5B     		jmp	.L115
+ 1556              	.L116:
+ 637:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1557              		.loc 1 637 26 view .LVU438
+ 1558 0ae7 488B4424 		movq	48(%rsp), %rax
+ 1558      30
+ 1559 0aec 488D4808 		leaq	8(%rax), %rcx
+ 1560 0af0 48894C24 		movq	%rcx, 48(%rsp)
+ 1560      30
+ 1561              	.L117:
+ 639:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1562              		.loc 1 639 13 is_stmt 1 view .LVU439
+ 1563 0af5 4C8B00   		movq	(%rax), %r8
+ 1564 0af8 4C89E1   		movq	%r12, %rcx
+ 1565 0afb 488B0500 		movq	BS(%rip), %rax
+ 1565      000000
+ 1566 0b02 FF908800 		call	*136(%rax)
+ 1566      0000
+ 1567              	.LVL131:
+ 641:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 1568              		.loc 1 641 13 view .LVU440
+ 641:../Backend/gnu-efi-3.0.9/lib/hand.c ****         }
+ 1569              		.loc 1 641 19 is_stmt 0 view .LVU441
+ 1570 0b08 4883ED01 		subq	$1, %rbp
+ 1571              	.LVL132:
+ 1572              	.L111:
+ 633:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1573              		.loc 1 633 16 is_stmt 1 view .LVU442
+ 1574 0b0c 4885ED   		testq	%rbp, %rbp
+ 1575 0b0f 0F846BFF 		je	.L110
+ 1575      FFFF
+ 635:../Backend/gnu-efi-3.0.9/lib/hand.c ****             OldInterface = va_arg(args, VOID *);
+ 1576              		.loc 1 635 13 view .LVU443
+ 635:../Backend/gnu-efi-3.0.9/lib/hand.c ****             OldInterface = va_arg(args, VOID *);
+ 1577              		.loc 1 635 22 is_stmt 0 view .LVU444
+ 1578 0b15 837C2428 		cmpl	$47, 40(%rsp)
+ 1578      2F
+ 1579 0b1a 77AB     		ja	.L112
+ 1580 0b1c 8B442428 		movl	40(%rsp), %eax
+ 1581 0b20 48034424 		addq	56(%rsp), %rax
+ 1581      38
+ 1582 0b25 83442428 		addl	$8, 40(%rsp)
+ 1582      08
+ 1583              	.L113:
+ 1584 0b2a 488B10   		movq	(%rax), %rdx
+ 636:../Backend/gnu-efi-3.0.9/lib/hand.c ****             NewInterface = va_arg(args, VOID *);
+ 1585              		.loc 1 636 13 is_stmt 1 view .LVU445
+ 636:../Backend/gnu-efi-3.0.9/lib/hand.c ****             NewInterface = va_arg(args, VOID *);
+ 1586              		.loc 1 636 26 is_stmt 0 view .LVU446
+ 1587 0b2d 837C2428 		cmpl	$47, 40(%rsp)
+ 1587      2F
+ 1588 0b32 77A3     		ja	.L114
+ 1589 0b34 8B442428 		movl	40(%rsp), %eax
+ 1590 0b38 48034424 		addq	56(%rsp), %rax
+ 1590      38
+ 1591 0b3d 83442428 		addl	$8, 40(%rsp)
+ 1591      08
+ 1592              	.L115:
+ 1593 0b42 4C8B08   		movq	(%rax), %r9
+ 637:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1594              		.loc 1 637 13 is_stmt 1 view .LVU447
+ 637:../Backend/gnu-efi-3.0.9/lib/hand.c **** 
+ 1595              		.loc 1 637 26 is_stmt 0 view .LVU448
+ 1596 0b45 837C2428 		cmpl	$47, 40(%rsp)
+ 1596      2F
+ 1597 0b4a 779B     		ja	.L116
+ 1598 0b4c 8B442428 		movl	40(%rsp), %eax
+ 1599 0b50 48034424 		addq	56(%rsp), %rax
+ 1599      38
+ 1600 0b55 83442428 		addl	$8, 40(%rsp)
+ 1600      08
+ 1601 0b5a EB99     		jmp	.L117
+ 1602              		.cfi_endproc
+ 1603              	.LFE9:
+ 1605              	.Letext0:
+ 1606              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 1607              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 1608              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 1609              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efidevp.h"
+ 1610              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efiprot.h"
+ 1611              		.file 7 "../Backend/gnu-efi-3.0.9/inc/efiapi.h"
+ 1612              		.file 8 "../Backend/gnu-efi-3.0.9/inc/efistdarg.h"
+ 1613              		.file 9 "<built-in>"
+ 1614              		.file 10 "../Backend/gnu-efi-3.0.9/inc/efilib.h"
+ 15816              		.section	.note.gnu.property,"a"
+ 15817              		.align 8
+ 15818 0000 04000000 		.long	1f - 0f
+ 15819 0004 10000000 		.long	4f - 1f
+ 15820 0008 05000000 		.long	5
+ 15821              	0:
+ 15822 000c 474E5500 		.string	"GNU"
+ 15823              	1:
+ 15824              		.align 8
+ 15825 0010 020000C0 		.long	0xc0000002
+ 15826 0014 04000000 		.long	3f - 2f
+ 15827              	2:
+ 15828 0018 03000000 		.long	0x3
+ 15829              	3:
+ 15830 001c 00000000 		.align 8
+ 15831              	4:

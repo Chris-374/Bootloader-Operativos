@@ -1,0 +1,966 @@
+   1              		.file	"rtstr.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	RtStrCmp
+   7              		.hidden	RtStrCmp
+   9              	RtStrCmp:
+  10              	.LVL0:
+  11              	.LFB0:
+  12              		.file 1 "../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c"
+   1:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     str.c
+   8:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     String runtime functions
+  12:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** Revision History
+  15:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+  16:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** --*/
+  17:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+  18:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #include "lib.h"
+  19:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+  20:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #ifndef __GNUC__
+  21:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #pragma RUNTIME_CODE(RtAcquireLock)
+  22:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #endif
+  23:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** INTN
+  24:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RUNTIMEFUNCTION
+  25:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RtStrCmp (
+  26:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN CONST CHAR16   *s1,
+  27:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN CONST CHAR16   *s2
+  28:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     )
+  29:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** // compare strings
+  30:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** {
+  13              		.loc 1 30 1 view -0
+  14              		.cfi_startproc
+  15              		.loc 1 30 1 is_stmt 0 view .LVU1
+  16 0000 F30F1EFA 		endbr64
+  31:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     while (*s1) {
+  17              		.loc 1 31 5 is_stmt 1 view .LVU2
+  18              		.loc 1 31 11 is_stmt 0 view .LVU3
+  19 0004 EB08     		jmp	.L2
+  20              	.L5:
+  32:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****         if (*s1 != *s2) {
+  33:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****             break;
+  34:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****         }
+  35:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+  36:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****         s1 += 1;
+  21              		.loc 1 36 9 is_stmt 1 view .LVU4
+  22              		.loc 1 36 12 is_stmt 0 view .LVU5
+  23 0006 4883C702 		addq	$2, %rdi
+  24              	.LVL1:
+  37:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****         s2 += 1;
+  25              		.loc 1 37 9 is_stmt 1 view .LVU6
+  26              		.loc 1 37 12 is_stmt 0 view .LVU7
+  27 000a 4883C602 		addq	$2, %rsi
+  28              	.LVL2:
+  29              	.L2:
+  31:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     while (*s1) {
+  30              		.loc 1 31 12 is_stmt 1 view .LVU8
+  31 000e 0FB707   		movzwl	(%rdi), %eax
+  32 0011 6685C0   		testw	%ax, %ax
+  33 0014 7405     		je	.L3
+  32:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****         if (*s1 != *s2) {
+  34              		.loc 1 32 9 view .LVU9
+  32:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****         if (*s1 != *s2) {
+  35              		.loc 1 32 12 is_stmt 0 view .LVU10
+  36 0016 663906   		cmpw	%ax, (%rsi)
+  37 0019 74EB     		je	.L5
+  38              	.L3:
+  38:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     }
+  39:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+  40:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     return *s1 - *s2;
+  39              		.loc 1 40 5 is_stmt 1 view .LVU11
+  40              		.loc 1 40 12 is_stmt 0 view .LVU12
+  41 001b 0FB7C0   		movzwl	%ax, %eax
+  42              		.loc 1 40 18 view .LVU13
+  43 001e 0FB716   		movzwl	(%rsi), %edx
+  44              		.loc 1 40 16 view .LVU14
+  45 0021 29D0     		subl	%edx, %eax
+  46 0023 4898     		cltq
+  41:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+  47              		.loc 1 41 1 view .LVU15
+  48 0025 C3       		ret
+  49              		.cfi_endproc
+  50              	.LFE0:
+  52              		.globl	RtStrCpy
+  53              		.hidden	RtStrCpy
+  55              	RtStrCpy:
+  56              	.LVL3:
+  57              	.LFB1:
+  42:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+  43:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #ifndef __GNUC__
+  44:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #pragma RUNTIME_CODE(RtStrCpy)
+  45:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #endif
+  46:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** VOID
+  47:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RUNTIMEFUNCTION
+  48:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RtStrCpy (
+  49:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN CHAR16   *Dest,
+  50:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN CONST CHAR16   *Src
+  51:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     )
+  52:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** // copy strings
+  53:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** {
+  58              		.loc 1 53 1 is_stmt 1 view -0
+  59              		.cfi_startproc
+  60              		.loc 1 53 1 is_stmt 0 view .LVU17
+  61 0026 F30F1EFA 		endbr64
+  54:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     while (*Src) {
+  62              		.loc 1 54 5 is_stmt 1 view .LVU18
+  63              		.loc 1 54 11 is_stmt 0 view .LVU19
+  64 002a EB0B     		jmp	.L7
+  65              	.L8:
+  55:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****         *(Dest++) = *(Src++);
+  66              		.loc 1 55 9 is_stmt 1 view .LVU20
+  67              		.loc 1 55 26 is_stmt 0 view .LVU21
+  68 002c 4883C602 		addq	$2, %rsi
+  69              	.LVL4:
+  70              		.loc 1 55 19 view .LVU22
+  71 0030 668907   		movw	%ax, (%rdi)
+  72              		.loc 1 55 15 view .LVU23
+  73 0033 488D7F02 		leaq	2(%rdi), %rdi
+  74              	.LVL5:
+  75              	.L7:
+  54:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     while (*Src) {
+  76              		.loc 1 54 12 is_stmt 1 view .LVU24
+  77 0037 0FB706   		movzwl	(%rsi), %eax
+  78 003a 6685C0   		testw	%ax, %ax
+  79 003d 75ED     		jne	.L8
+  56:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     }
+  57:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     *Dest = 0;
+  80              		.loc 1 57 5 view .LVU25
+  81              		.loc 1 57 11 is_stmt 0 view .LVU26
+  82 003f 66C70700 		movw	$0, (%rdi)
+  82      00
+  58:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+  83              		.loc 1 58 1 view .LVU27
+  84 0044 C3       		ret
+  85              		.cfi_endproc
+  86              	.LFE1:
+  88              		.globl	RtStpCpy
+  89              		.hidden	RtStpCpy
+  91              	RtStpCpy:
+  92              	.LVL6:
+  93              	.LFB3:
+  59:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+  60:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #ifndef __GNUC__
+  61:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #pragma RUNTIME_CODE(RtStrnCpy)
+  62:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #endif
+  63:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** VOID
+  64:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RUNTIMEFUNCTION
+  65:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RtStrnCpy (
+  66:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN CHAR16   *Dest,
+  67:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN CONST CHAR16   *Src,
+  68:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN UINTN     Len
+  69:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     )
+  70:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** // copy strings
+  71:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** {
+  72:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     UINTN Size = RtStrnLen(Src, Len);
+  73:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     if (Size != Len)
+  74:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtSetMem(Dest + Len, '\0', (UINT8)((Len - Size) * sizeof(CHAR16)));
+  75:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtCopyMem(Dest, Src, Size * sizeof(CHAR16));
+  76:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+  77:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+  78:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #ifndef __GNUC__
+  79:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #pragma RUNTIME_CODE(RtStrCpy)
+  80:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #endif
+  81:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** CHAR16 *
+  82:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RUNTIMEFUNCTION
+  83:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RtStpCpy (
+  84:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN CHAR16   *Dest,
+  85:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN CONST CHAR16   *Src
+  86:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     )
+  87:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** // copy strings
+  88:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** {
+  94              		.loc 1 88 1 is_stmt 1 view -0
+  95              		.cfi_startproc
+  96              		.loc 1 88 1 is_stmt 0 view .LVU29
+  97 0045 F30F1EFA 		endbr64
+  98 0049 4889F8   		movq	%rdi, %rax
+  89:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     while (*Src) {
+  99              		.loc 1 89 5 is_stmt 1 view .LVU30
+ 100              		.loc 1 89 11 is_stmt 0 view .LVU31
+ 101 004c EB0B     		jmp	.L10
+ 102              	.LVL7:
+ 103              	.L11:
+  90:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****         *(Dest++) = *(Src++);
+ 104              		.loc 1 90 9 is_stmt 1 view .LVU32
+ 105              		.loc 1 90 26 is_stmt 0 view .LVU33
+ 106 004e 4883C602 		addq	$2, %rsi
+ 107              	.LVL8:
+ 108              		.loc 1 90 19 view .LVU34
+ 109 0052 668910   		movw	%dx, (%rax)
+ 110              		.loc 1 90 15 view .LVU35
+ 111 0055 488D4002 		leaq	2(%rax), %rax
+ 112              	.LVL9:
+ 113              	.L10:
+  89:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     while (*Src) {
+ 114              		.loc 1 89 12 is_stmt 1 view .LVU36
+ 115 0059 0FB716   		movzwl	(%rsi), %edx
+ 116 005c 6685D2   		testw	%dx, %dx
+ 117 005f 75ED     		jne	.L11
+  91:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     }
+  92:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     *Dest = 0;
+ 118              		.loc 1 92 5 view .LVU37
+ 119              		.loc 1 92 11 is_stmt 0 view .LVU38
+ 120 0061 66C70000 		movw	$0, (%rax)
+ 120      00
+  93:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     return Dest;
+ 121              		.loc 1 93 5 is_stmt 1 view .LVU39
+  94:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+ 122              		.loc 1 94 1 is_stmt 0 view .LVU40
+ 123 0066 C3       		ret
+ 124              		.cfi_endproc
+ 125              	.LFE3:
+ 127              		.globl	RtStrCat
+ 128              		.hidden	RtStrCat
+ 130              	RtStrCat:
+ 131              	.LVL10:
+ 132              	.LFB5:
+  95:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+  96:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #ifndef __GNUC__
+  97:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #pragma RUNTIME_CODE(RtStpnCpy)
+  98:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #endif
+  99:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** CHAR16 *
+ 100:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RUNTIMEFUNCTION
+ 101:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RtStpnCpy (
+ 102:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN CHAR16   *Dest,
+ 103:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN CONST CHAR16   *Src,
+ 104:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN UINTN     Len
+ 105:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     )
+ 106:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** // copy strings
+ 107:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** {
+ 108:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     UINTN Size = RtStrnLen(Src, Len);
+ 109:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     if (Size != Len)
+ 110:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****         RtSetMem(Dest + Size, (Len - Size) * sizeof(CHAR16), '\0');
+ 111:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtCopyMem(Dest, Src, Size * sizeof(CHAR16));
+ 112:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     return Dest + Size;
+ 113:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+ 114:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 115:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #ifndef __GNUC__
+ 116:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #pragma RUNTIME_CODE(RtStrCat)
+ 117:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #endif
+ 118:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** VOID
+ 119:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RUNTIMEFUNCTION
+ 120:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RtStrCat (
+ 121:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN CHAR16   *Dest,
+ 122:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN CONST CHAR16   *Src
+ 123:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     )
+ 124:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** {
+ 133              		.loc 1 124 1 is_stmt 1 view -0
+ 134              		.cfi_startproc
+ 135              		.loc 1 124 1 is_stmt 0 view .LVU42
+ 136 0067 F30F1EFA 		endbr64
+ 137 006b 55       		pushq	%rbp
+ 138              		.cfi_def_cfa_offset 16
+ 139              		.cfi_offset 6, -16
+ 140 006c 53       		pushq	%rbx
+ 141              		.cfi_def_cfa_offset 24
+ 142              		.cfi_offset 3, -24
+ 143 006d 4883EC08 		subq	$8, %rsp
+ 144              		.cfi_def_cfa_offset 32
+ 145 0071 4889FB   		movq	%rdi, %rbx
+ 146 0074 4889F5   		movq	%rsi, %rbp
+ 125:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtStrCpy(Dest+StrLen(Dest), Src);
+ 147              		.loc 1 125 5 is_stmt 1 view .LVU43
+ 148              		.loc 1 125 19 is_stmt 0 view .LVU44
+ 149 0077 E8000000 		call	StrLen
+ 149      00
+ 150              	.LVL11:
+ 151              		.loc 1 125 5 discriminator 1 view .LVU45
+ 152 007c 488D3C43 		leaq	(%rbx,%rax,2), %rdi
+ 153 0080 4889EE   		movq	%rbp, %rsi
+ 154 0083 E8000000 		call	RtStrCpy
+ 154      00
+ 155              	.LVL12:
+ 126:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+ 156              		.loc 1 126 1 view .LVU46
+ 157 0088 4883C408 		addq	$8, %rsp
+ 158              		.cfi_def_cfa_offset 24
+ 159 008c 5B       		popq	%rbx
+ 160              		.cfi_restore 3
+ 161              		.cfi_def_cfa_offset 16
+ 162              	.LVL13:
+ 163              		.loc 1 126 1 view .LVU47
+ 164 008d 5D       		popq	%rbp
+ 165              		.cfi_restore 6
+ 166              		.cfi_def_cfa_offset 8
+ 167              	.LVL14:
+ 168              		.loc 1 126 1 view .LVU48
+ 169 008e C3       		ret
+ 170              		.cfi_endproc
+ 171              	.LFE5:
+ 173              		.globl	RtStrLen
+ 174              		.hidden	RtStrLen
+ 176              	RtStrLen:
+ 177              	.LVL15:
+ 178              	.LFB7:
+ 127:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 128:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #ifndef __GNUC__
+ 129:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #pragma RUNTIME_CODE(RtStrnCat)
+ 130:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #endif
+ 131:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** VOID
+ 132:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RUNTIMEFUNCTION
+ 133:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RtStrnCat (
+ 134:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN CHAR16   *Dest,
+ 135:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN CONST CHAR16   *Src,
+ 136:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN UINTN    Len
+ 137:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     )
+ 138:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** {
+ 139:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     UINTN DestSize, Size;
+ 140:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 141:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     DestSize = StrLen(Dest);
+ 142:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     Size = RtStrnLen(Src, Len);
+ 143:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtCopyMem(Dest + DestSize, Src, Size * sizeof(CHAR16));
+ 144:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     Dest[DestSize + Size] = '\0';
+ 145:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+ 146:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 147:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #ifndef __GNUC__
+ 148:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #pragma RUNTIME_CODE(RtStrLen)
+ 149:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #endif
+ 150:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** UINTN
+ 151:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RUNTIMEFUNCTION
+ 152:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RtStrLen (
+ 153:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN CONST CHAR16   *s1
+ 154:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     )
+ 155:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** // string length
+ 156:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** {
+ 179              		.loc 1 156 1 is_stmt 1 view -0
+ 180              		.cfi_startproc
+ 181              		.loc 1 156 1 is_stmt 0 view .LVU50
+ 182 008f F30F1EFA 		endbr64
+ 157:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     UINTN        len;
+ 183              		.loc 1 157 5 is_stmt 1 view .LVU51
+ 158:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 159:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     for (len=0; *s1; s1+=1, len+=1) ;
+ 184              		.loc 1 159 5 view .LVU52
+ 185              	.LVL16:
+ 186              		.loc 1 159 13 is_stmt 0 view .LVU53
+ 187 0093 B8000000 		movl	$0, %eax
+ 187      00
+ 188              		.loc 1 159 5 view .LVU54
+ 189 0098 EB08     		jmp	.L15
+ 190              	.LVL17:
+ 191              	.L16:
+ 192              		.loc 1 159 27 is_stmt 1 discriminator 3 view .LVU55
+ 193              		.loc 1 159 24 is_stmt 0 discriminator 3 view .LVU56
+ 194 009a 4883C702 		addq	$2, %rdi
+ 195              	.LVL18:
+ 196              		.loc 1 159 32 discriminator 3 view .LVU57
+ 197 009e 4883C001 		addq	$1, %rax
+ 198              	.LVL19:
+ 199              	.L15:
+ 200              		.loc 1 159 17 is_stmt 1 discriminator 1 view .LVU58
+ 201 00a2 66833F00 		cmpw	$0, (%rdi)
+ 202 00a6 75F2     		jne	.L16
+ 160:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     return len;
+ 203              		.loc 1 160 5 view .LVU59
+ 161:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+ 204              		.loc 1 161 1 is_stmt 0 view .LVU60
+ 205 00a8 C3       		ret
+ 206              		.cfi_endproc
+ 207              	.LFE7:
+ 209              		.globl	RtStrnLen
+ 210              		.hidden	RtStrnLen
+ 212              	RtStrnLen:
+ 213              	.LVL20:
+ 214              	.LFB8:
+ 162:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 163:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #ifndef __GNUC__
+ 164:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #pragma RUNTIME_CODE(RtStrnLen)
+ 165:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #endif
+ 166:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** UINTN
+ 167:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RUNTIMEFUNCTION
+ 168:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RtStrnLen (
+ 169:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN CONST CHAR16   *s1,
+ 170:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN UINTN           Len
+ 171:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     )
+ 172:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** // copy strings
+ 173:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** {
+ 215              		.loc 1 173 1 is_stmt 1 view -0
+ 216              		.cfi_startproc
+ 217              		.loc 1 173 1 is_stmt 0 view .LVU62
+ 218 00a9 F30F1EFA 		endbr64
+ 174:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     UINTN i;
+ 219              		.loc 1 174 5 is_stmt 1 view .LVU63
+ 175:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     for (i = 0; *s1 && i < Len; i++)
+ 220              		.loc 1 175 5 view .LVU64
+ 221              	.LVL21:
+ 222              		.loc 1 175 12 is_stmt 0 view .LVU65
+ 223 00ad B8000000 		movl	$0, %eax
+ 223      00
+ 224              		.loc 1 175 5 view .LVU66
+ 225 00b2 EB08     		jmp	.L18
+ 226              	.LVL22:
+ 227              	.L20:
+ 176:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 	    s1++;
+ 228              		.loc 1 176 6 is_stmt 1 view .LVU67
+ 229              		.loc 1 176 8 is_stmt 0 view .LVU68
+ 230 00b4 4883C702 		addq	$2, %rdi
+ 231              	.LVL23:
+ 175:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     for (i = 0; *s1 && i < Len; i++)
+ 232              		.loc 1 175 34 is_stmt 1 discriminator 4 view .LVU69
+ 233 00b8 4883C001 		addq	$1, %rax
+ 234              	.LVL24:
+ 235              	.L18:
+ 175:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     for (i = 0; *s1 && i < Len; i++)
+ 236              		.loc 1 175 21 discriminator 1 view .LVU70
+ 237 00bc 66833F00 		cmpw	$0, (%rdi)
+ 238 00c0 7405     		je	.L17
+ 175:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     for (i = 0; *s1 && i < Len; i++)
+ 239              		.loc 1 175 21 is_stmt 0 discriminator 3 view .LVU71
+ 240 00c2 4839F0   		cmpq	%rsi, %rax
+ 241 00c5 72ED     		jb	.L20
+ 242              	.L17:
+ 177:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     return i;
+ 178:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+ 243              		.loc 1 178 1 view .LVU72
+ 244 00c7 C3       		ret
+ 245              		.cfi_endproc
+ 246              	.LFE8:
+ 248              		.globl	RtStrnCpy
+ 249              		.hidden	RtStrnCpy
+ 251              	RtStrnCpy:
+ 252              	.LVL25:
+ 253              	.LFB2:
+  71:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     UINTN Size = RtStrnLen(Src, Len);
+ 254              		.loc 1 71 1 is_stmt 1 view -0
+ 255              		.cfi_startproc
+  71:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     UINTN Size = RtStrnLen(Src, Len);
+ 256              		.loc 1 71 1 is_stmt 0 view .LVU74
+ 257 00c8 F30F1EFA 		endbr64
+ 258 00cc 4155     		pushq	%r13
+ 259              		.cfi_def_cfa_offset 16
+ 260              		.cfi_offset 13, -16
+ 261 00ce 4154     		pushq	%r12
+ 262              		.cfi_def_cfa_offset 24
+ 263              		.cfi_offset 12, -24
+ 264 00d0 55       		pushq	%rbp
+ 265              		.cfi_def_cfa_offset 32
+ 266              		.cfi_offset 6, -32
+ 267 00d1 53       		pushq	%rbx
+ 268              		.cfi_def_cfa_offset 40
+ 269              		.cfi_offset 3, -40
+ 270 00d2 4883EC08 		subq	$8, %rsp
+ 271              		.cfi_def_cfa_offset 48
+ 272 00d6 4989FD   		movq	%rdi, %r13
+ 273 00d9 4989F4   		movq	%rsi, %r12
+ 274 00dc 4889D5   		movq	%rdx, %rbp
+  72:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     if (Size != Len)
+ 275              		.loc 1 72 5 is_stmt 1 view .LVU75
+  72:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     if (Size != Len)
+ 276              		.loc 1 72 18 is_stmt 0 view .LVU76
+ 277 00df 4889D6   		movq	%rdx, %rsi
+ 278              	.LVL26:
+  72:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     if (Size != Len)
+ 279              		.loc 1 72 18 view .LVU77
+ 280 00e2 4C89E7   		movq	%r12, %rdi
+ 281              	.LVL27:
+  72:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     if (Size != Len)
+ 282              		.loc 1 72 18 view .LVU78
+ 283 00e5 E8000000 		call	RtStrnLen
+ 283      00
+ 284              	.LVL28:
+  72:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     if (Size != Len)
+ 285              		.loc 1 72 18 view .LVU79
+ 286 00ea 4889C3   		movq	%rax, %rbx
+ 287              	.LVL29:
+  73:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtSetMem(Dest + Len, '\0', (UINT8)((Len - Size) * sizeof(CHAR16)));
+ 288              		.loc 1 73 5 is_stmt 1 view .LVU80
+  73:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtSetMem(Dest + Len, '\0', (UINT8)((Len - Size) * sizeof(CHAR16)));
+ 289              		.loc 1 73 8 is_stmt 0 view .LVU81
+ 290 00ed 4839C5   		cmpq	%rax, %rbp
+ 291 00f0 751A     		jne	.L24
+ 292              	.LVL30:
+ 293              	.L22:
+  75:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+ 294              		.loc 1 75 5 is_stmt 1 view .LVU82
+ 295 00f2 488D141B 		leaq	(%rbx,%rbx), %rdx
+ 296 00f6 4C89E6   		movq	%r12, %rsi
+ 297 00f9 4C89EF   		movq	%r13, %rdi
+ 298 00fc E8000000 		call	RtCopyMem
+ 298      00
+ 299              	.LVL31:
+  76:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 300              		.loc 1 76 1 is_stmt 0 view .LVU83
+ 301 0101 4883C408 		addq	$8, %rsp
+ 302              		.cfi_remember_state
+ 303              		.cfi_def_cfa_offset 40
+ 304 0105 5B       		popq	%rbx
+ 305              		.cfi_restore 3
+ 306              		.cfi_def_cfa_offset 32
+ 307              	.LVL32:
+  76:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 308              		.loc 1 76 1 view .LVU84
+ 309 0106 5D       		popq	%rbp
+ 310              		.cfi_restore 6
+ 311              		.cfi_def_cfa_offset 24
+ 312              	.LVL33:
+  76:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 313              		.loc 1 76 1 view .LVU85
+ 314 0107 415C     		popq	%r12
+ 315              		.cfi_restore 12
+ 316              		.cfi_def_cfa_offset 16
+ 317              	.LVL34:
+  76:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 318              		.loc 1 76 1 view .LVU86
+ 319 0109 415D     		popq	%r13
+ 320              		.cfi_restore 13
+ 321              		.cfi_def_cfa_offset 8
+ 322              	.LVL35:
+  76:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 323              		.loc 1 76 1 view .LVU87
+ 324 010b C3       		ret
+ 325              	.LVL36:
+ 326              	.L24:
+ 327              		.cfi_restore_state
+  74:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtCopyMem(Dest, Src, Size * sizeof(CHAR16));
+ 328              		.loc 1 74 5 is_stmt 1 view .LVU88
+  74:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtCopyMem(Dest, Src, Size * sizeof(CHAR16));
+ 329              		.loc 1 74 45 is_stmt 0 view .LVU89
+ 330 010c 4889EA   		movq	%rbp, %rdx
+ 331 010f 4829C2   		subq	%rax, %rdx
+  74:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtCopyMem(Dest, Src, Size * sizeof(CHAR16));
+ 332              		.loc 1 74 32 view .LVU90
+ 333 0112 01D2     		addl	%edx, %edx
+  74:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtCopyMem(Dest, Src, Size * sizeof(CHAR16));
+ 334              		.loc 1 74 19 view .LVU91
+ 335 0114 498D7C6D 		leaq	0(%r13,%rbp,2), %rdi
+ 335      00
+  74:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtCopyMem(Dest, Src, Size * sizeof(CHAR16));
+ 336              		.loc 1 74 5 view .LVU92
+ 337 0119 0FB6D2   		movzbl	%dl, %edx
+ 338 011c BE000000 		movl	$0, %esi
+ 338      00
+ 339 0121 E8000000 		call	RtSetMem
+ 339      00
+ 340              	.LVL37:
+  74:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtCopyMem(Dest, Src, Size * sizeof(CHAR16));
+ 341              		.loc 1 74 5 view .LVU93
+ 342 0126 EBCA     		jmp	.L22
+ 343              		.cfi_endproc
+ 344              	.LFE2:
+ 346              		.globl	RtStpnCpy
+ 347              		.hidden	RtStpnCpy
+ 349              	RtStpnCpy:
+ 350              	.LVL38:
+ 351              	.LFB4:
+ 107:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     UINTN Size = RtStrnLen(Src, Len);
+ 352              		.loc 1 107 1 is_stmt 1 view -0
+ 353              		.cfi_startproc
+ 107:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     UINTN Size = RtStrnLen(Src, Len);
+ 354              		.loc 1 107 1 is_stmt 0 view .LVU95
+ 355 0128 F30F1EFA 		endbr64
+ 356 012c 4155     		pushq	%r13
+ 357              		.cfi_def_cfa_offset 16
+ 358              		.cfi_offset 13, -16
+ 359 012e 4154     		pushq	%r12
+ 360              		.cfi_def_cfa_offset 24
+ 361              		.cfi_offset 12, -24
+ 362 0130 55       		pushq	%rbp
+ 363              		.cfi_def_cfa_offset 32
+ 364              		.cfi_offset 6, -32
+ 365 0131 53       		pushq	%rbx
+ 366              		.cfi_def_cfa_offset 40
+ 367              		.cfi_offset 3, -40
+ 368 0132 4883EC08 		subq	$8, %rsp
+ 369              		.cfi_def_cfa_offset 48
+ 370 0136 4889FD   		movq	%rdi, %rbp
+ 371 0139 4989F5   		movq	%rsi, %r13
+ 372 013c 4989D4   		movq	%rdx, %r12
+ 108:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     if (Size != Len)
+ 373              		.loc 1 108 5 is_stmt 1 view .LVU96
+ 108:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     if (Size != Len)
+ 374              		.loc 1 108 18 is_stmt 0 view .LVU97
+ 375 013f 4889D6   		movq	%rdx, %rsi
+ 376              	.LVL39:
+ 108:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     if (Size != Len)
+ 377              		.loc 1 108 18 view .LVU98
+ 378 0142 4C89EF   		movq	%r13, %rdi
+ 379              	.LVL40:
+ 108:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     if (Size != Len)
+ 380              		.loc 1 108 18 view .LVU99
+ 381 0145 E8000000 		call	RtStrnLen
+ 381      00
+ 382              	.LVL41:
+ 108:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     if (Size != Len)
+ 383              		.loc 1 108 18 view .LVU100
+ 384 014a 4889C3   		movq	%rax, %rbx
+ 385              	.LVL42:
+ 109:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****         RtSetMem(Dest + Size, (Len - Size) * sizeof(CHAR16), '\0');
+ 386              		.loc 1 109 5 is_stmt 1 view .LVU101
+ 109:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****         RtSetMem(Dest + Size, (Len - Size) * sizeof(CHAR16), '\0');
+ 387              		.loc 1 109 8 is_stmt 0 view .LVU102
+ 388 014d 4939C4   		cmpq	%rax, %r12
+ 389 0150 7521     		jne	.L28
+ 390              	.LVL43:
+ 391              	.L26:
+ 111:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     return Dest + Size;
+ 392              		.loc 1 111 5 is_stmt 1 view .LVU103
+ 393 0152 4801DB   		addq	%rbx, %rbx
+ 394              	.LVL44:
+ 111:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     return Dest + Size;
+ 395              		.loc 1 111 5 is_stmt 0 view .LVU104
+ 396 0155 4889DA   		movq	%rbx, %rdx
+ 397 0158 4C89EE   		movq	%r13, %rsi
+ 398 015b 4889EF   		movq	%rbp, %rdi
+ 399 015e E8000000 		call	RtCopyMem
+ 399      00
+ 400              	.LVL45:
+ 112:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+ 401              		.loc 1 112 5 is_stmt 1 view .LVU105
+ 112:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+ 402              		.loc 1 112 17 is_stmt 0 view .LVU106
+ 403 0163 488D441D 		leaq	0(%rbp,%rbx), %rax
+ 403      00
+ 113:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 404              		.loc 1 113 1 view .LVU107
+ 405 0168 4883C408 		addq	$8, %rsp
+ 406              		.cfi_remember_state
+ 407              		.cfi_def_cfa_offset 40
+ 408 016c 5B       		popq	%rbx
+ 409              		.cfi_restore 3
+ 410              		.cfi_def_cfa_offset 32
+ 411 016d 5D       		popq	%rbp
+ 412              		.cfi_restore 6
+ 413              		.cfi_def_cfa_offset 24
+ 414              	.LVL46:
+ 113:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 415              		.loc 1 113 1 view .LVU108
+ 416 016e 415C     		popq	%r12
+ 417              		.cfi_restore 12
+ 418              		.cfi_def_cfa_offset 16
+ 419 0170 415D     		popq	%r13
+ 420              		.cfi_restore 13
+ 421              		.cfi_def_cfa_offset 8
+ 422              	.LVL47:
+ 113:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 423              		.loc 1 113 1 view .LVU109
+ 424 0172 C3       		ret
+ 425              	.LVL48:
+ 426              	.L28:
+ 427              		.cfi_restore_state
+ 110:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtCopyMem(Dest, Src, Size * sizeof(CHAR16));
+ 428              		.loc 1 110 9 is_stmt 1 view .LVU110
+ 110:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtCopyMem(Dest, Src, Size * sizeof(CHAR16));
+ 429              		.loc 1 110 36 is_stmt 0 view .LVU111
+ 430 0173 4929C4   		subq	%rax, %r12
+ 431              	.LVL49:
+ 110:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtCopyMem(Dest, Src, Size * sizeof(CHAR16));
+ 432              		.loc 1 110 23 view .LVU112
+ 433 0176 488D7C45 		leaq	0(%rbp,%rax,2), %rdi
+ 433      00
+ 110:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtCopyMem(Dest, Src, Size * sizeof(CHAR16));
+ 434              		.loc 1 110 9 view .LVU113
+ 435 017b 4B8D3424 		leaq	(%r12,%r12), %rsi
+ 436 017f BA000000 		movl	$0, %edx
+ 436      00
+ 437 0184 E8000000 		call	RtSetMem
+ 437      00
+ 438              	.LVL50:
+ 110:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtCopyMem(Dest, Src, Size * sizeof(CHAR16));
+ 439              		.loc 1 110 9 view .LVU114
+ 440 0189 EBC7     		jmp	.L26
+ 441              		.cfi_endproc
+ 442              	.LFE4:
+ 444              		.globl	RtStrnCat
+ 445              		.hidden	RtStrnCat
+ 447              	RtStrnCat:
+ 448              	.LVL51:
+ 449              	.LFB6:
+ 138:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     UINTN DestSize, Size;
+ 450              		.loc 1 138 1 is_stmt 1 view -0
+ 451              		.cfi_startproc
+ 138:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     UINTN DestSize, Size;
+ 452              		.loc 1 138 1 is_stmt 0 view .LVU116
+ 453 018b F30F1EFA 		endbr64
+ 454 018f 4155     		pushq	%r13
+ 455              		.cfi_def_cfa_offset 16
+ 456              		.cfi_offset 13, -16
+ 457 0191 4154     		pushq	%r12
+ 458              		.cfi_def_cfa_offset 24
+ 459              		.cfi_offset 12, -24
+ 460 0193 55       		pushq	%rbp
+ 461              		.cfi_def_cfa_offset 32
+ 462              		.cfi_offset 6, -32
+ 463 0194 53       		pushq	%rbx
+ 464              		.cfi_def_cfa_offset 40
+ 465              		.cfi_offset 3, -40
+ 466 0195 4883EC08 		subq	$8, %rsp
+ 467              		.cfi_def_cfa_offset 48
+ 468 0199 4889FD   		movq	%rdi, %rbp
+ 469 019c 4989F5   		movq	%rsi, %r13
+ 470 019f 4989D4   		movq	%rdx, %r12
+ 139:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 471              		.loc 1 139 5 is_stmt 1 view .LVU117
+ 141:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     Size = RtStrnLen(Src, Len);
+ 472              		.loc 1 141 5 view .LVU118
+ 141:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     Size = RtStrnLen(Src, Len);
+ 473              		.loc 1 141 16 is_stmt 0 view .LVU119
+ 474 01a2 E8000000 		call	StrLen
+ 474      00
+ 475              	.LVL52:
+ 141:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     Size = RtStrnLen(Src, Len);
+ 476              		.loc 1 141 16 view .LVU120
+ 477 01a7 4889C3   		movq	%rax, %rbx
+ 478              	.LVL53:
+ 142:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtCopyMem(Dest + DestSize, Src, Size * sizeof(CHAR16));
+ 479              		.loc 1 142 5 is_stmt 1 view .LVU121
+ 142:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtCopyMem(Dest + DestSize, Src, Size * sizeof(CHAR16));
+ 480              		.loc 1 142 12 is_stmt 0 view .LVU122
+ 481 01aa 4C89E6   		movq	%r12, %rsi
+ 482 01ad 4C89EF   		movq	%r13, %rdi
+ 483 01b0 E8000000 		call	RtStrnLen
+ 483      00
+ 484              	.LVL54:
+ 142:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     RtCopyMem(Dest + DestSize, Src, Size * sizeof(CHAR16));
+ 485              		.loc 1 142 12 view .LVU123
+ 486 01b5 4989C4   		movq	%rax, %r12
+ 487              	.LVL55:
+ 143:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     Dest[DestSize + Size] = '\0';
+ 488              		.loc 1 143 5 is_stmt 1 view .LVU124
+ 143:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     Dest[DestSize + Size] = '\0';
+ 489              		.loc 1 143 20 is_stmt 0 view .LVU125
+ 490 01b8 488D7C5D 		leaq	0(%rbp,%rbx,2), %rdi
+ 490      00
+ 143:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     Dest[DestSize + Size] = '\0';
+ 491              		.loc 1 143 5 view .LVU126
+ 492 01bd 488D1400 		leaq	(%rax,%rax), %rdx
+ 493 01c1 4C89EE   		movq	%r13, %rsi
+ 494 01c4 E8000000 		call	RtCopyMem
+ 494      00
+ 495              	.LVL56:
+ 144:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+ 496              		.loc 1 144 5 is_stmt 1 view .LVU127
+ 144:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+ 497              		.loc 1 144 19 is_stmt 0 view .LVU128
+ 498 01c9 4C01E3   		addq	%r12, %rbx
+ 499              	.LVL57:
+ 144:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+ 500              		.loc 1 144 27 view .LVU129
+ 501 01cc 66C7445D 		movw	$0, 0(%rbp,%rbx,2)
+ 501      000000
+ 145:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 502              		.loc 1 145 1 view .LVU130
+ 503 01d3 4883C408 		addq	$8, %rsp
+ 504              		.cfi_def_cfa_offset 40
+ 505 01d7 5B       		popq	%rbx
+ 506              		.cfi_restore 3
+ 507              		.cfi_def_cfa_offset 32
+ 508 01d8 5D       		popq	%rbp
+ 509              		.cfi_restore 6
+ 510              		.cfi_def_cfa_offset 24
+ 511              	.LVL58:
+ 145:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 512              		.loc 1 145 1 view .LVU131
+ 513 01d9 415C     		popq	%r12
+ 514              		.cfi_restore 12
+ 515              		.cfi_def_cfa_offset 16
+ 516              	.LVL59:
+ 145:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 517              		.loc 1 145 1 view .LVU132
+ 518 01db 415D     		popq	%r13
+ 519              		.cfi_restore 13
+ 520              		.cfi_def_cfa_offset 8
+ 521              	.LVL60:
+ 145:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 522              		.loc 1 145 1 view .LVU133
+ 523 01dd C3       		ret
+ 524              		.cfi_endproc
+ 525              	.LFE6:
+ 527              		.globl	RtStrSize
+ 528              		.hidden	RtStrSize
+ 530              	RtStrSize:
+ 531              	.LVL61:
+ 532              	.LFB9:
+ 179:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 180:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #ifndef __GNUC__
+ 181:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #pragma RUNTIME_CODE(RtStrSize)
+ 182:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #endif
+ 183:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** UINTN
+ 184:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RUNTIMEFUNCTION
+ 185:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RtStrSize (
+ 186:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN CONST CHAR16   *s1
+ 187:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     )
+ 188:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** // string size
+ 189:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** {
+ 533              		.loc 1 189 1 is_stmt 1 view -0
+ 534              		.cfi_startproc
+ 535              		.loc 1 189 1 is_stmt 0 view .LVU135
+ 536 01de F30F1EFA 		endbr64
+ 190:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     UINTN        len;
+ 537              		.loc 1 190 5 is_stmt 1 view .LVU136
+ 191:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 192:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     for (len=0; *s1; s1+=1, len+=1) ;
+ 538              		.loc 1 192 5 view .LVU137
+ 539              	.LVL62:
+ 540              		.loc 1 192 13 is_stmt 0 view .LVU138
+ 541 01e2 B8000000 		movl	$0, %eax
+ 541      00
+ 542              		.loc 1 192 5 view .LVU139
+ 543 01e7 EB08     		jmp	.L32
+ 544              	.LVL63:
+ 545              	.L33:
+ 546              		.loc 1 192 27 is_stmt 1 discriminator 3 view .LVU140
+ 547              		.loc 1 192 24 is_stmt 0 discriminator 3 view .LVU141
+ 548 01e9 4883C702 		addq	$2, %rdi
+ 549              	.LVL64:
+ 550              		.loc 1 192 32 discriminator 3 view .LVU142
+ 551 01ed 4883C001 		addq	$1, %rax
+ 552              	.LVL65:
+ 553              	.L32:
+ 554              		.loc 1 192 17 is_stmt 1 discriminator 1 view .LVU143
+ 555 01f1 66833F00 		cmpw	$0, (%rdi)
+ 556 01f5 75F2     		jne	.L33
+ 193:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     return (len + 1) * sizeof(CHAR16);
+ 557              		.loc 1 193 5 view .LVU144
+ 558              		.loc 1 193 22 is_stmt 0 view .LVU145
+ 559 01f7 488D4400 		leaq	2(%rax,%rax), %rax
+ 559      02
+ 560              	.LVL66:
+ 194:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+ 561              		.loc 1 194 1 view .LVU146
+ 562 01fc C3       		ret
+ 563              		.cfi_endproc
+ 564              	.LFE9:
+ 566              		.globl	RtBCDtoDecimal
+ 567              		.hidden	RtBCDtoDecimal
+ 569              	RtBCDtoDecimal:
+ 570              	.LVL67:
+ 571              	.LFB10:
+ 195:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 196:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #ifndef __GNUC__
+ 197:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #pragma RUNTIME_CODE(RtBCDtoDecimal)
+ 198:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #endif
+ 199:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** UINT8
+ 200:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RUNTIMEFUNCTION
+ 201:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RtBCDtoDecimal(
+ 202:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN  UINT8 BcdValue
+ 203:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     )
+ 204:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** {
+ 572              		.loc 1 204 1 is_stmt 1 view -0
+ 573              		.cfi_startproc
+ 574              		.loc 1 204 1 is_stmt 0 view .LVU148
+ 575 01fd F30F1EFA 		endbr64
+ 205:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     UINTN   High, Low;
+ 576              		.loc 1 205 5 is_stmt 1 view .LVU149
+ 206:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 207:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     High    = BcdValue >> 4;
+ 577              		.loc 1 207 5 view .LVU150
+ 578              		.loc 1 207 24 is_stmt 0 view .LVU151
+ 579 0201 89F8     		movl	%edi, %eax
+ 580 0203 C0E804   		shrb	$4, %al
+ 581              		.loc 1 207 13 view .LVU152
+ 582 0206 0FB6D0   		movzbl	%al, %edx
+ 583              	.LVL68:
+ 208:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     Low     = BcdValue - (High << 4);
+ 584              		.loc 1 208 5 is_stmt 1 view .LVU153
+ 585              		.loc 1 208 24 is_stmt 0 view .LVU154
+ 586 0209 400FB6FF 		movzbl	%dil, %edi
+ 587              		.loc 1 208 32 view .LVU155
+ 588 020d 48C1E204 		salq	$4, %rdx
+ 589              	.LVL69:
+ 590              		.loc 1 208 13 view .LVU156
+ 591 0211 4829D7   		subq	%rdx, %rdi
+ 592              	.LVL70:
+ 209:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 210:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     return ((UINT8)(Low + (High * 10)));
+ 593              		.loc 1 210 5 is_stmt 1 view .LVU157
+ 594              		.loc 1 210 13 is_stmt 0 view .LVU158
+ 595 0214 8D0480   		leal	(%rax,%rax,4), %eax
+ 596              	.LVL71:
+ 597              		.loc 1 210 13 view .LVU159
+ 598 0217 8D0447   		leal	(%rdi,%rax,2), %eax
+ 211:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+ 599              		.loc 1 211 1 view .LVU160
+ 600 021a C3       		ret
+ 601              		.cfi_endproc
+ 602              	.LFE10:
+ 604              		.globl	RtDecimaltoBCD
+ 605              		.hidden	RtDecimaltoBCD
+ 607              	RtDecimaltoBCD:
+ 608              	.LVL72:
+ 609              	.LFB11:
+ 212:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 213:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 214:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #ifndef __GNUC__
+ 215:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #pragma RUNTIME_CODE(RtDecimaltoBCD)
+ 216:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** #endif
+ 217:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** UINT8
+ 218:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RUNTIMEFUNCTION
+ 219:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** RtDecimaltoBCD (
+ 220:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     IN  UINT8 DecValue
+ 221:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     )
+ 222:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** {
+ 610              		.loc 1 222 1 is_stmt 1 view -0
+ 611              		.cfi_startproc
+ 612              		.loc 1 222 1 is_stmt 0 view .LVU162
+ 613 021b F30F1EFA 		endbr64
+ 223:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     UINTN   High, Low;
+ 614              		.loc 1 223 5 is_stmt 1 view .LVU163
+ 224:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 225:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     High    = DecValue / 10;
+ 615              		.loc 1 225 5 view .LVU164
+ 616              		.loc 1 225 24 is_stmt 0 view .LVU165
+ 617 021f BACDFFFF 		movl	$-51, %edx
+ 617      FF
+ 618 0224 89D0     		movl	%edx, %eax
+ 619 0226 40F6E7   		mulb	%dil
+ 620 0229 66C1E80B 		shrw	$11, %ax
+ 621              		.loc 1 225 13 view .LVU166
+ 622 022d 0FB6D0   		movzbl	%al, %edx
+ 623              	.LVL73:
+ 226:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     Low     = DecValue - (High * 10);
+ 624              		.loc 1 226 5 is_stmt 1 view .LVU167
+ 625              		.loc 1 226 24 is_stmt 0 view .LVU168
+ 626 0230 400FB6FF 		movzbl	%dil, %edi
+ 627              		.loc 1 226 32 view .LVU169
+ 628 0234 488D1492 		leaq	(%rdx,%rdx,4), %rdx
+ 629              	.LVL74:
+ 630              		.loc 1 226 32 view .LVU170
+ 631 0238 4801D2   		addq	%rdx, %rdx
+ 632              		.loc 1 226 13 view .LVU171
+ 633 023b 4829D7   		subq	%rdx, %rdi
+ 634              	.LVL75:
+ 227:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** 
+ 228:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c ****     return ((UINT8)(Low + (High << 4)));
+ 635              		.loc 1 228 5 is_stmt 1 view .LVU172
+ 636              		.loc 1 228 33 is_stmt 0 view .LVU173
+ 637 023e C1E004   		sall	$4, %eax
+ 638              	.LVL76:
+ 639              		.loc 1 228 13 view .LVU174
+ 640 0241 01F8     		addl	%edi, %eax
+ 229:../Backend/gnu-efi-3.0.9/lib/runtime/rtstr.c **** }
+ 641              		.loc 1 229 1 view .LVU175
+ 642 0243 C3       		ret
+ 643              		.cfi_endproc
+ 644              	.LFE11:
+ 646              	.Letext0:
+ 647              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 648              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 649              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 650              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efirtlib.h"
+ 651              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efilib.h"
+ 10708              		.section	.note.gnu.property,"a"
+ 10709              		.align 8
+ 10710 0000 04000000 		.long	1f - 0f
+ 10711 0004 10000000 		.long	4f - 1f
+ 10712 0008 05000000 		.long	5
+ 10713              	0:
+ 10714 000c 474E5500 		.string	"GNU"
+ 10715              	1:
+ 10716              		.align 8
+ 10717 0010 020000C0 		.long	0xc0000002
+ 10718 0014 04000000 		.long	3f - 2f
+ 10719              	2:
+ 10720 0018 03000000 		.long	0x3
+ 10721              	3:
+ 10722 001c 00000000 		.align 8
+ 10723              	4:

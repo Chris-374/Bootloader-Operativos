@@ -1,0 +1,601 @@
+   1              		.file	"event.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	LibCreateProtocolNotifyEvent
+   7              		.hidden	LibCreateProtocolNotifyEvent
+   9              	LibCreateProtocolNotifyEvent:
+  10              	.LVL0:
+  11              	.LFB0:
+  12              		.file 1 "../Backend/gnu-efi-3.0.9/lib/event.c"
+   1:../Backend/gnu-efi-3.0.9/lib/event.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/event.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/event.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/event.c ****     event.c
+   8:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/event.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  12:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/event.c **** Revision History
+  15:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  16:../Backend/gnu-efi-3.0.9/lib/event.c **** --*/
+  17:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  18:../Backend/gnu-efi-3.0.9/lib/event.c **** #include "lib.h"
+  19:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  20:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  21:../Backend/gnu-efi-3.0.9/lib/event.c **** EFI_EVENT
+  22:../Backend/gnu-efi-3.0.9/lib/event.c **** LibCreateProtocolNotifyEvent (
+  23:../Backend/gnu-efi-3.0.9/lib/event.c ****     IN EFI_GUID             *ProtocolGuid,
+  24:../Backend/gnu-efi-3.0.9/lib/event.c ****     IN EFI_TPL              NotifyTpl,
+  25:../Backend/gnu-efi-3.0.9/lib/event.c ****     IN EFI_EVENT_NOTIFY     NotifyFunction,
+  26:../Backend/gnu-efi-3.0.9/lib/event.c ****     IN VOID                 *NotifyContext,
+  27:../Backend/gnu-efi-3.0.9/lib/event.c ****     OUT VOID                *Registration
+  28:../Backend/gnu-efi-3.0.9/lib/event.c ****     )
+  29:../Backend/gnu-efi-3.0.9/lib/event.c **** {
+  13              		.loc 1 29 1 view -0
+  14              		.cfi_startproc
+  15              		.loc 1 29 1 is_stmt 0 view .LVU1
+  16 0000 F30F1EFA 		endbr64
+  17 0004 55       		pushq	%rbp
+  18              		.cfi_def_cfa_offset 16
+  19              		.cfi_offset 6, -16
+  20 0005 53       		pushq	%rbx
+  21              		.cfi_def_cfa_offset 24
+  22              		.cfi_offset 3, -24
+  23 0006 4883EC48 		subq	$72, %rsp
+  24              		.cfi_def_cfa_offset 96
+  25 000a 4889FB   		movq	%rdi, %rbx
+  26 000d 4989C9   		movq	%rcx, %r9
+  27 0010 4C89C5   		movq	%r8, %rbp
+  30:../Backend/gnu-efi-3.0.9/lib/event.c ****     EFI_STATUS              Status;
+  28              		.loc 1 30 5 is_stmt 1 view .LVU2
+  31:../Backend/gnu-efi-3.0.9/lib/event.c ****     EFI_EVENT               Event;
+  29              		.loc 1 31 5 view .LVU3
+  32:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  33:../Backend/gnu-efi-3.0.9/lib/event.c ****     //
+  34:../Backend/gnu-efi-3.0.9/lib/event.c ****     // Create the event
+  35:../Backend/gnu-efi-3.0.9/lib/event.c ****     //
+  36:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  37:../Backend/gnu-efi-3.0.9/lib/event.c ****     Status = uefi_call_wrapper(
+  30              		.loc 1 37 5 view .LVU4
+  31              		.loc 1 37 14 is_stmt 0 view .LVU5
+  32 0013 488B0500 		movq	BS(%rip), %rax
+  32      000000
+  33 001a 488B4050 		movq	80(%rax), %rax
+  34 001e 488D4C24 		leaq	56(%rsp), %rcx
+  34      38
+  35              	.LVL1:
+  36              		.loc 1 37 14 view .LVU6
+  37 0023 48894C24 		movq	%rcx, 32(%rsp)
+  37      20
+  38 0028 4989D0   		movq	%rdx, %r8
+  39              	.LVL2:
+  40              		.loc 1 37 14 view .LVU7
+  41 002b 4889F2   		movq	%rsi, %rdx
+  42              	.LVL3:
+  43              		.loc 1 37 14 view .LVU8
+  44 002e B9000200 		movl	$512, %ecx
+  44      00
+  45 0033 FFD0     		call	*%rax
+  46              	.LVL4:
+  38:../Backend/gnu-efi-3.0.9/lib/event.c **** 		    BS->CreateEvent,
+  39:../Backend/gnu-efi-3.0.9/lib/event.c **** 			5,
+  40:../Backend/gnu-efi-3.0.9/lib/event.c **** 		    EVT_NOTIFY_SIGNAL,
+  41:../Backend/gnu-efi-3.0.9/lib/event.c **** 		    NotifyTpl,
+  42:../Backend/gnu-efi-3.0.9/lib/event.c **** 		    NotifyFunction,
+  43:../Backend/gnu-efi-3.0.9/lib/event.c **** 		    NotifyContext,
+  44:../Backend/gnu-efi-3.0.9/lib/event.c **** 		    &Event
+  45:../Backend/gnu-efi-3.0.9/lib/event.c **** 		    );
+  46:../Backend/gnu-efi-3.0.9/lib/event.c ****     if ( EFI_ERROR( Status ) ) return NULL ;
+  47              		.loc 1 46 5 is_stmt 1 view .LVU9
+  48              		.loc 1 46 8 is_stmt 0 view .LVU10
+  49 0035 4885C0   		testq	%rax, %rax
+  50 0038 7838     		js	.L3
+  47:../Backend/gnu-efi-3.0.9/lib/event.c ****     ASSERT (!EFI_ERROR(Status));
+  51              		.loc 1 47 32 is_stmt 1 view .LVU11
+  48:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  49:../Backend/gnu-efi-3.0.9/lib/event.c ****     //
+  50:../Backend/gnu-efi-3.0.9/lib/event.c ****     // Register for protocol notifactions on this event
+  51:../Backend/gnu-efi-3.0.9/lib/event.c ****     //
+  52:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  53:../Backend/gnu-efi-3.0.9/lib/event.c ****     Status = uefi_call_wrapper(
+  52              		.loc 1 53 5 view .LVU12
+  53              		.loc 1 53 14 is_stmt 0 view .LVU13
+  54 003a 4989E8   		movq	%rbp, %r8
+  55 003d 488B5424 		movq	56(%rsp), %rdx
+  55      38
+  56 0042 4889D9   		movq	%rbx, %rcx
+  57 0045 488B0500 		movq	BS(%rip), %rax
+  57      000000
+  58              	.LVL5:
+  59              		.loc 1 53 14 view .LVU14
+  60 004c FF90A800 		call	*168(%rax)
+  60      0000
+  61              	.LVL6:
+  54:../Backend/gnu-efi-3.0.9/lib/event.c **** 		    BS->RegisterProtocolNotify,
+  55:../Backend/gnu-efi-3.0.9/lib/event.c **** 			3,
+  56:../Backend/gnu-efi-3.0.9/lib/event.c ****                     ProtocolGuid,
+  57:../Backend/gnu-efi-3.0.9/lib/event.c ****                     Event,
+  58:../Backend/gnu-efi-3.0.9/lib/event.c ****                     Registration
+  59:../Backend/gnu-efi-3.0.9/lib/event.c ****                     );
+  60:../Backend/gnu-efi-3.0.9/lib/event.c ****     if ( EFI_ERROR( Status ) ) return NULL ;
+  62              		.loc 1 60 5 is_stmt 1 view .LVU15
+  63              		.loc 1 60 8 is_stmt 0 view .LVU16
+  64 0052 4885C0   		testq	%rax, %rax
+  65 0055 7822     		js	.L4
+  61:../Backend/gnu-efi-3.0.9/lib/event.c ****     ASSERT (!EFI_ERROR(Status));
+  66              		.loc 1 61 32 is_stmt 1 view .LVU17
+  62:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  63:../Backend/gnu-efi-3.0.9/lib/event.c ****     //
+  64:../Backend/gnu-efi-3.0.9/lib/event.c ****     // Kick the event so we will perform an initial pass of
+  65:../Backend/gnu-efi-3.0.9/lib/event.c ****     // current installed drivers
+  66:../Backend/gnu-efi-3.0.9/lib/event.c ****     //
+  67:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  68:../Backend/gnu-efi-3.0.9/lib/event.c ****     uefi_call_wrapper(BS->SignalEvent, 1, Event);
+  67              		.loc 1 68 5 view .LVU18
+  68 0057 488B4C24 		movq	56(%rsp), %rcx
+  68      38
+  69 005c 488B0500 		movq	BS(%rip), %rax
+  69      000000
+  70              	.LVL7:
+  71              		.loc 1 68 5 is_stmt 0 view .LVU19
+  72 0063 FF5068   		call	*104(%rax)
+  73              	.LVL8:
+  69:../Backend/gnu-efi-3.0.9/lib/event.c ****     return Event;
+  74              		.loc 1 69 5 is_stmt 1 view .LVU20
+  75              		.loc 1 69 12 is_stmt 0 view .LVU21
+  76 0066 488B4424 		movq	56(%rsp), %rax
+  76      38
+  77              	.LVL9:
+  78              	.L1:
+  70:../Backend/gnu-efi-3.0.9/lib/event.c **** }
+  79              		.loc 1 70 1 view .LVU22
+  80 006b 4883C448 		addq	$72, %rsp
+  81              		.cfi_remember_state
+  82              		.cfi_def_cfa_offset 24
+  83 006f 5B       		popq	%rbx
+  84              		.cfi_restore 3
+  85              		.cfi_def_cfa_offset 16
+  86              	.LVL10:
+  87              		.loc 1 70 1 view .LVU23
+  88 0070 5D       		popq	%rbp
+  89              		.cfi_restore 6
+  90              		.cfi_def_cfa_offset 8
+  91              	.LVL11:
+  92              		.loc 1 70 1 view .LVU24
+  93 0071 C3       		ret
+  94              	.LVL12:
+  95              	.L3:
+  96              		.cfi_restore_state
+  46:../Backend/gnu-efi-3.0.9/lib/event.c ****     ASSERT (!EFI_ERROR(Status));
+  97              		.loc 1 46 39 discriminator 1 view .LVU25
+  98 0072 B8000000 		movl	$0, %eax
+  98      00
+  99              	.LVL13:
+  46:../Backend/gnu-efi-3.0.9/lib/event.c ****     ASSERT (!EFI_ERROR(Status));
+ 100              		.loc 1 46 39 discriminator 1 view .LVU26
+ 101 0077 EBF2     		jmp	.L1
+ 102              	.LVL14:
+ 103              	.L4:
+  60:../Backend/gnu-efi-3.0.9/lib/event.c ****     ASSERT (!EFI_ERROR(Status));
+ 104              		.loc 1 60 39 discriminator 1 view .LVU27
+ 105 0079 B8000000 		movl	$0, %eax
+ 105      00
+ 106              	.LVL15:
+  60:../Backend/gnu-efi-3.0.9/lib/event.c ****     ASSERT (!EFI_ERROR(Status));
+ 107              		.loc 1 60 39 discriminator 1 view .LVU28
+ 108 007e EBEB     		jmp	.L1
+ 109              		.cfi_endproc
+ 110              	.LFE0:
+ 112              		.globl	WaitForSingleEvent
+ 113              		.hidden	WaitForSingleEvent
+ 115              	WaitForSingleEvent:
+ 116              	.LVL16:
+ 117              	.LFB1:
+  71:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  72:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  73:../Backend/gnu-efi-3.0.9/lib/event.c **** EFI_STATUS
+  74:../Backend/gnu-efi-3.0.9/lib/event.c **** WaitForSingleEvent (
+  75:../Backend/gnu-efi-3.0.9/lib/event.c ****     IN EFI_EVENT        Event,
+  76:../Backend/gnu-efi-3.0.9/lib/event.c ****     IN UINT64           Timeout OPTIONAL
+  77:../Backend/gnu-efi-3.0.9/lib/event.c ****     )
+  78:../Backend/gnu-efi-3.0.9/lib/event.c **** {
+ 118              		.loc 1 78 1 is_stmt 1 view -0
+ 119              		.cfi_startproc
+ 120              		.loc 1 78 1 is_stmt 0 view .LVU30
+ 121 0080 F30F1EFA 		endbr64
+ 122 0084 55       		pushq	%rbp
+ 123              		.cfi_def_cfa_offset 16
+ 124              		.cfi_offset 6, -16
+ 125 0085 53       		pushq	%rbx
+ 126              		.cfi_def_cfa_offset 24
+ 127              		.cfi_offset 3, -24
+ 128 0086 4883EC68 		subq	$104, %rsp
+ 129              		.cfi_def_cfa_offset 128
+ 130 008a 48897C24 		movq	%rdi, 56(%rsp)
+ 130      38
+  79:../Backend/gnu-efi-3.0.9/lib/event.c ****     EFI_STATUS          Status;
+ 131              		.loc 1 79 5 is_stmt 1 view .LVU31
+  80:../Backend/gnu-efi-3.0.9/lib/event.c ****     UINTN               Index;
+ 132              		.loc 1 80 5 view .LVU32
+  81:../Backend/gnu-efi-3.0.9/lib/event.c ****     EFI_EVENT           TimerEvent;
+ 133              		.loc 1 81 5 view .LVU33
+  82:../Backend/gnu-efi-3.0.9/lib/event.c ****     EFI_EVENT           WaitList[2];
+ 134              		.loc 1 82 5 view .LVU34
+  83:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  84:../Backend/gnu-efi-3.0.9/lib/event.c ****     if (Timeout) {
+ 135              		.loc 1 84 5 view .LVU35
+ 136              		.loc 1 84 8 is_stmt 0 view .LVU36
+ 137 008f 4885F6   		testq	%rsi, %rsi
+ 138 0092 0F84AB00 		je	.L7
+ 138      0000
+ 139 0098 4889F5   		movq	%rsi, %rbp
+  85:../Backend/gnu-efi-3.0.9/lib/event.c ****         //
+  86:../Backend/gnu-efi-3.0.9/lib/event.c ****         // Create a timer event
+  87:../Backend/gnu-efi-3.0.9/lib/event.c ****         //
+  88:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  89:../Backend/gnu-efi-3.0.9/lib/event.c ****         Status = uefi_call_wrapper(BS->CreateEvent, 5, EVT_TIMER, 0, NULL, NULL, &TimerEvent);
+ 140              		.loc 1 89 9 is_stmt 1 view .LVU37
+ 141              		.loc 1 89 18 is_stmt 0 view .LVU38
+ 142 009b 488B0500 		movq	BS(%rip), %rax
+ 142      000000
+ 143 00a2 488B4050 		movq	80(%rax), %rax
+ 144 00a6 488D5424 		leaq	80(%rsp), %rdx
+ 144      50
+ 145 00ab 48895424 		movq	%rdx, 32(%rsp)
+ 145      20
+ 146 00b0 41B90000 		movl	$0, %r9d
+ 146      0000
+ 147 00b6 41B80000 		movl	$0, %r8d
+ 147      0000
+ 148 00bc BA000000 		movl	$0, %edx
+ 148      00
+ 149 00c1 B9000000 		movl	$-2147483648, %ecx
+ 149      80
+ 150 00c6 FFD0     		call	*%rax
+ 151              	.LVL17:
+ 152              		.loc 1 89 18 view .LVU39
+ 153 00c8 4889C3   		movq	%rax, %rbx
+ 154              	.LVL18:
+  90:../Backend/gnu-efi-3.0.9/lib/event.c ****         if (!EFI_ERROR(Status)) {
+ 155              		.loc 1 90 9 is_stmt 1 view .LVU40
+ 156              		.loc 1 90 12 is_stmt 0 view .LVU41
+ 157 00cb 4885C0   		testq	%rax, %rax
+ 158 00ce 0F888B00 		js	.L6
+ 158      0000
+  91:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  92:../Backend/gnu-efi-3.0.9/lib/event.c ****             //
+  93:../Backend/gnu-efi-3.0.9/lib/event.c ****             // Set the timer event
+  94:../Backend/gnu-efi-3.0.9/lib/event.c ****             //
+  95:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  96:../Backend/gnu-efi-3.0.9/lib/event.c ****             uefi_call_wrapper(BS->SetTimer, 3, TimerEvent, TimerRelative, Timeout);
+ 159              		.loc 1 96 13 is_stmt 1 view .LVU42
+ 160 00d4 4989E8   		movq	%rbp, %r8
+ 161 00d7 BA020000 		movl	$2, %edx
+ 161      00
+ 162 00dc 488B4C24 		movq	80(%rsp), %rcx
+ 162      50
+ 163 00e1 488B0500 		movq	BS(%rip), %rax
+ 163      000000
+ 164              	.LVL19:
+ 165              		.loc 1 96 13 is_stmt 0 view .LVU43
+ 166 00e8 FF5058   		call	*88(%rax)
+ 167              	.LVL20:
+  97:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+  98:../Backend/gnu-efi-3.0.9/lib/event.c ****             //
+  99:../Backend/gnu-efi-3.0.9/lib/event.c ****             // Wait for the original event or the timer
+ 100:../Backend/gnu-efi-3.0.9/lib/event.c ****             //
+ 101:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+ 102:../Backend/gnu-efi-3.0.9/lib/event.c ****             WaitList[0] = Event;
+ 168              		.loc 1 102 13 is_stmt 1 view .LVU44
+ 169              		.loc 1 102 25 is_stmt 0 view .LVU45
+ 170 00eb 488B4424 		movq	56(%rsp), %rax
+ 170      38
+ 171 00f0 48894424 		movq	%rax, 64(%rsp)
+ 171      40
+ 103:../Backend/gnu-efi-3.0.9/lib/event.c ****             WaitList[1] = TimerEvent;
+ 172              		.loc 1 103 13 is_stmt 1 view .LVU46
+ 173              		.loc 1 103 25 is_stmt 0 view .LVU47
+ 174 00f5 488B4424 		movq	80(%rsp), %rax
+ 174      50
+ 175 00fa 48894424 		movq	%rax, 72(%rsp)
+ 175      48
+ 104:../Backend/gnu-efi-3.0.9/lib/event.c ****             Status = uefi_call_wrapper(BS->WaitForEvent, 3, 2, WaitList, &Index);
+ 176              		.loc 1 104 13 is_stmt 1 view .LVU48
+ 177              		.loc 1 104 22 is_stmt 0 view .LVU49
+ 178 00ff 488D5424 		leaq	64(%rsp), %rdx
+ 178      40
+ 179 0104 4C8D4424 		leaq	88(%rsp), %r8
+ 179      58
+ 180 0109 B9020000 		movl	$2, %ecx
+ 180      00
+ 181 010e 488B0500 		movq	BS(%rip), %rax
+ 181      000000
+ 182 0115 FF5060   		call	*96(%rax)
+ 183              	.LVL21:
+ 184 0118 4889C3   		movq	%rax, %rbx
+ 185              	.LVL22:
+ 105:../Backend/gnu-efi-3.0.9/lib/event.c ****             uefi_call_wrapper(BS->CloseEvent, 1, TimerEvent);
+ 186              		.loc 1 105 13 is_stmt 1 view .LVU50
+ 187 011b 488B4C24 		movq	80(%rsp), %rcx
+ 187      50
+ 188 0120 488B0500 		movq	BS(%rip), %rax
+ 188      000000
+ 189              	.LVL23:
+ 190              		.loc 1 105 13 is_stmt 0 view .LVU51
+ 191 0127 FF5070   		call	*112(%rax)
+ 192              	.LVL24:
+ 106:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+ 107:../Backend/gnu-efi-3.0.9/lib/event.c ****             //
+ 108:../Backend/gnu-efi-3.0.9/lib/event.c ****             // If the timer expired, change the return to timed out
+ 109:../Backend/gnu-efi-3.0.9/lib/event.c ****             //
+ 110:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+ 111:../Backend/gnu-efi-3.0.9/lib/event.c ****             if (!EFI_ERROR(Status)  &&  Index == 1) {
+ 193              		.loc 1 111 13 is_stmt 1 view .LVU52
+ 194              		.loc 1 111 16 is_stmt 0 view .LVU53
+ 195 012a 4885DB   		testq	%rbx, %rbx
+ 196 012d 7830     		js	.L6
+ 197              		.loc 1 111 37 discriminator 1 view .LVU54
+ 198 012f 48837C24 		cmpq	$1, 88(%rsp)
+ 198      5801
+ 199 0135 7528     		jne	.L6
+ 112:../Backend/gnu-efi-3.0.9/lib/event.c ****                 Status = EFI_TIMEOUT;
+ 200              		.loc 1 112 24 view .LVU55
+ 201 0137 48BB1200 		movabsq	$-9223372036854775790, %rbx
+ 201      00000000 
+ 201      0080
+ 202              	.LVL25:
+ 113:../Backend/gnu-efi-3.0.9/lib/event.c ****             }
+ 114:../Backend/gnu-efi-3.0.9/lib/event.c ****         }
+ 115:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+ 116:../Backend/gnu-efi-3.0.9/lib/event.c ****     } else {
+ 117:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+ 118:../Backend/gnu-efi-3.0.9/lib/event.c ****         //
+ 119:../Backend/gnu-efi-3.0.9/lib/event.c ****         // No timeout... just wait on the event
+ 120:../Backend/gnu-efi-3.0.9/lib/event.c ****         //
+ 121:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+ 122:../Backend/gnu-efi-3.0.9/lib/event.c ****         Status = uefi_call_wrapper(BS->WaitForEvent, 3, 1, &Event, &Index);
+ 123:../Backend/gnu-efi-3.0.9/lib/event.c ****         ASSERT (!EFI_ERROR(Status));
+ 203              		.loc 1 123 36 is_stmt 1 view .LVU56
+ 124:../Backend/gnu-efi-3.0.9/lib/event.c ****         ASSERT (Index == 0);
+ 204              		.loc 1 124 28 view .LVU57
+ 125:../Backend/gnu-efi-3.0.9/lib/event.c ****     }
+ 126:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+ 127:../Backend/gnu-efi-3.0.9/lib/event.c ****     return Status;
+ 205              		.loc 1 127 5 view .LVU58
+ 206              		.loc 1 127 12 is_stmt 0 view .LVU59
+ 207 0141 EB1C     		jmp	.L6
+ 208              	.LVL26:
+ 209              	.L7:
+ 122:../Backend/gnu-efi-3.0.9/lib/event.c ****         ASSERT (!EFI_ERROR(Status));
+ 210              		.loc 1 122 9 is_stmt 1 view .LVU60
+ 122:../Backend/gnu-efi-3.0.9/lib/event.c ****         ASSERT (!EFI_ERROR(Status));
+ 211              		.loc 1 122 18 is_stmt 0 view .LVU61
+ 212 0143 488D5424 		leaq	56(%rsp), %rdx
+ 212      38
+ 213 0148 4C8D4424 		leaq	88(%rsp), %r8
+ 213      58
+ 214 014d B9010000 		movl	$1, %ecx
+ 214      00
+ 215 0152 488B0500 		movq	BS(%rip), %rax
+ 215      000000
+ 216 0159 FF5060   		call	*96(%rax)
+ 217              	.LVL27:
+ 122:../Backend/gnu-efi-3.0.9/lib/event.c ****         ASSERT (!EFI_ERROR(Status));
+ 218              		.loc 1 122 18 view .LVU62
+ 219 015c 4889C3   		movq	%rax, %rbx
+ 220              	.LVL28:
+ 221              	.L6:
+ 128:../Backend/gnu-efi-3.0.9/lib/event.c **** }
+ 222              		.loc 1 128 1 view .LVU63
+ 223 015f 4889D8   		movq	%rbx, %rax
+ 224 0162 4883C468 		addq	$104, %rsp
+ 225              		.cfi_def_cfa_offset 24
+ 226 0166 5B       		popq	%rbx
+ 227              		.cfi_restore 3
+ 228              		.cfi_def_cfa_offset 16
+ 229 0167 5D       		popq	%rbp
+ 230              		.cfi_restore 6
+ 231              		.cfi_def_cfa_offset 8
+ 232 0168 C3       		ret
+ 233              		.cfi_endproc
+ 234              	.LFE1:
+ 236              		.globl	WaitForEventWithTimeout
+ 237              		.hidden	WaitForEventWithTimeout
+ 239              	WaitForEventWithTimeout:
+ 240              	.LVL29:
+ 241              	.LFB2:
+ 129:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+ 130:../Backend/gnu-efi-3.0.9/lib/event.c **** VOID
+ 131:../Backend/gnu-efi-3.0.9/lib/event.c **** WaitForEventWithTimeout (
+ 132:../Backend/gnu-efi-3.0.9/lib/event.c ****     IN  EFI_EVENT       Event,
+ 133:../Backend/gnu-efi-3.0.9/lib/event.c ****     IN  UINTN           Timeout,
+ 134:../Backend/gnu-efi-3.0.9/lib/event.c ****     IN  UINTN           Row,
+ 135:../Backend/gnu-efi-3.0.9/lib/event.c ****     IN  UINTN           Column,
+ 136:../Backend/gnu-efi-3.0.9/lib/event.c ****     IN  CHAR16          *String,
+ 137:../Backend/gnu-efi-3.0.9/lib/event.c ****     IN  EFI_INPUT_KEY   TimeoutKey,
+ 138:../Backend/gnu-efi-3.0.9/lib/event.c ****     OUT EFI_INPUT_KEY   *Key
+ 139:../Backend/gnu-efi-3.0.9/lib/event.c ****     )
+ 140:../Backend/gnu-efi-3.0.9/lib/event.c **** {
+ 242              		.loc 1 140 1 is_stmt 1 view -0
+ 243              		.cfi_startproc
+ 244              		.loc 1 140 1 is_stmt 0 view .LVU65
+ 245 0169 F30F1EFA 		endbr64
+ 246 016d 4157     		pushq	%r15
+ 247              		.cfi_def_cfa_offset 16
+ 248              		.cfi_offset 15, -16
+ 249 016f 4156     		pushq	%r14
+ 250              		.cfi_def_cfa_offset 24
+ 251              		.cfi_offset 14, -24
+ 252 0171 4155     		pushq	%r13
+ 253              		.cfi_def_cfa_offset 32
+ 254              		.cfi_offset 13, -32
+ 255 0173 4154     		pushq	%r12
+ 256              		.cfi_def_cfa_offset 40
+ 257              		.cfi_offset 12, -40
+ 258 0175 55       		pushq	%rbp
+ 259              		.cfi_def_cfa_offset 48
+ 260              		.cfi_offset 6, -48
+ 261 0176 53       		pushq	%rbx
+ 262              		.cfi_def_cfa_offset 56
+ 263              		.cfi_offset 3, -56
+ 264 0177 4883EC38 		subq	$56, %rsp
+ 265              		.cfi_def_cfa_offset 112
+ 266 017b 4989FE   		movq	%rdi, %r14
+ 267 017e 4889F3   		movq	%rsi, %rbx
+ 268 0181 4989D5   		movq	%rdx, %r13
+ 269 0184 4989CC   		movq	%rcx, %r12
+ 270 0187 4C89C5   		movq	%r8, %rbp
+ 271 018a 44894C24 		movl	%r9d, 44(%rsp)
+ 271      2C
+ 272 018f 4C8B7C24 		movq	112(%rsp), %r15
+ 272      70
+ 273 0194 EB05     		jmp	.L14
+ 274              	.LVL30:
+ 275              	.L12:
+ 141:../Backend/gnu-efi-3.0.9/lib/event.c ****     EFI_STATUS      Status;
+ 142:../Backend/gnu-efi-3.0.9/lib/event.c **** 
+ 143:../Backend/gnu-efi-3.0.9/lib/event.c ****     do {
+ 144:../Backend/gnu-efi-3.0.9/lib/event.c ****         PrintAt (Column, Row, String, Timeout);
+ 145:../Backend/gnu-efi-3.0.9/lib/event.c ****         Status = WaitForSingleEvent (Event, 10000000);
+ 146:../Backend/gnu-efi-3.0.9/lib/event.c ****         if (Status == EFI_SUCCESS) {
+ 147:../Backend/gnu-efi-3.0.9/lib/event.c ****             if (!EFI_ERROR(uefi_call_wrapper(ST->ConIn->ReadKeyStroke, 2, ST->ConIn, Key))) {
+ 148:../Backend/gnu-efi-3.0.9/lib/event.c ****                 return;
+ 149:../Backend/gnu-efi-3.0.9/lib/event.c ****             }
+ 150:../Backend/gnu-efi-3.0.9/lib/event.c ****         }
+ 151:../Backend/gnu-efi-3.0.9/lib/event.c ****     } while (Timeout > 0);
+ 276              		.loc 1 151 22 is_stmt 1 view .LVU66
+ 277 0196 4885DB   		testq	%rbx, %rbx
+ 278 0199 7443     		je	.L16
+ 279              	.LVL31:
+ 280              	.L14:
+ 141:../Backend/gnu-efi-3.0.9/lib/event.c ****     EFI_STATUS      Status;
+ 281              		.loc 1 141 5 view .LVU67
+ 143:../Backend/gnu-efi-3.0.9/lib/event.c ****         PrintAt (Column, Row, String, Timeout);
+ 282              		.loc 1 143 5 view .LVU68
+ 144:../Backend/gnu-efi-3.0.9/lib/event.c ****         Status = WaitForSingleEvent (Event, 10000000);
+ 283              		.loc 1 144 9 view .LVU69
+ 284 019b 4889D9   		movq	%rbx, %rcx
+ 285 019e 4889EA   		movq	%rbp, %rdx
+ 286 01a1 4C89EE   		movq	%r13, %rsi
+ 287 01a4 4C89E7   		movq	%r12, %rdi
+ 288 01a7 B8000000 		movl	$0, %eax
+ 288      00
+ 289 01ac E8000000 		call	PrintAt
+ 289      00
+ 290              	.LVL32:
+ 145:../Backend/gnu-efi-3.0.9/lib/event.c ****         if (Status == EFI_SUCCESS) {
+ 291              		.loc 1 145 9 view .LVU70
+ 145:../Backend/gnu-efi-3.0.9/lib/event.c ****         if (Status == EFI_SUCCESS) {
+ 292              		.loc 1 145 18 is_stmt 0 view .LVU71
+ 293 01b1 BE809698 		movl	$10000000, %esi
+ 293      00
+ 294 01b6 4C89F7   		movq	%r14, %rdi
+ 295 01b9 E8000000 		call	WaitForSingleEvent
+ 295      00
+ 296              	.LVL33:
+ 146:../Backend/gnu-efi-3.0.9/lib/event.c ****             if (!EFI_ERROR(uefi_call_wrapper(ST->ConIn->ReadKeyStroke, 2, ST->ConIn, Key))) {
+ 297              		.loc 1 146 9 is_stmt 1 view .LVU72
+ 146:../Backend/gnu-efi-3.0.9/lib/event.c ****             if (!EFI_ERROR(uefi_call_wrapper(ST->ConIn->ReadKeyStroke, 2, ST->ConIn, Key))) {
+ 298              		.loc 1 146 12 is_stmt 0 view .LVU73
+ 299 01be 4885C0   		testq	%rax, %rax
+ 300 01c1 75D3     		jne	.L12
+ 147:../Backend/gnu-efi-3.0.9/lib/event.c ****                 return;
+ 301              		.loc 1 147 13 is_stmt 1 view .LVU74
+ 147:../Backend/gnu-efi-3.0.9/lib/event.c ****                 return;
+ 302              		.loc 1 147 18 is_stmt 0 view .LVU75
+ 303 01c3 488B0500 		movq	ST(%rip), %rax
+ 303      000000
+ 304              	.LVL34:
+ 147:../Backend/gnu-efi-3.0.9/lib/event.c ****                 return;
+ 305              		.loc 1 147 18 view .LVU76
+ 306 01ca 488B4030 		movq	48(%rax), %rax
+ 307 01ce 4C89FA   		movq	%r15, %rdx
+ 308 01d1 4889C1   		movq	%rax, %rcx
+ 309 01d4 FF5008   		call	*8(%rax)
+ 310              	.LVL35:
+ 147:../Backend/gnu-efi-3.0.9/lib/event.c ****                 return;
+ 311              		.loc 1 147 16 discriminator 1 view .LVU77
+ 312 01d7 4885C0   		testq	%rax, %rax
+ 313 01da 78BA     		js	.L12
+ 314 01dc EB12     		jmp	.L11
+ 315              	.L16:
+ 152:../Backend/gnu-efi-3.0.9/lib/event.c ****     CopyMem(Key, &TimeoutKey, sizeof(EFI_INPUT_KEY));
+ 316              		.loc 1 152 5 is_stmt 1 view .LVU78
+ 317 01de 488D7424 		leaq	44(%rsp), %rsi
+ 317      2C
+ 318              	.LVL36:
+ 319              		.loc 1 152 5 is_stmt 0 view .LVU79
+ 320 01e3 BA040000 		movl	$4, %edx
+ 320      00
+ 321 01e8 4C89FF   		movq	%r15, %rdi
+ 322 01eb E8000000 		call	CopyMem
+ 322      00
+ 323              	.LVL37:
+ 324              	.L11:
+ 153:../Backend/gnu-efi-3.0.9/lib/event.c **** }
+ 325              		.loc 1 153 1 view .LVU80
+ 326 01f0 4883C438 		addq	$56, %rsp
+ 327              		.cfi_def_cfa_offset 56
+ 328 01f4 5B       		popq	%rbx
+ 329              		.cfi_restore 3
+ 330              		.cfi_def_cfa_offset 48
+ 331              	.LVL38:
+ 332              		.loc 1 153 1 view .LVU81
+ 333 01f5 5D       		popq	%rbp
+ 334              		.cfi_restore 6
+ 335              		.cfi_def_cfa_offset 40
+ 336              	.LVL39:
+ 337              		.loc 1 153 1 view .LVU82
+ 338 01f6 415C     		popq	%r12
+ 339              		.cfi_restore 12
+ 340              		.cfi_def_cfa_offset 32
+ 341              	.LVL40:
+ 342              		.loc 1 153 1 view .LVU83
+ 343 01f8 415D     		popq	%r13
+ 344              		.cfi_restore 13
+ 345              		.cfi_def_cfa_offset 24
+ 346              	.LVL41:
+ 347              		.loc 1 153 1 view .LVU84
+ 348 01fa 415E     		popq	%r14
+ 349              		.cfi_restore 14
+ 350              		.cfi_def_cfa_offset 16
+ 351              	.LVL42:
+ 352              		.loc 1 153 1 view .LVU85
+ 353 01fc 415F     		popq	%r15
+ 354              		.cfi_restore 15
+ 355              		.cfi_def_cfa_offset 8
+ 356 01fe C3       		ret
+ 357              		.cfi_endproc
+ 358              	.LFE2:
+ 360              	.Letext0:
+ 361              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 362              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 363              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 364              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efidevp.h"
+ 365              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efiprot.h"
+ 366              		.file 7 "../Backend/gnu-efi-3.0.9/inc/efiapi.h"
+ 367              		.file 8 "../Backend/gnu-efi-3.0.9/inc/eficon.h"
+ 368              		.file 9 "../Backend/gnu-efi-3.0.9/inc/efilib.h"
+ 13377              		.section	.note.gnu.property,"a"
+ 13378              		.align 8
+ 13379 0000 04000000 		.long	1f - 0f
+ 13380 0004 10000000 		.long	4f - 1f
+ 13381 0008 05000000 		.long	5
+ 13382              	0:
+ 13383 000c 474E5500 		.string	"GNU"
+ 13384              	1:
+ 13385              		.align 8
+ 13386 0010 020000C0 		.long	0xc0000002
+ 13387 0014 04000000 		.long	3f - 2f
+ 13388              	2:
+ 13389 0018 03000000 		.long	0x3
+ 13390              	3:
+ 13391 001c 00000000 		.align 8
+ 13392              	4:

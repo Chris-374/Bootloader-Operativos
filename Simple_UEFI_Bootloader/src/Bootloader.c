@@ -1,3 +1,7 @@
+//==================================================================================================================================
+//  Simple UEFI Bootloader: Bootloader Entrypoint
+//==================================================================================================================================
+
 #include "Bootloader.h"
 
 STATIC CONST CHAR16 AppleFirmwareVendor[6] = L"Apple";
@@ -7,11 +11,7 @@ STATIC EFI_STATUS ShowWelcomeAndConfirm(VOID);
 EFI_STATUS RunMyNameGame(GPU_CONFIG *Graphics);
 
 //==================================================================================================================================
-//  efi_main
-//  
-//  Función principal que ejecuta el firmware UEFI al arrancar. 
-//  Prepara la consola, inicializa los gráficos usando GOP y maneja el flujo principal 
-//  entre el menú de bienvenida y el juego.
+//  efi_main: Main Function
 //==================================================================================================================================
 
 EFI_STATUS efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
@@ -20,7 +20,7 @@ EFI_STATUS efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
 
   EFI_STATUS Status;
 
-  // Limpiamos la consola de texto para empezar con la pantalla vacía
+  // Clear text console
   Status = SystemTable->ConOut->ClearScreen(SystemTable->ConOut);
   if(EFI_ERROR(Status))
   {
@@ -28,7 +28,6 @@ EFI_STATUS efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
   }
 
 #ifdef DISABLE_UEFI_WATCHDOG_TIMER
-  // Apagamos el timer de UEFI para que la compu no se reinicie sola si pasamos mucho rato jugando
   Status = BS->SetWatchdogTimer(0, 0, 0, NULL);
   if(EFI_ERROR(Status))
   {
@@ -36,7 +35,7 @@ EFI_STATUS efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
   }
 #endif
 
-  // Parche para equipos Mac: a veces necesitan que se les fuerce el modo texto para que se vea bien
+  // Macs sometimes need explicit switch to text mode
   if(compare(ST->FirmwareVendor, AppleFirmwareVendor, 6))
   {
     IsApple = 1;
@@ -56,7 +55,7 @@ EFI_STATUS efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
     }
   }
 
-  // Reservamos memoria para la estructura que va a manejar los gráficos del juego
+  // Allocate graphics config
   GPU_CONFIG *Graphics;
   Status = ST->BootServices->AllocatePool(EfiLoaderData, sizeof(GPU_CONFIG), (void**)&Graphics);
   if(EFI_ERROR(Status))
@@ -65,7 +64,7 @@ EFI_STATUS efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
     return Status;
   }
 
-  // Inicializamos el protocolo GOP (Graphics Output Protocol)
+  // Init graphics
   Status = InitUEFI_GOP(ImageHandle, Graphics);
   if(EFI_ERROR(Status))
   {
@@ -74,10 +73,10 @@ EFI_STATUS efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
     return Status;
   }
 
-  // Volvemos a limpiar la pantalla antes de tirar el menú principal
+  // Back to text screen for welcome / confirmation
   ST->ConOut->ClearScreen(ST->ConOut);
 
-  // Mostramos el menú y esperamos a que el usuario decida si jugar o salir
+  // Welcome + confirmation
   Status = ShowWelcomeAndConfirm();
   if(EFI_ERROR(Status))
   {
@@ -85,7 +84,6 @@ EFI_STATUS efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
     return Status;
   }
 
-  // Si el usuario presionó ESC, cancelamos todo y salimos
   if(Status == EFI_ABORTED)
   {
     ST->ConOut->ClearScreen(ST->ConOut);
@@ -93,10 +91,10 @@ EFI_STATUS efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
     return EFI_SUCCESS;
   }
 
-  // Si dio ENTER, llamamos a la función que arranca el juego en sí
+  // Run the game
   Status = RunMyNameGame(Graphics);
 
-  // Cuando el juego termina, limpiamos la pantalla y mostramos el mensaje de salida
+  // End message if the game returns
   ST->ConOut->ClearScreen(ST->ConOut);
 
   if(EFI_ERROR(Status))
@@ -114,11 +112,11 @@ EFI_STATUS efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
 
 //==================================================================================================================================
 //  ShowWelcomeAndConfirm
-//
-//  Muestra el título, las instrucciones y los controles en la pantalla.
-//  Luego se queda en un ciclo esperando a que se presione ENTER para iniciar
-//  o ESC para abortar.
 //==================================================================================================================================
+//
+// ENTER = start
+// ESC   = exit
+//
 
 STATIC EFI_STATUS ShowWelcomeAndConfirm(VOID)
 {
@@ -144,14 +142,12 @@ STATIC EFI_STATUS ShowWelcomeAndConfirm(VOID)
 
   Print(L"Press ENTER to start or ESC to cancel.\r\n");
 
-  // Limpiamos la entrada del teclado por si había alguna tecla pegada
   Status = ST->ConIn->Reset(ST->ConIn, FALSE);
   if(EFI_ERROR(Status))
   {
     return Status;
   }
 
-  // Nos quedamos atrapados aquí leyendo el teclado hasta que toquen ENTER o ESC
   while(1)
   {
     while((Status = ST->ConIn->ReadKeyStroke(ST->ConIn, &Key)) == EFI_NOT_READY);
@@ -161,13 +157,13 @@ STATIC EFI_STATUS ShowWelcomeAndConfirm(VOID)
       return Status;
     }
 
-    // Si toca ENTER, devolvemos SUCCESS para que el main arranque el juego
+    // ENTER
     if(Key.UnicodeChar == CHAR_CARRIAGE_RETURN)
     {
       return EFI_SUCCESS;
     }
 
-    // Si toca ESC, devolvemos ABORTED para que el main cierre el programa
+    // ESC
     if(Key.ScanCode == SCAN_ESC)
     {
       return EFI_ABORTED;
@@ -176,10 +172,7 @@ STATIC EFI_STATUS ShowWelcomeAndConfirm(VOID)
 }
 
 //==================================================================================================================================
-//  Keywait
-//  
-//  Función de ayuda para pausar el programa. Imprime un string personalizado,
-//  avisa que presiones una tecla, y se queda esperando hasta que lo hagas.
+//  Keywait: Pause
 //==================================================================================================================================
 
 EFI_STATUS Keywait(CHAR16 *String)
@@ -201,7 +194,6 @@ EFI_STATUS Keywait(CHAR16 *String)
     return Status;
   }
 
-  // Espera a que se presione cualquier tecla
   while((Status = ST->ConIn->ReadKeyStroke(ST->ConIn, &Key)) == EFI_NOT_READY);
 
   Status = ST->ConIn->Reset(ST->ConIn, FALSE);

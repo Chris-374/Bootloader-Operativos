@@ -1,0 +1,1493 @@
+   1              		.file	"guid.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	InitializeGuid
+   7              		.hidden	InitializeGuid
+   9              	InitializeGuid:
+  10              	.LFB0:
+  11              		.file 1 "../Backend/gnu-efi-3.0.9/lib/guid.c"
+   1:../Backend/gnu-efi-3.0.9/lib/guid.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/guid.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/guid.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/guid.c ****     misc.c
+   8:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/guid.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/guid.c ****     Misc EFI support functions
+  12:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  15:../Backend/gnu-efi-3.0.9/lib/guid.c **** Revision History
+  16:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  17:../Backend/gnu-efi-3.0.9/lib/guid.c **** --*/
+  18:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  19:../Backend/gnu-efi-3.0.9/lib/guid.c **** #include "lib.h"
+  20:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  21:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  22:../Backend/gnu-efi-3.0.9/lib/guid.c **** //
+  23:../Backend/gnu-efi-3.0.9/lib/guid.c **** // Additional Known guids
+  24:../Backend/gnu-efi-3.0.9/lib/guid.c **** //
+  25:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  26:../Backend/gnu-efi-3.0.9/lib/guid.c **** #define SHELL_INTERFACE_PROTOCOL \
+  27:../Backend/gnu-efi-3.0.9/lib/guid.c ****     { 0x47c7b223, 0xc42a, 0x11d2, {0x8e, 0x57, 0x0, 0xa0, 0xc9, 0x69, 0x72, 0x3b} }
+  28:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  29:../Backend/gnu-efi-3.0.9/lib/guid.c **** #define ENVIRONMENT_VARIABLE_ID  \
+  30:../Backend/gnu-efi-3.0.9/lib/guid.c ****     { 0x47c7b224, 0xc42a, 0x11d2, {0x8e, 0x57, 0x0, 0xa0, 0xc9, 0x69, 0x72, 0x3b} }
+  31:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  32:../Backend/gnu-efi-3.0.9/lib/guid.c **** #define DEVICE_PATH_MAPPING_ID  \
+  33:../Backend/gnu-efi-3.0.9/lib/guid.c ****     { 0x47c7b225, 0xc42a, 0x11d2, {0x8e, 0x57, 0x0, 0xa0, 0xc9, 0x69, 0x72, 0x3b} }
+  34:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  35:../Backend/gnu-efi-3.0.9/lib/guid.c **** #define PROTOCOL_ID_ID  \
+  36:../Backend/gnu-efi-3.0.9/lib/guid.c ****     { 0x47c7b226, 0xc42a, 0x11d2, {0x8e, 0x57, 0x0, 0xa0, 0xc9, 0x69, 0x72, 0x3b} }
+  37:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  38:../Backend/gnu-efi-3.0.9/lib/guid.c **** #define ALIAS_ID  \
+  39:../Backend/gnu-efi-3.0.9/lib/guid.c ****     { 0x47c7b227, 0xc42a, 0x11d2, {0x8e, 0x57, 0x0, 0xa0, 0xc9, 0x69, 0x72, 0x3b} }
+  40:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  41:../Backend/gnu-efi-3.0.9/lib/guid.c **** static EFI_GUID ShellInterfaceProtocol = SHELL_INTERFACE_PROTOCOL;
+  42:../Backend/gnu-efi-3.0.9/lib/guid.c **** static EFI_GUID SEnvId                 = ENVIRONMENT_VARIABLE_ID;
+  43:../Backend/gnu-efi-3.0.9/lib/guid.c **** static EFI_GUID SMapId                 = DEVICE_PATH_MAPPING_ID;
+  44:../Backend/gnu-efi-3.0.9/lib/guid.c **** static EFI_GUID SProtId                = PROTOCOL_ID_ID;
+  45:../Backend/gnu-efi-3.0.9/lib/guid.c **** static EFI_GUID SAliasId               = ALIAS_ID;
+  46:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  47:../Backend/gnu-efi-3.0.9/lib/guid.c **** // Added more to this
+  48:../Backend/gnu-efi-3.0.9/lib/guid.c **** static struct {
+  49:../Backend/gnu-efi-3.0.9/lib/guid.c ****     EFI_GUID        *Guid;
+  50:../Backend/gnu-efi-3.0.9/lib/guid.c ****     WCHAR           *GuidName;
+  51:../Backend/gnu-efi-3.0.9/lib/guid.c **** } KnownGuids[] = {
+  52:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &NullGuid,                                       L"G0" },
+  53:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiGlobalVariableGuid,                         L"EfiVar" },
+  54:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  55:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &VariableStoreProtocol,                          L"VarStore" },
+  56:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiDevicePathProtocolGuid,                     L"DevPath" },
+  57:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiLoadedImageProtocolGuid,                    L"LdImg" },
+  58:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiSimpleTextInProtocolGuid,                   L"TxtIn" },
+  59:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiSimpleTextOutProtocolGuid,                  L"TxtOut" },
+  60:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiBlockIoProtocolGuid,                        L"BlkIo" },
+  61:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiBlockIo2ProtocolGuid,                       L"BlkIo2" },
+  62:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiDiskIoProtocolGuid,                         L"DskIo" },
+  63:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiDiskIo2ProtocolGuid,                        L"DskIo2" },
+  64:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiSimpleFileSystemProtocolGuid,               L"SimpFs" },
+  65:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiLoadFileProtocolGuid,                       L"LdFile" },
+  66:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiDeviceIoProtocolGuid,                       L"DevIo" },
+  67:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiComponentNameProtocolGuid,                  L"CName" },
+  68:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiComponentName2ProtocolGuid,                 L"CName2" },
+  69:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  70:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiDriverBindingProtocolGuid,                  L"DrvBind" },
+  71:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiPciIoProtocolGuid,                          L"PciIo" },
+  72:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiPciRootBridgeIoProtocolGuid,                L"PciRtBrdgeIo" },
+  73:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiGraphicsOutputProtocolGuid,                 L"GOP" },
+  74:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiDevicePathToTextProtocolGuid,               L"DevPathToTxt" },
+  75:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiDevicePathFromTextProtocolGuid,             L"DevPathFromTxt" },
+  76:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiLoadedImageDevicePathProtocolGuid,          L"LdImgDevPath" },
+  77:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  78:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiFileInfoGuid,                               L"FileInfo" },
+  79:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiFileSystemInfoGuid,                         L"FsInfo" },
+  80:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiFileSystemVolumeLabelInfoIdGuid,            L"FsVolInfo" },
+  81:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  82:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiUnicodeCollationProtocolGuid,               L"Unicode" },
+  83:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &LegacyBootProtocol,                             L"LegacyBoot" },
+  84:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiSerialIoProtocolGuid,                       L"SerIo" },
+  85:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &VgaClassProtocol,                               L"VgaClass"},
+  86:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiSimpleNetworkProtocolGuid,                  L"Net" },
+  87:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiNetworkInterfaceIdentifierProtocolGuid,     L"Nii" },
+  88:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiPxeBaseCodeProtocolGuid,                    L"Pxe" },
+  89:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiPxeBaseCodeCallbackProtocolGuid,            L"PxeCb" },
+  90:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+  91:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &TextOutSpliterProtocol,                         L"TxtOutSplit" },
+  92:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &ErrorOutSpliterProtocol,                        L"ErrOutSplit" },
+  93:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &TextInSpliterProtocol,                          L"TxtInSplit" },
+  94:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiPcAnsiGuid,                                 L"PcAnsi" },
+  95:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiVT100Guid,                                  L"Vt100" },
+  96:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiVT100PlusGuid,                              L"Vt100Plus" },
+  97:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &gEfiVTUTF8Guid,                                 L"VtUtf8" },
+  98:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &UnknownDevice,                                  L"UnknownDev" },
+  99:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 100:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiConsoleOutDeviceGuid,                       L"ConOutDevice" },
+ 101:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiStandardErrorDeviceGuid,                    L"StdErrDevice" },
+ 102:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiUgaDrawProtocolGuid,                        L"UGADraw" },
+ 103:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 104:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiEdidDiscoveredProtocolGuid,                 L"EdidDiscovered" },
+ 105:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiEdidActiveProtocolGuid,                     L"EdidActive" },
+ 106:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiEdidOverrideProtocolGuid,                   L"EdidOverride" },
+ 107:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 108:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &SimplePointerProtocol,                          L"SimpPtr" },
+ 109:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &AbsolutePointerProtocol,                        L"AbsPtr" },
+ 110:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 111:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiDriverSupportedEfiVersionProtocolGuid,      L"DrvSupEfiVer" },
+ 112:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiDriverDiagnosticsProtocolGuid,              L"DrvDiag" },
+ 113:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiDriverDiagnostics2ProtocolGuid,             L"DrvDiag2" },
+ 114:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiDriverConfigurationProtocolGuid,            L"DrvConfig" },
+ 115:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 116:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &EfiPartTypeSystemPartitionGuid,                 L"ESP" },
+ 117:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &EfiPartTypeLegacyMbrGuid,                       L"GPT MBR" },
+ 118:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 119:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiUsbPolicyProtocolGuid,                      L"UsbPol" },
+ 120:../Backend/gnu-efi-3.0.9/lib/guid.c ****   {  &gEfiUsbTimingPolicyProtocolGuid,                L"UsbTimPol" },
+ 121:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 122:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &ShellInterfaceProtocol,                         L"ShellInt" },
+ 123:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &SEnvId,                                         L"SEnv" },
+ 124:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &SProtId,                                        L"ShellProtId" },
+ 125:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &SMapId,                                         L"ShellDevPathMap" },
+ 126:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  &SAliasId,                                       L"ShellAlias" },
+ 127:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 128:../Backend/gnu-efi-3.0.9/lib/guid.c **** 	{  NULL, L"" }
+ 129:../Backend/gnu-efi-3.0.9/lib/guid.c **** };
+ 130:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 131:../Backend/gnu-efi-3.0.9/lib/guid.c **** //
+ 132:../Backend/gnu-efi-3.0.9/lib/guid.c **** //
+ 133:../Backend/gnu-efi-3.0.9/lib/guid.c **** //
+ 134:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 135:../Backend/gnu-efi-3.0.9/lib/guid.c **** LIST_ENTRY          GuidList;
+ 136:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 137:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 138:../Backend/gnu-efi-3.0.9/lib/guid.c **** VOID
+ 139:../Backend/gnu-efi-3.0.9/lib/guid.c **** InitializeGuid (
+ 140:../Backend/gnu-efi-3.0.9/lib/guid.c ****     VOID
+ 141:../Backend/gnu-efi-3.0.9/lib/guid.c ****     )
+ 142:../Backend/gnu-efi-3.0.9/lib/guid.c **** {
+  12              		.loc 1 142 1 view -0
+  13              		.cfi_startproc
+  14 0000 F30F1EFA 		endbr64
+ 143:../Backend/gnu-efi-3.0.9/lib/guid.c **** }
+  15              		.loc 1 143 1 view .LVU1
+  16 0004 C3       		ret
+  17              		.cfi_endproc
+  18              	.LFE0:
+  20              		.globl	CompareGuid
+  21              		.hidden	CompareGuid
+  23              	CompareGuid:
+  24              	.LVL0:
+  25              	.LFB1:
+ 144:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 145:../Backend/gnu-efi-3.0.9/lib/guid.c **** INTN
+ 146:../Backend/gnu-efi-3.0.9/lib/guid.c **** CompareGuid(
+ 147:../Backend/gnu-efi-3.0.9/lib/guid.c ****     IN EFI_GUID     *Guid1,
+ 148:../Backend/gnu-efi-3.0.9/lib/guid.c ****     IN EFI_GUID     *Guid2
+ 149:../Backend/gnu-efi-3.0.9/lib/guid.c ****     )
+ 150:../Backend/gnu-efi-3.0.9/lib/guid.c **** /*++
+ 151:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 152:../Backend/gnu-efi-3.0.9/lib/guid.c **** Routine Description:
+ 153:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 154:../Backend/gnu-efi-3.0.9/lib/guid.c ****     Compares to GUIDs
+ 155:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 156:../Backend/gnu-efi-3.0.9/lib/guid.c **** Arguments:
+ 157:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 158:../Backend/gnu-efi-3.0.9/lib/guid.c ****     Guid1       - guid to compare
+ 159:../Backend/gnu-efi-3.0.9/lib/guid.c ****     Guid2       - guid to compare
+ 160:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 161:../Backend/gnu-efi-3.0.9/lib/guid.c **** Returns:
+ 162:../Backend/gnu-efi-3.0.9/lib/guid.c ****     = 0     if Guid1 == Guid2
+ 163:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 164:../Backend/gnu-efi-3.0.9/lib/guid.c **** --*/
+ 165:../Backend/gnu-efi-3.0.9/lib/guid.c **** {
+  26              		.loc 1 165 1 view -0
+  27              		.cfi_startproc
+  28              		.loc 1 165 1 is_stmt 0 view .LVU3
+  29 0005 F30F1EFA 		endbr64
+  30 0009 4883EC08 		subq	$8, %rsp
+  31              		.cfi_def_cfa_offset 16
+ 166:../Backend/gnu-efi-3.0.9/lib/guid.c ****     return RtCompareGuid (Guid1, Guid2);
+  32              		.loc 1 166 5 is_stmt 1 view .LVU4
+  33              		.loc 1 166 12 is_stmt 0 view .LVU5
+  34 000d E8000000 		call	RtCompareGuid
+  34      00
+  35              	.LVL1:
+ 167:../Backend/gnu-efi-3.0.9/lib/guid.c **** }
+  36              		.loc 1 167 1 view .LVU6
+  37 0012 4883C408 		addq	$8, %rsp
+  38              		.cfi_def_cfa_offset 8
+  39 0016 C3       		ret
+  40              		.cfi_endproc
+  41              	.LFE1:
+  43              		.section	.rodata
+  44              		.align 8
+  45              	.LC0:
+  46 0000 2500     		.string	"%"
+  47 0002 3000     		.string	"0"
+  48 0004 3800     		.string	"8"
+  49 0006 7800     		.string	"x"
+  50 0008 2D00     		.string	"-"
+  51 000a 2500     		.string	"%"
+  52 000c 3000     		.string	"0"
+  53 000e 3400     		.string	"4"
+  54 0010 7800     		.string	"x"
+  55 0012 2D00     		.string	"-"
+  56 0014 2500     		.string	"%"
+  57 0016 3000     		.string	"0"
+  58 0018 3400     		.string	"4"
+  59 001a 7800     		.string	"x"
+  60 001c 2D00     		.string	"-"
+  61 001e 2500     		.string	"%"
+  62 0020 3000     		.string	"0"
+  63 0022 3200     		.string	"2"
+  64 0024 7800     		.string	"x"
+  65 0026 2500     		.string	"%"
+  66 0028 3000     		.string	"0"
+  67 002a 3200     		.string	"2"
+  68 002c 7800     		.string	"x"
+  69 002e 2D00     		.string	"-"
+  70 0030 2500     		.string	"%"
+  71 0032 3000     		.string	"0"
+  72 0034 3200     		.string	"2"
+  73 0036 7800     		.string	"x"
+  74 0038 2500     		.string	"%"
+  75 003a 3000     		.string	"0"
+  76 003c 3200     		.string	"2"
+  77 003e 7800     		.string	"x"
+  78 0040 2500     		.string	"%"
+  79 0042 3000     		.string	"0"
+  80 0044 3200     		.string	"2"
+  81 0046 7800     		.string	"x"
+  82 0048 2500     		.string	"%"
+  83 004a 3000     		.string	"0"
+  84 004c 3200     		.string	"2"
+  85 004e 7800     		.string	"x"
+  86 0050 2500     		.string	"%"
+  87 0052 3000     		.string	"0"
+  88 0054 3200     		.string	"2"
+  89 0056 7800     		.string	"x"
+  90 0058 2500     		.string	"%"
+  91 005a 3000     		.string	"0"
+  92 005c 3200     		.string	"2"
+  93 005e 7800     		.string	"x"
+  94 0060 00       		.string	""
+  95 0061 00       		.string	""
+  96              		.text
+  97              		.globl	GuidToString
+  98              		.hidden	GuidToString
+ 100              	GuidToString:
+ 101              	.LVL2:
+ 102              	.LFB2:
+ 168:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 169:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 170:../Backend/gnu-efi-3.0.9/lib/guid.c **** VOID
+ 171:../Backend/gnu-efi-3.0.9/lib/guid.c **** GuidToString (
+ 172:../Backend/gnu-efi-3.0.9/lib/guid.c ****     OUT CHAR16      *Buffer,
+ 173:../Backend/gnu-efi-3.0.9/lib/guid.c ****     IN EFI_GUID     *Guid
+ 174:../Backend/gnu-efi-3.0.9/lib/guid.c ****     )
+ 175:../Backend/gnu-efi-3.0.9/lib/guid.c **** {
+ 103              		.loc 1 175 1 is_stmt 1 view -0
+ 104              		.cfi_startproc
+ 105              		.loc 1 175 1 is_stmt 0 view .LVU8
+ 106 0017 F30F1EFA 		endbr64
+ 107 001b 4154     		pushq	%r12
+ 108              		.cfi_def_cfa_offset 16
+ 109              		.cfi_offset 12, -16
+ 110 001d 55       		pushq	%rbp
+ 111              		.cfi_def_cfa_offset 24
+ 112              		.cfi_offset 6, -24
+ 113 001e 53       		pushq	%rbx
+ 114              		.cfi_def_cfa_offset 32
+ 115              		.cfi_offset 3, -32
+ 116 001f 4883EC40 		subq	$64, %rsp
+ 117              		.cfi_def_cfa_offset 96
+ 118 0023 4889FD   		movq	%rdi, %rbp
+ 119 0026 4989F4   		movq	%rsi, %r12
+ 176:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 177:../Backend/gnu-efi-3.0.9/lib/guid.c ****     UINTN           Index;
+ 120              		.loc 1 177 5 is_stmt 1 view .LVU9
+ 178:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 179:../Backend/gnu-efi-3.0.9/lib/guid.c ****     //
+ 180:../Backend/gnu-efi-3.0.9/lib/guid.c ****     // Else, (for now) use additional internal function for mapping guids
+ 181:../Backend/gnu-efi-3.0.9/lib/guid.c ****     //
+ 182:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 183:../Backend/gnu-efi-3.0.9/lib/guid.c ****     for (Index=0; KnownGuids[Index].Guid; Index++) {
+ 121              		.loc 1 183 5 view .LVU10
+ 122              	.LVL3:
+ 123              		.loc 1 183 15 is_stmt 0 view .LVU11
+ 124 0029 BB000000 		movl	$0, %ebx
+ 124      00
+ 125              		.loc 1 183 5 view .LVU12
+ 126 002e EB04     		jmp	.L5
+ 127              	.LVL4:
+ 128              	.L6:
+ 129              		.loc 1 183 48 is_stmt 1 discriminator 2 view .LVU13
+ 130 0030 4883C301 		addq	$1, %rbx
+ 131              	.LVL5:
+ 132              	.L5:
+ 133              		.loc 1 183 19 discriminator 1 view .LVU14
+ 134              		.loc 1 183 36 is_stmt 0 discriminator 1 view .LVU15
+ 135 0034 4889D8   		movq	%rbx, %rax
+ 136 0037 48C1E004 		salq	$4, %rax
+ 137 003b 488D1500 		leaq	KnownGuids(%rip), %rdx
+ 137      000000
+ 138 0042 488B3402 		movq	(%rdx,%rax), %rsi
+ 139              		.loc 1 183 19 discriminator 1 view .LVU16
+ 140 0046 4885F6   		testq	%rsi, %rsi
+ 141 0049 7431     		je	.L10
+ 184:../Backend/gnu-efi-3.0.9/lib/guid.c ****         if (CompareGuid(Guid, KnownGuids[Index].Guid) == 0) {
+ 142              		.loc 1 184 9 is_stmt 1 view .LVU17
+ 143              		.loc 1 184 13 is_stmt 0 view .LVU18
+ 144 004b 4C89E7   		movq	%r12, %rdi
+ 145 004e E8000000 		call	CompareGuid
+ 145      00
+ 146              	.LVL6:
+ 147              		.loc 1 184 12 discriminator 1 view .LVU19
+ 148 0053 4885C0   		testq	%rax, %rax
+ 149 0056 75D8     		jne	.L6
+ 185:../Backend/gnu-efi-3.0.9/lib/guid.c ****             SPrint (Buffer, 0, KnownGuids[Index].GuidName);
+ 150              		.loc 1 185 13 is_stmt 1 view .LVU20
+ 151              		.loc 1 185 49 is_stmt 0 view .LVU21
+ 152 0058 48C1E304 		salq	$4, %rbx
+ 153              	.LVL7:
+ 154              		.loc 1 185 49 view .LVU22
+ 155 005c 488D0500 		leaq	KnownGuids(%rip), %rax
+ 155      000000
+ 156 0063 488B5418 		movq	8(%rax,%rbx), %rdx
+ 156      08
+ 157              		.loc 1 185 13 view .LVU23
+ 158 0068 BE000000 		movl	$0, %esi
+ 158      00
+ 159 006d 4889EF   		movq	%rbp, %rdi
+ 160 0070 B8000000 		movl	$0, %eax
+ 160      00
+ 161 0075 E8000000 		call	SPrint
+ 161      00
+ 162              	.LVL8:
+ 186:../Backend/gnu-efi-3.0.9/lib/guid.c ****             return ;
+ 163              		.loc 1 186 13 is_stmt 1 view .LVU24
+ 164 007a EB73     		jmp	.L4
+ 165              	.LVL9:
+ 166              	.L10:
+ 187:../Backend/gnu-efi-3.0.9/lib/guid.c ****         }
+ 188:../Backend/gnu-efi-3.0.9/lib/guid.c ****     }
+ 189:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 190:../Backend/gnu-efi-3.0.9/lib/guid.c ****     //
+ 191:../Backend/gnu-efi-3.0.9/lib/guid.c ****     // Else dump it
+ 192:../Backend/gnu-efi-3.0.9/lib/guid.c ****     //
+ 193:../Backend/gnu-efi-3.0.9/lib/guid.c **** 
+ 194:../Backend/gnu-efi-3.0.9/lib/guid.c ****     SPrint (Buffer, 0, L"%08x-%04x-%04x-%02x%02x-%02x%02x%02x%02x%02x%02x",
+ 167              		.loc 1 194 5 view .LVU25
+ 168 007c 418B0C24 		movl	(%r12), %ecx
+ 169 0080 410FB644 		movzbl	15(%r12), %eax
+ 169      240F
+ 170 0086 89442438 		movl	%eax, 56(%rsp)
+ 171 008a 410FB644 		movzbl	14(%r12), %eax
+ 171      240E
+ 172 0090 89442430 		movl	%eax, 48(%rsp)
+ 173 0094 410FB644 		movzbl	13(%r12), %eax
+ 173      240D
+ 174 009a 89442428 		movl	%eax, 40(%rsp)
+ 175 009e 410FB644 		movzbl	12(%r12), %eax
+ 175      240C
+ 176 00a4 89442420 		movl	%eax, 32(%rsp)
+ 177 00a8 410FB644 		movzbl	11(%r12), %eax
+ 177      240B
+ 178 00ae 89442418 		movl	%eax, 24(%rsp)
+ 179 00b2 410FB644 		movzbl	10(%r12), %eax
+ 179      240A
+ 180 00b8 89442410 		movl	%eax, 16(%rsp)
+ 181 00bc 410FB644 		movzbl	9(%r12), %eax
+ 181      2409
+ 182 00c2 89442408 		movl	%eax, 8(%rsp)
+ 183 00c6 410FB644 		movzbl	8(%r12), %eax
+ 183      2408
+ 184 00cc 890424   		movl	%eax, (%rsp)
+ 185 00cf 450FB74C 		movzwl	6(%r12), %r9d
+ 185      2406
+ 186 00d5 450FB744 		movzwl	4(%r12), %r8d
+ 186      2404
+ 187 00db 488D1500 		leaq	.LC0(%rip), %rdx
+ 187      000000
+ 188 00e2 4889EF   		movq	%rbp, %rdi
+ 189 00e5 B8000000 		movl	$0, %eax
+ 189      00
+ 190 00ea E8000000 		call	SPrint
+ 190      00
+ 191              	.LVL10:
+ 192              	.L4:
+ 195:../Backend/gnu-efi-3.0.9/lib/guid.c ****         Guid->Data1,
+ 196:../Backend/gnu-efi-3.0.9/lib/guid.c ****         Guid->Data2,
+ 197:../Backend/gnu-efi-3.0.9/lib/guid.c ****         Guid->Data3,
+ 198:../Backend/gnu-efi-3.0.9/lib/guid.c ****         Guid->Data4[0],
+ 199:../Backend/gnu-efi-3.0.9/lib/guid.c ****         Guid->Data4[1],
+ 200:../Backend/gnu-efi-3.0.9/lib/guid.c ****         Guid->Data4[2],
+ 201:../Backend/gnu-efi-3.0.9/lib/guid.c ****         Guid->Data4[3],
+ 202:../Backend/gnu-efi-3.0.9/lib/guid.c ****         Guid->Data4[4],
+ 203:../Backend/gnu-efi-3.0.9/lib/guid.c ****         Guid->Data4[5],
+ 204:../Backend/gnu-efi-3.0.9/lib/guid.c ****         Guid->Data4[6],
+ 205:../Backend/gnu-efi-3.0.9/lib/guid.c ****         Guid->Data4[7]
+ 206:../Backend/gnu-efi-3.0.9/lib/guid.c ****         );
+ 207:../Backend/gnu-efi-3.0.9/lib/guid.c **** }
+ 193              		.loc 1 207 1 is_stmt 0 view .LVU26
+ 194 00ef 4883C440 		addq	$64, %rsp
+ 195              		.cfi_def_cfa_offset 32
+ 196 00f3 5B       		popq	%rbx
+ 197              		.cfi_restore 3
+ 198              		.cfi_def_cfa_offset 24
+ 199 00f4 5D       		popq	%rbp
+ 200              		.cfi_restore 6
+ 201              		.cfi_def_cfa_offset 16
+ 202              	.LVL11:
+ 203              		.loc 1 207 1 view .LVU27
+ 204 00f5 415C     		popq	%r12
+ 205              		.cfi_restore 12
+ 206              		.cfi_def_cfa_offset 8
+ 207              	.LVL12:
+ 208              		.loc 1 207 1 view .LVU28
+ 209 00f7 C3       		ret
+ 210              		.cfi_endproc
+ 211              	.LFE2:
+ 213              		.hidden	GuidList
+ 214              		.globl	GuidList
+ 215              		.bss
+ 216              		.align 16
+ 219              	GuidList:
+ 220 0000 00000000 		.zero	16
+ 220      00000000 
+ 220      00000000 
+ 220      00000000 
+ 221              		.section	.rodata
+ 222              		.align 2
+ 223              	.LC1:
+ 224 0062 4700     		.string	"G"
+ 225 0064 3000     		.string	"0"
+ 226 0066 00       		.string	""
+ 227 0067 00       		.string	""
+ 228              		.align 2
+ 229              	.LC2:
+ 230 0068 4500     		.string	"E"
+ 231 006a 6600     		.string	"f"
+ 232 006c 6900     		.string	"i"
+ 233 006e 5600     		.string	"V"
+ 234 0070 6100     		.string	"a"
+ 235 0072 7200     		.string	"r"
+ 236 0074 00       		.string	""
+ 237 0075 00       		.string	""
+ 238              		.align 2
+ 239              	.LC3:
+ 240 0076 5600     		.string	"V"
+ 241 0078 6100     		.string	"a"
+ 242 007a 7200     		.string	"r"
+ 243 007c 5300     		.string	"S"
+ 244 007e 7400     		.string	"t"
+ 245 0080 6F00     		.string	"o"
+ 246 0082 7200     		.string	"r"
+ 247 0084 6500     		.string	"e"
+ 248 0086 00       		.string	""
+ 249 0087 00       		.string	""
+ 250              		.align 2
+ 251              	.LC4:
+ 252 0088 4400     		.string	"D"
+ 253 008a 6500     		.string	"e"
+ 254 008c 7600     		.string	"v"
+ 255 008e 5000     		.string	"P"
+ 256 0090 6100     		.string	"a"
+ 257 0092 7400     		.string	"t"
+ 258 0094 6800     		.string	"h"
+ 259 0096 00       		.string	""
+ 260 0097 00       		.string	""
+ 261              		.align 2
+ 262              	.LC5:
+ 263 0098 4C00     		.string	"L"
+ 264 009a 6400     		.string	"d"
+ 265 009c 4900     		.string	"I"
+ 266 009e 6D00     		.string	"m"
+ 267 00a0 6700     		.string	"g"
+ 268 00a2 00       		.string	""
+ 269 00a3 00       		.string	""
+ 270              		.align 2
+ 271              	.LC6:
+ 272 00a4 5400     		.string	"T"
+ 273 00a6 7800     		.string	"x"
+ 274 00a8 7400     		.string	"t"
+ 275 00aa 4900     		.string	"I"
+ 276 00ac 6E00     		.string	"n"
+ 277 00ae 00       		.string	""
+ 278 00af 00       		.string	""
+ 279              		.align 2
+ 280              	.LC7:
+ 281 00b0 5400     		.string	"T"
+ 282 00b2 7800     		.string	"x"
+ 283 00b4 7400     		.string	"t"
+ 284 00b6 4F00     		.string	"O"
+ 285 00b8 7500     		.string	"u"
+ 286 00ba 7400     		.string	"t"
+ 287 00bc 00       		.string	""
+ 288 00bd 00       		.string	""
+ 289              		.align 2
+ 290              	.LC8:
+ 291 00be 4200     		.string	"B"
+ 292 00c0 6C00     		.string	"l"
+ 293 00c2 6B00     		.string	"k"
+ 294 00c4 4900     		.string	"I"
+ 295 00c6 6F00     		.string	"o"
+ 296 00c8 00       		.string	""
+ 297 00c9 00       		.string	""
+ 298              		.align 2
+ 299              	.LC9:
+ 300 00ca 4200     		.string	"B"
+ 301 00cc 6C00     		.string	"l"
+ 302 00ce 6B00     		.string	"k"
+ 303 00d0 4900     		.string	"I"
+ 304 00d2 6F00     		.string	"o"
+ 305 00d4 3200     		.string	"2"
+ 306 00d6 00       		.string	""
+ 307 00d7 00       		.string	""
+ 308              		.align 2
+ 309              	.LC10:
+ 310 00d8 4400     		.string	"D"
+ 311 00da 7300     		.string	"s"
+ 312 00dc 6B00     		.string	"k"
+ 313 00de 4900     		.string	"I"
+ 314 00e0 6F00     		.string	"o"
+ 315 00e2 00       		.string	""
+ 316 00e3 00       		.string	""
+ 317              		.align 2
+ 318              	.LC11:
+ 319 00e4 4400     		.string	"D"
+ 320 00e6 7300     		.string	"s"
+ 321 00e8 6B00     		.string	"k"
+ 322 00ea 4900     		.string	"I"
+ 323 00ec 6F00     		.string	"o"
+ 324 00ee 3200     		.string	"2"
+ 325 00f0 00       		.string	""
+ 326 00f1 00       		.string	""
+ 327              		.align 2
+ 328              	.LC12:
+ 329 00f2 5300     		.string	"S"
+ 330 00f4 6900     		.string	"i"
+ 331 00f6 6D00     		.string	"m"
+ 332 00f8 7000     		.string	"p"
+ 333 00fa 4600     		.string	"F"
+ 334 00fc 7300     		.string	"s"
+ 335 00fe 00       		.string	""
+ 336 00ff 00       		.string	""
+ 337              		.align 2
+ 338              	.LC13:
+ 339 0100 4C00     		.string	"L"
+ 340 0102 6400     		.string	"d"
+ 341 0104 4600     		.string	"F"
+ 342 0106 6900     		.string	"i"
+ 343 0108 6C00     		.string	"l"
+ 344 010a 6500     		.string	"e"
+ 345 010c 00       		.string	""
+ 346 010d 00       		.string	""
+ 347              		.align 2
+ 348              	.LC14:
+ 349 010e 4400     		.string	"D"
+ 350 0110 6500     		.string	"e"
+ 351 0112 7600     		.string	"v"
+ 352 0114 4900     		.string	"I"
+ 353 0116 6F00     		.string	"o"
+ 354 0118 00       		.string	""
+ 355 0119 00       		.string	""
+ 356              		.align 2
+ 357              	.LC15:
+ 358 011a 4300     		.string	"C"
+ 359 011c 4E00     		.string	"N"
+ 360 011e 6100     		.string	"a"
+ 361 0120 6D00     		.string	"m"
+ 362 0122 6500     		.string	"e"
+ 363 0124 00       		.string	""
+ 364 0125 00       		.string	""
+ 365              		.align 2
+ 366              	.LC16:
+ 367 0126 4300     		.string	"C"
+ 368 0128 4E00     		.string	"N"
+ 369 012a 6100     		.string	"a"
+ 370 012c 6D00     		.string	"m"
+ 371 012e 6500     		.string	"e"
+ 372 0130 3200     		.string	"2"
+ 373 0132 00       		.string	""
+ 374 0133 00       		.string	""
+ 375              		.align 2
+ 376              	.LC17:
+ 377 0134 4400     		.string	"D"
+ 378 0136 7200     		.string	"r"
+ 379 0138 7600     		.string	"v"
+ 380 013a 4200     		.string	"B"
+ 381 013c 6900     		.string	"i"
+ 382 013e 6E00     		.string	"n"
+ 383 0140 6400     		.string	"d"
+ 384 0142 00       		.string	""
+ 385 0143 00       		.string	""
+ 386              		.align 2
+ 387              	.LC18:
+ 388 0144 5000     		.string	"P"
+ 389 0146 6300     		.string	"c"
+ 390 0148 6900     		.string	"i"
+ 391 014a 4900     		.string	"I"
+ 392 014c 6F00     		.string	"o"
+ 393 014e 00       		.string	""
+ 394 014f 00       		.string	""
+ 395              		.align 2
+ 396              	.LC19:
+ 397 0150 5000     		.string	"P"
+ 398 0152 6300     		.string	"c"
+ 399 0154 6900     		.string	"i"
+ 400 0156 5200     		.string	"R"
+ 401 0158 7400     		.string	"t"
+ 402 015a 4200     		.string	"B"
+ 403 015c 7200     		.string	"r"
+ 404 015e 6400     		.string	"d"
+ 405 0160 6700     		.string	"g"
+ 406 0162 6500     		.string	"e"
+ 407 0164 4900     		.string	"I"
+ 408 0166 6F00     		.string	"o"
+ 409 0168 00       		.string	""
+ 410 0169 00       		.string	""
+ 411              		.align 2
+ 412              	.LC20:
+ 413 016a 4700     		.string	"G"
+ 414 016c 4F00     		.string	"O"
+ 415 016e 5000     		.string	"P"
+ 416 0170 00       		.string	""
+ 417 0171 00       		.string	""
+ 418              		.align 2
+ 419              	.LC21:
+ 420 0172 4400     		.string	"D"
+ 421 0174 6500     		.string	"e"
+ 422 0176 7600     		.string	"v"
+ 423 0178 5000     		.string	"P"
+ 424 017a 6100     		.string	"a"
+ 425 017c 7400     		.string	"t"
+ 426 017e 6800     		.string	"h"
+ 427 0180 5400     		.string	"T"
+ 428 0182 6F00     		.string	"o"
+ 429 0184 5400     		.string	"T"
+ 430 0186 7800     		.string	"x"
+ 431 0188 7400     		.string	"t"
+ 432 018a 00       		.string	""
+ 433 018b 00       		.string	""
+ 434              		.align 2
+ 435              	.LC22:
+ 436 018c 4400     		.string	"D"
+ 437 018e 6500     		.string	"e"
+ 438 0190 7600     		.string	"v"
+ 439 0192 5000     		.string	"P"
+ 440 0194 6100     		.string	"a"
+ 441 0196 7400     		.string	"t"
+ 442 0198 6800     		.string	"h"
+ 443 019a 4600     		.string	"F"
+ 444 019c 7200     		.string	"r"
+ 445 019e 6F00     		.string	"o"
+ 446 01a0 6D00     		.string	"m"
+ 447 01a2 5400     		.string	"T"
+ 448 01a4 7800     		.string	"x"
+ 449 01a6 7400     		.string	"t"
+ 450 01a8 00       		.string	""
+ 451 01a9 00       		.string	""
+ 452              		.align 2
+ 453              	.LC23:
+ 454 01aa 4C00     		.string	"L"
+ 455 01ac 6400     		.string	"d"
+ 456 01ae 4900     		.string	"I"
+ 457 01b0 6D00     		.string	"m"
+ 458 01b2 6700     		.string	"g"
+ 459 01b4 4400     		.string	"D"
+ 460 01b6 6500     		.string	"e"
+ 461 01b8 7600     		.string	"v"
+ 462 01ba 5000     		.string	"P"
+ 463 01bc 6100     		.string	"a"
+ 464 01be 7400     		.string	"t"
+ 465 01c0 6800     		.string	"h"
+ 466 01c2 00       		.string	""
+ 467 01c3 00       		.string	""
+ 468              		.align 2
+ 469              	.LC24:
+ 470 01c4 4600     		.string	"F"
+ 471 01c6 6900     		.string	"i"
+ 472 01c8 6C00     		.string	"l"
+ 473 01ca 6500     		.string	"e"
+ 474 01cc 4900     		.string	"I"
+ 475 01ce 6E00     		.string	"n"
+ 476 01d0 6600     		.string	"f"
+ 477 01d2 6F00     		.string	"o"
+ 478 01d4 00       		.string	""
+ 479 01d5 00       		.string	""
+ 480              		.align 2
+ 481              	.LC25:
+ 482 01d6 4600     		.string	"F"
+ 483 01d8 7300     		.string	"s"
+ 484 01da 4900     		.string	"I"
+ 485 01dc 6E00     		.string	"n"
+ 486 01de 6600     		.string	"f"
+ 487 01e0 6F00     		.string	"o"
+ 488 01e2 00       		.string	""
+ 489 01e3 00       		.string	""
+ 490              		.align 2
+ 491              	.LC26:
+ 492 01e4 4600     		.string	"F"
+ 493 01e6 7300     		.string	"s"
+ 494 01e8 5600     		.string	"V"
+ 495 01ea 6F00     		.string	"o"
+ 496 01ec 6C00     		.string	"l"
+ 497 01ee 4900     		.string	"I"
+ 498 01f0 6E00     		.string	"n"
+ 499 01f2 6600     		.string	"f"
+ 500 01f4 6F00     		.string	"o"
+ 501 01f6 00       		.string	""
+ 502 01f7 00       		.string	""
+ 503              		.align 2
+ 504              	.LC27:
+ 505 01f8 5500     		.string	"U"
+ 506 01fa 6E00     		.string	"n"
+ 507 01fc 6900     		.string	"i"
+ 508 01fe 6300     		.string	"c"
+ 509 0200 6F00     		.string	"o"
+ 510 0202 6400     		.string	"d"
+ 511 0204 6500     		.string	"e"
+ 512 0206 00       		.string	""
+ 513 0207 00       		.string	""
+ 514              		.align 2
+ 515              	.LC28:
+ 516 0208 4C00     		.string	"L"
+ 517 020a 6500     		.string	"e"
+ 518 020c 6700     		.string	"g"
+ 519 020e 6100     		.string	"a"
+ 520 0210 6300     		.string	"c"
+ 521 0212 7900     		.string	"y"
+ 522 0214 4200     		.string	"B"
+ 523 0216 6F00     		.string	"o"
+ 524 0218 6F00     		.string	"o"
+ 525 021a 7400     		.string	"t"
+ 526 021c 00       		.string	""
+ 527 021d 00       		.string	""
+ 528              		.align 2
+ 529              	.LC29:
+ 530 021e 5300     		.string	"S"
+ 531 0220 6500     		.string	"e"
+ 532 0222 7200     		.string	"r"
+ 533 0224 4900     		.string	"I"
+ 534 0226 6F00     		.string	"o"
+ 535 0228 00       		.string	""
+ 536 0229 00       		.string	""
+ 537              		.align 2
+ 538              	.LC30:
+ 539 022a 5600     		.string	"V"
+ 540 022c 6700     		.string	"g"
+ 541 022e 6100     		.string	"a"
+ 542 0230 4300     		.string	"C"
+ 543 0232 6C00     		.string	"l"
+ 544 0234 6100     		.string	"a"
+ 545 0236 7300     		.string	"s"
+ 546 0238 7300     		.string	"s"
+ 547 023a 00       		.string	""
+ 548 023b 00       		.string	""
+ 549              		.align 2
+ 550              	.LC31:
+ 551 023c 4E00     		.string	"N"
+ 552 023e 6500     		.string	"e"
+ 553 0240 7400     		.string	"t"
+ 554 0242 00       		.string	""
+ 555 0243 00       		.string	""
+ 556              		.align 2
+ 557              	.LC32:
+ 558 0244 4E00     		.string	"N"
+ 559 0246 6900     		.string	"i"
+ 560 0248 6900     		.string	"i"
+ 561 024a 00       		.string	""
+ 562 024b 00       		.string	""
+ 563              		.align 2
+ 564              	.LC33:
+ 565 024c 5000     		.string	"P"
+ 566 024e 7800     		.string	"x"
+ 567 0250 6500     		.string	"e"
+ 568 0252 00       		.string	""
+ 569 0253 00       		.string	""
+ 570              		.align 2
+ 571              	.LC34:
+ 572 0254 5000     		.string	"P"
+ 573 0256 7800     		.string	"x"
+ 574 0258 6500     		.string	"e"
+ 575 025a 4300     		.string	"C"
+ 576 025c 6200     		.string	"b"
+ 577 025e 00       		.string	""
+ 578 025f 00       		.string	""
+ 579              		.align 2
+ 580              	.LC35:
+ 581 0260 5400     		.string	"T"
+ 582 0262 7800     		.string	"x"
+ 583 0264 7400     		.string	"t"
+ 584 0266 4F00     		.string	"O"
+ 585 0268 7500     		.string	"u"
+ 586 026a 7400     		.string	"t"
+ 587 026c 5300     		.string	"S"
+ 588 026e 7000     		.string	"p"
+ 589 0270 6C00     		.string	"l"
+ 590 0272 6900     		.string	"i"
+ 591 0274 7400     		.string	"t"
+ 592 0276 00       		.string	""
+ 593 0277 00       		.string	""
+ 594              		.align 2
+ 595              	.LC36:
+ 596 0278 4500     		.string	"E"
+ 597 027a 7200     		.string	"r"
+ 598 027c 7200     		.string	"r"
+ 599 027e 4F00     		.string	"O"
+ 600 0280 7500     		.string	"u"
+ 601 0282 7400     		.string	"t"
+ 602 0284 5300     		.string	"S"
+ 603 0286 7000     		.string	"p"
+ 604 0288 6C00     		.string	"l"
+ 605 028a 6900     		.string	"i"
+ 606 028c 7400     		.string	"t"
+ 607 028e 00       		.string	""
+ 608 028f 00       		.string	""
+ 609              		.align 2
+ 610              	.LC37:
+ 611 0290 5400     		.string	"T"
+ 612 0292 7800     		.string	"x"
+ 613 0294 7400     		.string	"t"
+ 614 0296 4900     		.string	"I"
+ 615 0298 6E00     		.string	"n"
+ 616 029a 5300     		.string	"S"
+ 617 029c 7000     		.string	"p"
+ 618 029e 6C00     		.string	"l"
+ 619 02a0 6900     		.string	"i"
+ 620 02a2 7400     		.string	"t"
+ 621 02a4 00       		.string	""
+ 622 02a5 00       		.string	""
+ 623              		.align 2
+ 624              	.LC38:
+ 625 02a6 5000     		.string	"P"
+ 626 02a8 6300     		.string	"c"
+ 627 02aa 4100     		.string	"A"
+ 628 02ac 6E00     		.string	"n"
+ 629 02ae 7300     		.string	"s"
+ 630 02b0 6900     		.string	"i"
+ 631 02b2 00       		.string	""
+ 632 02b3 00       		.string	""
+ 633              		.align 2
+ 634              	.LC39:
+ 635 02b4 5600     		.string	"V"
+ 636 02b6 7400     		.string	"t"
+ 637 02b8 3100     		.string	"1"
+ 638 02ba 3000     		.string	"0"
+ 639 02bc 3000     		.string	"0"
+ 640 02be 00       		.string	""
+ 641 02bf 00       		.string	""
+ 642              		.align 2
+ 643              	.LC40:
+ 644 02c0 5600     		.string	"V"
+ 645 02c2 7400     		.string	"t"
+ 646 02c4 3100     		.string	"1"
+ 647 02c6 3000     		.string	"0"
+ 648 02c8 3000     		.string	"0"
+ 649 02ca 5000     		.string	"P"
+ 650 02cc 6C00     		.string	"l"
+ 651 02ce 7500     		.string	"u"
+ 652 02d0 7300     		.string	"s"
+ 653 02d2 00       		.string	""
+ 654 02d3 00       		.string	""
+ 655              		.align 2
+ 656              	.LC41:
+ 657 02d4 5600     		.string	"V"
+ 658 02d6 7400     		.string	"t"
+ 659 02d8 5500     		.string	"U"
+ 660 02da 7400     		.string	"t"
+ 661 02dc 6600     		.string	"f"
+ 662 02de 3800     		.string	"8"
+ 663 02e0 00       		.string	""
+ 664 02e1 00       		.string	""
+ 665              		.align 2
+ 666              	.LC42:
+ 667 02e2 5500     		.string	"U"
+ 668 02e4 6E00     		.string	"n"
+ 669 02e6 6B00     		.string	"k"
+ 670 02e8 6E00     		.string	"n"
+ 671 02ea 6F00     		.string	"o"
+ 672 02ec 7700     		.string	"w"
+ 673 02ee 6E00     		.string	"n"
+ 674 02f0 4400     		.string	"D"
+ 675 02f2 6500     		.string	"e"
+ 676 02f4 7600     		.string	"v"
+ 677 02f6 00       		.string	""
+ 678 02f7 00       		.string	""
+ 679              		.align 2
+ 680              	.LC43:
+ 681 02f8 4300     		.string	"C"
+ 682 02fa 6F00     		.string	"o"
+ 683 02fc 6E00     		.string	"n"
+ 684 02fe 4F00     		.string	"O"
+ 685 0300 7500     		.string	"u"
+ 686 0302 7400     		.string	"t"
+ 687 0304 4400     		.string	"D"
+ 688 0306 6500     		.string	"e"
+ 689 0308 7600     		.string	"v"
+ 690 030a 6900     		.string	"i"
+ 691 030c 6300     		.string	"c"
+ 692 030e 6500     		.string	"e"
+ 693 0310 00       		.string	""
+ 694 0311 00       		.string	""
+ 695              		.align 2
+ 696              	.LC44:
+ 697 0312 5300     		.string	"S"
+ 698 0314 7400     		.string	"t"
+ 699 0316 6400     		.string	"d"
+ 700 0318 4500     		.string	"E"
+ 701 031a 7200     		.string	"r"
+ 702 031c 7200     		.string	"r"
+ 703 031e 4400     		.string	"D"
+ 704 0320 6500     		.string	"e"
+ 705 0322 7600     		.string	"v"
+ 706 0324 6900     		.string	"i"
+ 707 0326 6300     		.string	"c"
+ 708 0328 6500     		.string	"e"
+ 709 032a 00       		.string	""
+ 710 032b 00       		.string	""
+ 711              		.align 2
+ 712              	.LC45:
+ 713 032c 5500     		.string	"U"
+ 714 032e 4700     		.string	"G"
+ 715 0330 4100     		.string	"A"
+ 716 0332 4400     		.string	"D"
+ 717 0334 7200     		.string	"r"
+ 718 0336 6100     		.string	"a"
+ 719 0338 7700     		.string	"w"
+ 720 033a 00       		.string	""
+ 721 033b 00       		.string	""
+ 722              		.align 2
+ 723              	.LC46:
+ 724 033c 4500     		.string	"E"
+ 725 033e 6400     		.string	"d"
+ 726 0340 6900     		.string	"i"
+ 727 0342 6400     		.string	"d"
+ 728 0344 4400     		.string	"D"
+ 729 0346 6900     		.string	"i"
+ 730 0348 7300     		.string	"s"
+ 731 034a 6300     		.string	"c"
+ 732 034c 6F00     		.string	"o"
+ 733 034e 7600     		.string	"v"
+ 734 0350 6500     		.string	"e"
+ 735 0352 7200     		.string	"r"
+ 736 0354 6500     		.string	"e"
+ 737 0356 6400     		.string	"d"
+ 738 0358 00       		.string	""
+ 739 0359 00       		.string	""
+ 740              		.align 2
+ 741              	.LC47:
+ 742 035a 4500     		.string	"E"
+ 743 035c 6400     		.string	"d"
+ 744 035e 6900     		.string	"i"
+ 745 0360 6400     		.string	"d"
+ 746 0362 4100     		.string	"A"
+ 747 0364 6300     		.string	"c"
+ 748 0366 7400     		.string	"t"
+ 749 0368 6900     		.string	"i"
+ 750 036a 7600     		.string	"v"
+ 751 036c 6500     		.string	"e"
+ 752 036e 00       		.string	""
+ 753 036f 00       		.string	""
+ 754              		.align 2
+ 755              	.LC48:
+ 756 0370 4500     		.string	"E"
+ 757 0372 6400     		.string	"d"
+ 758 0374 6900     		.string	"i"
+ 759 0376 6400     		.string	"d"
+ 760 0378 4F00     		.string	"O"
+ 761 037a 7600     		.string	"v"
+ 762 037c 6500     		.string	"e"
+ 763 037e 7200     		.string	"r"
+ 764 0380 7200     		.string	"r"
+ 765 0382 6900     		.string	"i"
+ 766 0384 6400     		.string	"d"
+ 767 0386 6500     		.string	"e"
+ 768 0388 00       		.string	""
+ 769 0389 00       		.string	""
+ 770              		.align 2
+ 771              	.LC49:
+ 772 038a 5300     		.string	"S"
+ 773 038c 6900     		.string	"i"
+ 774 038e 6D00     		.string	"m"
+ 775 0390 7000     		.string	"p"
+ 776 0392 5000     		.string	"P"
+ 777 0394 7400     		.string	"t"
+ 778 0396 7200     		.string	"r"
+ 779 0398 00       		.string	""
+ 780 0399 00       		.string	""
+ 781              		.align 2
+ 782              	.LC50:
+ 783 039a 4100     		.string	"A"
+ 784 039c 6200     		.string	"b"
+ 785 039e 7300     		.string	"s"
+ 786 03a0 5000     		.string	"P"
+ 787 03a2 7400     		.string	"t"
+ 788 03a4 7200     		.string	"r"
+ 789 03a6 00       		.string	""
+ 790 03a7 00       		.string	""
+ 791              		.align 2
+ 792              	.LC51:
+ 793 03a8 4400     		.string	"D"
+ 794 03aa 7200     		.string	"r"
+ 795 03ac 7600     		.string	"v"
+ 796 03ae 5300     		.string	"S"
+ 797 03b0 7500     		.string	"u"
+ 798 03b2 7000     		.string	"p"
+ 799 03b4 4500     		.string	"E"
+ 800 03b6 6600     		.string	"f"
+ 801 03b8 6900     		.string	"i"
+ 802 03ba 5600     		.string	"V"
+ 803 03bc 6500     		.string	"e"
+ 804 03be 7200     		.string	"r"
+ 805 03c0 00       		.string	""
+ 806 03c1 00       		.string	""
+ 807              		.align 2
+ 808              	.LC52:
+ 809 03c2 4400     		.string	"D"
+ 810 03c4 7200     		.string	"r"
+ 811 03c6 7600     		.string	"v"
+ 812 03c8 4400     		.string	"D"
+ 813 03ca 6900     		.string	"i"
+ 814 03cc 6100     		.string	"a"
+ 815 03ce 6700     		.string	"g"
+ 816 03d0 00       		.string	""
+ 817 03d1 00       		.string	""
+ 818              		.align 2
+ 819              	.LC53:
+ 820 03d2 4400     		.string	"D"
+ 821 03d4 7200     		.string	"r"
+ 822 03d6 7600     		.string	"v"
+ 823 03d8 4400     		.string	"D"
+ 824 03da 6900     		.string	"i"
+ 825 03dc 6100     		.string	"a"
+ 826 03de 6700     		.string	"g"
+ 827 03e0 3200     		.string	"2"
+ 828 03e2 00       		.string	""
+ 829 03e3 00       		.string	""
+ 830              		.align 2
+ 831              	.LC54:
+ 832 03e4 4400     		.string	"D"
+ 833 03e6 7200     		.string	"r"
+ 834 03e8 7600     		.string	"v"
+ 835 03ea 4300     		.string	"C"
+ 836 03ec 6F00     		.string	"o"
+ 837 03ee 6E00     		.string	"n"
+ 838 03f0 6600     		.string	"f"
+ 839 03f2 6900     		.string	"i"
+ 840 03f4 6700     		.string	"g"
+ 841 03f6 00       		.string	""
+ 842 03f7 00       		.string	""
+ 843              		.align 2
+ 844              	.LC55:
+ 845 03f8 4500     		.string	"E"
+ 846 03fa 5300     		.string	"S"
+ 847 03fc 5000     		.string	"P"
+ 848 03fe 00       		.string	""
+ 849 03ff 00       		.string	""
+ 850              		.align 2
+ 851              	.LC56:
+ 852 0400 4700     		.string	"G"
+ 853 0402 5000     		.string	"P"
+ 854 0404 5400     		.string	"T"
+ 855 0406 2000     		.string	" "
+ 856 0408 4D00     		.string	"M"
+ 857 040a 4200     		.string	"B"
+ 858 040c 5200     		.string	"R"
+ 859 040e 00       		.string	""
+ 860 040f 00       		.string	""
+ 861              		.align 2
+ 862              	.LC57:
+ 863 0410 5500     		.string	"U"
+ 864 0412 7300     		.string	"s"
+ 865 0414 6200     		.string	"b"
+ 866 0416 5000     		.string	"P"
+ 867 0418 6F00     		.string	"o"
+ 868 041a 6C00     		.string	"l"
+ 869 041c 00       		.string	""
+ 870 041d 00       		.string	""
+ 871              		.align 2
+ 872              	.LC58:
+ 873 041e 5500     		.string	"U"
+ 874 0420 7300     		.string	"s"
+ 875 0422 6200     		.string	"b"
+ 876 0424 5400     		.string	"T"
+ 877 0426 6900     		.string	"i"
+ 878 0428 6D00     		.string	"m"
+ 879 042a 5000     		.string	"P"
+ 880 042c 6F00     		.string	"o"
+ 881 042e 6C00     		.string	"l"
+ 882 0430 00       		.string	""
+ 883 0431 00       		.string	""
+ 884              		.align 2
+ 885              	.LC59:
+ 886 0432 5300     		.string	"S"
+ 887 0434 6800     		.string	"h"
+ 888 0436 6500     		.string	"e"
+ 889 0438 6C00     		.string	"l"
+ 890 043a 6C00     		.string	"l"
+ 891 043c 4900     		.string	"I"
+ 892 043e 6E00     		.string	"n"
+ 893 0440 7400     		.string	"t"
+ 894 0442 00       		.string	""
+ 895 0443 00       		.string	""
+ 896              		.align 2
+ 897              	.LC60:
+ 898 0444 5300     		.string	"S"
+ 899 0446 4500     		.string	"E"
+ 900 0448 6E00     		.string	"n"
+ 901 044a 7600     		.string	"v"
+ 902 044c 00       		.string	""
+ 903 044d 00       		.string	""
+ 904              		.align 2
+ 905              	.LC61:
+ 906 044e 5300     		.string	"S"
+ 907 0450 6800     		.string	"h"
+ 908 0452 6500     		.string	"e"
+ 909 0454 6C00     		.string	"l"
+ 910 0456 6C00     		.string	"l"
+ 911 0458 5000     		.string	"P"
+ 912 045a 7200     		.string	"r"
+ 913 045c 6F00     		.string	"o"
+ 914 045e 7400     		.string	"t"
+ 915 0460 4900     		.string	"I"
+ 916 0462 6400     		.string	"d"
+ 917 0464 00       		.string	""
+ 918 0465 00       		.string	""
+ 919 0466 0000     		.align 8
+ 920              	.LC62:
+ 921 0468 5300     		.string	"S"
+ 922 046a 6800     		.string	"h"
+ 923 046c 6500     		.string	"e"
+ 924 046e 6C00     		.string	"l"
+ 925 0470 6C00     		.string	"l"
+ 926 0472 4400     		.string	"D"
+ 927 0474 6500     		.string	"e"
+ 928 0476 7600     		.string	"v"
+ 929 0478 5000     		.string	"P"
+ 930 047a 6100     		.string	"a"
+ 931 047c 7400     		.string	"t"
+ 932 047e 6800     		.string	"h"
+ 933 0480 4D00     		.string	"M"
+ 934 0482 6100     		.string	"a"
+ 935 0484 7000     		.string	"p"
+ 936 0486 00       		.string	""
+ 937 0487 00       		.string	""
+ 938              		.align 2
+ 939              	.LC63:
+ 940 0488 5300     		.string	"S"
+ 941 048a 6800     		.string	"h"
+ 942 048c 6500     		.string	"e"
+ 943 048e 6C00     		.string	"l"
+ 944 0490 6C00     		.string	"l"
+ 945 0492 4100     		.string	"A"
+ 946 0494 6C00     		.string	"l"
+ 947 0496 6900     		.string	"i"
+ 948 0498 6100     		.string	"a"
+ 949 049a 7300     		.string	"s"
+ 950 049c 00       		.string	""
+ 951 049d 00       		.string	""
+ 952              		.align 2
+ 953              	.LC64:
+ 954 049e 00       		.string	""
+ 955 049f 00       		.string	""
+ 956              		.section	.data.rel.ro.local,"aw"
+ 957              		.align 32
+ 960              	KnownGuids:
+ 961 0000 00000000 		.quad	NullGuid
+ 961      00000000 
+ 962 0008 00000000 		.quad	.LC1
+ 962      00000000 
+ 963 0010 00000000 		.quad	gEfiGlobalVariableGuid
+ 963      00000000 
+ 964 0018 00000000 		.quad	.LC2
+ 964      00000000 
+ 965 0020 00000000 		.quad	VariableStoreProtocol
+ 965      00000000 
+ 966 0028 00000000 		.quad	.LC3
+ 966      00000000 
+ 967 0030 00000000 		.quad	gEfiDevicePathProtocolGuid
+ 967      00000000 
+ 968 0038 00000000 		.quad	.LC4
+ 968      00000000 
+ 969 0040 00000000 		.quad	gEfiLoadedImageProtocolGuid
+ 969      00000000 
+ 970 0048 00000000 		.quad	.LC5
+ 970      00000000 
+ 971 0050 00000000 		.quad	gEfiSimpleTextInProtocolGuid
+ 971      00000000 
+ 972 0058 00000000 		.quad	.LC6
+ 972      00000000 
+ 973 0060 00000000 		.quad	gEfiSimpleTextOutProtocolGuid
+ 973      00000000 
+ 974 0068 00000000 		.quad	.LC7
+ 974      00000000 
+ 975 0070 00000000 		.quad	gEfiBlockIoProtocolGuid
+ 975      00000000 
+ 976 0078 00000000 		.quad	.LC8
+ 976      00000000 
+ 977 0080 00000000 		.quad	gEfiBlockIo2ProtocolGuid
+ 977      00000000 
+ 978 0088 00000000 		.quad	.LC9
+ 978      00000000 
+ 979 0090 00000000 		.quad	gEfiDiskIoProtocolGuid
+ 979      00000000 
+ 980 0098 00000000 		.quad	.LC10
+ 980      00000000 
+ 981 00a0 00000000 		.quad	gEfiDiskIo2ProtocolGuid
+ 981      00000000 
+ 982 00a8 00000000 		.quad	.LC11
+ 982      00000000 
+ 983 00b0 00000000 		.quad	gEfiSimpleFileSystemProtocolGuid
+ 983      00000000 
+ 984 00b8 00000000 		.quad	.LC12
+ 984      00000000 
+ 985 00c0 00000000 		.quad	gEfiLoadFileProtocolGuid
+ 985      00000000 
+ 986 00c8 00000000 		.quad	.LC13
+ 986      00000000 
+ 987 00d0 00000000 		.quad	gEfiDeviceIoProtocolGuid
+ 987      00000000 
+ 988 00d8 00000000 		.quad	.LC14
+ 988      00000000 
+ 989 00e0 00000000 		.quad	gEfiComponentNameProtocolGuid
+ 989      00000000 
+ 990 00e8 00000000 		.quad	.LC15
+ 990      00000000 
+ 991 00f0 00000000 		.quad	gEfiComponentName2ProtocolGuid
+ 991      00000000 
+ 992 00f8 00000000 		.quad	.LC16
+ 992      00000000 
+ 993 0100 00000000 		.quad	gEfiDriverBindingProtocolGuid
+ 993      00000000 
+ 994 0108 00000000 		.quad	.LC17
+ 994      00000000 
+ 995 0110 00000000 		.quad	gEfiPciIoProtocolGuid
+ 995      00000000 
+ 996 0118 00000000 		.quad	.LC18
+ 996      00000000 
+ 997 0120 00000000 		.quad	gEfiPciRootBridgeIoProtocolGuid
+ 997      00000000 
+ 998 0128 00000000 		.quad	.LC19
+ 998      00000000 
+ 999 0130 00000000 		.quad	gEfiGraphicsOutputProtocolGuid
+ 999      00000000 
+ 1000 0138 00000000 		.quad	.LC20
+ 1000      00000000 
+ 1001 0140 00000000 		.quad	gEfiDevicePathToTextProtocolGuid
+ 1001      00000000 
+ 1002 0148 00000000 		.quad	.LC21
+ 1002      00000000 
+ 1003 0150 00000000 		.quad	gEfiDevicePathFromTextProtocolGuid
+ 1003      00000000 
+ 1004 0158 00000000 		.quad	.LC22
+ 1004      00000000 
+ 1005 0160 00000000 		.quad	gEfiLoadedImageDevicePathProtocolGuid
+ 1005      00000000 
+ 1006 0168 00000000 		.quad	.LC23
+ 1006      00000000 
+ 1007 0170 00000000 		.quad	gEfiFileInfoGuid
+ 1007      00000000 
+ 1008 0178 00000000 		.quad	.LC24
+ 1008      00000000 
+ 1009 0180 00000000 		.quad	gEfiFileSystemInfoGuid
+ 1009      00000000 
+ 1010 0188 00000000 		.quad	.LC25
+ 1010      00000000 
+ 1011 0190 00000000 		.quad	gEfiFileSystemVolumeLabelInfoIdGuid
+ 1011      00000000 
+ 1012 0198 00000000 		.quad	.LC26
+ 1012      00000000 
+ 1013 01a0 00000000 		.quad	gEfiUnicodeCollationProtocolGuid
+ 1013      00000000 
+ 1014 01a8 00000000 		.quad	.LC27
+ 1014      00000000 
+ 1015 01b0 00000000 		.quad	LegacyBootProtocol
+ 1015      00000000 
+ 1016 01b8 00000000 		.quad	.LC28
+ 1016      00000000 
+ 1017 01c0 00000000 		.quad	gEfiSerialIoProtocolGuid
+ 1017      00000000 
+ 1018 01c8 00000000 		.quad	.LC29
+ 1018      00000000 
+ 1019 01d0 00000000 		.quad	VgaClassProtocol
+ 1019      00000000 
+ 1020 01d8 00000000 		.quad	.LC30
+ 1020      00000000 
+ 1021 01e0 00000000 		.quad	gEfiSimpleNetworkProtocolGuid
+ 1021      00000000 
+ 1022 01e8 00000000 		.quad	.LC31
+ 1022      00000000 
+ 1023 01f0 00000000 		.quad	gEfiNetworkInterfaceIdentifierProtocolGuid
+ 1023      00000000 
+ 1024 01f8 00000000 		.quad	.LC32
+ 1024      00000000 
+ 1025 0200 00000000 		.quad	gEfiPxeBaseCodeProtocolGuid
+ 1025      00000000 
+ 1026 0208 00000000 		.quad	.LC33
+ 1026      00000000 
+ 1027 0210 00000000 		.quad	gEfiPxeBaseCodeCallbackProtocolGuid
+ 1027      00000000 
+ 1028 0218 00000000 		.quad	.LC34
+ 1028      00000000 
+ 1029 0220 00000000 		.quad	TextOutSpliterProtocol
+ 1029      00000000 
+ 1030 0228 00000000 		.quad	.LC35
+ 1030      00000000 
+ 1031 0230 00000000 		.quad	ErrorOutSpliterProtocol
+ 1031      00000000 
+ 1032 0238 00000000 		.quad	.LC36
+ 1032      00000000 
+ 1033 0240 00000000 		.quad	TextInSpliterProtocol
+ 1033      00000000 
+ 1034 0248 00000000 		.quad	.LC37
+ 1034      00000000 
+ 1035 0250 00000000 		.quad	gEfiPcAnsiGuid
+ 1035      00000000 
+ 1036 0258 00000000 		.quad	.LC38
+ 1036      00000000 
+ 1037 0260 00000000 		.quad	gEfiVT100Guid
+ 1037      00000000 
+ 1038 0268 00000000 		.quad	.LC39
+ 1038      00000000 
+ 1039 0270 00000000 		.quad	gEfiVT100PlusGuid
+ 1039      00000000 
+ 1040 0278 00000000 		.quad	.LC40
+ 1040      00000000 
+ 1041 0280 00000000 		.quad	gEfiVTUTF8Guid
+ 1041      00000000 
+ 1042 0288 00000000 		.quad	.LC41
+ 1042      00000000 
+ 1043 0290 00000000 		.quad	UnknownDevice
+ 1043      00000000 
+ 1044 0298 00000000 		.quad	.LC42
+ 1044      00000000 
+ 1045 02a0 00000000 		.quad	gEfiConsoleOutDeviceGuid
+ 1045      00000000 
+ 1046 02a8 00000000 		.quad	.LC43
+ 1046      00000000 
+ 1047 02b0 00000000 		.quad	gEfiStandardErrorDeviceGuid
+ 1047      00000000 
+ 1048 02b8 00000000 		.quad	.LC44
+ 1048      00000000 
+ 1049 02c0 00000000 		.quad	gEfiUgaDrawProtocolGuid
+ 1049      00000000 
+ 1050 02c8 00000000 		.quad	.LC45
+ 1050      00000000 
+ 1051 02d0 00000000 		.quad	gEfiEdidDiscoveredProtocolGuid
+ 1051      00000000 
+ 1052 02d8 00000000 		.quad	.LC46
+ 1052      00000000 
+ 1053 02e0 00000000 		.quad	gEfiEdidActiveProtocolGuid
+ 1053      00000000 
+ 1054 02e8 00000000 		.quad	.LC47
+ 1054      00000000 
+ 1055 02f0 00000000 		.quad	gEfiEdidOverrideProtocolGuid
+ 1055      00000000 
+ 1056 02f8 00000000 		.quad	.LC48
+ 1056      00000000 
+ 1057 0300 00000000 		.quad	SimplePointerProtocol
+ 1057      00000000 
+ 1058 0308 00000000 		.quad	.LC49
+ 1058      00000000 
+ 1059 0310 00000000 		.quad	AbsolutePointerProtocol
+ 1059      00000000 
+ 1060 0318 00000000 		.quad	.LC50
+ 1060      00000000 
+ 1061 0320 00000000 		.quad	gEfiDriverSupportedEfiVersionProtocolGuid
+ 1061      00000000 
+ 1062 0328 00000000 		.quad	.LC51
+ 1062      00000000 
+ 1063 0330 00000000 		.quad	gEfiDriverDiagnosticsProtocolGuid
+ 1063      00000000 
+ 1064 0338 00000000 		.quad	.LC52
+ 1064      00000000 
+ 1065 0340 00000000 		.quad	gEfiDriverDiagnostics2ProtocolGuid
+ 1065      00000000 
+ 1066 0348 00000000 		.quad	.LC53
+ 1066      00000000 
+ 1067 0350 00000000 		.quad	gEfiDriverConfigurationProtocolGuid
+ 1067      00000000 
+ 1068 0358 00000000 		.quad	.LC54
+ 1068      00000000 
+ 1069 0360 00000000 		.quad	EfiPartTypeSystemPartitionGuid
+ 1069      00000000 
+ 1070 0368 00000000 		.quad	.LC55
+ 1070      00000000 
+ 1071 0370 00000000 		.quad	EfiPartTypeLegacyMbrGuid
+ 1071      00000000 
+ 1072 0378 00000000 		.quad	.LC56
+ 1072      00000000 
+ 1073 0380 00000000 		.quad	gEfiUsbPolicyProtocolGuid
+ 1073      00000000 
+ 1074 0388 00000000 		.quad	.LC57
+ 1074      00000000 
+ 1075 0390 00000000 		.quad	gEfiUsbTimingPolicyProtocolGuid
+ 1075      00000000 
+ 1076 0398 00000000 		.quad	.LC58
+ 1076      00000000 
+ 1077 03a0 00000000 		.quad	ShellInterfaceProtocol
+ 1077      00000000 
+ 1078 03a8 00000000 		.quad	.LC59
+ 1078      00000000 
+ 1079 03b0 00000000 		.quad	SEnvId
+ 1079      00000000 
+ 1080 03b8 00000000 		.quad	.LC60
+ 1080      00000000 
+ 1081 03c0 00000000 		.quad	SProtId
+ 1081      00000000 
+ 1082 03c8 00000000 		.quad	.LC61
+ 1082      00000000 
+ 1083 03d0 00000000 		.quad	SMapId
+ 1083      00000000 
+ 1084 03d8 00000000 		.quad	.LC62
+ 1084      00000000 
+ 1085 03e0 00000000 		.quad	SAliasId
+ 1085      00000000 
+ 1086 03e8 00000000 		.quad	.LC63
+ 1086      00000000 
+ 1087 03f0 00000000 		.quad	0
+ 1087      00000000 
+ 1088 03f8 00000000 		.quad	.LC64
+ 1088      00000000 
+ 1089              		.data
+ 1090              		.align 16
+ 1093              	SAliasId:
+ 1094 0000 27B2C747 		.long	1204269607
+ 1097 0008 8E5700   		.string	"\216W"
+ 1098 000b A0C96972 		.ascii	"\240\311ir;"
+ 1098      3B
+ 1099              		.align 16
+ 1102              	SProtId:
+ 1103 0010 26B2C747 		.long	1204269606
+ 1106 0018 8E5700   		.string	"\216W"
+ 1107 001b A0C96972 		.ascii	"\240\311ir;"
+ 1107      3B
+ 1108              		.align 16
+ 1111              	SMapId:
+ 1112 0020 25B2C747 		.long	1204269605
+ 1115 0028 8E5700   		.string	"\216W"
+ 1116 002b A0C96972 		.ascii	"\240\311ir;"
+ 1116      3B
+ 1117              		.align 16
+ 1120              	SEnvId:
+ 1121 0030 24B2C747 		.long	1204269604
+ 1124 0038 8E5700   		.string	"\216W"
+ 1125 003b A0C96972 		.ascii	"\240\311ir;"
+ 1125      3B
+ 1126              		.align 16
+ 1129              	ShellInterfaceProtocol:
+ 1130 0040 23B2C747 		.long	1204269603
+ 1133 0048 8E5700   		.string	"\216W"
+ 1134 004b A0C96972 		.ascii	"\240\311ir;"
+ 1134      3B
+ 1135              		.text
+ 1136              	.Letext0:
+ 1137              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 1138              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 1139              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 1140              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efilink.h"
+ 1141              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efilib.h"
+ 1142              		.file 7 "../Backend/gnu-efi-3.0.9/inc/efirtlib.h"
+ 10746              		.section	.note.gnu.property,"a"
+ 10747              		.align 8
+ 10748 0000 04000000 		.long	1f - 0f
+ 10749 0004 10000000 		.long	4f - 1f
+ 10750 0008 05000000 		.long	5
+ 10751              	0:
+ 10752 000c 474E5500 		.string	"GNU"
+ 10753              	1:
+ 10754              		.align 8
+ 10755 0010 020000C0 		.long	0xc0000002
+ 10756 0014 04000000 		.long	3f - 2f
+ 10757              	2:
+ 10758 0018 03000000 		.long	0x3
+ 10759              	3:
+ 10760 001c 00000000 		.align 8
+ 10761              	4:

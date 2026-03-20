@@ -1,0 +1,419 @@
+   1              		.file	"hw.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	InitializeGlobalIoDevice
+   7              		.hidden	InitializeGlobalIoDevice
+   9              	InitializeGlobalIoDevice:
+  10              	.LVL0:
+  11              	.LFB0:
+  12              		.file 1 "../Backend/gnu-efi-3.0.9/lib/hw.c"
+   1:../Backend/gnu-efi-3.0.9/lib/hw.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/hw.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/hw.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/hw.c ****     hw.c
+   8:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/hw.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/hw.c ****     Debug library functions for Hardware IO access
+  12:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  15:../Backend/gnu-efi-3.0.9/lib/hw.c **** Revision History
+  16:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  17:../Backend/gnu-efi-3.0.9/lib/hw.c **** --*/
+  18:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  19:../Backend/gnu-efi-3.0.9/lib/hw.c **** #include "lib.h"
+  20:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  21:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  22:../Backend/gnu-efi-3.0.9/lib/hw.c **** EFI_STATUS
+  23:../Backend/gnu-efi-3.0.9/lib/hw.c **** InitializeGlobalIoDevice (
+  24:../Backend/gnu-efi-3.0.9/lib/hw.c ****         IN  EFI_DEVICE_PATH             *DevicePath,
+  25:../Backend/gnu-efi-3.0.9/lib/hw.c ****         IN  EFI_GUID                    *Protocol,
+  26:../Backend/gnu-efi-3.0.9/lib/hw.c ****         IN  CHAR8                       *ErrorStr EFI_UNUSED,
+  27:../Backend/gnu-efi-3.0.9/lib/hw.c ****         OUT EFI_DEVICE_IO_INTERFACE     **GlobalIoFncs
+  28:../Backend/gnu-efi-3.0.9/lib/hw.c ****         )
+  29:../Backend/gnu-efi-3.0.9/lib/hw.c **** /*++
+  30:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  31:../Backend/gnu-efi-3.0.9/lib/hw.c **** Routine Description:
+  32:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  33:../Backend/gnu-efi-3.0.9/lib/hw.c ****     Check to see if DevicePath exists for a given Protocol. Return Error if it
+  34:../Backend/gnu-efi-3.0.9/lib/hw.c ****     exists. Return GlobalIoFuncs set match the DevicePath
+  35:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  36:../Backend/gnu-efi-3.0.9/lib/hw.c ****   Arguments:
+  37:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  38:../Backend/gnu-efi-3.0.9/lib/hw.c ****     DevicePath      - to operate on
+  39:../Backend/gnu-efi-3.0.9/lib/hw.c ****     Protocol        - to check the DevicePath against
+  40:../Backend/gnu-efi-3.0.9/lib/hw.c ****     ErrorStr        - ASCII string to display on error
+  41:../Backend/gnu-efi-3.0.9/lib/hw.c ****     GlobalIoFncs    - Returned with DeviceIoProtocol for the DevicePath
+  42:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  43:../Backend/gnu-efi-3.0.9/lib/hw.c **** Returns:
+  44:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  45:../Backend/gnu-efi-3.0.9/lib/hw.c ****     Pass or Fail based on  wether GlobalIoFncs where found
+  46:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  47:../Backend/gnu-efi-3.0.9/lib/hw.c **** --*/
+  48:../Backend/gnu-efi-3.0.9/lib/hw.c **** {
+  13              		.loc 1 48 1 view -0
+  14              		.cfi_startproc
+  15              		.loc 1 48 1 is_stmt 0 view .LVU1
+  16 0000 F30F1EFA 		endbr64
+  17 0004 53       		pushq	%rbx
+  18              		.cfi_def_cfa_offset 16
+  19              		.cfi_offset 3, -16
+  20 0005 4883EC50 		subq	$80, %rsp
+  21              		.cfi_def_cfa_offset 96
+  22 0009 48897C24 		movq	%rdi, 56(%rsp)
+  22      38
+  23 000e 4889CB   		movq	%rcx, %rbx
+  49:../Backend/gnu-efi-3.0.9/lib/hw.c ****     EFI_STATUS      Status;
+  24              		.loc 1 49 5 is_stmt 1 view .LVU2
+  50:../Backend/gnu-efi-3.0.9/lib/hw.c ****     EFI_HANDLE      Handle;
+  25              		.loc 1 50 5 view .LVU3
+  51:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  52:../Backend/gnu-efi-3.0.9/lib/hw.c ****     //
+  53:../Backend/gnu-efi-3.0.9/lib/hw.c ****     // Check to see if this device path already has Protocol on it.
+  54:../Backend/gnu-efi-3.0.9/lib/hw.c ****     //  if so we are loading recursivly and should exit with an error
+  55:../Backend/gnu-efi-3.0.9/lib/hw.c ****     //
+  56:../Backend/gnu-efi-3.0.9/lib/hw.c ****     Status = uefi_call_wrapper(BS->LocateDevicePath, 3, Protocol, &DevicePath, &Handle);
+  26              		.loc 1 56 5 view .LVU4
+  27              		.loc 1 56 14 is_stmt 0 view .LVU5
+  28 0011 488D5424 		leaq	56(%rsp), %rdx
+  28      38
+  29              	.LVL1:
+  30              		.loc 1 56 14 view .LVU6
+  31 0016 4C8D4424 		leaq	72(%rsp), %r8
+  31      48
+  32 001b 4889F1   		movq	%rsi, %rcx
+  33              	.LVL2:
+  34              		.loc 1 56 14 view .LVU7
+  35 001e 488B0500 		movq	BS(%rip), %rax
+  35      000000
+  36 0025 FF90B800 		call	*184(%rax)
+  36      0000
+  37              	.LVL3:
+  57:../Backend/gnu-efi-3.0.9/lib/hw.c ****     if (!EFI_ERROR(Status)) {
+  38              		.loc 1 57 5 is_stmt 1 view .LVU8
+  39              		.loc 1 57 8 is_stmt 0 view .LVU9
+  40 002b 4885C0   		testq	%rax, %rax
+  41 002e 795F     		jns	.L3
+  58:../Backend/gnu-efi-3.0.9/lib/hw.c ****         DEBUG ((D_INIT, "Device Already Loaded for %a device\n", ErrorStr));
+  59:../Backend/gnu-efi-3.0.9/lib/hw.c ****         return EFI_LOAD_ERROR;
+  60:../Backend/gnu-efi-3.0.9/lib/hw.c ****     }
+  61:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  62:../Backend/gnu-efi-3.0.9/lib/hw.c ****     Status = uefi_call_wrapper(BS->LocateDevicePath, 3, &DeviceIoProtocol, &DevicePath, &Handle);
+  42              		.loc 1 62 5 is_stmt 1 view .LVU10
+  43              		.loc 1 62 14 is_stmt 0 view .LVU11
+  44 0030 488D5424 		leaq	56(%rsp), %rdx
+  44      38
+  45 0035 4C8D4424 		leaq	72(%rsp), %r8
+  45      48
+  46 003a 488D0D00 		leaq	gEfiDeviceIoProtocolGuid(%rip), %rcx
+  46      000000
+  47 0041 488B0500 		movq	BS(%rip), %rax
+  47      000000
+  48              	.LVL4:
+  49              		.loc 1 62 14 view .LVU12
+  50 0048 FF90B800 		call	*184(%rax)
+  50      0000
+  51              	.LVL5:
+  63:../Backend/gnu-efi-3.0.9/lib/hw.c ****     if (!EFI_ERROR(Status)) {
+  52              		.loc 1 63 5 is_stmt 1 view .LVU13
+  53              		.loc 1 63 8 is_stmt 0 view .LVU14
+  54 004e 4885C0   		testq	%rax, %rax
+  55 0051 7836     		js	.L1
+  64:../Backend/gnu-efi-3.0.9/lib/hw.c **** //        Status = uefi_call_wrapper(BS->HandleProtocol, 3, Handle, &DeviceIoProtocol, (VOID*)Globa
+  65:../Backend/gnu-efi-3.0.9/lib/hw.c ****         Status = uefi_call_wrapper(BS->OpenProtocol, 6, Handle, &DeviceIoProtocol, (VOID*)GlobalIoF
+  56              		.loc 1 65 9 is_stmt 1 view .LVU15
+  57              		.loc 1 65 18 is_stmt 0 view .LVU16
+  58 0053 488B0500 		movq	BS(%rip), %rax
+  58      000000
+  59              	.LVL6:
+  60              		.loc 1 65 18 view .LVU17
+  61 005a 488B8018 		movq	280(%rax), %rax
+  61      010000
+  62 0061 C7442428 		movl	$2, 40(%rsp)
+  62      02000000 
+  63 0069 48C74424 		movq	$0, 32(%rsp)
+  63      20000000 
+  63      00
+  64 0072 41B90000 		movl	$0, %r9d
+  64      0000
+  65 0078 4989D8   		movq	%rbx, %r8
+  66 007b 488D1500 		leaq	gEfiDeviceIoProtocolGuid(%rip), %rdx
+  66      000000
+  67 0082 488B4C24 		movq	72(%rsp), %rcx
+  67      48
+  68 0087 FFD0     		call	*%rax
+  69              	.LVL7:
+  70              	.L1:
+  66:../Backend/gnu-efi-3.0.9/lib/hw.c ****     }
+  67:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  68:../Backend/gnu-efi-3.0.9/lib/hw.c ****     ASSERT (!EFI_ERROR(Status));
+  69:../Backend/gnu-efi-3.0.9/lib/hw.c ****     return Status;
+  70:../Backend/gnu-efi-3.0.9/lib/hw.c **** }
+  71              		.loc 1 70 1 view .LVU18
+  72 0089 4883C450 		addq	$80, %rsp
+  73              		.cfi_remember_state
+  74              		.cfi_def_cfa_offset 16
+  75 008d 5B       		popq	%rbx
+  76              		.cfi_restore 3
+  77              		.cfi_def_cfa_offset 8
+  78              	.LVL8:
+  79              		.loc 1 70 1 view .LVU19
+  80 008e C3       		ret
+  81              	.LVL9:
+  82              	.L3:
+  83              		.cfi_restore_state
+  59:../Backend/gnu-efi-3.0.9/lib/hw.c ****     }
+  84              		.loc 1 59 16 view .LVU20
+  85 008f 48B80100 		movabsq	$-9223372036854775807, %rax
+  85      00000000 
+  85      0080
+  86              	.LVL10:
+  59:../Backend/gnu-efi-3.0.9/lib/hw.c ****     }
+  87              		.loc 1 59 16 view .LVU21
+  88 0099 EBEE     		jmp	.L1
+  89              		.cfi_endproc
+  90              	.LFE0:
+  92              		.globl	ReadPort
+  93              		.hidden	ReadPort
+  95              	ReadPort:
+  96              	.LVL11:
+  97              	.LFB1:
+  71:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  72:../Backend/gnu-efi-3.0.9/lib/hw.c **** UINT32
+  73:../Backend/gnu-efi-3.0.9/lib/hw.c **** ReadPort (
+  74:../Backend/gnu-efi-3.0.9/lib/hw.c ****         IN  EFI_DEVICE_IO_INTERFACE     *GlobalIoFncs,
+  75:../Backend/gnu-efi-3.0.9/lib/hw.c ****         IN  EFI_IO_WIDTH                Width,
+  76:../Backend/gnu-efi-3.0.9/lib/hw.c ****         IN  UINTN                       Port
+  77:../Backend/gnu-efi-3.0.9/lib/hw.c ****         )
+  78:../Backend/gnu-efi-3.0.9/lib/hw.c **** {
+  98              		.loc 1 78 1 is_stmt 1 view -0
+  99              		.cfi_startproc
+ 100              		.loc 1 78 1 is_stmt 0 view .LVU23
+ 101 009b F30F1EFA 		endbr64
+ 102 009f 4883EC48 		subq	$72, %rsp
+ 103              		.cfi_def_cfa_offset 80
+ 104 00a3 4989D0   		movq	%rdx, %r8
+  79:../Backend/gnu-efi-3.0.9/lib/hw.c ****     UINT32       Data;
+ 105              		.loc 1 79 5 is_stmt 1 view .LVU24
+  80:../Backend/gnu-efi-3.0.9/lib/hw.c ****     EFI_STATUS  Status EFI_UNUSED;
+ 106              		.loc 1 80 5 view .LVU25
+  81:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  82:../Backend/gnu-efi-3.0.9/lib/hw.c ****     Status = uefi_call_wrapper(GlobalIoFncs->Io.Read, 5, GlobalIoFncs, Width, (UINT64)Port, 1, &Dat
+ 107              		.loc 1 82 5 view .LVU26
+ 108              		.loc 1 82 14 is_stmt 0 view .LVU27
+ 109 00a6 488D4424 		leaq	60(%rsp), %rax
+ 109      3C
+ 110 00ab 48894424 		movq	%rax, 32(%rsp)
+ 110      20
+ 111 00b0 41B90100 		movl	$1, %r9d
+ 111      0000
+ 112 00b6 89F2     		movl	%esi, %edx
+ 113              	.LVL12:
+ 114              		.loc 1 82 14 view .LVU28
+ 115 00b8 4889F9   		movq	%rdi, %rcx
+ 116 00bb FF5710   		call	*16(%rdi)
+ 117              	.LVL13:
+  83:../Backend/gnu-efi-3.0.9/lib/hw.c ****     ASSERT(!EFI_ERROR(Status));
+ 118              		.loc 1 83 31 is_stmt 1 view .LVU29
+  84:../Backend/gnu-efi-3.0.9/lib/hw.c ****     return Data;
+ 119              		.loc 1 84 5 view .LVU30
+  85:../Backend/gnu-efi-3.0.9/lib/hw.c **** }
+ 120              		.loc 1 85 1 is_stmt 0 view .LVU31
+ 121 00be 8B44243C 		movl	60(%rsp), %eax
+ 122 00c2 4883C448 		addq	$72, %rsp
+ 123              		.cfi_def_cfa_offset 8
+ 124 00c6 C3       		ret
+ 125              		.cfi_endproc
+ 126              	.LFE1:
+ 128              		.globl	WritePort
+ 129              		.hidden	WritePort
+ 131              	WritePort:
+ 132              	.LVL14:
+ 133              	.LFB2:
+  86:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  87:../Backend/gnu-efi-3.0.9/lib/hw.c **** UINT32
+  88:../Backend/gnu-efi-3.0.9/lib/hw.c **** WritePort (
+  89:../Backend/gnu-efi-3.0.9/lib/hw.c ****         IN  EFI_DEVICE_IO_INTERFACE     *GlobalIoFncs,
+  90:../Backend/gnu-efi-3.0.9/lib/hw.c ****         IN  EFI_IO_WIDTH                Width,
+  91:../Backend/gnu-efi-3.0.9/lib/hw.c ****         IN  UINTN                       Port,
+  92:../Backend/gnu-efi-3.0.9/lib/hw.c ****         IN  UINTN                       Data
+  93:../Backend/gnu-efi-3.0.9/lib/hw.c ****         )
+  94:../Backend/gnu-efi-3.0.9/lib/hw.c **** {
+ 134              		.loc 1 94 1 is_stmt 1 view -0
+ 135              		.cfi_startproc
+ 136              		.loc 1 94 1 is_stmt 0 view .LVU33
+ 137 00c7 F30F1EFA 		endbr64
+ 138 00cb 4883EC48 		subq	$72, %rsp
+ 139              		.cfi_def_cfa_offset 80
+ 140 00cf 4989D0   		movq	%rdx, %r8
+ 141 00d2 48894C24 		movq	%rcx, 56(%rsp)
+ 141      38
+  95:../Backend/gnu-efi-3.0.9/lib/hw.c ****     EFI_STATUS  Status EFI_UNUSED;
+ 142              		.loc 1 95 5 is_stmt 1 view .LVU34
+  96:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+  97:../Backend/gnu-efi-3.0.9/lib/hw.c ****     Status = uefi_call_wrapper(GlobalIoFncs->Io.Write, 5, GlobalIoFncs, Width, (UINT64)Port, 1, &Da
+ 143              		.loc 1 97 5 view .LVU35
+ 144              		.loc 1 97 14 is_stmt 0 view .LVU36
+ 145 00d7 488D4424 		leaq	56(%rsp), %rax
+ 145      38
+ 146 00dc 48894424 		movq	%rax, 32(%rsp)
+ 146      20
+ 147 00e1 41B90100 		movl	$1, %r9d
+ 147      0000
+ 148 00e7 89F2     		movl	%esi, %edx
+ 149              	.LVL15:
+ 150              		.loc 1 97 14 view .LVU37
+ 151 00e9 4889F9   		movq	%rdi, %rcx
+ 152              	.LVL16:
+ 153              		.loc 1 97 14 view .LVU38
+ 154 00ec FF5718   		call	*24(%rdi)
+ 155              	.LVL17:
+  98:../Backend/gnu-efi-3.0.9/lib/hw.c ****     ASSERT(!EFI_ERROR(Status));
+ 156              		.loc 1 98 31 is_stmt 1 view .LVU39
+  99:../Backend/gnu-efi-3.0.9/lib/hw.c ****     return (UINT32)Data;
+ 157              		.loc 1 99 5 view .LVU40
+ 100:../Backend/gnu-efi-3.0.9/lib/hw.c **** }
+ 158              		.loc 1 100 1 is_stmt 0 view .LVU41
+ 159 00ef 8B442438 		movl	56(%rsp), %eax
+ 160 00f3 4883C448 		addq	$72, %rsp
+ 161              		.cfi_def_cfa_offset 8
+ 162 00f7 C3       		ret
+ 163              		.cfi_endproc
+ 164              	.LFE2:
+ 166              		.globl	ReadPciConfig
+ 167              		.hidden	ReadPciConfig
+ 169              	ReadPciConfig:
+ 170              	.LVL18:
+ 171              	.LFB3:
+ 101:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+ 102:../Backend/gnu-efi-3.0.9/lib/hw.c **** UINT32
+ 103:../Backend/gnu-efi-3.0.9/lib/hw.c **** ReadPciConfig (
+ 104:../Backend/gnu-efi-3.0.9/lib/hw.c ****         IN  EFI_DEVICE_IO_INTERFACE     *GlobalIoFncs,
+ 105:../Backend/gnu-efi-3.0.9/lib/hw.c ****         IN  EFI_IO_WIDTH                Width,
+ 106:../Backend/gnu-efi-3.0.9/lib/hw.c ****         IN  UINTN                       Address
+ 107:../Backend/gnu-efi-3.0.9/lib/hw.c ****         )
+ 108:../Backend/gnu-efi-3.0.9/lib/hw.c **** {
+ 172              		.loc 1 108 1 is_stmt 1 view -0
+ 173              		.cfi_startproc
+ 174              		.loc 1 108 1 is_stmt 0 view .LVU43
+ 175 00f8 F30F1EFA 		endbr64
+ 176 00fc 4883EC48 		subq	$72, %rsp
+ 177              		.cfi_def_cfa_offset 80
+ 178 0100 4989D0   		movq	%rdx, %r8
+ 109:../Backend/gnu-efi-3.0.9/lib/hw.c ****     UINT32       Data;
+ 179              		.loc 1 109 5 is_stmt 1 view .LVU44
+ 110:../Backend/gnu-efi-3.0.9/lib/hw.c ****     EFI_STATUS  Status EFI_UNUSED;
+ 180              		.loc 1 110 5 view .LVU45
+ 111:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+ 112:../Backend/gnu-efi-3.0.9/lib/hw.c ****     Status = uefi_call_wrapper(GlobalIoFncs->Pci.Read, 5, GlobalIoFncs, Width, (UINT64)Address, 1, 
+ 181              		.loc 1 112 5 view .LVU46
+ 182              		.loc 1 112 14 is_stmt 0 view .LVU47
+ 183 0103 488D4424 		leaq	60(%rsp), %rax
+ 183      3C
+ 184 0108 48894424 		movq	%rax, 32(%rsp)
+ 184      20
+ 185 010d 41B90100 		movl	$1, %r9d
+ 185      0000
+ 186 0113 89F2     		movl	%esi, %edx
+ 187              	.LVL19:
+ 188              		.loc 1 112 14 view .LVU48
+ 189 0115 4889F9   		movq	%rdi, %rcx
+ 190 0118 FF5720   		call	*32(%rdi)
+ 191              	.LVL20:
+ 113:../Backend/gnu-efi-3.0.9/lib/hw.c ****     ASSERT(!EFI_ERROR(Status));
+ 192              		.loc 1 113 31 is_stmt 1 view .LVU49
+ 114:../Backend/gnu-efi-3.0.9/lib/hw.c ****     return Data;
+ 193              		.loc 1 114 5 view .LVU50
+ 115:../Backend/gnu-efi-3.0.9/lib/hw.c **** }
+ 194              		.loc 1 115 1 is_stmt 0 view .LVU51
+ 195 011b 8B44243C 		movl	60(%rsp), %eax
+ 196 011f 4883C448 		addq	$72, %rsp
+ 197              		.cfi_def_cfa_offset 8
+ 198 0123 C3       		ret
+ 199              		.cfi_endproc
+ 200              	.LFE3:
+ 202              		.globl	WritePciConfig
+ 203              		.hidden	WritePciConfig
+ 205              	WritePciConfig:
+ 206              	.LVL21:
+ 207              	.LFB4:
+ 116:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+ 117:../Backend/gnu-efi-3.0.9/lib/hw.c **** UINT32
+ 118:../Backend/gnu-efi-3.0.9/lib/hw.c **** WritePciConfig (
+ 119:../Backend/gnu-efi-3.0.9/lib/hw.c ****         IN  EFI_DEVICE_IO_INTERFACE     *GlobalIoFncs,
+ 120:../Backend/gnu-efi-3.0.9/lib/hw.c ****         IN  EFI_IO_WIDTH                Width,
+ 121:../Backend/gnu-efi-3.0.9/lib/hw.c ****         IN  UINTN                       Address,
+ 122:../Backend/gnu-efi-3.0.9/lib/hw.c ****         IN  UINTN                       Data
+ 123:../Backend/gnu-efi-3.0.9/lib/hw.c ****         )
+ 124:../Backend/gnu-efi-3.0.9/lib/hw.c **** {
+ 208              		.loc 1 124 1 is_stmt 1 view -0
+ 209              		.cfi_startproc
+ 210              		.loc 1 124 1 is_stmt 0 view .LVU53
+ 211 0124 F30F1EFA 		endbr64
+ 212 0128 4883EC48 		subq	$72, %rsp
+ 213              		.cfi_def_cfa_offset 80
+ 214 012c 4989D0   		movq	%rdx, %r8
+ 215 012f 48894C24 		movq	%rcx, 56(%rsp)
+ 215      38
+ 125:../Backend/gnu-efi-3.0.9/lib/hw.c ****     EFI_STATUS  Status EFI_UNUSED;
+ 216              		.loc 1 125 5 is_stmt 1 view .LVU54
+ 126:../Backend/gnu-efi-3.0.9/lib/hw.c **** 
+ 127:../Backend/gnu-efi-3.0.9/lib/hw.c ****     Status = uefi_call_wrapper(GlobalIoFncs->Pci.Write, 5, GlobalIoFncs, Width, (UINT64)Address, 1,
+ 217              		.loc 1 127 5 view .LVU55
+ 218              		.loc 1 127 14 is_stmt 0 view .LVU56
+ 219 0134 488D4424 		leaq	56(%rsp), %rax
+ 219      38
+ 220 0139 48894424 		movq	%rax, 32(%rsp)
+ 220      20
+ 221 013e 41B90100 		movl	$1, %r9d
+ 221      0000
+ 222 0144 89F2     		movl	%esi, %edx
+ 223              	.LVL22:
+ 224              		.loc 1 127 14 view .LVU57
+ 225 0146 4889F9   		movq	%rdi, %rcx
+ 226              	.LVL23:
+ 227              		.loc 1 127 14 view .LVU58
+ 228 0149 FF5728   		call	*40(%rdi)
+ 229              	.LVL24:
+ 128:../Backend/gnu-efi-3.0.9/lib/hw.c ****     ASSERT(!EFI_ERROR(Status));
+ 230              		.loc 1 128 31 is_stmt 1 view .LVU59
+ 129:../Backend/gnu-efi-3.0.9/lib/hw.c ****     return (UINT32)Data;
+ 231              		.loc 1 129 5 view .LVU60
+ 130:../Backend/gnu-efi-3.0.9/lib/hw.c **** }
+ 232              		.loc 1 130 1 is_stmt 0 view .LVU61
+ 233 014c 8B442438 		movl	56(%rsp), %eax
+ 234 0150 4883C448 		addq	$72, %rsp
+ 235              		.cfi_def_cfa_offset 8
+ 236 0154 C3       		ret
+ 237              		.cfi_endproc
+ 238              	.LFE4:
+ 240              	.Letext0:
+ 241              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 242              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 243              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 244              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efidevp.h"
+ 245              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efiprot.h"
+ 246              		.file 7 "../Backend/gnu-efi-3.0.9/inc/efiapi.h"
+ 247              		.file 8 "../Backend/gnu-efi-3.0.9/inc/efilib.h"
+ 12188              		.section	.note.gnu.property,"a"
+ 12189              		.align 8
+ 12190 0000 04000000 		.long	1f - 0f
+ 12191 0004 10000000 		.long	4f - 1f
+ 12192 0008 05000000 		.long	5
+ 12193              	0:
+ 12194 000c 474E5500 		.string	"GNU"
+ 12195              	1:
+ 12196              		.align 8
+ 12197 0010 020000C0 		.long	0xc0000002
+ 12198 0014 04000000 		.long	3f - 2f
+ 12199              	2:
+ 12200 0018 03000000 		.long	0x3
+ 12201              	3:
+ 12202 001c 00000000 		.align 8
+ 12203              	4:

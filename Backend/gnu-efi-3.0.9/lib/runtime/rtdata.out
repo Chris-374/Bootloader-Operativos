@@ -1,0 +1,71 @@
+   1              		.file	"rtdata.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.hidden	LibRuntimeRestoreTPL
+   7              		.globl	LibRuntimeRestoreTPL
+   8              		.data
+   9              		.align 8
+  12              	LibRuntimeRestoreTPL:
+  13 0000 00000000 		.zero	8
+  13      00000000 
+  14              		.hidden	LibRuntimeRaiseTPL
+  15              		.globl	LibRuntimeRaiseTPL
+  16              		.align 8
+  19              	LibRuntimeRaiseTPL:
+  20 0008 00000000 		.zero	8
+  20      00000000 
+  21              		.hidden	LibRuntimeDebugOut
+  22              		.globl	LibRuntimeDebugOut
+  23              		.bss
+  24              		.align 8
+  27              	LibRuntimeDebugOut:
+  28 0000 00000000 		.zero	8
+  28      00000000 
+  29              		.hidden	EFIDebug
+  30              		.globl	EFIDebug
+  31              		.data
+  32              		.align 8
+  35              	EFIDebug:
+  36 0010 00000080 		.quad	2147483648
+  36      00000000 
+  37              		.hidden	LibFwInstance
+  38              		.globl	LibFwInstance
+  39              		.bss
+  42              	LibFwInstance:
+  43 0008 00       		.zero	1
+  44              		.hidden	RT
+  45              		.globl	RT
+  46 0009 00000000 		.align 8
+  46      000000
+  49              	RT:
+  50 0010 00000000 		.zero	8
+  50      00000000 
+  51              		.text
+  52              	.Letext0:
+  53              		.file 1 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+  54              		.file 2 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+  55              		.file 3 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+  56              		.file 4 "../Backend/gnu-efi-3.0.9/inc/eficon.h"
+  57              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efiapi.h"
+  58              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efidebug.h"
+  59              		.file 7 "../Backend/gnu-efi-3.0.9/lib/lib.h"
+  60              		.file 8 "../Backend/gnu-efi-3.0.9/lib/runtime/rtdata.c"
+  61              		.file 9 "../Backend/gnu-efi-3.0.9/inc/efilib.h"
+ 9961              		.section	.note.gnu.property,"a"
+ 9962              		.align 8
+ 9963 0000 04000000 		.long	1f - 0f
+ 9964 0004 10000000 		.long	4f - 1f
+ 9965 0008 05000000 		.long	5
+ 9966              	0:
+ 9967 000c 474E5500 		.string	"GNU"
+ 9968              	1:
+ 9969              		.align 8
+ 9970 0010 020000C0 		.long	0xc0000002
+ 9971 0014 04000000 		.long	3f - 2f
+ 9972              	2:
+ 9973 0018 03000000 		.long	0x3
+ 9974              	3:
+ 9975 001c 00000000 		.align 8
+ 9976              	4:

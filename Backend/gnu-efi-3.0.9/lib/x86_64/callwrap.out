@@ -1,0 +1,22 @@
+   1              		.file	"callwrap.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              	.Letext0:
+ 2061              		.section	.note.gnu.property,"a"
+ 2062              		.align 8
+ 2063 0000 04000000 		.long	1f - 0f
+ 2064 0004 10000000 		.long	4f - 1f
+ 2065 0008 05000000 		.long	5
+ 2066              	0:
+ 2067 000c 474E5500 		.string	"GNU"
+ 2068              	1:
+ 2069              		.align 8
+ 2070 0010 020000C0 		.long	0xc0000002
+ 2071 0014 04000000 		.long	3f - 2f
+ 2072              	2:
+ 2073 0018 03000000 		.long	0x3
+ 2074              	3:
+ 2075 001c 00000000 		.align 8
+ 2076              	4:

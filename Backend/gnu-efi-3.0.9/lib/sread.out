@@ -1,0 +1,1216 @@
+   1              		.file	"sread.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	OpenSimpleReadFile
+   7              		.hidden	OpenSimpleReadFile
+   9              	OpenSimpleReadFile:
+  10              	.LVL0:
+  11              	.LFB0:
+  12              		.file 1 "../Backend/gnu-efi-3.0.9/lib/sread.c"
+   1:../Backend/gnu-efi-3.0.9/lib/sread.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/sread.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/sread.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/sread.c ****     
+   7:../Backend/gnu-efi-3.0.9/lib/sread.c ****     sread.c
+   8:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/sread.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/sread.c ****     Simple read file access
+  12:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  15:../Backend/gnu-efi-3.0.9/lib/sread.c **** Revision History
+  16:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  17:../Backend/gnu-efi-3.0.9/lib/sread.c **** --*/
+  18:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  19:../Backend/gnu-efi-3.0.9/lib/sread.c **** #include "lib.h"
+  20:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  21:../Backend/gnu-efi-3.0.9/lib/sread.c **** #define SIMPLE_READ_SIGNATURE       EFI_SIGNATURE_32('s','r','d','r')
+  22:../Backend/gnu-efi-3.0.9/lib/sread.c **** typedef struct _SIMPLE_READ_FILE {
+  23:../Backend/gnu-efi-3.0.9/lib/sread.c ****     UINTN               Signature;
+  24:../Backend/gnu-efi-3.0.9/lib/sread.c ****     BOOLEAN             FreeBuffer;
+  25:../Backend/gnu-efi-3.0.9/lib/sread.c ****     VOID                *Source;
+  26:../Backend/gnu-efi-3.0.9/lib/sread.c ****     UINTN               SourceSize;
+  27:../Backend/gnu-efi-3.0.9/lib/sread.c ****     EFI_FILE_HANDLE     FileHandle;
+  28:../Backend/gnu-efi-3.0.9/lib/sread.c **** } SIMPLE_READ_HANDLE;
+  29:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  30:../Backend/gnu-efi-3.0.9/lib/sread.c ****        
+  31:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  32:../Backend/gnu-efi-3.0.9/lib/sread.c **** EFI_STATUS
+  33:../Backend/gnu-efi-3.0.9/lib/sread.c **** OpenSimpleReadFile (
+  34:../Backend/gnu-efi-3.0.9/lib/sread.c ****     IN BOOLEAN                  BootPolicy,
+  35:../Backend/gnu-efi-3.0.9/lib/sread.c ****     IN VOID                     *SourceBuffer   OPTIONAL,
+  36:../Backend/gnu-efi-3.0.9/lib/sread.c ****     IN UINTN                    SourceSize,
+  37:../Backend/gnu-efi-3.0.9/lib/sread.c ****     IN OUT EFI_DEVICE_PATH      **FilePath,
+  38:../Backend/gnu-efi-3.0.9/lib/sread.c ****     OUT EFI_HANDLE              *DeviceHandle,
+  39:../Backend/gnu-efi-3.0.9/lib/sread.c ****     OUT SIMPLE_READ_FILE        *SimpleReadHandle
+  40:../Backend/gnu-efi-3.0.9/lib/sread.c ****     )
+  41:../Backend/gnu-efi-3.0.9/lib/sread.c **** /*++
+  42:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  43:../Backend/gnu-efi-3.0.9/lib/sread.c **** Routine Description:
+  44:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  45:../Backend/gnu-efi-3.0.9/lib/sread.c ****     Opens a file for (simple) reading.  The simple read abstraction
+  46:../Backend/gnu-efi-3.0.9/lib/sread.c ****     will access the file either from a memory copy, from a file
+  47:../Backend/gnu-efi-3.0.9/lib/sread.c ****     system interface, or from the load file interface. 
+  48:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  49:../Backend/gnu-efi-3.0.9/lib/sread.c **** Arguments:
+  50:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  51:../Backend/gnu-efi-3.0.9/lib/sread.c **** Returns:
+  52:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  53:../Backend/gnu-efi-3.0.9/lib/sread.c ****     A handle to access the file
+  54:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  55:../Backend/gnu-efi-3.0.9/lib/sread.c **** --*/
+  56:../Backend/gnu-efi-3.0.9/lib/sread.c **** {
+  13              		.loc 1 56 1 view -0
+  14              		.cfi_startproc
+  15              		.loc 1 56 1 is_stmt 0 view .LVU1
+  16 0000 F30F1EFA 		endbr64
+  17 0004 4157     		pushq	%r15
+  18              		.cfi_def_cfa_offset 16
+  19              		.cfi_offset 15, -16
+  20 0006 4156     		pushq	%r14
+  21              		.cfi_def_cfa_offset 24
+  22              		.cfi_offset 14, -24
+  23 0008 4155     		pushq	%r13
+  24              		.cfi_def_cfa_offset 32
+  25              		.cfi_offset 13, -32
+  26 000a 4154     		pushq	%r12
+  27              		.cfi_def_cfa_offset 40
+  28              		.cfi_offset 12, -40
+  29 000c 55       		pushq	%rbp
+  30              		.cfi_def_cfa_offset 48
+  31              		.cfi_offset 6, -48
+  32 000d 53       		pushq	%rbx
+  33              		.cfi_def_cfa_offset 56
+  34              		.cfi_offset 3, -56
+  35 000e 4883EC78 		subq	$120, %rsp
+  36              		.cfi_def_cfa_offset 176
+  37 0012 897C2444 		movl	%edi, 68(%rsp)
+  38 0016 4889F3   		movq	%rsi, %rbx
+  39 0019 48895424 		movq	%rdx, 72(%rsp)
+  39      48
+  40 001e 4989CE   		movq	%rcx, %r14
+  41 0021 4D89C7   		movq	%r8, %r15
+  42 0024 4C89CD   		movq	%r9, %rbp
+  57:../Backend/gnu-efi-3.0.9/lib/sread.c ****     SIMPLE_READ_HANDLE          *FHand;
+  43              		.loc 1 57 5 is_stmt 1 view .LVU2
+  58:../Backend/gnu-efi-3.0.9/lib/sread.c ****     EFI_DEVICE_PATH             *UserFilePath;
+  44              		.loc 1 58 5 view .LVU3
+  59:../Backend/gnu-efi-3.0.9/lib/sread.c ****     EFI_DEVICE_PATH             *TempFilePath;
+  45              		.loc 1 59 5 view .LVU4
+  60:../Backend/gnu-efi-3.0.9/lib/sread.c ****     EFI_DEVICE_PATH             *TempFilePathPtr;
+  46              		.loc 1 60 5 view .LVU5
+  61:../Backend/gnu-efi-3.0.9/lib/sread.c ****     FILEPATH_DEVICE_PATH        *FilePathNode;
+  47              		.loc 1 61 5 view .LVU6
+  62:../Backend/gnu-efi-3.0.9/lib/sread.c ****     EFI_FILE_HANDLE             FileHandle, LastHandle;
+  48              		.loc 1 62 5 view .LVU7
+  63:../Backend/gnu-efi-3.0.9/lib/sread.c ****     EFI_STATUS                  Status;
+  49              		.loc 1 63 5 view .LVU8
+  64:../Backend/gnu-efi-3.0.9/lib/sread.c ****     EFI_LOAD_FILE_INTERFACE     *LoadFile;
+  50              		.loc 1 64 5 view .LVU9
+  65:../Backend/gnu-efi-3.0.9/lib/sread.c ****   
+  66:../Backend/gnu-efi-3.0.9/lib/sread.c ****     FHand = NULL;
+  51              		.loc 1 66 5 view .LVU10
+  52              	.LVL1:
+  67:../Backend/gnu-efi-3.0.9/lib/sread.c ****     UserFilePath = *FilePath;
+  53              		.loc 1 67 5 view .LVU11
+  54              		.loc 1 67 18 is_stmt 0 view .LVU12
+  55 0027 488B01   		movq	(%rcx), %rax
+  56 002a 48894424 		movq	%rax, 56(%rsp)
+  56      38
+  57              	.LVL2:
+  68:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  69:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+  70:../Backend/gnu-efi-3.0.9/lib/sread.c ****     // Allocate a new simple read handle structure
+  71:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+  72:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  73:../Backend/gnu-efi-3.0.9/lib/sread.c ****     FHand = AllocateZeroPool (sizeof(SIMPLE_READ_HANDLE));
+  58              		.loc 1 73 5 is_stmt 1 view .LVU13
+  59              		.loc 1 73 13 is_stmt 0 view .LVU14
+  60 002f BF280000 		movl	$40, %edi
+  60      00
+  61              	.LVL3:
+  62              		.loc 1 73 13 view .LVU15
+  63 0034 E8000000 		call	AllocateZeroPool
+  63      00
+  64              	.LVL4:
+  65              		.loc 1 73 13 view .LVU16
+  66 0039 4989C5   		movq	%rax, %r13
+  67              	.LVL5:
+  74:../Backend/gnu-efi-3.0.9/lib/sread.c ****     if (!FHand) {
+  68              		.loc 1 74 5 is_stmt 1 view .LVU17
+  69              		.loc 1 74 8 is_stmt 0 view .LVU18
+  70 003c 4885C0   		testq	%rax, %rax
+  71 003f 0F849602 		je	.L14
+  71      0000
+  75:../Backend/gnu-efi-3.0.9/lib/sread.c ****         Status = EFI_OUT_OF_RESOURCES;
+  76:../Backend/gnu-efi-3.0.9/lib/sread.c ****         goto Done;
+  77:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+  78:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  79:../Backend/gnu-efi-3.0.9/lib/sread.c ****     *SimpleReadHandle = (SIMPLE_READ_FILE) FHand;
+  72              		.loc 1 79 5 is_stmt 1 view .LVU19
+  73              		.loc 1 79 23 is_stmt 0 view .LVU20
+  74 0045 48894500 		movq	%rax, 0(%rbp)
+  80:../Backend/gnu-efi-3.0.9/lib/sread.c ****     FHand->Signature = SIMPLE_READ_SIGNATURE;
+  75              		.loc 1 80 5 is_stmt 1 view .LVU21
+  76              		.loc 1 80 22 is_stmt 0 view .LVU22
+  77 0049 48C70073 		movq	$1919185523, (%rax)
+  77      726472
+  81:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  82:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+  83:../Backend/gnu-efi-3.0.9/lib/sread.c ****     // If the caller passed a copy of the file, then just use it
+  84:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+  85:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  86:../Backend/gnu-efi-3.0.9/lib/sread.c ****     if (SourceBuffer) {
+  78              		.loc 1 86 5 is_stmt 1 view .LVU23
+  79              		.loc 1 86 8 is_stmt 0 view .LVU24
+  80 0050 4885DB   		testq	%rbx, %rbx
+  81 0053 745E     		je	.L3
+  87:../Backend/gnu-efi-3.0.9/lib/sread.c ****         FHand->Source = SourceBuffer;
+  82              		.loc 1 87 9 is_stmt 1 view .LVU25
+  83              		.loc 1 87 23 is_stmt 0 view .LVU26
+  84 0055 48895810 		movq	%rbx, 16(%rax)
+  88:../Backend/gnu-efi-3.0.9/lib/sread.c ****         FHand->SourceSize = SourceSize;
+  85              		.loc 1 88 9 is_stmt 1 view .LVU27
+  86              		.loc 1 88 27 is_stmt 0 view .LVU28
+  87 0059 488B4424 		movq	72(%rsp), %rax
+  87      48
+  88              	.LVL6:
+  89              		.loc 1 88 27 view .LVU29
+  90 005e 49894518 		movq	%rax, 24(%r13)
+  89:../Backend/gnu-efi-3.0.9/lib/sread.c ****         *DeviceHandle = NULL;
+  91              		.loc 1 89 9 is_stmt 1 view .LVU30
+  92              		.loc 1 89 23 is_stmt 0 view .LVU31
+  93 0062 49C70700 		movq	$0, (%r15)
+  93      000000
+  90:../Backend/gnu-efi-3.0.9/lib/sread.c ****         Status = EFI_SUCCESS;
+  94              		.loc 1 90 9 is_stmt 1 view .LVU32
+  95              	.LVL7:
+  91:../Backend/gnu-efi-3.0.9/lib/sread.c ****         goto Done;
+  96              		.loc 1 91 9 view .LVU33
+  90:../Backend/gnu-efi-3.0.9/lib/sread.c ****         Status = EFI_SUCCESS;
+  97              		.loc 1 90 16 is_stmt 0 view .LVU34
+  98 0069 BD000000 		movl	$0, %ebp
+  98      00
+  99              	.LVL8:
+ 100              	.L2:
+  92:../Backend/gnu-efi-3.0.9/lib/sread.c ****     } 
+  93:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  94:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+  95:../Backend/gnu-efi-3.0.9/lib/sread.c ****     // Attempt to access the file via a file system interface
+  96:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+  97:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+  98:../Backend/gnu-efi-3.0.9/lib/sread.c ****     FileHandle = NULL;
+  99:../Backend/gnu-efi-3.0.9/lib/sread.c ****     Status = uefi_call_wrapper(BS->LocateDevicePath, 3, &FileSystemProtocol, FilePath, DeviceHandle
+ 100:../Backend/gnu-efi-3.0.9/lib/sread.c ****     if (!EFI_ERROR(Status)) {
+ 101:../Backend/gnu-efi-3.0.9/lib/sread.c ****         FileHandle = LibOpenRoot (*DeviceHandle);
+ 102:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 103:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 104:../Backend/gnu-efi-3.0.9/lib/sread.c ****     Status = FileHandle ? EFI_SUCCESS : EFI_UNSUPPORTED;
+ 105:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 106:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 107:../Backend/gnu-efi-3.0.9/lib/sread.c ****     // To access as a filesystem, the filepath should only
+ 108:../Backend/gnu-efi-3.0.9/lib/sread.c ****     // contain filepath components.  Follow the filepath nodes
+ 109:../Backend/gnu-efi-3.0.9/lib/sread.c ****     // and find the target file
+ 110:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 111:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 112:../Backend/gnu-efi-3.0.9/lib/sread.c ****     FilePathNode = (FILEPATH_DEVICE_PATH *) *FilePath;
+ 113:../Backend/gnu-efi-3.0.9/lib/sread.c ****     while (!IsDevicePathEnd(&FilePathNode->Header)) {
+ 114:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 115:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 116:../Backend/gnu-efi-3.0.9/lib/sread.c ****         // For filesystem access each node should be a filepath component
+ 117:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 118:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 119:../Backend/gnu-efi-3.0.9/lib/sread.c ****         if (DevicePathType(&FilePathNode->Header) != MEDIA_DEVICE_PATH ||
+ 120:../Backend/gnu-efi-3.0.9/lib/sread.c ****             DevicePathSubType(&FilePathNode->Header) != MEDIA_FILEPATH_DP) {
+ 121:../Backend/gnu-efi-3.0.9/lib/sread.c ****             Status = EFI_UNSUPPORTED;
+ 122:../Backend/gnu-efi-3.0.9/lib/sread.c ****         }
+ 123:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 124:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 125:../Backend/gnu-efi-3.0.9/lib/sread.c ****         // If there's been an error, stop
+ 126:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 127:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 128:../Backend/gnu-efi-3.0.9/lib/sread.c ****         if (EFI_ERROR(Status)) {
+ 129:../Backend/gnu-efi-3.0.9/lib/sread.c ****             break;
+ 130:../Backend/gnu-efi-3.0.9/lib/sread.c ****         }
+ 131:../Backend/gnu-efi-3.0.9/lib/sread.c ****         
+ 132:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 133:../Backend/gnu-efi-3.0.9/lib/sread.c ****         // Open this file path node
+ 134:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 135:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 136:../Backend/gnu-efi-3.0.9/lib/sread.c ****         LastHandle = FileHandle;
+ 137:../Backend/gnu-efi-3.0.9/lib/sread.c ****         FileHandle = NULL;
+ 138:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 139:../Backend/gnu-efi-3.0.9/lib/sread.c ****         Status = uefi_call_wrapper(
+ 140:../Backend/gnu-efi-3.0.9/lib/sread.c **** 			LastHandle->Open,
+ 141:../Backend/gnu-efi-3.0.9/lib/sread.c **** 			5, 
+ 142:../Backend/gnu-efi-3.0.9/lib/sread.c ****                         LastHandle,
+ 143:../Backend/gnu-efi-3.0.9/lib/sread.c ****                         &FileHandle,
+ 144:../Backend/gnu-efi-3.0.9/lib/sread.c ****                         FilePathNode->PathName,
+ 145:../Backend/gnu-efi-3.0.9/lib/sread.c ****                         EFI_FILE_MODE_READ,
+ 146:../Backend/gnu-efi-3.0.9/lib/sread.c ****                         0
+ 147:../Backend/gnu-efi-3.0.9/lib/sread.c ****                         );
+ 148:../Backend/gnu-efi-3.0.9/lib/sread.c ****         
+ 149:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 150:../Backend/gnu-efi-3.0.9/lib/sread.c ****         // Close the last node
+ 151:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 152:../Backend/gnu-efi-3.0.9/lib/sread.c ****         
+ 153:../Backend/gnu-efi-3.0.9/lib/sread.c ****         uefi_call_wrapper(LastHandle->Close, 1, LastHandle);
+ 154:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 155:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 156:../Backend/gnu-efi-3.0.9/lib/sread.c ****         // Get the next node
+ 157:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 158:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 159:../Backend/gnu-efi-3.0.9/lib/sread.c ****         FilePathNode = (FILEPATH_DEVICE_PATH *) NextDevicePathNode(&FilePathNode->Header);
+ 160:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 161:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 162:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 163:../Backend/gnu-efi-3.0.9/lib/sread.c ****     // If success, return the FHand
+ 164:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 165:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 166:../Backend/gnu-efi-3.0.9/lib/sread.c ****     if (!EFI_ERROR(Status)) {
+ 167:../Backend/gnu-efi-3.0.9/lib/sread.c ****         ASSERT(FileHandle);
+ 168:../Backend/gnu-efi-3.0.9/lib/sread.c ****         FHand->FileHandle = FileHandle;
+ 169:../Backend/gnu-efi-3.0.9/lib/sread.c ****         goto Done;
+ 170:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 171:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 172:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 173:../Backend/gnu-efi-3.0.9/lib/sread.c ****     // Cleanup from filesystem access
+ 174:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 175:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 176:../Backend/gnu-efi-3.0.9/lib/sread.c ****     if (FileHandle) {
+ 177:../Backend/gnu-efi-3.0.9/lib/sread.c ****         uefi_call_wrapper(FileHandle->Close, 1, FileHandle);
+ 178:../Backend/gnu-efi-3.0.9/lib/sread.c ****         FileHandle = NULL;
+ 179:../Backend/gnu-efi-3.0.9/lib/sread.c ****         *FilePath = UserFilePath;
+ 180:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 181:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 182:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 183:../Backend/gnu-efi-3.0.9/lib/sread.c ****     // If the error is something other then unsupported, return it
+ 184:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 185:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 186:../Backend/gnu-efi-3.0.9/lib/sread.c ****     if (Status != EFI_UNSUPPORTED) {
+ 187:../Backend/gnu-efi-3.0.9/lib/sread.c ****         goto Done;
+ 188:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 189:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 190:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 191:../Backend/gnu-efi-3.0.9/lib/sread.c ****     // Attempt to access the file via the load file protocol
+ 192:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 193:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 194:../Backend/gnu-efi-3.0.9/lib/sread.c ****     Status = LibDevicePathToInterface (&LoadFileProtocol, *FilePath, (VOID*)&LoadFile);
+ 195:../Backend/gnu-efi-3.0.9/lib/sread.c ****     if (!EFI_ERROR(Status)) {
+ 196:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 197:../Backend/gnu-efi-3.0.9/lib/sread.c ****         TempFilePath = DuplicateDevicePath (*FilePath);
+ 198:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 199:../Backend/gnu-efi-3.0.9/lib/sread.c ****         TempFilePathPtr = TempFilePath;
+ 200:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 201:../Backend/gnu-efi-3.0.9/lib/sread.c ****         Status = uefi_call_wrapper(BS->LocateDevicePath, 3, &LoadFileProtocol, &TempFilePath, Devic
+ 202:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 203:../Backend/gnu-efi-3.0.9/lib/sread.c ****         FreePool (TempFilePathPtr);
+ 204:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 205:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 206:../Backend/gnu-efi-3.0.9/lib/sread.c ****         // Determine the size of buffer needed to hold the file
+ 207:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 208:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 209:../Backend/gnu-efi-3.0.9/lib/sread.c ****         SourceSize = 0;
+ 210:../Backend/gnu-efi-3.0.9/lib/sread.c ****         Status = uefi_call_wrapper(
+ 211:../Backend/gnu-efi-3.0.9/lib/sread.c **** 		    LoadFile->LoadFile,
+ 212:../Backend/gnu-efi-3.0.9/lib/sread.c **** 			5,
+ 213:../Backend/gnu-efi-3.0.9/lib/sread.c ****                     LoadFile,
+ 214:../Backend/gnu-efi-3.0.9/lib/sread.c ****                     *FilePath,
+ 215:../Backend/gnu-efi-3.0.9/lib/sread.c ****                     BootPolicy,
+ 216:../Backend/gnu-efi-3.0.9/lib/sread.c ****                     &SourceSize,
+ 217:../Backend/gnu-efi-3.0.9/lib/sread.c ****                     NULL
+ 218:../Backend/gnu-efi-3.0.9/lib/sread.c ****                     );
+ 219:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 220:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 221:../Backend/gnu-efi-3.0.9/lib/sread.c ****         // We expect a buffer too small error to inform us 
+ 222:../Backend/gnu-efi-3.0.9/lib/sread.c ****         // of the buffer size needed
+ 223:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 224:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 225:../Backend/gnu-efi-3.0.9/lib/sread.c ****         if (Status == EFI_BUFFER_TOO_SMALL) {
+ 226:../Backend/gnu-efi-3.0.9/lib/sread.c ****             SourceBuffer = AllocatePool (SourceSize);
+ 227:../Backend/gnu-efi-3.0.9/lib/sread.c ****             
+ 228:../Backend/gnu-efi-3.0.9/lib/sread.c ****             if (SourceBuffer) {
+ 229:../Backend/gnu-efi-3.0.9/lib/sread.c ****                 FHand->FreeBuffer = TRUE;
+ 230:../Backend/gnu-efi-3.0.9/lib/sread.c ****                 FHand->Source = SourceBuffer;
+ 231:../Backend/gnu-efi-3.0.9/lib/sread.c ****                 FHand->SourceSize = SourceSize;
+ 232:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 233:../Backend/gnu-efi-3.0.9/lib/sread.c ****                 Status = uefi_call_wrapper(
+ 234:../Backend/gnu-efi-3.0.9/lib/sread.c **** 			    LoadFile->LoadFile,
+ 235:../Backend/gnu-efi-3.0.9/lib/sread.c **** 				5,
+ 236:../Backend/gnu-efi-3.0.9/lib/sread.c ****                             LoadFile,
+ 237:../Backend/gnu-efi-3.0.9/lib/sread.c ****                             *FilePath,
+ 238:../Backend/gnu-efi-3.0.9/lib/sread.c ****                             BootPolicy,
+ 239:../Backend/gnu-efi-3.0.9/lib/sread.c ****                             &SourceSize,
+ 240:../Backend/gnu-efi-3.0.9/lib/sread.c ****                             SourceBuffer
+ 241:../Backend/gnu-efi-3.0.9/lib/sread.c ****                             );  
+ 242:../Backend/gnu-efi-3.0.9/lib/sread.c ****             }
+ 243:../Backend/gnu-efi-3.0.9/lib/sread.c ****         }
+ 244:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 245:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 246:../Backend/gnu-efi-3.0.9/lib/sread.c ****         // If success, return FHand
+ 247:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 248:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 249:../Backend/gnu-efi-3.0.9/lib/sread.c ****         if (!EFI_ERROR(Status) || Status == EFI_ALREADY_STARTED) {
+ 250:../Backend/gnu-efi-3.0.9/lib/sread.c ****             goto Done;
+ 251:../Backend/gnu-efi-3.0.9/lib/sread.c ****         }
+ 252:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 253:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 254:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 255:../Backend/gnu-efi-3.0.9/lib/sread.c ****     // Nothing else to try
+ 256:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 257:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 258:../Backend/gnu-efi-3.0.9/lib/sread.c ****     DEBUG ((D_LOAD|D_WARN, "OpenSimpleReadFile: Device did not support a known load protocol\n"));
+ 259:../Backend/gnu-efi-3.0.9/lib/sread.c ****     Status = EFI_UNSUPPORTED;
+ 260:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 261:../Backend/gnu-efi-3.0.9/lib/sread.c **** Done:
+ 262:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 263:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 264:../Backend/gnu-efi-3.0.9/lib/sread.c ****     // If the file was not accessed, clean up
+ 265:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 266:../Backend/gnu-efi-3.0.9/lib/sread.c ****     if (EFI_ERROR(Status) && (Status != EFI_ALREADY_STARTED)) {
+ 101              		.loc 1 266 5 is_stmt 1 view .LVU35
+ 102              		.loc 1 266 9 is_stmt 0 view .LVU36
+ 103 006e 4889E8   		movq	%rbp, %rax
+ 104 0071 48C1E83F 		shrq	$63, %rax
+ 105              		.loc 1 266 38 view .LVU37
+ 106 0075 48BA1400 		movabsq	$-9223372036854775788, %rdx
+ 106      00000000 
+ 106      0080
+ 107 007f 4839D5   		cmpq	%rdx, %rbp
+ 108 0082 0F95C2   		setne	%dl
+ 109              		.loc 1 266 8 view .LVU38
+ 110 0085 84C2     		testb	%al, %dl
+ 111 0087 7418     		je	.L1
+ 267:../Backend/gnu-efi-3.0.9/lib/sread.c ****         if (FHand) {
+ 112              		.loc 1 267 9 is_stmt 1 view .LVU39
+ 113              		.loc 1 267 12 is_stmt 0 view .LVU40
+ 114 0089 4D85ED   		testq	%r13, %r13
+ 115 008c 7413     		je	.L1
+ 268:../Backend/gnu-efi-3.0.9/lib/sread.c ****             if (FHand->FreeBuffer) {
+ 116              		.loc 1 268 13 is_stmt 1 view .LVU41
+ 117              		.loc 1 268 16 is_stmt 0 view .LVU42
+ 118 008e 41807D08 		cmpb	$0, 8(%r13)
+ 118      00
+ 119 0093 0F855102 		jne	.L20
+ 119      0000
+ 120              	.L13:
+ 269:../Backend/gnu-efi-3.0.9/lib/sread.c ****                 FreePool (FHand->Source);
+ 270:../Backend/gnu-efi-3.0.9/lib/sread.c ****             }
+ 271:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 272:../Backend/gnu-efi-3.0.9/lib/sread.c ****             FreePool (FHand);
+ 121              		.loc 1 272 13 is_stmt 1 view .LVU43
+ 122 0099 4C89EF   		movq	%r13, %rdi
+ 123 009c E8000000 		call	FreePool
+ 123      00
+ 124              	.LVL9:
+ 273:../Backend/gnu-efi-3.0.9/lib/sread.c ****         }
+ 274:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 275:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 276:../Backend/gnu-efi-3.0.9/lib/sread.c ****     return Status;
+ 125              		.loc 1 276 5 view .LVU44
+ 126              	.L1:
+ 277:../Backend/gnu-efi-3.0.9/lib/sread.c **** }
+ 127              		.loc 1 277 1 is_stmt 0 view .LVU45
+ 128 00a1 4889E8   		movq	%rbp, %rax
+ 129 00a4 4883C478 		addq	$120, %rsp
+ 130              		.cfi_remember_state
+ 131              		.cfi_def_cfa_offset 56
+ 132 00a8 5B       		popq	%rbx
+ 133              		.cfi_restore 3
+ 134              		.cfi_def_cfa_offset 48
+ 135 00a9 5D       		popq	%rbp
+ 136              		.cfi_restore 6
+ 137              		.cfi_def_cfa_offset 40
+ 138              	.LVL10:
+ 139              		.loc 1 277 1 view .LVU46
+ 140 00aa 415C     		popq	%r12
+ 141              		.cfi_restore 12
+ 142              		.cfi_def_cfa_offset 32
+ 143 00ac 415D     		popq	%r13
+ 144              		.cfi_restore 13
+ 145              		.cfi_def_cfa_offset 24
+ 146              	.LVL11:
+ 147              		.loc 1 277 1 view .LVU47
+ 148 00ae 415E     		popq	%r14
+ 149              		.cfi_restore 14
+ 150              		.cfi_def_cfa_offset 16
+ 151              	.LVL12:
+ 152              		.loc 1 277 1 view .LVU48
+ 153 00b0 415F     		popq	%r15
+ 154              		.cfi_restore 15
+ 155              		.cfi_def_cfa_offset 8
+ 156              	.LVL13:
+ 157              		.loc 1 277 1 view .LVU49
+ 158 00b2 C3       		ret
+ 159              	.LVL14:
+ 160              	.L3:
+ 161              		.cfi_restore_state
+  98:../Backend/gnu-efi-3.0.9/lib/sread.c ****     Status = uefi_call_wrapper(BS->LocateDevicePath, 3, &FileSystemProtocol, FilePath, DeviceHandle
+ 162              		.loc 1 98 5 is_stmt 1 view .LVU50
+  98:../Backend/gnu-efi-3.0.9/lib/sread.c ****     Status = uefi_call_wrapper(BS->LocateDevicePath, 3, &FileSystemProtocol, FilePath, DeviceHandle
+ 163              		.loc 1 98 16 is_stmt 0 view .LVU51
+ 164 00b3 48C74424 		movq	$0, 96(%rsp)
+ 164      60000000 
+ 164      00
+  99:../Backend/gnu-efi-3.0.9/lib/sread.c ****     if (!EFI_ERROR(Status)) {
+ 165              		.loc 1 99 5 is_stmt 1 view .LVU52
+  99:../Backend/gnu-efi-3.0.9/lib/sread.c ****     if (!EFI_ERROR(Status)) {
+ 166              		.loc 1 99 14 is_stmt 0 view .LVU53
+ 167 00bc 4D89F8   		movq	%r15, %r8
+ 168 00bf 4C89F2   		movq	%r14, %rdx
+ 169 00c2 488D0D00 		leaq	gEfiSimpleFileSystemProtocolGuid(%rip), %rcx
+ 169      000000
+ 170 00c9 488B0500 		movq	BS(%rip), %rax
+ 170      000000
+ 171              	.LVL15:
+  99:../Backend/gnu-efi-3.0.9/lib/sread.c ****     if (!EFI_ERROR(Status)) {
+ 172              		.loc 1 99 14 view .LVU54
+ 173 00d0 FF90B800 		call	*184(%rax)
+ 173      0000
+ 174              	.LVL16:
+ 100:../Backend/gnu-efi-3.0.9/lib/sread.c ****         FileHandle = LibOpenRoot (*DeviceHandle);
+ 175              		.loc 1 100 5 is_stmt 1 view .LVU55
+ 100:../Backend/gnu-efi-3.0.9/lib/sread.c ****         FileHandle = LibOpenRoot (*DeviceHandle);
+ 176              		.loc 1 100 8 is_stmt 0 view .LVU56
+ 177 00d6 4885C0   		testq	%rax, %rax
+ 178 00d9 7912     		jns	.L21
+ 179              	.LVL17:
+ 180              	.L4:
+ 104:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 181              		.loc 1 104 5 is_stmt 1 view .LVU57
+ 104:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 182              		.loc 1 104 39 is_stmt 0 view .LVU58
+ 183 00db 48837C24 		cmpq	$0, 96(%rsp)
+ 183      6000
+ 184 00e1 7419     		je	.L15
+ 104:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 185              		.loc 1 104 39 discriminator 1 view .LVU59
+ 186 00e3 BD000000 		movl	$0, %ebp
+ 186      00
+ 187              	.LVL18:
+ 188              	.L5:
+ 112:../Backend/gnu-efi-3.0.9/lib/sread.c ****     while (!IsDevicePathEnd(&FilePathNode->Header)) {
+ 189              		.loc 1 112 5 is_stmt 1 view .LVU60
+ 112:../Backend/gnu-efi-3.0.9/lib/sread.c ****     while (!IsDevicePathEnd(&FilePathNode->Header)) {
+ 190              		.loc 1 112 18 is_stmt 0 view .LVU61
+ 191 00e8 498B1E   		movq	(%r14), %rbx
+ 192              	.LVL19:
+ 113:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 193              		.loc 1 113 5 is_stmt 1 view .LVU62
+ 113:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 194              		.loc 1 113 11 is_stmt 0 view .LVU63
+ 195 00eb EB7B     		jmp	.L6
+ 196              	.LVL20:
+ 197              	.L21:
+ 101:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 198              		.loc 1 101 9 is_stmt 1 view .LVU64
+ 101:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 199              		.loc 1 101 22 is_stmt 0 view .LVU65
+ 200 00ed 498B3F   		movq	(%r15), %rdi
+ 201 00f0 E8000000 		call	LibOpenRoot
+ 201      00
+ 202              	.LVL21:
+ 101:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 203              		.loc 1 101 20 discriminator 1 view .LVU66
+ 204 00f5 48894424 		movq	%rax, 96(%rsp)
+ 204      60
+ 205 00fa EBDF     		jmp	.L4
+ 206              	.L15:
+ 104:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 207              		.loc 1 104 39 discriminator 2 view .LVU67
+ 208 00fc 48BD0300 		movabsq	$-9223372036854775805, %rbp
+ 208      00000000 
+ 208      0080
+ 209              	.LVL22:
+ 104:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 210              		.loc 1 104 39 discriminator 2 view .LVU68
+ 211 0106 EBE0     		jmp	.L5
+ 212              	.LVL23:
+ 213              	.L8:
+ 119:../Backend/gnu-efi-3.0.9/lib/sread.c ****             DevicePathSubType(&FilePathNode->Header) != MEDIA_FILEPATH_DP) {
+ 214              		.loc 1 119 9 is_stmt 1 view .LVU69
+ 119:../Backend/gnu-efi-3.0.9/lib/sread.c ****             DevicePathSubType(&FilePathNode->Header) != MEDIA_FILEPATH_DP) {
+ 215              		.loc 1 119 12 is_stmt 0 view .LVU70
+ 216 0108 3C04     		cmpb	$4, %al
+ 217 010a 756E     		jne	.L16
+ 119:../Backend/gnu-efi-3.0.9/lib/sread.c ****             DevicePathSubType(&FilePathNode->Header) != MEDIA_FILEPATH_DP) {
+ 218              		.loc 1 119 72 discriminator 1 view .LVU71
+ 219 010c 807B0104 		cmpb	$4, 1(%rbx)
+ 220 0110 0F856501 		jne	.L17
+ 220      0000
+ 128:../Backend/gnu-efi-3.0.9/lib/sread.c ****             break;
+ 221              		.loc 1 128 9 is_stmt 1 view .LVU72
+ 128:../Backend/gnu-efi-3.0.9/lib/sread.c ****             break;
+ 222              		.loc 1 128 12 is_stmt 0 view .LVU73
+ 223 0116 4885ED   		testq	%rbp, %rbp
+ 224 0119 7869     		js	.L7
+ 136:../Backend/gnu-efi-3.0.9/lib/sread.c ****         FileHandle = NULL;
+ 225              		.loc 1 136 9 is_stmt 1 view .LVU74
+ 136:../Backend/gnu-efi-3.0.9/lib/sread.c ****         FileHandle = NULL;
+ 226              		.loc 1 136 20 is_stmt 0 view .LVU75
+ 227 011b 4C8B6424 		movq	96(%rsp), %r12
+ 227      60
+ 228              	.LVL24:
+ 137:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 229              		.loc 1 137 9 is_stmt 1 view .LVU76
+ 137:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 230              		.loc 1 137 20 is_stmt 0 view .LVU77
+ 231 0120 48C74424 		movq	$0, 96(%rsp)
+ 231      60000000 
+ 231      00
+ 139:../Backend/gnu-efi-3.0.9/lib/sread.c **** 			LastHandle->Open,
+ 232              		.loc 1 139 9 is_stmt 1 view .LVU78
+ 139:../Backend/gnu-efi-3.0.9/lib/sread.c **** 			LastHandle->Open,
+ 233              		.loc 1 139 18 is_stmt 0 view .LVU79
+ 234 0129 498B4424 		movq	8(%r12), %rax
+ 234      08
+ 235 012e 488D5424 		leaq	96(%rsp), %rdx
+ 235      60
+ 236 0133 48C74424 		movq	$0, 32(%rsp)
+ 236      20000000 
+ 236      00
+ 237 013c 41B90100 		movl	$1, %r9d
+ 237      0000
+ 238 0142 4C8D4304 		leaq	4(%rbx), %r8
+ 239 0146 4C89E1   		movq	%r12, %rcx
+ 240 0149 FFD0     		call	*%rax
+ 241              	.LVL25:
+ 242 014b 4889C5   		movq	%rax, %rbp
+ 243              	.LVL26:
+ 153:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 244              		.loc 1 153 9 is_stmt 1 view .LVU80
+ 245 014e 4C89E1   		movq	%r12, %rcx
+ 246 0151 41FF5424 		call	*16(%r12)
+ 246      10
+ 247              	.LVL27:
+ 159:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 248              		.loc 1 159 9 view .LVU81
+ 159:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 249              		.loc 1 159 49 is_stmt 0 view .LVU82
+ 250 0156 0FB64302 		movzbl	2(%rbx), %eax
+ 251 015a 0FB65303 		movzbl	3(%rbx), %edx
+ 252 015e C1E208   		sall	$8, %edx
+ 253 0161 09D0     		orl	%edx, %eax
+ 254 0163 4898     		cltq
+ 159:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 255              		.loc 1 159 22 view .LVU83
+ 256 0165 4801C3   		addq	%rax, %rbx
+ 257              	.LVL28:
+ 258              	.L6:
+ 113:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 259              		.loc 1 113 12 is_stmt 1 view .LVU84
+ 260 0168 0FB603   		movzbl	(%rbx), %eax
+ 261 016b 83E07F   		andl	$127, %eax
+ 262 016e 3C7F     		cmpb	$127, %al
+ 263 0170 7596     		jne	.L8
+ 113:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 264              		.loc 1 113 12 is_stmt 0 discriminator 1 view .LVU85
+ 265 0172 807B01FF 		cmpb	$-1, 1(%rbx)
+ 266 0176 7590     		jne	.L8
+ 267 0178 EB0A     		jmp	.L7
+ 268              	.L16:
+ 121:../Backend/gnu-efi-3.0.9/lib/sread.c ****         }
+ 269              		.loc 1 121 20 view .LVU86
+ 270 017a 48BD0300 		movabsq	$-9223372036854775805, %rbp
+ 270      00000000 
+ 270      0080
+ 271              	.LVL29:
+ 272              	.L7:
+ 166:../Backend/gnu-efi-3.0.9/lib/sread.c ****         ASSERT(FileHandle);
+ 273              		.loc 1 166 5 is_stmt 1 view .LVU87
+ 166:../Backend/gnu-efi-3.0.9/lib/sread.c ****         ASSERT(FileHandle);
+ 274              		.loc 1 166 8 is_stmt 0 view .LVU88
+ 275 0184 4885ED   		testq	%rbp, %rbp
+ 276 0187 0F89FD00 		jns	.L22
+ 276      0000
+ 176:../Backend/gnu-efi-3.0.9/lib/sread.c ****         uefi_call_wrapper(FileHandle->Close, 1, FileHandle);
+ 277              		.loc 1 176 5 is_stmt 1 view .LVU89
+ 176:../Backend/gnu-efi-3.0.9/lib/sread.c ****         uefi_call_wrapper(FileHandle->Close, 1, FileHandle);
+ 278              		.loc 1 176 9 is_stmt 0 view .LVU90
+ 279 018d 488B4424 		movq	96(%rsp), %rax
+ 279      60
+ 176:../Backend/gnu-efi-3.0.9/lib/sread.c ****         uefi_call_wrapper(FileHandle->Close, 1, FileHandle);
+ 280              		.loc 1 176 8 view .LVU91
+ 281 0192 4885C0   		testq	%rax, %rax
+ 282 0195 7417     		je	.L10
+ 177:../Backend/gnu-efi-3.0.9/lib/sread.c ****         FileHandle = NULL;
+ 283              		.loc 1 177 9 is_stmt 1 view .LVU92
+ 284 0197 4889C1   		movq	%rax, %rcx
+ 285 019a FF5010   		call	*16(%rax)
+ 286              	.LVL30:
+ 178:../Backend/gnu-efi-3.0.9/lib/sread.c ****         *FilePath = UserFilePath;
+ 287              		.loc 1 178 9 view .LVU93
+ 178:../Backend/gnu-efi-3.0.9/lib/sread.c ****         *FilePath = UserFilePath;
+ 288              		.loc 1 178 20 is_stmt 0 view .LVU94
+ 289 019d 48C74424 		movq	$0, 96(%rsp)
+ 289      60000000 
+ 289      00
+ 179:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 290              		.loc 1 179 9 is_stmt 1 view .LVU95
+ 179:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 291              		.loc 1 179 19 is_stmt 0 view .LVU96
+ 292 01a6 488B4424 		movq	56(%rsp), %rax
+ 292      38
+ 293 01ab 498906   		movq	%rax, (%r14)
+ 294              	.L10:
+ 186:../Backend/gnu-efi-3.0.9/lib/sread.c ****         goto Done;
+ 295              		.loc 1 186 5 is_stmt 1 view .LVU97
+ 186:../Backend/gnu-efi-3.0.9/lib/sread.c ****         goto Done;
+ 296              		.loc 1 186 8 is_stmt 0 view .LVU98
+ 297 01ae 48B80300 		movabsq	$-9223372036854775805, %rax
+ 297      00000000 
+ 297      0080
+ 298 01b8 4839C5   		cmpq	%rax, %rbp
+ 299 01bb 0F85ADFE 		jne	.L2
+ 299      FFFF
+ 194:../Backend/gnu-efi-3.0.9/lib/sread.c ****     if (!EFI_ERROR(Status)) {
+ 300              		.loc 1 194 5 is_stmt 1 view .LVU99
+ 194:../Backend/gnu-efi-3.0.9/lib/sread.c ****     if (!EFI_ERROR(Status)) {
+ 301              		.loc 1 194 14 is_stmt 0 view .LVU100
+ 302 01c1 488D5424 		leaq	88(%rsp), %rdx
+ 302      58
+ 303 01c6 498B36   		movq	(%r14), %rsi
+ 304 01c9 488D3D00 		leaq	gEfiLoadFileProtocolGuid(%rip), %rdi
+ 304      000000
+ 305 01d0 E8000000 		call	LibDevicePathToInterface
+ 305      00
+ 306              	.LVL31:
+ 195:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 307              		.loc 1 195 5 is_stmt 1 view .LVU101
+ 195:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 308              		.loc 1 195 8 is_stmt 0 view .LVU102
+ 309 01d5 4885C0   		testq	%rax, %rax
+ 310 01d8 0F8890FE 		js	.L2
+ 310      FFFF
+ 197:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 311              		.loc 1 197 9 is_stmt 1 view .LVU103
+ 197:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 312              		.loc 1 197 24 is_stmt 0 view .LVU104
+ 313 01de 498B3E   		movq	(%r14), %rdi
+ 314 01e1 E8000000 		call	DuplicateDevicePath
+ 314      00
+ 315              	.LVL32:
+ 197:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 316              		.loc 1 197 24 view .LVU105
+ 317 01e6 4889C3   		movq	%rax, %rbx
+ 318              	.LVL33:
+ 197:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 319              		.loc 1 197 22 discriminator 1 view .LVU106
+ 320 01e9 48894424 		movq	%rax, 104(%rsp)
+ 320      68
+ 199:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 321              		.loc 1 199 9 is_stmt 1 view .LVU107
+ 322              	.LVL34:
+ 201:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 323              		.loc 1 201 9 view .LVU108
+ 201:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 324              		.loc 1 201 18 is_stmt 0 view .LVU109
+ 325 01ee 488D5424 		leaq	104(%rsp), %rdx
+ 325      68
+ 326 01f3 4D89F8   		movq	%r15, %r8
+ 327 01f6 488D0D00 		leaq	gEfiLoadFileProtocolGuid(%rip), %rcx
+ 327      000000
+ 328 01fd 488B0500 		movq	BS(%rip), %rax
+ 328      000000
+ 329              	.LVL35:
+ 201:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 330              		.loc 1 201 18 view .LVU110
+ 331 0204 FF90B800 		call	*184(%rax)
+ 331      0000
+ 332              	.LVL36:
+ 203:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 333              		.loc 1 203 9 is_stmt 1 view .LVU111
+ 334 020a 4889DF   		movq	%rbx, %rdi
+ 335 020d E8000000 		call	FreePool
+ 335      00
+ 336              	.LVL37:
+ 209:../Backend/gnu-efi-3.0.9/lib/sread.c ****         Status = uefi_call_wrapper(
+ 337              		.loc 1 209 9 view .LVU112
+ 209:../Backend/gnu-efi-3.0.9/lib/sread.c ****         Status = uefi_call_wrapper(
+ 338              		.loc 1 209 20 is_stmt 0 view .LVU113
+ 339 0212 48C74424 		movq	$0, 72(%rsp)
+ 339      48000000 
+ 339      00
+ 210:../Backend/gnu-efi-3.0.9/lib/sread.c **** 		    LoadFile->LoadFile,
+ 340              		.loc 1 210 9 is_stmt 1 view .LVU114
+ 210:../Backend/gnu-efi-3.0.9/lib/sread.c **** 		    LoadFile->LoadFile,
+ 341              		.loc 1 210 18 is_stmt 0 view .LVU115
+ 342 021b 488B4C24 		movq	88(%rsp), %rcx
+ 342      58
+ 343 0220 488B01   		movq	(%rcx), %rax
+ 344 0223 440FB664 		movzbl	68(%rsp), %r12d
+ 344      2444
+ 345 0229 498B16   		movq	(%r14), %rdx
+ 346 022c 48C74424 		movq	$0, 32(%rsp)
+ 346      20000000 
+ 346      00
+ 347 0235 4C8D4C24 		leaq	72(%rsp), %r9
+ 347      48
+ 348 023a 4589E0   		movl	%r12d, %r8d
+ 349 023d FFD0     		call	*%rax
+ 350              	.LVL38:
+ 351 023f 4889C3   		movq	%rax, %rbx
+ 352              	.LVL39:
+ 225:../Backend/gnu-efi-3.0.9/lib/sread.c ****             SourceBuffer = AllocatePool (SourceSize);
+ 353              		.loc 1 225 9 is_stmt 1 view .LVU116
+ 225:../Backend/gnu-efi-3.0.9/lib/sread.c ****             SourceBuffer = AllocatePool (SourceSize);
+ 354              		.loc 1 225 12 is_stmt 0 view .LVU117
+ 355 0242 48B80500 		movabsq	$-9223372036854775803, %rax
+ 355      00000000 
+ 355      0080
+ 356              	.LVL40:
+ 225:../Backend/gnu-efi-3.0.9/lib/sread.c ****             SourceBuffer = AllocatePool (SourceSize);
+ 357              		.loc 1 225 12 view .LVU118
+ 358 024c 4839C3   		cmpq	%rax, %rbx
+ 359 024f 7447     		je	.L23
+ 360              	.LVL41:
+ 361              	.L11:
+ 249:../Backend/gnu-efi-3.0.9/lib/sread.c ****             goto Done;
+ 362              		.loc 1 249 9 is_stmt 1 view .LVU119
+ 249:../Backend/gnu-efi-3.0.9/lib/sread.c ****             goto Done;
+ 363              		.loc 1 249 13 is_stmt 0 view .LVU120
+ 364 0251 4889D8   		movq	%rbx, %rax
+ 365 0254 48F7D0   		notq	%rax
+ 366 0257 48C1E83F 		shrq	$63, %rax
+ 249:../Backend/gnu-efi-3.0.9/lib/sread.c ****             goto Done;
+ 367              		.loc 1 249 42 view .LVU121
+ 368 025b 48BA1400 		movabsq	$-9223372036854775788, %rdx
+ 368      00000000 
+ 368      0080
+ 369 0265 4839D3   		cmpq	%rdx, %rbx
+ 370 0268 0F94C2   		sete	%dl
+ 249:../Backend/gnu-efi-3.0.9/lib/sread.c ****             goto Done;
+ 371              		.loc 1 249 12 view .LVU122
+ 372 026b 08C2     		orb	%al, %dl
+ 373 026d 0F84FBFD 		je	.L2
+ 373      FFFF
+ 249:../Backend/gnu-efi-3.0.9/lib/sread.c ****             goto Done;
+ 374              		.loc 1 249 12 view .LVU123
+ 375 0273 4889DD   		movq	%rbx, %rbp
+ 376 0276 E9F3FDFF 		jmp	.L2
+ 376      FF
+ 377              	.LVL42:
+ 378              	.L17:
+ 121:../Backend/gnu-efi-3.0.9/lib/sread.c ****         }
+ 379              		.loc 1 121 20 view .LVU124
+ 380 027b 48BD0300 		movabsq	$-9223372036854775805, %rbp
+ 380      00000000 
+ 380      0080
+ 381              	.LVL43:
+ 121:../Backend/gnu-efi-3.0.9/lib/sread.c ****         }
+ 382              		.loc 1 121 20 view .LVU125
+ 383 0285 E9FAFEFF 		jmp	.L7
+ 383      FF
+ 384              	.LVL44:
+ 385              	.L22:
+ 167:../Backend/gnu-efi-3.0.9/lib/sread.c ****         FHand->FileHandle = FileHandle;
+ 386              		.loc 1 167 27 is_stmt 1 view .LVU126
+ 168:../Backend/gnu-efi-3.0.9/lib/sread.c ****         goto Done;
+ 387              		.loc 1 168 9 view .LVU127
+ 168:../Backend/gnu-efi-3.0.9/lib/sread.c ****         goto Done;
+ 388              		.loc 1 168 27 is_stmt 0 view .LVU128
+ 389 028a 488B4424 		movq	96(%rsp), %rax
+ 389      60
+ 390 028f 49894520 		movq	%rax, 32(%r13)
+ 169:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 391              		.loc 1 169 9 is_stmt 1 view .LVU129
+ 392 0293 E9D6FDFF 		jmp	.L2
+ 392      FF
+ 393              	.LVL45:
+ 394              	.L23:
+ 226:../Backend/gnu-efi-3.0.9/lib/sread.c ****             
+ 395              		.loc 1 226 13 view .LVU130
+ 226:../Backend/gnu-efi-3.0.9/lib/sread.c ****             
+ 396              		.loc 1 226 28 is_stmt 0 view .LVU131
+ 397 0298 488B7C24 		movq	72(%rsp), %rdi
+ 397      48
+ 398 029d E8000000 		call	AllocatePool
+ 398      00
+ 399              	.LVL46:
+ 228:../Backend/gnu-efi-3.0.9/lib/sread.c ****                 FHand->FreeBuffer = TRUE;
+ 400              		.loc 1 228 13 is_stmt 1 view .LVU132
+ 228:../Backend/gnu-efi-3.0.9/lib/sread.c ****                 FHand->FreeBuffer = TRUE;
+ 401              		.loc 1 228 16 is_stmt 0 view .LVU133
+ 402 02a2 4885C0   		testq	%rax, %rax
+ 403 02a5 74AA     		je	.L11
+ 229:../Backend/gnu-efi-3.0.9/lib/sread.c ****                 FHand->Source = SourceBuffer;
+ 404              		.loc 1 229 17 is_stmt 1 view .LVU134
+ 229:../Backend/gnu-efi-3.0.9/lib/sread.c ****                 FHand->Source = SourceBuffer;
+ 405              		.loc 1 229 35 is_stmt 0 view .LVU135
+ 406 02a7 41C64508 		movb	$1, 8(%r13)
+ 406      01
+ 230:../Backend/gnu-efi-3.0.9/lib/sread.c ****                 FHand->SourceSize = SourceSize;
+ 407              		.loc 1 230 17 is_stmt 1 view .LVU136
+ 230:../Backend/gnu-efi-3.0.9/lib/sread.c ****                 FHand->SourceSize = SourceSize;
+ 408              		.loc 1 230 31 is_stmt 0 view .LVU137
+ 409 02ac 49894510 		movq	%rax, 16(%r13)
+ 231:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 410              		.loc 1 231 17 is_stmt 1 view .LVU138
+ 231:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 411              		.loc 1 231 35 is_stmt 0 view .LVU139
+ 412 02b0 488B5424 		movq	72(%rsp), %rdx
+ 412      48
+ 413 02b5 49895518 		movq	%rdx, 24(%r13)
+ 233:../Backend/gnu-efi-3.0.9/lib/sread.c **** 			    LoadFile->LoadFile,
+ 414              		.loc 1 233 17 is_stmt 1 view .LVU140
+ 233:../Backend/gnu-efi-3.0.9/lib/sread.c **** 			    LoadFile->LoadFile,
+ 415              		.loc 1 233 26 is_stmt 0 view .LVU141
+ 416 02b9 488B4C24 		movq	88(%rsp), %rcx
+ 416      58
+ 417 02be 488B31   		movq	(%rcx), %rsi
+ 418 02c1 498B16   		movq	(%r14), %rdx
+ 419 02c4 48894424 		movq	%rax, 32(%rsp)
+ 419      20
+ 420 02c9 4C8D4C24 		leaq	72(%rsp), %r9
+ 420      48
+ 421 02ce 4589E0   		movl	%r12d, %r8d
+ 422 02d1 FFD6     		call	*%rsi
+ 423              	.LVL47:
+ 233:../Backend/gnu-efi-3.0.9/lib/sread.c **** 			    LoadFile->LoadFile,
+ 424              		.loc 1 233 26 view .LVU142
+ 425 02d3 4889C3   		movq	%rax, %rbx
+ 426              	.LVL48:
+ 233:../Backend/gnu-efi-3.0.9/lib/sread.c **** 			    LoadFile->LoadFile,
+ 427              		.loc 1 233 26 view .LVU143
+ 428 02d6 E976FFFF 		jmp	.L11
+ 428      FF
+ 429              	.LVL49:
+ 430              	.L14:
+  75:../Backend/gnu-efi-3.0.9/lib/sread.c ****         goto Done;
+ 431              		.loc 1 75 16 view .LVU144
+ 432 02db 48BD0900 		movabsq	$-9223372036854775799, %rbp
+ 432      00000000 
+ 432      0080
+ 433              	.LVL50:
+  75:../Backend/gnu-efi-3.0.9/lib/sread.c ****         goto Done;
+ 434              		.loc 1 75 16 view .LVU145
+ 435 02e5 E984FDFF 		jmp	.L2
+ 435      FF
+ 436              	.LVL51:
+ 437              	.L20:
+ 269:../Backend/gnu-efi-3.0.9/lib/sread.c ****             }
+ 438              		.loc 1 269 17 is_stmt 1 view .LVU146
+ 439 02ea 498B7D10 		movq	16(%r13), %rdi
+ 440 02ee E8000000 		call	FreePool
+ 440      00
+ 441              	.LVL52:
+ 442 02f3 E9A1FDFF 		jmp	.L13
+ 442      FF
+ 443              		.cfi_endproc
+ 444              	.LFE0:
+ 446              		.globl	ReadSimpleReadFile
+ 447              		.hidden	ReadSimpleReadFile
+ 449              	ReadSimpleReadFile:
+ 450              	.LVL53:
+ 451              	.LFB1:
+ 278:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 279:../Backend/gnu-efi-3.0.9/lib/sread.c **** EFI_STATUS
+ 280:../Backend/gnu-efi-3.0.9/lib/sread.c **** ReadSimpleReadFile (
+ 281:../Backend/gnu-efi-3.0.9/lib/sread.c ****     IN SIMPLE_READ_FILE     UserHandle,
+ 282:../Backend/gnu-efi-3.0.9/lib/sread.c ****     IN UINTN                Offset,
+ 283:../Backend/gnu-efi-3.0.9/lib/sread.c ****     IN OUT UINTN            *ReadSize,
+ 284:../Backend/gnu-efi-3.0.9/lib/sread.c ****     OUT VOID                *Buffer
+ 285:../Backend/gnu-efi-3.0.9/lib/sread.c ****     )
+ 286:../Backend/gnu-efi-3.0.9/lib/sread.c **** {
+ 452              		.loc 1 286 1 view -0
+ 453              		.cfi_startproc
+ 454              		.loc 1 286 1 is_stmt 0 view .LVU148
+ 455 02f8 F30F1EFA 		endbr64
+ 456 02fc 4154     		pushq	%r12
+ 457              		.cfi_def_cfa_offset 16
+ 458              		.cfi_offset 12, -16
+ 459 02fe 55       		pushq	%rbp
+ 460              		.cfi_def_cfa_offset 24
+ 461              		.cfi_offset 6, -24
+ 462 02ff 53       		pushq	%rbx
+ 463              		.cfi_def_cfa_offset 32
+ 464              		.cfi_offset 3, -32
+ 465 0300 4883EC20 		subq	$32, %rsp
+ 466              		.cfi_def_cfa_offset 64
+ 467 0304 4889FB   		movq	%rdi, %rbx
+ 468 0307 4889D5   		movq	%rdx, %rbp
+ 469 030a 4989CC   		movq	%rcx, %r12
+ 287:../Backend/gnu-efi-3.0.9/lib/sread.c ****     UINTN                   EndPos;
+ 470              		.loc 1 287 5 is_stmt 1 view .LVU149
+ 288:../Backend/gnu-efi-3.0.9/lib/sread.c ****     SIMPLE_READ_HANDLE      *FHand;
+ 471              		.loc 1 288 5 view .LVU150
+ 289:../Backend/gnu-efi-3.0.9/lib/sread.c ****     EFI_STATUS              Status;
+ 472              		.loc 1 289 5 view .LVU151
+ 290:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 291:../Backend/gnu-efi-3.0.9/lib/sread.c ****     FHand = UserHandle;
+ 473              		.loc 1 291 5 view .LVU152
+ 474              	.LVL54:
+ 292:../Backend/gnu-efi-3.0.9/lib/sread.c ****     ASSERT (FHand->Signature == SIMPLE_READ_SIGNATURE);
+ 475              		.loc 1 292 55 view .LVU153
+ 293:../Backend/gnu-efi-3.0.9/lib/sread.c ****     if (FHand->Source) {
+ 476              		.loc 1 293 5 view .LVU154
+ 477              		.loc 1 293 8 is_stmt 0 view .LVU155
+ 478 030d 48837F10 		cmpq	$0, 16(%rdi)
+ 478      00
+ 479 0312 7443     		je	.L25
+ 294:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 295:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 296:../Backend/gnu-efi-3.0.9/lib/sread.c ****         // Move data from our local copy of the file
+ 297:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 298:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 299:../Backend/gnu-efi-3.0.9/lib/sread.c ****         EndPos = Offset + *ReadSize;
+ 480              		.loc 1 299 9 is_stmt 1 view .LVU156
+ 481              		.loc 1 299 16 is_stmt 0 view .LVU157
+ 482 0314 4889F2   		movq	%rsi, %rdx
+ 483              	.LVL55:
+ 484              		.loc 1 299 16 view .LVU158
+ 485 0317 48035500 		addq	0(%rbp), %rdx
+ 486              	.LVL56:
+ 300:../Backend/gnu-efi-3.0.9/lib/sread.c ****         if (EndPos > FHand->SourceSize) {
+ 487              		.loc 1 300 9 is_stmt 1 view .LVU159
+ 488              		.loc 1 300 27 is_stmt 0 view .LVU160
+ 489 031b 488B4718 		movq	24(%rdi), %rax
+ 490              		.loc 1 300 12 view .LVU161
+ 491 031f 4839D0   		cmpq	%rdx, %rax
+ 492 0322 7315     		jnb	.L26
+ 301:../Backend/gnu-efi-3.0.9/lib/sread.c ****             *ReadSize = FHand->SourceSize - Offset;
+ 493              		.loc 1 301 13 is_stmt 1 view .LVU162
+ 494              		.loc 1 301 43 is_stmt 0 view .LVU163
+ 495 0324 4829F0   		subq	%rsi, %rax
+ 496              		.loc 1 301 23 view .LVU164
+ 497 0327 48894500 		movq	%rax, 0(%rbp)
+ 302:../Backend/gnu-efi-3.0.9/lib/sread.c ****             if (Offset >= FHand->SourceSize) {
+ 498              		.loc 1 302 13 is_stmt 1 view .LVU165
+ 499              		.loc 1 302 16 is_stmt 0 view .LVU166
+ 500 032b 483B7718 		cmpq	24(%rdi), %rsi
+ 501 032f 7208     		jb	.L26
+ 303:../Backend/gnu-efi-3.0.9/lib/sread.c ****                 *ReadSize = 0;
+ 502              		.loc 1 303 17 is_stmt 1 view .LVU167
+ 503              		.loc 1 303 27 is_stmt 0 view .LVU168
+ 504 0331 48C74500 		movq	$0, 0(%rbp)
+ 504      00000000 
+ 505              	.L26:
+ 304:../Backend/gnu-efi-3.0.9/lib/sread.c ****             }
+ 305:../Backend/gnu-efi-3.0.9/lib/sread.c ****         }
+ 306:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 307:../Backend/gnu-efi-3.0.9/lib/sread.c ****         CopyMem (Buffer, (CHAR8 *) FHand->Source + Offset, *ReadSize);
+ 506              		.loc 1 307 9 is_stmt 1 view .LVU169
+ 507 0339 488B5500 		movq	0(%rbp), %rdx
+ 508              	.LVL57:
+ 509              		.loc 1 307 9 is_stmt 0 view .LVU170
+ 510 033d 48037310 		addq	16(%rbx), %rsi
+ 511              	.LVL58:
+ 512              		.loc 1 307 9 view .LVU171
+ 513 0341 4C89E7   		movq	%r12, %rdi
+ 514              	.LVL59:
+ 515              		.loc 1 307 9 view .LVU172
+ 516 0344 E8000000 		call	CopyMem
+ 516      00
+ 517              	.LVL60:
+ 308:../Backend/gnu-efi-3.0.9/lib/sread.c ****         Status = EFI_SUCCESS;
+ 518              		.loc 1 308 9 is_stmt 1 view .LVU173
+ 519              		.loc 1 308 16 is_stmt 0 view .LVU174
+ 520 0349 B8000000 		movl	$0, %eax
+ 520      00
+ 521              	.LVL61:
+ 522              	.L24:
+ 309:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 310:../Backend/gnu-efi-3.0.9/lib/sread.c ****     } else {
+ 311:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 312:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 313:../Backend/gnu-efi-3.0.9/lib/sread.c ****         // Read data from the file
+ 314:../Backend/gnu-efi-3.0.9/lib/sread.c ****         //
+ 315:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 316:../Backend/gnu-efi-3.0.9/lib/sread.c ****         Status = uefi_call_wrapper(FHand->FileHandle->SetPosition, 2, FHand->FileHandle, Offset);
+ 317:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 318:../Backend/gnu-efi-3.0.9/lib/sread.c ****         if (!EFI_ERROR(Status)) {
+ 319:../Backend/gnu-efi-3.0.9/lib/sread.c ****             Status = uefi_call_wrapper(FHand->FileHandle->Read, 3, FHand->FileHandle, ReadSize, Buf
+ 320:../Backend/gnu-efi-3.0.9/lib/sread.c ****         }
+ 321:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 322:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 323:../Backend/gnu-efi-3.0.9/lib/sread.c ****     return Status;
+ 324:../Backend/gnu-efi-3.0.9/lib/sread.c **** }
+ 523              		.loc 1 324 1 view .LVU175
+ 524 034e 4883C420 		addq	$32, %rsp
+ 525              		.cfi_remember_state
+ 526              		.cfi_def_cfa_offset 32
+ 527 0352 5B       		popq	%rbx
+ 528              		.cfi_restore 3
+ 529              		.cfi_def_cfa_offset 24
+ 530              	.LVL62:
+ 531              		.loc 1 324 1 view .LVU176
+ 532 0353 5D       		popq	%rbp
+ 533              		.cfi_restore 6
+ 534              		.cfi_def_cfa_offset 16
+ 535              	.LVL63:
+ 536              		.loc 1 324 1 view .LVU177
+ 537 0354 415C     		popq	%r12
+ 538              		.cfi_restore 12
+ 539              		.cfi_def_cfa_offset 8
+ 540              	.LVL64:
+ 541              		.loc 1 324 1 view .LVU178
+ 542 0356 C3       		ret
+ 543              	.LVL65:
+ 544              	.L25:
+ 545              		.cfi_restore_state
+ 316:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 546              		.loc 1 316 9 is_stmt 1 view .LVU179
+ 316:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 547              		.loc 1 316 18 is_stmt 0 view .LVU180
+ 548 0357 488B4720 		movq	32(%rdi), %rax
+ 549 035b 4889F2   		movq	%rsi, %rdx
+ 550              	.LVL66:
+ 316:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 551              		.loc 1 316 18 view .LVU181
+ 552 035e 4889C1   		movq	%rax, %rcx
+ 553              	.LVL67:
+ 316:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 554              		.loc 1 316 18 view .LVU182
+ 555 0361 FF5038   		call	*56(%rax)
+ 556              	.LVL68:
+ 318:../Backend/gnu-efi-3.0.9/lib/sread.c ****             Status = uefi_call_wrapper(FHand->FileHandle->Read, 3, FHand->FileHandle, ReadSize, Buf
+ 557              		.loc 1 318 9 is_stmt 1 view .LVU183
+ 318:../Backend/gnu-efi-3.0.9/lib/sread.c ****             Status = uefi_call_wrapper(FHand->FileHandle->Read, 3, FHand->FileHandle, ReadSize, Buf
+ 558              		.loc 1 318 12 is_stmt 0 view .LVU184
+ 559 0364 4885C0   		testq	%rax, %rax
+ 560 0367 78E5     		js	.L24
+ 319:../Backend/gnu-efi-3.0.9/lib/sread.c ****         }
+ 561              		.loc 1 319 13 is_stmt 1 view .LVU185
+ 319:../Backend/gnu-efi-3.0.9/lib/sread.c ****         }
+ 562              		.loc 1 319 22 is_stmt 0 view .LVU186
+ 563 0369 488B4320 		movq	32(%rbx), %rax
+ 564              	.LVL69:
+ 319:../Backend/gnu-efi-3.0.9/lib/sread.c ****         }
+ 565              		.loc 1 319 22 view .LVU187
+ 566 036d 4D89E0   		movq	%r12, %r8
+ 567 0370 4889EA   		movq	%rbp, %rdx
+ 568 0373 4889C1   		movq	%rax, %rcx
+ 569 0376 FF5020   		call	*32(%rax)
+ 570              	.LVL70:
+ 323:../Backend/gnu-efi-3.0.9/lib/sread.c **** }
+ 571              		.loc 1 323 5 is_stmt 1 view .LVU188
+ 323:../Backend/gnu-efi-3.0.9/lib/sread.c **** }
+ 572              		.loc 1 323 12 is_stmt 0 view .LVU189
+ 573 0379 EBD3     		jmp	.L24
+ 574              		.cfi_endproc
+ 575              	.LFE1:
+ 577              		.globl	CloseSimpleReadFile
+ 578              		.hidden	CloseSimpleReadFile
+ 580              	CloseSimpleReadFile:
+ 581              	.LVL71:
+ 582              	.LFB2:
+ 325:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 326:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 327:../Backend/gnu-efi-3.0.9/lib/sread.c **** VOID
+ 328:../Backend/gnu-efi-3.0.9/lib/sread.c **** CloseSimpleReadFile (
+ 329:../Backend/gnu-efi-3.0.9/lib/sread.c ****     IN SIMPLE_READ_FILE     UserHandle
+ 330:../Backend/gnu-efi-3.0.9/lib/sread.c ****     )
+ 331:../Backend/gnu-efi-3.0.9/lib/sread.c **** {
+ 583              		.loc 1 331 1 is_stmt 1 view -0
+ 584              		.cfi_startproc
+ 585              		.loc 1 331 1 is_stmt 0 view .LVU191
+ 586 037b F30F1EFA 		endbr64
+ 587 037f 53       		pushq	%rbx
+ 588              		.cfi_def_cfa_offset 16
+ 589              		.cfi_offset 3, -16
+ 590 0380 4883EC20 		subq	$32, %rsp
+ 591              		.cfi_def_cfa_offset 48
+ 592 0384 4889FB   		movq	%rdi, %rbx
+ 332:../Backend/gnu-efi-3.0.9/lib/sread.c ****     SIMPLE_READ_HANDLE      *FHand;
+ 593              		.loc 1 332 5 is_stmt 1 view .LVU192
+ 333:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 334:../Backend/gnu-efi-3.0.9/lib/sread.c ****     FHand = UserHandle;
+ 594              		.loc 1 334 5 view .LVU193
+ 595              	.LVL72:
+ 335:../Backend/gnu-efi-3.0.9/lib/sread.c ****     ASSERT (FHand->Signature == SIMPLE_READ_SIGNATURE);
+ 596              		.loc 1 335 55 view .LVU194
+ 336:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 337:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 338:../Backend/gnu-efi-3.0.9/lib/sread.c ****     // Free any file handle we opened
+ 339:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 340:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 341:../Backend/gnu-efi-3.0.9/lib/sread.c ****     if (FHand->FileHandle) {
+ 597              		.loc 1 341 5 view .LVU195
+ 598              		.loc 1 341 14 is_stmt 0 view .LVU196
+ 599 0387 488B4720 		movq	32(%rdi), %rax
+ 600              		.loc 1 341 8 view .LVU197
+ 601 038b 4885C0   		testq	%rax, %rax
+ 602 038e 7406     		je	.L30
+ 342:../Backend/gnu-efi-3.0.9/lib/sread.c ****         uefi_call_wrapper(FHand->FileHandle->Close, 1, FHand->FileHandle);
+ 603              		.loc 1 342 9 is_stmt 1 view .LVU198
+ 604 0390 4889C1   		movq	%rax, %rcx
+ 605 0393 FF5010   		call	*16(%rax)
+ 606              	.LVL73:
+ 607              	.L30:
+ 343:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 344:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 345:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 346:../Backend/gnu-efi-3.0.9/lib/sread.c ****     // If we allocated the Source buffer, free it
+ 347:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 348:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 349:../Backend/gnu-efi-3.0.9/lib/sread.c ****     if (FHand->FreeBuffer) {
+ 608              		.loc 1 349 5 view .LVU199
+ 609              		.loc 1 349 8 is_stmt 0 view .LVU200
+ 610 0396 807B0800 		cmpb	$0, 8(%rbx)
+ 611 039a 750E     		jne	.L33
+ 612              	.L31:
+ 350:../Backend/gnu-efi-3.0.9/lib/sread.c ****         FreePool (FHand->Source);
+ 351:../Backend/gnu-efi-3.0.9/lib/sread.c ****     }
+ 352:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 353:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 354:../Backend/gnu-efi-3.0.9/lib/sread.c ****     // Done with this simple read file handle
+ 355:../Backend/gnu-efi-3.0.9/lib/sread.c ****     //
+ 356:../Backend/gnu-efi-3.0.9/lib/sread.c **** 
+ 357:../Backend/gnu-efi-3.0.9/lib/sread.c ****     FreePool (FHand);
+ 613              		.loc 1 357 5 is_stmt 1 view .LVU201
+ 614 039c 4889DF   		movq	%rbx, %rdi
+ 615 039f E8000000 		call	FreePool
+ 615      00
+ 616              	.LVL74:
+ 358:../Backend/gnu-efi-3.0.9/lib/sread.c **** }
+ 617              		.loc 1 358 1 is_stmt 0 view .LVU202
+ 618 03a4 4883C420 		addq	$32, %rsp
+ 619              		.cfi_remember_state
+ 620              		.cfi_def_cfa_offset 16
+ 621 03a8 5B       		popq	%rbx
+ 622              		.cfi_restore 3
+ 623              		.cfi_def_cfa_offset 8
+ 624              	.LVL75:
+ 625              		.loc 1 358 1 view .LVU203
+ 626 03a9 C3       		ret
+ 627              	.LVL76:
+ 628              	.L33:
+ 629              		.cfi_restore_state
+ 350:../Backend/gnu-efi-3.0.9/lib/sread.c ****         FreePool (FHand->Source);
+ 630              		.loc 1 350 9 is_stmt 1 view .LVU204
+ 631 03aa 488B7B10 		movq	16(%rbx), %rdi
+ 632 03ae E8000000 		call	FreePool
+ 632      00
+ 633              	.LVL77:
+ 634 03b3 EBE7     		jmp	.L31
+ 635              		.cfi_endproc
+ 636              	.LFE2:
+ 638              	.Letext0:
+ 639              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 640              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 641              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 642              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efidevp.h"
+ 643              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efiprot.h"
+ 644              		.file 7 "../Backend/gnu-efi-3.0.9/inc/efiapi.h"
+ 645              		.file 8 "../Backend/gnu-efi-3.0.9/inc/efilib.h"
+ 13456              		.section	.note.gnu.property,"a"
+ 13457              		.align 8
+ 13458 0000 04000000 		.long	1f - 0f
+ 13459 0004 10000000 		.long	4f - 1f
+ 13460 0008 05000000 		.long	5
+ 13461              	0:
+ 13462 000c 474E5500 		.string	"GNU"
+ 13463              	1:
+ 13464              		.align 8
+ 13465 0010 020000C0 		.long	0xc0000002
+ 13466 0014 04000000 		.long	3f - 2f
+ 13467              	2:
+ 13468 0018 03000000 		.long	0x3
+ 13469              	3:
+ 13470 001c 00000000 		.align 8
+ 13471              	4:

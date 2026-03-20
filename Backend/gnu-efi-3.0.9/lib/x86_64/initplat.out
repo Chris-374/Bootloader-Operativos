@@ -1,0 +1,69 @@
+   1              		.file	"initplat.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	InitializeLibPlatform
+   7              		.hidden	InitializeLibPlatform
+   9              	InitializeLibPlatform:
+  10              	.LVL0:
+  11              	.LFB0:
+  12              		.file 1 "../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c"
+   1:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c ****     initplat.c
+   8:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** 
+  12:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** Revision History
+  15:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** 
+  16:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** --*/
+  17:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** 
+  18:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** #include "lib.h"
+  19:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** 
+  20:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** VOID
+  21:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** InitializeLibPlatform (
+  22:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c ****     IN EFI_HANDLE           ImageHandle EFI_UNUSED,
+  23:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c ****     IN EFI_SYSTEM_TABLE     *SystemTable EFI_UNUSED
+  24:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c ****     )
+  25:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** {
+  13              		.loc 1 25 1 view -0
+  14              		.cfi_startproc
+  15              		.loc 1 25 1 is_stmt 0 view .LVU1
+  16 0000 F30F1EFA 		endbr64
+  26:../Backend/gnu-efi-3.0.9/lib/x86_64/initplat.c **** }
+  17              		.loc 1 26 1 is_stmt 1 view .LVU2
+  18 0004 C3       		ret
+  19              		.cfi_endproc
+  20              	.LFE0:
+  22              	.Letext0:
+  23              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+  24              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+  25              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+  26              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efidevp.h"
+  27              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efiprot.h"
+  28              		.file 7 "../Backend/gnu-efi-3.0.9/inc/efiapi.h"
+  29              		.file 8 "../Backend/gnu-efi-3.0.9/inc/eficon.h"
+ 11862              		.section	.note.gnu.property,"a"
+ 11863              		.align 8
+ 11864 0000 04000000 		.long	1f - 0f
+ 11865 0004 10000000 		.long	4f - 1f
+ 11866 0008 05000000 		.long	5
+ 11867              	0:
+ 11868 000c 474E5500 		.string	"GNU"
+ 11869              	1:
+ 11870              		.align 8
+ 11871 0010 020000C0 		.long	0xc0000002
+ 11872 0014 04000000 		.long	3f - 2f
+ 11873              	2:
+ 11874 0018 03000000 		.long	0x3
+ 11875              	3:
+ 11876 001c 00000000 		.align 8
+ 11877              	4:

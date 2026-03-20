@@ -1,0 +1,547 @@
+   1              		.file	"cmdline.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   7              	GetShellArgcArgvFromLoadedImage:
+   8              	.LVL0:
+   9              	.LFB0:
+  10              		.file 1 "../Backend/gnu-efi-3.0.9/lib/cmdline.c"
+   1:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** #include "lib.h"
+   2:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** #include "efiprot.h"
+   4:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** #include "ConsoleControl.h" // Added
+   5:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** #include "efishellintf.h"
+   6:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** #include "efishellparm.h"
+   7:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** 
+   8:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** #ifndef MAX_ARGV_CONTENTS_SIZE
+   9:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** # define MAX_CMDLINE_SIZE 1024
+  10:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** #endif
+  11:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** #ifndef MAX_ARGC
+  12:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** # define MAX_CMDLINE_ARGC 32
+  13:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** #endif
+  14:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** 
+  15:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** /*
+  16:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   Parse LoadedImage options area, called only in case the regular
+  17:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   shell protos are not available.
+  18:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** 
+  19:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   Format of LoadedImage->LoadOptions appears to be a
+  20:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   single-space-separated list of args (looks like the shell already
+  21:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   pre-parses the input, it apparently folds several consecutive spaces
+  22:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   into one):
+  23:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     argv[0] space argv[1] (etc.) argv[N] space \0 cwd \0 other data
+  24:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   For safety, we support the trailing \0 without a space before, as
+  25:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   well as several consecutive spaces (-> several args).
+  26:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** */
+  27:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** static
+  28:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** INTN
+  29:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** GetShellArgcArgvFromLoadedImage(
+  30:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     EFI_HANDLE ImageHandle,
+  31:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     CHAR16 **ResultArgv[]
+  32:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     )
+  33:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** {
+  11              		.loc 1 33 1 view -0
+  12              		.cfi_startproc
+  13              		.loc 1 33 1 is_stmt 0 view .LVU1
+  14 0000 55       		pushq	%rbp
+  15              		.cfi_def_cfa_offset 16
+  16              		.cfi_offset 6, -16
+  17 0001 53       		pushq	%rbx
+  18              		.cfi_def_cfa_offset 24
+  19              		.cfi_offset 3, -24
+  20 0002 4883EC48 		subq	$72, %rsp
+  21              		.cfi_def_cfa_offset 96
+  22 0006 4889F9   		movq	%rdi, %rcx
+  23 0009 4889F3   		movq	%rsi, %rbx
+  34:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   EFI_STATUS Status;
+  24              		.loc 1 34 3 is_stmt 1 view .LVU2
+  35:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   void *LoadedImage = NULL;
+  25              		.loc 1 35 3 view .LVU3
+  26              		.loc 1 35 9 is_stmt 0 view .LVU4
+  27 000c 48C74424 		movq	$0, 56(%rsp)
+  27      38000000 
+  27      00
+  36:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   static CHAR16 ArgvContents[MAX_CMDLINE_SIZE];
+  28              		.loc 1 36 3 is_stmt 1 view .LVU5
+  37:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   static CHAR16 *Argv[MAX_CMDLINE_ARGC], *ArgStart, *c;
+  29              		.loc 1 37 3 view .LVU6
+  38:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   UINTN Argc = 0, BufLen;
+  30              		.loc 1 38 3 view .LVU7
+  31              	.LVL1:
+  39:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** 
+  40:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   Status = uefi_call_wrapper(BS->OpenProtocol, 6,
+  32              		.loc 1 40 3 view .LVU8
+  33              		.loc 1 40 12 is_stmt 0 view .LVU9
+  34 0015 488B0500 		movq	BS(%rip), %rax
+  34      000000
+  35 001c 488B8018 		movq	280(%rax), %rax
+  35      010000
+  36 0023 C7442428 		movl	$2, 40(%rsp)
+  36      02000000 
+  37 002b 48C74424 		movq	$0, 32(%rsp)
+  37      20000000 
+  37      00
+  38 0034 4989F9   		movq	%rdi, %r9
+  39 0037 4C8D4424 		leaq	56(%rsp), %r8
+  39      38
+  40 003c 488D1500 		leaq	gEfiLoadedImageProtocolGuid(%rip), %rdx
+  40      000000
+  41 0043 FFD0     		call	*%rax
+  42              	.LVL2:
+  41:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              ImageHandle,
+  42:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              &LoadedImageProtocol,
+  43:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              &LoadedImage,
+  44:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              ImageHandle,
+  45:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              NULL,
+  46:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              EFI_OPEN_PROTOCOL_GET_PROTOCOL
+  47:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              );
+  48:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   if (EFI_ERROR(Status))
+  43              		.loc 1 48 3 is_stmt 1 view .LVU10
+  44              		.loc 1 48 6 is_stmt 0 view .LVU11
+  45 0045 4885C0   		testq	%rax, %rax
+  46 0048 0F88D200 		js	.L9
+  46      0000
+  49:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     return -1;
+  50:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** 
+  51:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   BufLen = ((EFI_LOADED_IMAGE *)LoadedImage)->LoadOptionsSize;
+  47              		.loc 1 51 3 is_stmt 1 view .LVU12
+  48              		.loc 1 51 13 is_stmt 0 view .LVU13
+  49 004e 488B4424 		movq	56(%rsp), %rax
+  49      38
+  50              	.LVL3:
+  51              		.loc 1 51 10 view .LVU14
+  52 0053 8B5030   		movl	48(%rax), %edx
+  53              	.LVL4:
+  52:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   if (BufLen < 2)  /* We are expecting at least a \0 */
+  54              		.loc 1 52 3 is_stmt 1 view .LVU15
+  55              		.loc 1 52 6 is_stmt 0 view .LVU16
+  56 0056 4883FA01 		cmpq	$1, %rdx
+  57 005a 0F86C900 		jbe	.L10
+  57      0000
+  53:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     return -1;
+  54:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   else if (BufLen > sizeof(ArgvContents))
+  58              		.loc 1 54 8 is_stmt 1 view .LVU17
+  59              		.loc 1 54 11 is_stmt 0 view .LVU18
+  60 0060 4881FA00 		cmpq	$2048, %rdx
+  60      080000
+  61 0067 7605     		jbe	.L3
+  55:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     BufLen = sizeof(ArgvContents);
+  62              		.loc 1 55 12 view .LVU19
+  63 0069 BA000800 		movl	$2048, %edx
+  63      00
+  64              	.LVL5:
+  65              	.L3:
+  56:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** 
+  57:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   CopyMem(ArgvContents, ((EFI_LOADED_IMAGE *)LoadedImage)->LoadOptions, BufLen);
+  66              		.loc 1 57 3 is_stmt 1 view .LVU20
+  67              		.loc 1 57 58 is_stmt 0 view .LVU21
+  68 006e 488B7038 		movq	56(%rax), %rsi
+  69              		.loc 1 57 3 view .LVU22
+  70 0072 488D2D00 		leaq	ArgvContents.3(%rip), %rbp
+  70      000000
+  71 0079 4889EF   		movq	%rbp, %rdi
+  72 007c E8000000 		call	CopyMem
+  72      00
+  73              	.LVL6:
+  58:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   ArgvContents[MAX_CMDLINE_SIZE - 1] = L'\0';
+  74              		.loc 1 58 3 is_stmt 1 view .LVU23
+  75              		.loc 1 58 38 is_stmt 0 view .LVU24
+  76 0081 66C70500 		movw	$0, 2046+ArgvContents.3(%rip)
+  76      00000000 
+  76      00
+  59:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** 
+  60:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   for (c = ArgStart = ArgvContents ; *c != L'\0' ; ++c) {
+  77              		.loc 1 60 3 is_stmt 1 view .LVU25
+  78              		.loc 1 60 21 is_stmt 0 view .LVU26
+  79 008a 48892D00 		movq	%rbp, ArgStart.2(%rip)
+  79      000000
+  80              		.loc 1 60 10 view .LVU27
+  81 0091 48892D00 		movq	%rbp, c.1(%rip)
+  81      000000
+  38:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** 
+  82              		.loc 1 38 9 view .LVU28
+  83 0098 B8000000 		movl	$0, %eax
+  83      00
+  84              		.loc 1 60 3 view .LVU29
+  85 009d EB16     		jmp	.L4
+  86              	.LVL7:
+  87              	.L6:
+  61:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     if (*c == L' ') {
+  62:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****       *c = L'\0';
+  63:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****       if (Argc < MAX_CMDLINE_ARGC) Argv[Argc++] = ArgStart;
+  64:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****       ArgStart = c + 1;
+  88              		.loc 1 64 7 is_stmt 1 view .LVU30
+  89              		.loc 1 64 20 is_stmt 0 view .LVU31
+  90 009f 488D4A02 		leaq	2(%rdx), %rcx
+  91              		.loc 1 64 16 view .LVU32
+  92 00a3 48890D00 		movq	%rcx, ArgStart.2(%rip)
+  92      000000
+  93              	.L5:
+  60:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     if (*c == L' ') {
+  94              		.loc 1 60 52 is_stmt 1 discriminator 2 view .LVU33
+  95 00aa 4883C202 		addq	$2, %rdx
+  96 00ae 48891500 		movq	%rdx, c.1(%rip)
+  96      000000
+  97              	.LVL8:
+  98              	.L4:
+  60:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     if (*c == L' ') {
+  99              		.loc 1 60 41 discriminator 1 view .LVU34
+  60:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     if (*c == L' ') {
+ 100              		.loc 1 60 38 is_stmt 0 discriminator 1 view .LVU35
+ 101 00b5 488B1500 		movq	c.1(%rip), %rdx
+ 101      000000
+ 102 00bc 0FB70A   		movzwl	(%rdx), %ecx
+  60:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     if (*c == L' ') {
+ 103              		.loc 1 60 41 discriminator 1 view .LVU36
+ 104 00bf 6685C9   		testw	%cx, %cx
+ 105 00c2 7429     		je	.L13
+  61:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     if (*c == L' ') {
+ 106              		.loc 1 61 5 is_stmt 1 view .LVU37
+  61:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     if (*c == L' ') {
+ 107              		.loc 1 61 8 is_stmt 0 view .LVU38
+ 108 00c4 6683F920 		cmpw	$32, %cx
+ 109 00c8 75E0     		jne	.L5
+  62:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****       if (Argc < MAX_CMDLINE_ARGC) Argv[Argc++] = ArgStart;
+ 110              		.loc 1 62 7 is_stmt 1 view .LVU39
+  62:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****       if (Argc < MAX_CMDLINE_ARGC) Argv[Argc++] = ArgStart;
+ 111              		.loc 1 62 10 is_stmt 0 view .LVU40
+ 112 00ca 66C70200 		movw	$0, (%rdx)
+ 112      00
+  63:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****       ArgStart = c + 1;
+ 113              		.loc 1 63 7 is_stmt 1 view .LVU41
+  63:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****       ArgStart = c + 1;
+ 114              		.loc 1 63 10 is_stmt 0 view .LVU42
+ 115 00cf 4883F81F 		cmpq	$31, %rax
+ 116 00d3 77CA     		ja	.L6
+  63:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****       ArgStart = c + 1;
+ 117              		.loc 1 63 36 is_stmt 1 discriminator 1 view .LVU43
+ 118              	.LVL9:
+  63:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****       ArgStart = c + 1;
+ 119              		.loc 1 63 49 is_stmt 0 discriminator 1 view .LVU44
+ 120 00d5 488D0D00 		leaq	Argv.0(%rip), %rcx
+ 120      000000
+ 121 00dc 488B3500 		movq	ArgStart.2(%rip), %rsi
+ 121      000000
+ 122 00e3 488934C1 		movq	%rsi, (%rcx,%rax,8)
+  63:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****       ArgStart = c + 1;
+ 123              		.loc 1 63 45 discriminator 1 view .LVU45
+ 124 00e7 488D4001 		leaq	1(%rax), %rax
+ 125              	.LVL10:
+  63:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****       ArgStart = c + 1;
+ 126              		.loc 1 63 45 discriminator 1 view .LVU46
+ 127 00eb EBB2     		jmp	.L6
+ 128              	.L13:
+  65:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     }
+  66:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   }
+  67:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** 
+  68:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   if ((*ArgStart != L'\0') && (Argc < MAX_CMDLINE_ARGC))
+ 129              		.loc 1 68 3 is_stmt 1 view .LVU47
+ 130              		.loc 1 68 8 is_stmt 0 view .LVU48
+ 131 00ed 488B1500 		movq	ArgStart.2(%rip), %rdx
+ 131      000000
+ 132              		.loc 1 68 6 view .LVU49
+ 133 00f4 66833A00 		cmpw	$0, (%rdx)
+ 134 00f8 7415     		je	.L8
+ 135              		.loc 1 68 28 discriminator 1 view .LVU50
+ 136 00fa 4883F81F 		cmpq	$31, %rax
+ 137 00fe 770F     		ja	.L8
+  69:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     Argv[Argc++] = ArgStart;
+ 138              		.loc 1 69 5 is_stmt 1 view .LVU51
+ 139              	.LVL11:
+ 140              		.loc 1 69 18 is_stmt 0 view .LVU52
+ 141 0100 488D0D00 		leaq	Argv.0(%rip), %rcx
+ 141      000000
+ 142 0107 488914C1 		movq	%rdx, (%rcx,%rax,8)
+ 143              		.loc 1 69 14 view .LVU53
+ 144 010b 488D4001 		leaq	1(%rax), %rax
+ 145              	.LVL12:
+ 146              	.L8:
+  70:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** 
+  71:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   // Print(L"Got argc/argv from loaded image proto\n");
+  72:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   *ResultArgv = Argv;
+ 147              		.loc 1 72 3 is_stmt 1 view .LVU54
+ 148              		.loc 1 72 15 is_stmt 0 view .LVU55
+ 149 010f 488D3D00 		leaq	Argv.0(%rip), %rdi
+ 149      000000
+ 150 0116 48893B   		movq	%rdi, (%rbx)
+  73:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   return Argc;
+ 151              		.loc 1 73 3 is_stmt 1 view .LVU56
+ 152              	.LVL13:
+ 153              	.L1:
+  74:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** }
+ 154              		.loc 1 74 1 is_stmt 0 view .LVU57
+ 155 0119 4883C448 		addq	$72, %rsp
+ 156              		.cfi_remember_state
+ 157              		.cfi_def_cfa_offset 24
+ 158 011d 5B       		popq	%rbx
+ 159              		.cfi_restore 3
+ 160              		.cfi_def_cfa_offset 16
+ 161              	.LVL14:
+ 162              		.loc 1 74 1 view .LVU58
+ 163 011e 5D       		popq	%rbp
+ 164              		.cfi_restore 6
+ 165              		.cfi_def_cfa_offset 8
+ 166 011f C3       		ret
+ 167              	.LVL15:
+ 168              	.L9:
+ 169              		.cfi_restore_state
+  49:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** 
+ 170              		.loc 1 49 12 view .LVU59
+ 171 0120 48C7C0FF 		movq	$-1, %rax
+ 171      FFFFFF
+ 172              	.LVL16:
+  49:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** 
+ 173              		.loc 1 49 12 view .LVU60
+ 174 0127 EBF0     		jmp	.L1
+ 175              	.LVL17:
+ 176              	.L10:
+  53:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   else if (BufLen > sizeof(ArgvContents))
+ 177              		.loc 1 53 12 view .LVU61
+ 178 0129 48C7C0FF 		movq	$-1, %rax
+ 178      FFFFFF
+ 179 0130 EBE7     		jmp	.L1
+ 180              		.cfi_endproc
+ 181              	.LFE0:
+ 183              		.globl	GetShellArgcArgv
+ 184              		.hidden	GetShellArgcArgv
+ 186              	GetShellArgcArgv:
+ 187              	.LVL18:
+ 188              	.LFB1:
+  75:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** 
+  76:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** INTN GetShellArgcArgv(EFI_HANDLE ImageHandle, CHAR16 **Argv[])
+  77:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** {
+ 189              		.loc 1 77 1 is_stmt 1 view -0
+ 190              		.cfi_startproc
+ 191              		.loc 1 77 1 is_stmt 0 view .LVU63
+ 192 0132 F30F1EFA 		endbr64
+ 193 0136 55       		pushq	%rbp
+ 194              		.cfi_def_cfa_offset 16
+ 195              		.cfi_offset 6, -16
+ 196 0137 53       		pushq	%rbx
+ 197              		.cfi_def_cfa_offset 24
+ 198              		.cfi_offset 3, -24
+ 199 0138 4883EC48 		subq	$72, %rsp
+ 200              		.cfi_def_cfa_offset 96
+ 201 013c 4889FB   		movq	%rdi, %rbx
+ 202 013f 4889F5   		movq	%rsi, %rbp
+  78:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   // Code inspired from EDK2's
+  79:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   // ShellPkg/Library/UefiShellCEntryLib/UefiShellCEntryLib.c (BSD)
+  80:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   EFI_STATUS Status;
+ 203              		.loc 1 80 3 is_stmt 1 view .LVU64
+  81:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   static const EFI_GUID EfiShellParametersProtocolGuid
+ 204              		.loc 1 81 3 view .LVU65
+  82:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****       = EFI_SHELL_PARAMETERS_PROTOCOL_GUID;
+  83:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   static const EFI_GUID ShellInterfaceProtocolGuid
+ 205              		.loc 1 83 3 view .LVU66
+  84:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****       = SHELL_INTERFACE_PROTOCOL_GUID;
+  85:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   EFI_SHELL_PARAMETERS_PROTOCOL *EfiShellParametersProtocol = NULL;
+ 206              		.loc 1 85 3 view .LVU67
+ 207              		.loc 1 85 34 is_stmt 0 view .LVU68
+ 208 0142 48C74424 		movq	$0, 56(%rsp)
+ 208      38000000 
+ 208      00
+  86:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   EFI_SHELL_INTERFACE *EfiShellInterfaceProtocol = NULL;
+ 209              		.loc 1 86 3 is_stmt 1 view .LVU69
+ 210              		.loc 1 86 24 is_stmt 0 view .LVU70
+ 211 014b 48C74424 		movq	$0, 48(%rsp)
+ 211      30000000 
+ 211      00
+  87:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** 
+  88:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   Status = uefi_call_wrapper(BS->OpenProtocol, 6,
+ 212              		.loc 1 88 3 is_stmt 1 view .LVU71
+ 213              		.loc 1 88 12 is_stmt 0 view .LVU72
+ 214 0154 488B0500 		movq	BS(%rip), %rax
+ 214      000000
+ 215 015b 488B8018 		movq	280(%rax), %rax
+ 215      010000
+ 216 0162 C7442428 		movl	$2, 40(%rsp)
+ 216      02000000 
+ 217 016a 48C74424 		movq	$0, 32(%rsp)
+ 217      20000000 
+ 217      00
+ 218 0173 4989F9   		movq	%rdi, %r9
+ 219 0176 4C8D4424 		leaq	56(%rsp), %r8
+ 219      38
+ 220 017b 488D1500 		leaq	EfiShellParametersProtocolGuid.5(%rip), %rdx
+ 220      000000
+ 221 0182 4889F9   		movq	%rdi, %rcx
+ 222 0185 FFD0     		call	*%rax
+ 223              	.LVL19:
+  89:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              ImageHandle,
+  90:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              (EFI_GUID*)&EfiShellParametersProtocolGuid,
+  91:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              (VOID **)&EfiShellParametersProtocol,
+  92:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              ImageHandle,
+  93:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              NULL,
+  94:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              EFI_OPEN_PROTOCOL_GET_PROTOCOL
+  95:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              );
+  96:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   if (!EFI_ERROR(Status))
+ 224              		.loc 1 96 3 is_stmt 1 view .LVU73
+ 225              		.loc 1 96 6 is_stmt 0 view .LVU74
+ 226 0187 4885C0   		testq	%rax, %rax
+ 227 018a 794B     		jns	.L19
+  97:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   {
+  98:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     // use shell 2.0 interface
+  99:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     // Print(L"Got argc/argv from shell intf proto\n");
+ 100:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     *Argv = EfiShellParametersProtocol->Argv;
+ 101:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     return EfiShellParametersProtocol->Argc;
+ 102:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   }
+ 103:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** 
+ 104:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   // try to get shell 1.0 interface instead.
+ 105:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   Status = uefi_call_wrapper(BS->OpenProtocol, 6,
+ 228              		.loc 1 105 3 is_stmt 1 view .LVU75
+ 229              		.loc 1 105 12 is_stmt 0 view .LVU76
+ 230 018c 488B0500 		movq	BS(%rip), %rax
+ 230      000000
+ 231              	.LVL20:
+ 232              		.loc 1 105 12 view .LVU77
+ 233 0193 488B8018 		movq	280(%rax), %rax
+ 233      010000
+ 234 019a C7442428 		movl	$2, 40(%rsp)
+ 234      02000000 
+ 235 01a2 48C74424 		movq	$0, 32(%rsp)
+ 235      20000000 
+ 235      00
+ 236 01ab 4989D9   		movq	%rbx, %r9
+ 237 01ae 4C8D4424 		leaq	48(%rsp), %r8
+ 237      30
+ 238 01b3 488D1500 		leaq	ShellInterfaceProtocolGuid.4(%rip), %rdx
+ 238      000000
+ 239 01ba 4889D9   		movq	%rbx, %rcx
+ 240 01bd FFD0     		call	*%rax
+ 241              	.LVL21:
+ 106:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              ImageHandle,
+ 107:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              (EFI_GUID*)&ShellInterfaceProtocolGuid,
+ 108:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              (VOID **)&EfiShellInterfaceProtocol,
+ 109:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              ImageHandle,
+ 110:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              NULL,
+ 111:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              EFI_OPEN_PROTOCOL_GET_PROTOCOL
+ 112:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****                              );
+ 113:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   if (!EFI_ERROR(Status))
+ 242              		.loc 1 113 3 is_stmt 1 view .LVU78
+ 243              		.loc 1 113 6 is_stmt 0 view .LVU79
+ 244 01bf 4885C0   		testq	%rax, %rax
+ 245 01c2 782A     		js	.L17
+ 114:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   {
+ 115:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     // Print(L"Got argc/argv from shell params proto\n");
+ 116:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     *Argv = EfiShellInterfaceProtocol->Argv;
+ 246              		.loc 1 116 5 is_stmt 1 view .LVU80
+ 247              		.loc 1 116 38 is_stmt 0 view .LVU81
+ 248 01c4 488B4424 		movq	48(%rsp), %rax
+ 248      30
+ 249              	.LVL22:
+ 250              		.loc 1 116 38 view .LVU82
+ 251 01c9 488B5010 		movq	16(%rax), %rdx
+ 252              		.loc 1 116 11 view .LVU83
+ 253 01cd 48895500 		movq	%rdx, 0(%rbp)
+ 117:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     return EfiShellInterfaceProtocol->Argc;
+ 254              		.loc 1 117 5 is_stmt 1 view .LVU84
+ 255              		.loc 1 117 37 is_stmt 0 view .LVU85
+ 256 01d1 488B4018 		movq	24(%rax), %rax
+ 257 01d5 EB10     		jmp	.L14
+ 258              	.LVL23:
+ 259              	.L19:
+ 100:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     return EfiShellParametersProtocol->Argc;
+ 260              		.loc 1 100 5 is_stmt 1 view .LVU86
+ 100:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     return EfiShellParametersProtocol->Argc;
+ 261              		.loc 1 100 39 is_stmt 0 view .LVU87
+ 262 01d7 488B4424 		movq	56(%rsp), %rax
+ 262      38
+ 263              	.LVL24:
+ 100:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     return EfiShellParametersProtocol->Argc;
+ 264              		.loc 1 100 39 view .LVU88
+ 265 01dc 488B10   		movq	(%rax), %rdx
+ 100:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****     return EfiShellParametersProtocol->Argc;
+ 266              		.loc 1 100 11 view .LVU89
+ 267 01df 48895500 		movq	%rdx, 0(%rbp)
+ 101:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   }
+ 268              		.loc 1 101 5 is_stmt 1 view .LVU90
+ 101:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   }
+ 269              		.loc 1 101 38 is_stmt 0 view .LVU91
+ 270 01e3 488B4008 		movq	8(%rax), %rax
+ 271              	.LVL25:
+ 272              	.L14:
+ 118:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   }
+ 119:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** 
+ 120:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   // shell 1.0 and 2.0 interfaces failed
+ 121:../Backend/gnu-efi-3.0.9/lib/cmdline.c ****   return GetShellArgcArgvFromLoadedImage(ImageHandle, Argv);
+ 122:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** }
+ 273              		.loc 1 122 1 view .LVU92
+ 274 01e7 4883C448 		addq	$72, %rsp
+ 275              		.cfi_remember_state
+ 276              		.cfi_def_cfa_offset 24
+ 277 01eb 5B       		popq	%rbx
+ 278              		.cfi_restore 3
+ 279              		.cfi_def_cfa_offset 16
+ 280              	.LVL26:
+ 281              		.loc 1 122 1 view .LVU93
+ 282 01ec 5D       		popq	%rbp
+ 283              		.cfi_restore 6
+ 284              		.cfi_def_cfa_offset 8
+ 285              	.LVL27:
+ 286              		.loc 1 122 1 view .LVU94
+ 287 01ed C3       		ret
+ 288              	.LVL28:
+ 289              	.L17:
+ 290              		.cfi_restore_state
+ 121:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** }
+ 291              		.loc 1 121 3 is_stmt 1 view .LVU95
+ 121:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** }
+ 292              		.loc 1 121 10 is_stmt 0 view .LVU96
+ 293 01ee 4889EE   		movq	%rbp, %rsi
+ 294 01f1 4889DF   		movq	%rbx, %rdi
+ 295 01f4 E807FEFF 		call	GetShellArgcArgvFromLoadedImage
+ 295      FF
+ 296              	.LVL29:
+ 121:../Backend/gnu-efi-3.0.9/lib/cmdline.c **** }
+ 297              		.loc 1 121 10 view .LVU97
+ 298 01f9 EBEC     		jmp	.L14
+ 299              		.cfi_endproc
+ 300              	.LFE1:
+ 302              		.local	Argv.0
+ 303              		.comm	Argv.0,256,32
+ 304              		.local	c.1
+ 305              		.comm	c.1,8,8
+ 306              		.local	ArgStart.2
+ 307              		.comm	ArgStart.2,8,8
+ 308              		.local	ArgvContents.3
+ 309              		.comm	ArgvContents.3,2048,32
+ 310              		.section	.rodata
+ 311              		.align 16
+ 314              	ShellInterfaceProtocolGuid.4:
+ 315 0000 23B2C747 		.long	1204269603
+ 318 0008 8E5700   		.string	"\216W"
+ 319 000b A0C96972 		.ascii	"\240\311ir;"
+ 319      3B
+ 320              		.align 16
+ 323              	EfiShellParametersProtocolGuid.5:
+ 324 0010 36312F75 		.long	1966027062
+ 327 0018 A22AE5F4 		.ascii	"\242*\345\364h\022\364\312"
+ 327      6812F4CA 
+ 328              		.text
+ 329              	.Letext0:
+ 330              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 331              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 332              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 333              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efidevp.h"
+ 334              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efiprot.h"
+ 335              		.file 7 "../Backend/gnu-efi-3.0.9/inc/efiapi.h"
+ 336              		.file 8 "../Backend/gnu-efi-3.0.9/inc/eficon.h"
+ 337              		.file 9 "../Backend/gnu-efi-3.0.9/inc/efishellintf.h"
+ 338              		.file 10 "../Backend/gnu-efi-3.0.9/inc/efishellparm.h"
+ 339              		.file 11 "../Backend/gnu-efi-3.0.9/inc/efilib.h"
+ 13806              		.section	.note.gnu.property,"a"
+ 13807              		.align 8
+ 13808 0000 04000000 		.long	1f - 0f
+ 13809 0004 10000000 		.long	4f - 1f
+ 13810 0008 05000000 		.long	5
+ 13811              	0:
+ 13812 000c 474E5500 		.string	"GNU"
+ 13813              	1:
+ 13814              		.align 8
+ 13815 0010 020000C0 		.long	0xc0000002
+ 13816 0014 04000000 		.long	3f - 2f
+ 13817              	2:
+ 13818 0018 03000000 		.long	0x3
+ 13819              	3:
+ 13820 001c 00000000 		.align 8
+ 13821              	4:

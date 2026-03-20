@@ -1,0 +1,457 @@
+   1              		.file	"boxdraw.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	LibIsValidTextGraphics
+   7              		.hidden	LibIsValidTextGraphics
+   9              	LibIsValidTextGraphics:
+  10              	.LVL0:
+  11              	.LFB0:
+  12              		.file 1 "../Backend/gnu-efi-3.0.9/lib/boxdraw.c"
+   1:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     BoxDraw.c
+   8:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     Lib functions to support Box Draw Unicode code pages.
+  11:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+  12:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** Revision History
+  15:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+  16:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** --*/
+  17:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+  18:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** #include "lib.h"
+  19:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+  20:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** typedef struct {
+  21:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     CHAR16  Unicode;
+  22:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     CHAR8   PcAnsi;
+  23:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     CHAR8   Ascii;
+  24:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** } UNICODE_TO_CHAR;
+  25:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+  26:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+  27:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** //
+  28:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** // This list is used to define the valid extend chars.
+  29:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** // It also provides a mapping from Unicode to PCANSI or
+  30:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** // ASCII. The ASCII mapping we just made up.
+  31:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** //
+  32:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** //
+  33:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+  34:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** STATIC UNICODE_TO_CHAR UnicodeToPcAnsiOrAscii[] = {
+  35:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_HORIZONTAL,                 0xc4, L'-'}, 
+  36:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_VERTICAL,                   0xb3, L'|'},
+  37:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOWN_RIGHT,                 0xda, L'/'},
+  38:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOWN_LEFT,                  0xbf, L'\\'},
+  39:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_UP_RIGHT,                   0xc0, L'\\'},
+  40:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_UP_LEFT,                    0xd9, L'/'},
+  41:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_VERTICAL_RIGHT,             0xc3, L'|'},
+  42:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_VERTICAL_LEFT,              0xb4, L'|'},
+  43:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOWN_HORIZONTAL,            0xc2, L'+'},
+  44:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_UP_HORIZONTAL,              0xc1, L'+'},
+  45:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_VERTICAL_HORIZONTAL,        0xc5, L'+'},
+  46:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOUBLE_HORIZONTAL,          0xcd, L'-'},
+  47:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOUBLE_VERTICAL,            0xba, L'|'},
+  48:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOWN_RIGHT_DOUBLE,          0xd5, L'/'},
+  49:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOWN_DOUBLE_RIGHT,          0xd6, L'/'},
+  50:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOUBLE_DOWN_RIGHT,          0xc9, L'/'},
+  51:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOWN_LEFT_DOUBLE,           0xb8, L'\\'},
+  52:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOWN_DOUBLE_LEFT,           0xb7, L'\\'},
+  53:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOUBLE_DOWN_LEFT,           0xbb, L'\\'},
+  54:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_UP_RIGHT_DOUBLE,            0xd4, L'\\'},
+  55:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_UP_DOUBLE_RIGHT,            0xd3, L'\\'},
+  56:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOUBLE_UP_RIGHT,            0xc8, L'\\'},
+  57:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_UP_LEFT_DOUBLE,             0xbe, L'/'},
+  58:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_UP_DOUBLE_LEFT,             0xbd, L'/'},
+  59:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOUBLE_UP_LEFT,             0xbc, L'/'},
+  60:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_VERTICAL_RIGHT_DOUBLE,      0xc6, L'|'},
+  61:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_VERTICAL_DOUBLE_RIGHT,      0xc7, L'|'},
+  62:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOUBLE_VERTICAL_RIGHT,      0xcc, L'|'},
+  63:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_VERTICAL_LEFT_DOUBLE,       0xb5, L'|'},
+  64:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_VERTICAL_DOUBLE_LEFT,       0xb6, L'|'},
+  65:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOUBLE_VERTICAL_LEFT,       0xb9, L'|'},
+  66:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOWN_HORIZONTAL_DOUBLE,     0xd1, L'+'},
+  67:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOWN_DOUBLE_HORIZONTAL,     0xd2, L'+'},
+  68:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOUBLE_DOWN_HORIZONTAL,     0xcb, L'+'},
+  69:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_UP_HORIZONTAL_DOUBLE,       0xcf, L'+'},
+  70:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_UP_DOUBLE_HORIZONTAL,       0xd0, L'+'},
+  71:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOUBLE_UP_HORIZONTAL,       0xca, L'+'},
+  72:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_VERTICAL_HORIZONTAL_DOUBLE, 0xd8, L'+'},
+  73:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_VERTICAL_DOUBLE_HORIZONTAL, 0xd7, L'+'},
+  74:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BOXDRAW_DOUBLE_VERTICAL_HORIZONTAL, 0xce, L'+'},
+  75:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+  76:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BLOCKELEMENT_FULL_BLOCK,            0xdb, L'*'},
+  77:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { BLOCKELEMENT_LIGHT_SHADE,           0xb0, L'+'},
+  78:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+  79:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { GEOMETRICSHAPE_UP_TRIANGLE,         0x1e, L'^'},
+  80:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { GEOMETRICSHAPE_RIGHT_TRIANGLE,      0x10, L'>'},
+  81:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { GEOMETRICSHAPE_DOWN_TRIANGLE,       0x1f, L'v'},
+  82:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { GEOMETRICSHAPE_LEFT_TRIANGLE,       0x11, L'<'},
+  83:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+  84:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     /* BugBug: Left Arrow is an ESC. We can not make it print
+  85:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****                 on a PCANSI terminal. If we can make left arrow 
+  86:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****                 come out on PC ANSI we can add it back.
+  87:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+  88:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { ARROW_LEFT,                         0x1b, L'<'},
+  89:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     */
+  90:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+  91:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { ARROW_UP,                           0x18, L'^'},
+  92:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     
+  93:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     /* BugBut: Took out left arrow so right has to go too.
+  94:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****        { ARROW_RIGHT,                        0x1a, L'>'},
+  95:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     */      
+  96:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { ARROW_DOWN,                         0x19, L'v'},
+  97:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     
+  98:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     { 0x0000, 0x00, L'\0' }
+  99:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** };
+ 100:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+ 101:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+ 102:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** BOOLEAN
+ 103:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** LibIsValidTextGraphics (
+ 104:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     IN  CHAR16  Graphic,
+ 105:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     OUT CHAR8   *PcAnsi,    OPTIONAL
+ 106:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     OUT CHAR8   *Ascii      OPTIONAL
+ 107:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     )
+ 108:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** /*++
+ 109:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+ 110:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** Routine Description:
+ 111:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+ 112:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     Detects if a Unicode char is for Box Drawing text graphics.
+ 113:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+ 114:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** Arguments:
+ 115:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+ 116:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     Grphic  - Unicode char to test.
+ 117:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+ 118:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     PcAnsi  - Optional pointer to return PCANSI equivalent of Graphic.
+ 119:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+ 120:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     Asci    - Optional pointer to return Ascii equivalent of Graphic.
+ 121:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+ 122:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** Returns:
+ 123:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+ 124:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     TRUE if Gpaphic is a supported Unicode Box Drawing character.
+ 125:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+ 126:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** --*/{
+  13              		.loc 1 126 5 view -0
+  14              		.cfi_startproc
+  15              		.loc 1 126 5 is_stmt 0 view .LVU1
+  16 0000 F30F1EFA 		endbr64
+  17 0004 4189F8   		movl	%edi, %r8d
+ 127:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     UNICODE_TO_CHAR     *Table;
+  18              		.loc 1 127 5 is_stmt 1 view .LVU2
+ 128:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+ 129:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     if ((((Graphic & 0xff00) != 0x2500) && ((Graphic & 0xff00) != 0x2100))) {
+  19              		.loc 1 129 5 view .LVU3
+  20              		.loc 1 129 20 is_stmt 0 view .LVU4
+  21 0007 81E700FF 		andl	$65280, %edi
+  21      0000
+  22              	.LVL1:
+  23              		.loc 1 129 41 view .LVU5
+  24 000d 81FF0025 		cmpl	$9472, %edi
+  24      0000
+  25 0013 0F95C1   		setne	%cl
+  26 0016 81FF0021 		cmpl	$8448, %edi
+  26      0000
+  27 001c 0F95C0   		setne	%al
+  28              		.loc 1 129 8 view .LVU6
+  29 001f 84C1     		testb	%al, %cl
+  30 0021 753D     		jne	.L8
+ 130:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****      
+ 131:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****         //
+ 132:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****         // Unicode drawing code charts are all in the 0x25xx range, 
+ 133:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****         //  arrows are 0x21xx
+ 134:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****         //
+ 135:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****         return FALSE;
+ 136:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     }
+ 137:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+ 138:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     for (Table = UnicodeToPcAnsiOrAscii; Table->Unicode != 0x0000; Table++) {
+  31              		.loc 1 138 16 view .LVU7
+  32 0023 488D0500 		leaq	UnicodeToPcAnsiOrAscii(%rip), %rax
+  32      000000
+  33              	.L3:
+  34              	.LVL2:
+  35              		.loc 1 138 57 is_stmt 1 discriminator 1 view .LVU8
+  36              		.loc 1 138 47 is_stmt 0 discriminator 1 view .LVU9
+  37 002a 0FB708   		movzwl	(%rax), %ecx
+  38              		.loc 1 138 57 discriminator 1 view .LVU10
+  39 002d 6685C9   		testw	%cx, %cx
+  40 0030 7428     		je	.L9
+ 139:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****         if (Graphic == Table->Unicode) {
+  41              		.loc 1 139 9 is_stmt 1 view .LVU11
+  42              		.loc 1 139 12 is_stmt 0 view .LVU12
+  43 0032 664439C1 		cmpw	%r8w, %cx
+  44 0036 7406     		je	.L10
+ 138:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****         if (Graphic == Table->Unicode) {
+  45              		.loc 1 138 73 is_stmt 1 discriminator 2 view .LVU13
+  46 0038 4883C004 		addq	$4, %rax
+  47              	.LVL3:
+ 138:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****         if (Graphic == Table->Unicode) {
+  48              		.loc 1 138 73 is_stmt 0 discriminator 2 view .LVU14
+  49 003c EBEC     		jmp	.L3
+  50              	.L10:
+ 140:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****             if (PcAnsi) {
+  51              		.loc 1 140 13 is_stmt 1 view .LVU15
+  52              		.loc 1 140 16 is_stmt 0 view .LVU16
+  53 003e 4885F6   		testq	%rsi, %rsi
+  54 0041 7406     		je	.L5
+ 141:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****                 *PcAnsi = Table->PcAnsi; 
+  55              		.loc 1 141 17 is_stmt 1 view .LVU17
+  56              		.loc 1 141 32 is_stmt 0 view .LVU18
+  57 0043 0FB64802 		movzbl	2(%rax), %ecx
+  58              		.loc 1 141 25 view .LVU19
+  59 0047 880E     		movb	%cl, (%rsi)
+  60              	.L5:
+ 142:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****             }
+ 143:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****             if (Ascii) {
+  61              		.loc 1 143 13 is_stmt 1 view .LVU20
+  62              		.loc 1 143 16 is_stmt 0 view .LVU21
+  63 0049 4885D2   		testq	%rdx, %rdx
+  64 004c 7406     		je	.L6
+ 144:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****                 *Ascii = Table->Ascii;
+  65              		.loc 1 144 17 is_stmt 1 view .LVU22
+  66              		.loc 1 144 31 is_stmt 0 view .LVU23
+  67 004e 0FB64003 		movzbl	3(%rax), %eax
+  68              	.LVL4:
+  69              		.loc 1 144 24 view .LVU24
+  70 0052 8802     		movb	%al, (%rdx)
+  71              	.L6:
+ 145:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****             }
+ 146:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****             return TRUE;
+  72              		.loc 1 146 13 is_stmt 1 view .LVU25
+  73              		.loc 1 146 20 is_stmt 0 view .LVU26
+  74 0054 B8010000 		movl	$1, %eax
+  74      00
+  75 0059 C3       		ret
+  76              	.LVL5:
+  77              	.L9:
+ 147:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****         }
+ 148:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     }
+ 149:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     return FALSE;
+  78              		.loc 1 149 12 view .LVU27
+  79 005a B8000000 		movl	$0, %eax
+  79      00
+  80              	.LVL6:
+  81              		.loc 1 149 12 view .LVU28
+  82 005f C3       		ret
+  83              	.LVL7:
+  84              	.L8:
+ 135:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     }
+  85              		.loc 1 135 16 view .LVU29
+  86 0060 B8000000 		movl	$0, %eax
+  86      00
+ 150:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** }
+  87              		.loc 1 150 1 view .LVU30
+  88 0065 C3       		ret
+  89              		.cfi_endproc
+  90              	.LFE0:
+  92              		.globl	IsValidAscii
+  93              		.hidden	IsValidAscii
+  95              	IsValidAscii:
+  96              	.LVL8:
+  97              	.LFB1:
+ 151:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+ 152:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** BOOLEAN
+ 153:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** IsValidAscii (
+ 154:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     IN  CHAR16  Ascii
+ 155:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     )
+ 156:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** {
+  98              		.loc 1 156 1 is_stmt 1 view -0
+  99              		.cfi_startproc
+ 100              		.loc 1 156 1 is_stmt 0 view .LVU32
+ 101 0066 F30F1EFA 		endbr64
+ 157:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     if ((Ascii >= 0x20) && (Ascii <= 0x7f)) {
+ 102              		.loc 1 157 5 is_stmt 1 view .LVU33
+ 103              		.loc 1 157 25 is_stmt 0 view .LVU34
+ 104 006a 83EF20   		subl	$32, %edi
+ 105              	.LVL9:
+ 106              		.loc 1 157 8 view .LVU35
+ 107 006d 6683FF5F 		cmpw	$95, %di
+ 108 0071 7606     		jbe	.L13
+ 158:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****         return TRUE;
+ 159:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     }              
+ 160:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     return FALSE;
+ 109              		.loc 1 160 12 view .LVU36
+ 110 0073 B8000000 		movl	$0, %eax
+ 110      00
+ 111 0078 C3       		ret
+ 112              	.L13:
+ 158:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****         return TRUE;
+ 113              		.loc 1 158 16 view .LVU37
+ 114 0079 B8010000 		movl	$1, %eax
+ 114      00
+ 161:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** }
+ 115              		.loc 1 161 1 view .LVU38
+ 116 007e C3       		ret
+ 117              		.cfi_endproc
+ 118              	.LFE1:
+ 120              		.globl	IsValidEfiCntlChar
+ 121              		.hidden	IsValidEfiCntlChar
+ 123              	IsValidEfiCntlChar:
+ 124              	.LVL10:
+ 125              	.LFB2:
+ 162:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** 
+ 163:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** BOOLEAN
+ 164:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** IsValidEfiCntlChar (
+ 165:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     IN  CHAR16  c
+ 166:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     )
+ 167:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** {
+ 126              		.loc 1 167 1 is_stmt 1 view -0
+ 127              		.cfi_startproc
+ 128              		.loc 1 167 1 is_stmt 0 view .LVU40
+ 129 007f F30F1EFA 		endbr64
+ 168:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     if (c == CHAR_NULL || c == CHAR_BACKSPACE || c == CHAR_LINEFEED || c == CHAR_CARRIAGE_RETURN) {
+ 130              		.loc 1 168 5 is_stmt 1 view .LVU41
+ 131 0083 6683FF0D 		cmpw	$13, %di
+ 132 0087 7714     		ja	.L16
+ 133 0089 B8012500 		movl	$9473, %eax
+ 133      00
+ 134 008e 89F9     		movl	%edi, %ecx
+ 135 0090 48D3E8   		shrq	%cl, %rax
+ 136 0093 A801     		testb	$1, %al
+ 137 0095 740C     		je	.L17
+ 169:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****         return TRUE;
+ 138              		.loc 1 169 16 is_stmt 0 view .LVU42
+ 139 0097 B8010000 		movl	$1, %eax
+ 139      00
+ 140 009c C3       		ret
+ 141              	.L16:
+ 142 009d B8000000 		movl	$0, %eax
+ 142      00
+ 143 00a2 C3       		ret
+ 144              	.L17:
+ 145 00a3 B8000000 		movl	$0, %eax
+ 145      00
+ 170:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     }              
+ 171:../Backend/gnu-efi-3.0.9/lib/boxdraw.c ****     return FALSE;
+ 172:../Backend/gnu-efi-3.0.9/lib/boxdraw.c **** }
+ 146              		.loc 1 172 1 view .LVU43
+ 147 00a8 C3       		ret
+ 148              		.cfi_endproc
+ 149              	.LFE2:
+ 151              		.hidden	UnicodeToPcAnsiOrAscii
+ 152              		.globl	UnicodeToPcAnsiOrAscii
+ 153              		.data
+ 154              		.align 32
+ 157              	UnicodeToPcAnsiOrAscii:
+ 159 0002 C4       		.byte	-60
+ 160 0003 2D       		.byte	45
+ 162 0006 B3       		.byte	-77
+ 163 0007 7C       		.byte	124
+ 165 000a DA       		.byte	-38
+ 166 000b 2F       		.byte	47
+ 168 000e BF       		.byte	-65
+ 169 000f 5C       		.byte	92
+ 171 0012 C0       		.byte	-64
+ 172 0013 5C       		.byte	92
+ 174 0016 D9       		.byte	-39
+ 175 0017 2F       		.byte	47
+ 177 001a C3       		.byte	-61
+ 178 001b 7C       		.byte	124
+ 180 001e B4       		.byte	-76
+ 181 001f 7C       		.byte	124
+ 183 0022 C2       		.byte	-62
+ 184 0023 2B       		.byte	43
+ 186 0026 C1       		.byte	-63
+ 187 0027 2B       		.byte	43
+ 189 002a C5       		.byte	-59
+ 190 002b 2B       		.byte	43
+ 192 002e CD       		.byte	-51
+ 193 002f 2D       		.byte	45
+ 195 0032 BA       		.byte	-70
+ 196 0033 7C       		.byte	124
+ 198 0036 D5       		.byte	-43
+ 199 0037 2F       		.byte	47
+ 201 003a D6       		.byte	-42
+ 202 003b 2F       		.byte	47
+ 204 003e C9       		.byte	-55
+ 205 003f 2F       		.byte	47
+ 207 0042 B8       		.byte	-72
+ 208 0043 5C       		.byte	92
+ 210 0046 B7       		.byte	-73
+ 211 0047 5C       		.byte	92
+ 213 004a BB       		.byte	-69
+ 214 004b 5C       		.byte	92
+ 216 004e D4       		.byte	-44
+ 217 004f 5C       		.byte	92
+ 219 0052 D3       		.byte	-45
+ 220 0053 5C       		.byte	92
+ 222 0056 C8       		.byte	-56
+ 223 0057 5C       		.byte	92
+ 225 005a BE       		.byte	-66
+ 226 005b 2F       		.byte	47
+ 228 005e BD       		.byte	-67
+ 229 005f 2F       		.byte	47
+ 231 0062 BC       		.byte	-68
+ 232 0063 2F       		.byte	47
+ 234 0066 C6       		.byte	-58
+ 235 0067 7C       		.byte	124
+ 237 006a C7       		.byte	-57
+ 238 006b 7C       		.byte	124
+ 240 006e CC       		.byte	-52
+ 241 006f 7C       		.byte	124
+ 243 0072 B5       		.byte	-75
+ 244 0073 7C       		.byte	124
+ 246 0076 B6       		.byte	-74
+ 247 0077 7C       		.byte	124
+ 249 007a B9       		.byte	-71
+ 250 007b 7C       		.byte	124
+ 252 007e D1       		.byte	-47
+ 253 007f 2B       		.byte	43
+ 255 0082 D2       		.byte	-46
+ 256 0083 2B       		.byte	43
+ 258 0086 CB       		.byte	-53
+ 259 0087 2B       		.byte	43
+ 261 008a CF       		.byte	-49
+ 262 008b 2B       		.byte	43
+ 264 008e D0       		.byte	-48
+ 265 008f 2B       		.byte	43
+ 267 0092 CA       		.byte	-54
+ 268 0093 2B       		.byte	43
+ 270 0096 D8       		.byte	-40
+ 271 0097 2B       		.byte	43
+ 273 009a D7       		.byte	-41
+ 274 009b 2B       		.byte	43
+ 276 009e CE       		.byte	-50
+ 277 009f 2B       		.byte	43
+ 279 00a2 DB       		.byte	-37
+ 280 00a3 2A       		.byte	42
+ 282 00a6 B0       		.byte	-80
+ 283 00a7 2B       		.byte	43
+ 285 00aa 1E       		.byte	30
+ 286 00ab 5E       		.byte	94
+ 288 00ae 10       		.byte	16
+ 289 00af 3E       		.byte	62
+ 291 00b2 1F       		.byte	31
+ 292 00b3 76       		.byte	118
+ 294 00b6 11       		.byte	17
+ 295 00b7 3C       		.byte	60
+ 297 00ba 18       		.byte	24
+ 298 00bb 5E       		.byte	94
+ 300 00be 19       		.byte	25
+ 301 00bf 76       		.byte	118
+ 303 00c2 00       		.byte	0
+ 304 00c3 00       		.byte	0
+ 305              		.text
+ 306              	.Letext0:
+ 307              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 308              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 309              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 8953              		.section	.note.gnu.property,"a"
+ 8954              		.align 8
+ 8955 0000 04000000 		.long	1f - 0f
+ 8956 0004 10000000 		.long	4f - 1f
+ 8957 0008 05000000 		.long	5
+ 8958              	0:
+ 8959 000c 474E5500 		.string	"GNU"
+ 8960              	1:
+ 8961              		.align 8
+ 8962 0010 020000C0 		.long	0xc0000002
+ 8963 0014 04000000 		.long	3f - 2f
+ 8964              	2:
+ 8965 0018 03000000 		.long	0x3
+ 8966              	3:
+ 8967 001c 00000000 		.align 8
+ 8968              	4:

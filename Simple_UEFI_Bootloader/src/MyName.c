@@ -1,12 +1,11 @@
 #include "Bootloader.h"
 
 //
-// Nombres de los integrantes del grupo que se van a dibujar en pantalla
+// Cambia estos nombres por los de ustedes
 //
 STATIC CONST CHAR8 NAME_1[] = "CHRISTIAN";
 STATIC CONST CHAR8 NAME_2[] = "JORGE";
 
-// Configuraciones de color
 #define BG_R  10
 #define BG_G  10
 #define BG_B  30
@@ -19,14 +18,12 @@ STATIC CONST CHAR8 NAME_2[] = "JORGE";
 #define INFO_G  200
 #define INFO_B  255
 
-// Ajustes visuales para el texto
 #define LETTER_SCALE   6
 #define LETTER_SPACING 2
 #define WORD_SPACING   8
 #define NAME_GAP       18
 #define SCREEN_MARGIN  16
 
-// Enumeración de las transformaciones que puede sufrir el texto
 typedef enum
 {
   TRANSFORM_NORMAL = 0,
@@ -36,7 +33,6 @@ typedef enum
   TRANSFORM_ROT_180
 } MYNAME_TRANSFORM;
 
-// Estructura que guarda toda la info del framebuffer (resolución, formato de pixeles, etc.)
 typedef struct
 {
   UINT32 Width;
@@ -47,14 +43,12 @@ typedef struct
   UINT32 *FrameBuffer;
 } DRAW_CONTEXT;
 
-// Estructura para guardar el ancho y alto calculado de un texto
 typedef struct
 {
   UINTN Width;
   UINTN Height;
 } TEXT_EXTENTS;
 
-// Definición de un caracter en nuestra fuente custom de 5x7 pixeles
 typedef struct
 {
   CHAR8 c;
@@ -77,8 +71,8 @@ STATIC VOID DrawInstructionBar(const DRAW_CONTEXT *Ctx);
 STATIC VOID DrawCenteredBox(const DRAW_CONTEXT *Ctx, UINTN BoxW, UINTN BoxH, UINT8 R, UINT8 G, UINT8 B);
 
 //
-// Fuente 5x7 básica para letras mayúsculas, números y algunos símbolos.
-// Cada valor hex representa una fila de 5 bits, indicando qué pixeles se pintan.
+// Fuente 5x7 básica para letras mayúsculas, números y algunos símbolos
+// Cada valor usa 5 bits significativos
 //
 STATIC CONST FONT5X7 FontTable[] =
 {
@@ -125,15 +119,6 @@ STATIC CONST FONT5X7 FontTable[] =
 
   {'\0',{0,0,0,0,0,0,0}}
 };
-
-//
-//  RunMyNameGame
-//
-//  El corazón del juego. Extrae la información del GOP (Graphics Output Protocol) 
-//  para saber de qué tamaño es la pantalla y cómo dibujar. Luego tira los nombres 
-//  en una posición random inicial y entra en un ciclo infinito esperando las 
-//  teclas para aplicar las transformaciones (rotaciones).
-//
 
 EFI_STATUS RunMyNameGame(GPU_CONFIG *Graphics)
 {
@@ -220,13 +205,6 @@ EFI_STATUS RunMyNameGame(GPU_CONFIG *Graphics)
   }
 }
 
-//
-//  WaitKey
-//
-//  Se queda pegada esperando que el usuario presione una tecla. 
-//  Limpia el buffer antes para no comerse teclas fantasma.
-//
-
 STATIC EFI_STATUS WaitKey(EFI_INPUT_KEY *Key)
 {
   EFI_STATUS Status;
@@ -247,15 +225,6 @@ STATIC EFI_STATUS WaitKey(EFI_INPUT_KEY *Key)
   return Status;
 }
 
-//
-//  DrawScene
-//
-//  Arma la pantalla completa. Primero limpia el fondo, luego pinta 
-//  una caja en el centro (solo de adorno), y encima de eso dibuja 
-//  los dos nombres, aplicando la transformación de matriz que corresponda 
-//  y asegurándose de que no se salgan de la pantalla por accidente.
-//
-
 STATIC VOID DrawScene(const DRAW_CONTEXT *Ctx, const CHAR8 *Name1, const CHAR8 *Name2, INTN X, INTN Y, MYNAME_TRANSFORM Transform)
 {
     ClearScreenColor(Ctx, BG_R, BG_G, BG_B);
@@ -275,9 +244,15 @@ STATIC VOID DrawScene(const DRAW_CONTEXT *Ctx, const CHAR8 *Name1, const CHAR8 *
     FillRect(Ctx, BoxX, BoxY, BoxW, BoxH, 40, 40, 70);
     FillRect(Ctx, BoxX + 6, BoxY + 6, BoxW - 12, BoxH - 12, BG_R, BG_G, BG_B);
 
+    //
+    // Recentrar el bloque completo usando X,Y como centro aproximado
+    //
     INTN StartX = X - ((INTN)TotalW / 2);
     INTN StartY = Y - ((INTN)TotalH / 2);
 
+    //
+    // Mantenerlo dentro de pantalla
+    //
     if(StartX < SCREEN_MARGIN) StartX = SCREEN_MARGIN;
     if(StartY < SCREEN_MARGIN) StartY = SCREEN_MARGIN;
 
@@ -293,27 +268,17 @@ STATIC VOID DrawScene(const DRAW_CONTEXT *Ctx, const CHAR8 *Name1, const CHAR8 *
     DrawInstructionBar(Ctx);
 }
 
-//
-//  DrawInstructionBar
-//
-//  Pinta la barrita negra abajo con las letras azules que te recuerda 
-//  qué hace cada flecha, la R y el ESC, para que uno no se pierda.
-//
-
 STATIC VOID DrawInstructionBar(const DRAW_CONTEXT *Ctx)
 {
   FillRect(Ctx, 0, (INTN)Ctx->Height - 42, Ctx->Width, 42, 0, 0, 0);
 
+  //
+  // Solo texto corto para no tener que definir demasiados símbolos
+  //
   DrawText5x7(Ctx, "LEFT RIGHT UP DOWN", 14, (INTN)Ctx->Height - 34, 2, TRANSFORM_NORMAL, INFO_R, INFO_G, INFO_B);
   DrawText5x7(Ctx, "R RESTART", 14, (INTN)Ctx->Height - 18, 2, TRANSFORM_NORMAL, INFO_R, INFO_G, INFO_B);
   DrawText5x7(Ctx, "ESC EXIT", (INTN)Ctx->Width - 120, (INTN)Ctx->Height - 18, 2, TRANSFORM_NORMAL, INFO_R, INFO_G, INFO_B);
 }
-
-//
-//  DrawCenteredBox
-//
-//  Dibuja un rectángulo con un borde directamente en el puro centro de la pantalla.
-//
 
 STATIC VOID DrawCenteredBox(const DRAW_CONTEXT *Ctx, UINTN BoxW, UINTN BoxH, UINT8 R, UINT8 G, UINT8 B)
 {
@@ -324,63 +289,60 @@ STATIC VOID DrawCenteredBox(const DRAW_CONTEXT *Ctx, UINTN BoxW, UINTN BoxH, UIN
   FillRect(Ctx, X + 6, Y + 6, BoxW - 12, BoxH - 12, BG_R, BG_G, BG_B);
 }
 
-//
-//  GetRandomPosition
-//
-//  Calcula coordenadas X e Y pseudoaleatorias para tirar los nombres al inicio. 
-//  Mide cuánto va a ocupar el texto en su estado más grande para asegurarse
-//  de no elegir un centro que luego haga que las letras choquen con los bordes
-//  al rotarlas. Usa la hora de UEFI como semilla.
-//
-
 STATIC VOID GetRandomPosition(const DRAW_CONTEXT *Ctx, const CHAR8 *Name1, const CHAR8 *Name2, UINTN Scale, MYNAME_TRANSFORM Transform, INTN *OutX, INTN *OutY)
 {
+  // 1. SOLUCIÓN AL SALTO RARO AL ROTAR (Bounding Box Máximo)
+  // Medimos el texto en estado NORMAL para conocer su largo y alto absolutos.
   TEXT_EXTENTS T1 = MeasureText5x7(Name1, Scale, TRANSFORM_NORMAL);
   TEXT_EXTENTS T2 = MeasureText5x7(Name2, Scale, TRANSFORM_NORMAL);
 
   UINTN NormalW = (T1.Width > T2.Width ? T1.Width : T2.Width);
   UINTN NormalH = T1.Height + NAME_GAP + T2.Height;
 
+  // El tamaño máximo que puede ocupar en CUALQUIER rotación. 
+  // Esto crea un "radio" seguro para el centro.
   UINTN MaxDim = (NormalW > NormalH) ? NormalW : NormalH;
   UINTN HalfDim = MaxDim / 2;
 
+  // Definimos los límites de la pantalla donde el CENTRO (X, Y) puede existir sin que
+  // ninguna esquina choque al rotar.
   UINTN MinX = SCREEN_MARGIN + HalfDim;
   UINTN MaxX = (Ctx->Width > (SCREEN_MARGIN + HalfDim)) ? (Ctx->Width - SCREEN_MARGIN - HalfDim) : MinX;
 
   UINTN MinY = SCREEN_MARGIN + HalfDim;
+  // Restamos 50 extra abajo para proteger la barra de instrucciones
   UINTN MaxY = (Ctx->Height > (SCREEN_MARGIN + HalfDim + 50)) ? (Ctx->Height - SCREEN_MARGIN - HalfDim - 50) : MinY;
 
   UINTN RangeX = (MaxX > MinX) ? (MaxX - MinX) : 1;
   UINTN RangeY = (MaxY > MinY) ? (MaxY - MinY) : 1;
 
+  // 2. SOLUCIÓN AL "FALSO RANDOM" (Generador pseudoaleatorio con estado estático)
   STATIC UINT32 RngState = 0;
 
+  // Inicializar la semilla solo la primera vez que arranca el bootloader
   if (RngState == 0)
   {
     EFI_TIME Now;
     if (!EFI_ERROR(RT->GetTime(&Now, NULL)))
     {
+      // Mezclamos todas las variables de tiempo usando XOR para mayor entropía
       RngState = Now.Nanosecond ^ (Now.Second << 8) ^ (Now.Minute << 16) ^ (Now.Hour << 24) ^ 0x1A2B3C4D;
     }
+    // Si por alguna razón UEFI falla en dar la hora, usamos una semilla por defecto
     if (RngState == 0) RngState = 0x9E3779B9; 
   }
 
+  // Avanzamos la fórmula matemática para obtener el X
   RngState = (RngState * 1103515245 + 12345) & 0x7FFFFFFF;
   UINT32 RandX = RngState;
 
+  // Avanzamos la fórmula de nuevo para obtener el Y
   RngState = (RngState * 1103515245 + 12345) & 0x7FFFFFFF;
   UINT32 RandY = RngState;
 
   *OutX = (INTN)(MinX + (RandX % RangeX));
   *OutY = (INTN)(MinY + (RandY % RangeY));
 }
-
-//
-//  AsciiLen
-//
-//  Función manual para sacar el largo de un string, ya que en UEFI no
-//  tenemos el strlen() normal de la librería de C.
-//
 
 STATIC UINTN AsciiLen(const CHAR8 *Str)
 {
@@ -391,14 +353,6 @@ STATIC UINTN AsciiLen(const CHAR8 *Str)
   }
   return Len;
 }
-
-//
-//  MeasureText5x7
-//
-//  Calcula cuántos pixeles de ancho y de alto va a ocupar un texto entero
-//  tomando en cuenta la escala, los espacios entre letras y la transformación
-//  (si está acostado o de pie).
-//
 
 STATIC TEXT_EXTENTS MeasureText5x7(const CHAR8 *Text, UINTN Scale, MYNAME_TRANSFORM Transform)
 {
@@ -427,14 +381,6 @@ STATIC TEXT_EXTENTS MeasureText5x7(const CHAR8 *Text, UINTN Scale, MYNAME_TRANSF
   return T;
 }
 
-//
-//  FindGlyph
-//
-//  Busca un caracter específico en nuestra tabla de fuente (FontTable).
-//  Si le pasas una minúscula, la pasa a mayúscula automáticamente.
-//  Si no encuentra el caracter, devuelve un espacio en blanco por defecto.
-//
-
 STATIC const FONT5X7 *FindGlyph(CHAR8 Ch)
 {
   if(Ch >= 'a' && Ch <= 'z')
@@ -452,14 +398,6 @@ STATIC const FONT5X7 *FindGlyph(CHAR8 Ch)
 
   return FindGlyph(' ');
 }
-
-//
-//  DrawText5x7
-//
-//  Recorre un string letra por letra y llama a la función de dibujar
-//  el caracter. Mueve el "cursor" imaginario dependiendo de la transformación, 
-//  para que las letras se escriban de izquierda a derecha, de arriba abajo, etc.
-//
 
 STATIC VOID DrawText5x7(const DRAW_CONTEXT *Ctx, const CHAR8 *Text, INTN X, INTN Y, UINTN Scale, MYNAME_TRANSFORM Transform, UINT8 R, UINT8 G, UINT8 B)
 {
@@ -486,14 +424,6 @@ STATIC VOID DrawText5x7(const DRAW_CONTEXT *Ctx, const CHAR8 *Text, INTN X, INTN
       }
   }
 }
-
-//
-//  DrawGlyph5x7
-//
-//  Aquí es donde ocurre la magia de verdad. Revisa la matriz de 5x7 bits de la letra, 
-//  y dependiendo de la transformación escogida, altera las coordenadas X y Y (DX, DY)
-//  para voltear la letra patas arriba, rotarla, etc., antes de dibujar los cuadritos.
-//
 
 STATIC VOID DrawGlyph5x7(const DRAW_CONTEXT *Ctx, CHAR8 Ch, INTN X, INTN Y, UINTN Scale, MYNAME_TRANSFORM Transform, UINT8 R, UINT8 G, UINT8 B)
 {
@@ -558,13 +488,6 @@ STATIC VOID DrawGlyph5x7(const DRAW_CONTEXT *Ctx, CHAR8 Ch, INTN X, INTN Y, UINT
   }
 }
 
-//
-//  ClearScreenColor
-//
-//  Llena toda la pantalla de un solo color sobreescribiendo el framebuffer 
-//  fila por fila. Es mucho más rápido que pintar pixel por pixel.
-//
-
 STATIC VOID ClearScreenColor(const DRAW_CONTEXT *Ctx, UINT8 R, UINT8 G, UINT8 B)
 {
   UINT32 Packed = PackColor(Ctx, R, G, B);
@@ -578,14 +501,6 @@ STATIC VOID ClearScreenColor(const DRAW_CONTEXT *Ctx, UINT8 R, UINT8 G, UINT8 B)
     }
   }
 }
-
-//
-//  FillRect
-//
-//  Dibuja un rectángulo sólido iterando en un rango de pixeles en X y Y.
-//  Tiene cheques de seguridad para no tratar de escribir fuera de la memoria 
-//  de la pantalla y crashear la compu.
-//
 
 STATIC VOID FillRect(const DRAW_CONTEXT *Ctx, INTN X, INTN Y, UINTN W, UINTN H, UINT8 R, UINT8 G, UINT8 B)
 {
@@ -614,12 +529,6 @@ STATIC VOID FillRect(const DRAW_CONTEXT *Ctx, INTN X, INTN Y, UINTN W, UINTN H, 
   }
 }
 
-//
-//  PutPixel
-//
-//  Pone un puntito de color en una coordenada específica.
-//
-
 STATIC VOID PutPixel(const DRAW_CONTEXT *Ctx, INTN X, INTN Y, UINT8 R, UINT8 G, UINT8 B)
 {
   if(X < 0 || Y < 0 || X >= (INTN)Ctx->Width || Y >= (INTN)Ctx->Height)
@@ -629,14 +538,6 @@ STATIC VOID PutPixel(const DRAW_CONTEXT *Ctx, INTN X, INTN Y, UINT8 R, UINT8 G, 
 
   Ctx->FrameBuffer[(UINTN)Y * Ctx->PixelsPerScanLine + (UINTN)X] = PackColor(Ctx, R, G, B);
 }
-
-//
-//  PackColor
-//
-//  En UEFI cada compu puede guardar los colores de forma distinta en memoria. 
-//  Algunas usan Rojo-Verde-Azul, otras Azul-Verde-Rojo. Esta función arma
-//  el valor de 32 bits correcto dependiendo del formato que detectó GOP en el arranque.
-//
 
 STATIC UINT32 PackColor(const DRAW_CONTEXT *Ctx, UINT8 R, UINT8 G, UINT8 B)
 {
@@ -650,6 +551,9 @@ STATIC UINT32 PackColor(const DRAW_CONTEXT *Ctx, UINT8 R, UINT8 G, UINT8 B)
 
     case PixelBitMask:
     {
+      //
+      // Implementación simple: intenta usar masks si vienen bien formados.
+      //
       UINT32 Value = 0;
 
       if(Ctx->PixelInfo.RedMask)

@@ -1,0 +1,84 @@
+   1              		.file	"exit.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	Exit
+   7              		.hidden	Exit
+   9              	Exit:
+  10              	.LVL0:
+  11              	.LFB0:
+  12              		.file 1 "../Backend/gnu-efi-3.0.9/lib/exit.c"
+   1:../Backend/gnu-efi-3.0.9/lib/exit.c **** #include "lib.h"
+   2:../Backend/gnu-efi-3.0.9/lib/exit.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/exit.c **** VOID
+   4:../Backend/gnu-efi-3.0.9/lib/exit.c **** Exit(
+   5:../Backend/gnu-efi-3.0.9/lib/exit.c ****     IN EFI_STATUS   ExitStatus,
+   6:../Backend/gnu-efi-3.0.9/lib/exit.c ****     IN UINTN        ExitDataSize,
+   7:../Backend/gnu-efi-3.0.9/lib/exit.c ****     IN CHAR16       *ExitData OPTIONAL
+   8:../Backend/gnu-efi-3.0.9/lib/exit.c ****     )
+   9:../Backend/gnu-efi-3.0.9/lib/exit.c **** {
+  13              		.loc 1 9 1 view -0
+  14              		.cfi_startproc
+  15              		.loc 1 9 1 is_stmt 0 view .LVU1
+  16 0000 F30F1EFA 		endbr64
+  17 0004 50       		pushq	%rax
+  18              		.cfi_def_cfa_offset 16
+  19 0005 58       		popq	%rax
+  20              		.cfi_def_cfa_offset 8
+  21 0006 4883EC28 		subq	$40, %rsp
+  22              		.cfi_def_cfa_offset 48
+  23 000a 4989F0   		movq	%rsi, %r8
+  24 000d 4989D1   		movq	%rdx, %r9
+  10:../Backend/gnu-efi-3.0.9/lib/exit.c ****     uefi_call_wrapper(BS->Exit,
+  25              		.loc 1 10 5 is_stmt 1 view .LVU2
+  26 0010 4889FA   		movq	%rdi, %rdx
+  27              	.LVL1:
+  28              		.loc 1 10 5 is_stmt 0 view .LVU3
+  29 0013 488B0D00 		movq	LibImageHandle(%rip), %rcx
+  29      000000
+  30 001a 488B0500 		movq	BS(%rip), %rax
+  30      000000
+  31 0021 FF90D800 		call	*216(%rax)
+  31      0000
+  32              	.LVL2:
+  33              	.L2:
+  11:../Backend/gnu-efi-3.0.9/lib/exit.c ****             4,
+  12:../Backend/gnu-efi-3.0.9/lib/exit.c ****             LibImageHandle,
+  13:../Backend/gnu-efi-3.0.9/lib/exit.c ****             ExitStatus,
+  14:../Backend/gnu-efi-3.0.9/lib/exit.c ****             ExitDataSize,
+  15:../Backend/gnu-efi-3.0.9/lib/exit.c ****             ExitData);
+  16:../Backend/gnu-efi-3.0.9/lib/exit.c **** 
+  17:../Backend/gnu-efi-3.0.9/lib/exit.c ****     // Uh oh, Exit() returned?!
+  18:../Backend/gnu-efi-3.0.9/lib/exit.c ****     for (;;) { }
+  34              		.loc 1 18 5 is_stmt 1 view .LVU4
+  35              		.loc 1 18 16 view .LVU5
+  36              		.loc 1 18 5 view .LVU6
+  37 0027 EBFE     		jmp	.L2
+  38              		.cfi_endproc
+  39              	.LFE0:
+  41              	.Letext0:
+  42              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+  43              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+  44              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+  45              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efidevp.h"
+  46              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efiprot.h"
+  47              		.file 7 "../Backend/gnu-efi-3.0.9/inc/efiapi.h"
+  48              		.file 8 "../Backend/gnu-efi-3.0.9/inc/efilib.h"
+  49              		.file 9 "../Backend/gnu-efi-3.0.9/lib/lib.h"
+ 10729              		.section	.note.gnu.property,"a"
+ 10730              		.align 8
+ 10731 0000 04000000 		.long	1f - 0f
+ 10732 0004 10000000 		.long	4f - 1f
+ 10733 0008 05000000 		.long	5
+ 10734              	0:
+ 10735 000c 474E5500 		.string	"GNU"
+ 10736              	1:
+ 10737              		.align 8
+ 10738 0010 020000C0 		.long	0xc0000002
+ 10739 0014 04000000 		.long	3f - 2f
+ 10740              	2:
+ 10741 0018 03000000 		.long	0x3
+ 10742              	3:
+ 10743 001c 00000000 		.align 8
+ 10744              	4:

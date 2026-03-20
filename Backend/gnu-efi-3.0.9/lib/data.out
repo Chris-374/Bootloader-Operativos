@@ -1,0 +1,915 @@
+   1              		.file	"data.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.hidden	gEfiDebugSupportProtocolGuid
+   7              		.globl	gEfiDebugSupportProtocolGuid
+   8              		.data
+   9              		.align 16
+  12              	gEfiDebugSupportProtocolGuid:
+  13 0000 0C595527 		.long	659904780
+  16 0008 9EA4A3BA 		.ascii	"\236\244\243\272T<\332%"
+  16      543CDA25 
+  17              		.hidden	gEfiDebugImageInfoTableGuid
+  18              		.globl	gEfiDebugImageInfoTableGuid
+  19              		.align 16
+  22              	gEfiDebugImageInfoTableGuid:
+  23 0010 772E1549 		.long	1226124919
+  26 0018 B7A27AFE 		.ascii	"\267\242z\376\376\331^\213"
+  26      FED95E8B 
+  27              		.hidden	AbsolutePointerProtocol
+  28              		.globl	AbsolutePointerProtocol
+  29              		.align 16
+  32              	AbsolutePointerProtocol:
+  33 0020 2BD3598D 		.long	-1923493077
+  36 0028 9B15F259 		.ascii	"\233\025\362Y\004\231*C"
+  36      04992A43 
+  37              		.hidden	SimplePointerProtocol
+  38              		.globl	SimplePointerProtocol
+  39              		.align 16
+  42              	SimplePointerProtocol:
+  43 0030 878C8731 		.long	830966919
+  46 0038 9A4F00   		.string	"\232O"
+  47 003b 90273FC1 		.ascii	"\220'?\301M"
+  47      4D
+  48              		.hidden	Tcp4Protocol
+  49              		.globl	Tcp4Protocol
+  50              		.align 16
+  53              	Tcp4Protocol:
+  54 0040 C70B5365 		.long	1699941319
+  57 0048 B0105AAD 		.ascii	"\260\020Z\255\307\354+b"
+  57      C7EC2B62 
+  58              		.hidden	Tcp4ServiceBindingProtocol
+  59              		.globl	Tcp4ServiceBindingProtocol
+  60              		.align 16
+  63              	Tcp4ServiceBindingProtocol:
+  64 0050 65067200 		.long	7472741
+  67 0058 BAF7D3C3 		.ascii	"\272\367\323\303:\034|\311"
+  67      3A1C7CC9 
+  68              		.hidden	Udp4Protocol
+  69              		.globl	Udp4Protocol
+  70              		.align 16
+  73              	Udp4Protocol:
+  74 0060 29DFD93A 		.long	987356969
+  77 0068 B1F87F7F 		.ascii	"\261\370\177\177\347\016P\363"
+  77      E70E50F3 
+  78              		.hidden	Udp4ServiceBindingProtocol
+  79              		.globl	Udp4ServiceBindingProtocol
+  80              		.align 16
+  83              	Udp4ServiceBindingProtocol:
+  84 0070 6414F083 		.long	-2081418140
+  87 0078 B383AF63 		.ascii	"\263\203\257c\005\330\351\346"
+  87      05D8E9E6 
+  88              		.hidden	Ip4Protocol
+  89              		.globl	Ip4Protocol
+  90              		.align 16
+  93              	Ip4Protocol:
+  94 0080 D24CD941 		.long	1104760018
+  97 0088 8258D4E5 		.ascii	"\202X\324\345\0234\252\335"
+  97      1334AADD 
+  98              		.hidden	Ip4ServiceBindingProtocol
+  99              		.globl	Ip4ServiceBindingProtocol
+ 100              		.align 16
+ 103              	Ip4ServiceBindingProtocol:
+ 104 0090 E71117C5 		.long	-988343833
+ 107 0098 BFB80A04 		.ascii	"\277\270\n\004\216\361\377\344"
+ 107      8EF1FFE4 
+ 108              		.hidden	SalSystemTableGuid
+ 109              		.globl	SalSystemTableGuid
+ 110              		.align 16
+ 113              	SalSystemTableGuid:
+ 114 00a0 322D9DEB 		.long	-342020814
+ 117 00a8 9A1600   		.string	"\232\026"
+ 118 00ab 90273FC1 		.ascii	"\220'?\301M"
+ 118      4D
+ 119              		.hidden	SMBIOSTableGuid
+ 120              		.globl	SMBIOSTableGuid
+ 121              		.align 16
+ 124              	SMBIOSTableGuid:
+ 125 00b0 312D9DEB 		.long	-342020815
+ 128 00b8 9A1600   		.string	"\232\026"
+ 129 00bb 90273FC1 		.ascii	"\220'?\301M"
+ 129      4D
+ 130              		.hidden	Acpi20TableGuid
+ 131              		.globl	Acpi20TableGuid
+ 132              		.align 16
+ 135              	Acpi20TableGuid:
+ 136 00c0 71E86888 		.long	-2006390671
+ 139 00c8 BC2200   		.string	"\274\""
+ 140 00cb 80C73C88 		.ascii	"\200\307<\210\201"
+ 140      81
+ 141              		.hidden	AcpiTableGuid
+ 142              		.globl	AcpiTableGuid
+ 143              		.align 16
+ 146              	AcpiTableGuid:
+ 147 00d0 302D9DEB 		.long	-342020816
+ 150 00d8 9A1600   		.string	"\232\026"
+ 151 00db 90273FC1 		.ascii	"\220'?\301M"
+ 151      4D
+ 152              		.hidden	MpsTableGuid
+ 153              		.globl	MpsTableGuid
+ 154              		.align 16
+ 157              	MpsTableGuid:
+ 158 00e0 2F2D9DEB 		.long	-342020817
+ 161 00e8 9A1600   		.string	"\232\026"
+ 162 00eb 90273FC1 		.ascii	"\220'?\301M"
+ 162      4D
+ 163              		.hidden	UnknownDevice
+ 164              		.globl	UnknownDevice
+ 165              		.align 16
+ 168              	UnknownDevice:
+ 169 00f0 C5FA31CF 		.long	-818808123
+ 172 00f8 85F300   		.string	"\205\363"
+ 173 00fb A0C93EC9 		.ascii	"\240\311>\311;"
+ 173      3B
+ 174              		.hidden	EfiPartTypeLegacyMbrGuid
+ 175              		.globl	EfiPartTypeLegacyMbrGuid
+ 176              		.align 16
+ 179              	EfiPartTypeLegacyMbrGuid:
+ 180 0100 41EE4D02 		.long	38661697
+ 183 0108 9D6900   		.string	"\235i"
+ 184 010b 08C781F3 		.ascii	"\b\307\201\363\237"
+ 184      9F
+ 185              		.hidden	EfiPartTypeSystemPartitionGuid
+ 186              		.globl	EfiPartTypeSystemPartitionGuid
+ 187              		.align 16
+ 190              	EfiPartTypeSystemPartitionGuid:
+ 191 0110 28732AC1 		.long	-1054182616
+ 194 0118 BA4B00   		.string	"\272K"
+ 195 011b A0C93EC9 		.ascii	"\240\311>\311;"
+ 195      3B
+ 196              		.hidden	gEfiVTUTF8Guid
+ 197              		.globl	gEfiVTUTF8Guid
+ 198              		.align 16
+ 201              	gEfiVTUTF8Guid:
+ 202 0120 D6A015AD 		.long	-1391091498
+ 205 0128 A073D01D 		.ascii	"\240s\320\035\347~-\210"
+ 205      E77E2D88 
+ 206              		.hidden	gEfiVT100PlusGuid
+ 207              		.globl	gEfiVT100PlusGuid
+ 208              		.align 16
+ 211              	gEfiVT100PlusGuid:
+ 212 0130 0BC7AE7B 		.long	2075051787
+ 215 0138 8E872F9E 		.ascii	"\216\207/\236(\b\203C"
+ 215      28088343 
+ 216              		.hidden	gEfiVT100Guid
+ 217              		.globl	gEfiVT100Guid
+ 218              		.align 16
+ 221              	gEfiVT100Guid:
+ 222 0140 6560A6DF 		.long	-542744475
+ 225 0148 9A2D00   		.string	"\232-"
+ 226 014b 90273FC1 		.ascii	"\220'?\301M"
+ 226      4D
+ 227              		.hidden	gEfiPcAnsiGuid
+ 228              		.globl	gEfiPcAnsiGuid
+ 229              		.align 16
+ 232              	gEfiPcAnsiGuid:
+ 233 0150 5347C1E0 		.long	-524204205
+ 236 0158 9A0C00   		.string	"\232\f"
+ 237 015b 90273FC1 		.ascii	"\220'?\301M"
+ 237      4D
+ 238              		.hidden	AdapterDebugProtocol
+ 239              		.globl	AdapterDebugProtocol
+ 240              		.align 16
+ 243              	AdapterDebugProtocol:
+ 244 0160 8168F882 		.long	-2097649535
+ 247 0168 BC7D00   		.string	"\274}"
+ 248 016b 80C73C88 		.ascii	"\200\307<\210\201"
+ 248      81
+ 249              		.hidden	gEfiEdidOverrideProtocolGuid
+ 250              		.globl	gEfiEdidOverrideProtocolGuid
+ 251              		.align 16
+ 254              	gEfiEdidOverrideProtocolGuid:
+ 255 0170 31B4EC48 		.long	1223472177
+ 258 0178 A922F458 		.ascii	"\251\"\364X\376\004\013\325"
+ 258      FE040BD5 
+ 259              		.hidden	gEfiEdidActiveProtocolGuid
+ 260              		.globl	gEfiEdidActiveProtocolGuid
+ 261              		.align 16
+ 264              	gEfiEdidActiveProtocolGuid:
+ 265 0180 56108CBD 		.long	-1114894250
+ 268 0188 92A8A633 		.ascii	"\222\250\2463\177\201y\206"
+ 268      7F817986 
+ 269              		.hidden	gEfiEdidDiscoveredProtocolGuid
+ 270              		.globl	gEfiEdidDiscoveredProtocolGuid
+ 271              		.align 16
+ 274              	gEfiEdidDiscoveredProtocolGuid:
+ 275 0190 F6340C1C 		.long	470562038
+ 278 0198 A0498AD0 		.ascii	"\240I\212\320l\032f\252"
+ 278      6C1A66AA 
+ 279              		.hidden	gEfiGraphicsOutputProtocolGuid
+ 280              		.globl	gEfiGraphicsOutputProtocolGuid
+ 281              		.align 16
+ 284              	gEfiGraphicsOutputProtocolGuid:
+ 285 01a0 DEA94290 		.long	-1874679330
+ 288 01a8 96FB7ADE 		.ascii	"\226\373z\336\320\200Qj"
+ 288      D080516A 
+ 289              		.hidden	TextInSpliterProtocol
+ 290              		.globl	TextInSpliterProtocol
+ 291              		.align 16
+ 294              	TextInSpliterProtocol:
+ 295 01b0 50C5A3F9 		.long	-106707632
+ 298 01b8 BBA000   		.string	"\273\240"
+ 299 01bb A0C96972 		.ascii	"\240\311ir;"
+ 299      3B
+ 300              		.hidden	ErrorOutSpliterProtocol
+ 301              		.globl	ErrorOutSpliterProtocol
+ 302              		.align 16
+ 305              	ErrorOutSpliterProtocol:
+ 306 01c0 3990BAF0 		.long	-256208839
+ 309 01c8 AA7FD9AA 		.ascii	"\252\177\331\252\371\033\202\241"
+ 309      F91B82A1 
+ 310              		.hidden	TextOutSpliterProtocol
+ 311              		.globl	TextOutSpliterProtocol
+ 312              		.align 16
+ 315              	TextOutSpliterProtocol:
+ 316 01d0 A030D856 		.long	1457008800
+ 319 01d8 BBA000   		.string	"\273\240"
+ 320 01db A0C96972 		.ascii	"\240\311ir;"
+ 320      3B
+ 321              		.hidden	VgaClassProtocol
+ 322              		.globl	VgaClassProtocol
+ 323              		.align 16
+ 326              	VgaClassProtocol:
+ 327 01e0 10633D0E 		.long	238904080
+ 330 01e8 BB8100   		.string	"\273\201"
+ 331 01eb 80C73C88 		.ascii	"\200\307<\210\201"
+ 331      81
+ 332              		.hidden	LegacyBootProtocol
+ 333              		.globl	LegacyBootProtocol
+ 334              		.align 16
+ 337              	LegacyBootProtocol:
+ 338 01f0 B25E6E37 		.long	929980082
+ 341 01f8 BAE500   		.string	"\272\345"
+ 342 01fb 80C73C88 		.ascii	"\200\307<\210\201"
+ 342      81
+ 343              		.hidden	VariableStoreProtocol
+ 344              		.globl	VariableStoreProtocol
+ 345              		.align 16
+ 348              	VariableStoreProtocol:
+ 349 0200 91CD88F0 		.long	-259469935
+ 352 0208 8E4200   		.string	"\216B"
+ 353 020b A0C96972 		.ascii	"\240\311ir;"
+ 353      3B
+ 354              		.hidden	InternalShellProtocol
+ 355              		.globl	InternalShellProtocol
+ 356              		.align 16
+ 359              	InternalShellProtocol:
+ 360 0210 8C6B5AD6 		.long	-698717300
+ 363 0218 A909F0D2 		.ascii	"\251\t\360\322\231+Z\251"
+ 363      992B5AA9 
+ 364              		.hidden	gEfiFileSystemVolumeLabelInfoIdGuid
+ 365              		.globl	gEfiFileSystemVolumeLabelInfoIdGuid
+ 366              		.align 16
+ 369              	gEfiFileSystemVolumeLabelInfoIdGuid:
+ 370 0220 D3D747DB 		.long	-616048685
+ 373 0228 9A3500   		.string	"\2325"
+ 374 022b 90273FC1 		.ascii	"\220'?\301M"
+ 374      4D
+ 375              		.hidden	gEfiFileSystemInfoGuid
+ 376              		.globl	gEfiFileSystemInfoGuid
+ 377              		.align 16
+ 380              	gEfiFileSystemInfoGuid:
+ 381 0230 936E5709 		.long	156724883
+ 384 0238 8E3900   		.string	"\2169"
+ 385 023b A0C96972 		.ascii	"\240\311ir;"
+ 385      3B
+ 386              		.hidden	gEfiFileInfoGuid
+ 387              		.globl	gEfiFileInfoGuid
+ 388              		.align 16
+ 391              	gEfiFileInfoGuid:
+ 392 0240 926E5709 		.long	156724882
+ 395 0248 8E3900   		.string	"\2169"
+ 396 024b A0C96972 		.ascii	"\240\311ir;"
+ 396      3B
+ 397              		.hidden	gEfiEbcProtocolGuid
+ 398              		.globl	gEfiEbcProtocolGuid
+ 399              		.align 16
+ 402              	gEfiEbcProtocolGuid:
+ 403 0250 D16DAC13 		.long	330067409
+ 406 0258 B06B00   		.string	"\260k"
+ 407 025b AA00     		.string	"\252"
+ 408 025d BD6DE7   		.ascii	"\275m\347"
+ 409              		.hidden	gEfiDriverFamilyOverrideProtocolGuid
+ 410              		.globl	gEfiDriverFamilyOverrideProtocolGuid
+ 411              		.align 16
+ 414              	gEfiDriverFamilyOverrideProtocolGuid:
+ 415 0260 9E12EEB1 		.long	-1309797730
+ 418 0268 91F804A4 		.ascii	"\221\370\004\244\2227f\247"
+ 418      923766A7 
+ 419              		.hidden	gEfiBusSpecificDriverOverrideProtocolGuid
+ 420              		.globl	gEfiBusSpecificDriverOverrideProtocolGuid
+ 421              		.align 16
+ 424              	gEfiBusSpecificDriverOverrideProtocolGuid:
+ 425 0270 85B2C13B 		.long	1002549893
+ 428 0278 AABF4D7D 		.ascii	"\252\277M}\023\3732e"
+ 428      13FB3265 
+ 429              		.hidden	gEfiPlatformDriverOverrideProtocolGuid
+ 430              		.globl	gEfiPlatformDriverOverrideProtocolGuid
+ 431              		.align 16
+ 434              	gEfiPlatformDriverOverrideProtocolGuid:
+ 435 0280 38C7306B 		.long	1798358840
+ 438 0288 9A3B00   		.string	"\232;"
+ 439 028b 90273FC1 		.ascii	"\220'?\301M"
+ 439      4D
+ 440              		.hidden	gEfiHashProtocolGuid
+ 441              		.globl	gEfiHashProtocolGuid
+ 442              		.align 16
+ 445              	gEfiHashProtocolGuid:
+ 446 0290 324918C5 		.long	-988264142
+ 449 0298 A5BACC0B 		.ascii	"\245\272\314\013\332\234\0245"
+ 449      DA9C1435 
+ 450              		.hidden	gEfiComponentName2ProtocolGuid
+ 451              		.globl	gEfiComponentName2ProtocolGuid
+ 452              		.align 16
+ 455              	gEfiComponentName2ProtocolGuid:
+ 456 02a0 FF5C7A6A 		.long	1786404095
+ 459 02a8 BADA75AB 		.ascii	"\272\332u\2530%\316\024"
+ 459      3025CE14 
+ 460              		.hidden	gEfiComponentNameProtocolGuid
+ 461              		.globl	gEfiComponentNameProtocolGuid
+ 462              		.align 16
+ 465              	gEfiComponentNameProtocolGuid:
+ 466 02b0 2C777A10 		.long	276461356
+ 469 02b8 9A4600   		.string	"\232F"
+ 470 02bb 90273FC1 		.ascii	"\220'?\301M"
+ 470      4D
+ 471              		.hidden	gEfiDriverBindingProtocolGuid
+ 472              		.globl	gEfiDriverBindingProtocolGuid
+ 473              		.align 16
+ 476              	gEfiDriverBindingProtocolGuid:
+ 477 02c0 AB31A018 		.long	413151659
+ 480 02c8 A5C00C09 		.ascii	"\245\300\f\t&\036\237q"
+ 480      261E9F71 
+ 481              		.hidden	gEfiPciRootBridgeIoProtocolGuid
+ 482              		.globl	gEfiPciRootBridgeIoProtocolGuid
+ 483              		.align 16
+ 486              	gEfiPciRootBridgeIoProtocolGuid:
+ 487 02d0 BB7E702F 		.long	795901627
+ 490 02d8 9A3800   		.string	"\2328"
+ 491 02db 90273FC1 		.ascii	"\220'?\301M"
+ 491      4D
+ 492              		.hidden	gEfiPciIoProtocolGuid
+ 493              		.globl	gEfiPciIoProtocolGuid
+ 494              		.align 16
+ 497              	gEfiPciIoProtocolGuid:
+ 498 02e0 00B2F54C 		.long	1291170304
+ 501 02e8 9EECB23E 		.ascii	"\236\354\262>?P\002\232"
+ 501      3F50029A 
+ 502              		.hidden	gEFiUiInterfaceProtocolGuid
+ 503              		.globl	gEFiUiInterfaceProtocolGuid
+ 504              		.align 16
+ 507              	gEFiUiInterfaceProtocolGuid:
+ 508 02f0 8179DD32 		.long	853375361
+ 511 02f8 BC8B00   		.string	"\274\213"
+ 512 02fb 80C73C88 		.ascii	"\200\307<\210\201"
+ 512      81
+ 513              		.hidden	gEfiNetworkInterfaceIdentifierProtocolGuid
+ 514              		.globl	gEfiNetworkInterfaceIdentifierProtocolGuid
+ 515              		.align 16
+ 518              	gEfiNetworkInterfaceIdentifierProtocolGuid:
+ 519 0300 CD4185E1 		.long	-511360563
+ 522 0308 928D643C 		.ascii	"\222\215d<\212y\262)"
+ 522      8A79B229 
+ 523              		.hidden	gEfiPxeBaseCodeCallbackProtocolGuid
+ 524              		.globl	gEfiPxeBaseCodeCallbackProtocolGuid
+ 525              		.align 16
+ 528              	gEfiPxeBaseCodeCallbackProtocolGuid:
+ 529 0310 21CA5D24 		.long	610126369
+ 532 0318 8F0100   		.string	"\217\001"
+ 533 031b A0C96972 		.ascii	"\240\311ir;"
+ 533      3B
+ 534              		.hidden	gEfiPxeBaseCodeProtocolGuid
+ 535              		.globl	gEfiPxeBaseCodeProtocolGuid
+ 536              		.align 16
+ 539              	gEfiPxeBaseCodeProtocolGuid:
+ 540 0320 03E6C403 		.long	63235587
+ 543 0328 9A2D00   		.string	"\232-"
+ 544 032b 90273FC1 		.ascii	"\220'?\301M"
+ 544      4D
+ 545              		.hidden	gEfiSimpleNetworkProtocolGuid
+ 546              		.globl	gEfiSimpleNetworkProtocolGuid
+ 547              		.align 16
+ 550              	gEfiSimpleNetworkProtocolGuid:
+ 551 0330 B93298A1 		.long	-1583861063
+ 554 0338 9A2D00   		.string	"\232-"
+ 555 033b 90273FC1 		.ascii	"\220'?\301M"
+ 555      4D
+ 556              		.hidden	gEfiSerialIoProtocolGuid
+ 557              		.globl	gEfiSerialIoProtocolGuid
+ 558              		.align 16
+ 561              	gEfiSerialIoProtocolGuid:
+ 562 0340 6FCF25BB 		.long	-1155149969
+ 565 0348 9A0C00   		.string	"\232\f"
+ 566 034b 90273FC1 		.ascii	"\220'?\301\375"
+ 566      FD
+ 567              		.hidden	gEfiUnicodeCollationProtocolGuid
+ 568              		.globl	gEfiUnicodeCollationProtocolGuid
+ 569              		.align 16
+ 572              	gEfiUnicodeCollationProtocolGuid:
+ 573 0350 7FCD851D 		.long	495308159
+ 576 0358 9A0C00   		.string	"\232\f"
+ 577 035b 90273FC1 		.ascii	"\220'?\301M"
+ 577      4D
+ 578              		.hidden	gEfiDeviceIoProtocolGuid
+ 579              		.globl	gEfiDeviceIoProtocolGuid
+ 580              		.align 16
+ 583              	gEfiDeviceIoProtocolGuid:
+ 584 0360 11C36AAF 		.long	-1351957743
+ 587 0368 8E3C00   		.string	"\216<"
+ 588 036b A0C96972 		.ascii	"\240\311ir;"
+ 588      3B
+ 589              		.hidden	gEfiLoadFileProtocolGuid
+ 590              		.globl	gEfiLoadFileProtocolGuid
+ 591              		.align 16
+ 594              	gEfiLoadFileProtocolGuid:
+ 595 0370 9130EC56 		.long	1458319505
+ 598 0378 8E3F00   		.string	"\216?"
+ 599 037b A0C96972 		.ascii	"\240\311ir;"
+ 599      3B
+ 600              		.hidden	gEfiSimpleFileSystemProtocolGuid
+ 601              		.globl	gEfiSimpleFileSystemProtocolGuid
+ 602              		.align 16
+ 605              	gEfiSimpleFileSystemProtocolGuid:
+ 606 0380 225B4E96 		.long	-1773249758
+ 609 0388 8E3900   		.string	"\2169"
+ 610 038b A0C96972 		.ascii	"\240\311ir;"
+ 610      3B
+ 611              		.hidden	gEfiDiskIo2ProtocolGuid
+ 612              		.globl	gEfiDiskIo2ProtocolGuid
+ 613              		.align 16
+ 616              	gEfiDiskIo2ProtocolGuid:
+ 617 0390 AE8E1C15 		.long	354193070
+ 620 0398 9E549828 		.ascii	"\236T\230(\031Oj\210"
+ 620      194F6A88 
+ 621              		.hidden	gEfiDiskIoProtocolGuid
+ 622              		.globl	gEfiDiskIoProtocolGuid
+ 623              		.align 16
+ 626              	gEfiDiskIoProtocolGuid:
+ 627 03a0 715134CE 		.long	-835432079
+ 630 03a8 8E4F00   		.string	"\216O"
+ 631 03ab A0C96972 		.ascii	"\240\311ir;"
+ 631      3B
+ 632              		.hidden	gEfiBlockIo2ProtocolGuid
+ 633              		.globl	gEfiBlockIo2ProtocolGuid
+ 634              		.align 16
+ 637              	gEfiBlockIo2ProtocolGuid:
+ 638 03b0 72247BA7 		.long	-1485101966
+ 641 03b8 A245C2C0 		.ascii	"\242E\302\300\342{\274\301"
+ 641      E27BBCC1 
+ 642              		.hidden	gEfiBlockIoProtocolGuid
+ 643              		.globl	gEfiBlockIoProtocolGuid
+ 644              		.align 16
+ 647              	gEfiBlockIoProtocolGuid:
+ 648 03c0 215B4E96 		.long	-1773249759
+ 651 03c8 8E3900   		.string	"\2169"
+ 652 03cb A0C96972 		.ascii	"\240\311ir;"
+ 652      3B
+ 653              		.hidden	gEfiSimpleTextOutProtocolGuid
+ 654              		.globl	gEfiSimpleTextOutProtocolGuid
+ 655              		.align 16
+ 658              	gEfiSimpleTextOutProtocolGuid:
+ 659 03d0 C2777438 		.long	947156930
+ 662 03d8 8E3900   		.string	"\2169"
+ 663 03db A0C96972 		.ascii	"\240\311ir;"
+ 663      3B
+ 664              		.hidden	gEfiSimpleTextInProtocolGuid
+ 665              		.globl	gEfiSimpleTextInProtocolGuid
+ 666              		.align 16
+ 669              	gEfiSimpleTextInProtocolGuid:
+ 670 03e0 C1777438 		.long	947156929
+ 673 03e8 8E3900   		.string	"\2169"
+ 674 03eb A0C96972 		.ascii	"\240\311ir;"
+ 674      3B
+ 675              		.hidden	gEfiLoadedImageProtocolGuid
+ 676              		.globl	gEfiLoadedImageProtocolGuid
+ 677              		.align 16
+ 680              	gEfiLoadedImageProtocolGuid:
+ 681 03f0 A1311B5B 		.long	1528508833
+ 684 03f8 8E3F00   		.string	"\216?"
+ 685 03fb A0C96972 		.ascii	"\240\311ir;"
+ 685      3B
+ 686              		.hidden	gEfiLoadedImageDevicePathProtocolGuid
+ 687              		.globl	gEfiLoadedImageDevicePathProtocolGuid
+ 688              		.align 16
+ 691              	gEfiLoadedImageDevicePathProtocolGuid:
+ 692 0400 7E1562BC 		.long	-1134422658
+ 695 0408 99202D3B 		.ascii	"\231 -;6\327P\337"
+ 695      36D750DF 
+ 696              		.hidden	gEfiDevicePathFromTextProtocolGuid
+ 697              		.globl	gEfiDevicePathFromTextProtocolGuid
+ 698              		.align 16
+ 701              	gEfiDevicePathFromTextProtocolGuid:
+ 702 0410 219AC905 		.long	97098273
+ 705 0418 8A5F35DF 		.ascii	"\212_5\3373C\365\036"
+ 705      3343F51E 
+ 706              		.hidden	gEfiDevicePathToTextProtocolGuid
+ 707              		.globl	gEfiDevicePathToTextProtocolGuid
+ 708              		.align 16
+ 711              	gEfiDevicePathToTextProtocolGuid:
+ 712 0420 203E848B 		.long	-1954267616
+ 715 0428 90CC551A 		.ascii	"\220\314U\032NJ\177\034"
+ 715      4E4A7F1C 
+ 716              		.hidden	gEfiDevicePathProtocolGuid
+ 717              		.globl	gEfiDevicePathProtocolGuid
+ 718              		.align 16
+ 721              	gEfiDevicePathProtocolGuid:
+ 722 0430 916E5709 		.long	156724881
+ 725 0438 8E3900   		.string	"\2169"
+ 726 043b A0C96972 		.ascii	"\240\311ir;"
+ 726      3B
+ 727              		.hidden	gIntelGopGuid
+ 728              		.globl	gIntelGopGuid
+ 729              		.align 16
+ 732              	gIntelGopGuid:
+ 733 0440 797C4839 		.long	961051769
+ 736 0448 87E50954 		.ascii	"\207\345\tT|\252\341\274"
+ 736      7CAAE1BC 
+ 737              		.hidden	gPchSataControllerDriverGuid
+ 738              		.globl	gPchSataControllerDriverGuid
+ 739              		.align 16
+ 742              	gPchSataControllerDriverGuid:
+ 743 0450 A99D92BB 		.long	-1148019287
+ 746 0458 B22CA3BB 		.ascii	"\262,\243\273?#\332U"
+ 746      3F23DA55 
+ 747              		.hidden	gAhciBusInitProtocolGuid
+ 748              		.globl	gAhciBusInitProtocolGuid
+ 749              		.align 16
+ 752              	gAhciBusInitProtocolGuid:
+ 753 0460 6447FAB2 		.long	-1292220572
+ 756 0468 91DF87D1 		.ascii	"\221\337\207\321Z>Vh"
+ 756      5A3E5668 
+ 757              		.hidden	gHddSecurityEndProtocolGuid
+ 758              		.globl	gHddSecurityEndProtocolGuid
+ 759              		.align 16
+ 762              	gHddSecurityEndProtocolGuid:
+ 763 0470 29AE77AD 		.long	-1384665559
+ 766 0478 85048176 		.ascii	"\205\004\201va\233gj"
+ 766      619B676A 
+ 767              		.hidden	gHddUnlockedGuid
+ 768              		.globl	gHddUnlockedGuid
+ 769              		.align 16
+ 772              	gHddUnlockedGuid:
+ 773 0480 E69BD21F 		.long	533896166
+ 776 0488 A6E7E5D1 		.ascii	"\246\347\345\321\016j\303v"
+ 776      0E6AC376 
+ 777              		.hidden	gHotPlugDeviceGuid
+ 778              		.globl	gHotPlugDeviceGuid
+ 779              		.align 16
+ 782              	gHotPlugDeviceGuid:
+ 783 0490 32C40A22 		.long	571130930
+ 786 0498 A74F4C9D 		.ascii	"\247OL\235\246z\322;"
+ 786      A67AD23B 
+ 787              		.hidden	gAmiEfikeycodeProtocolGuid
+ 788              		.globl	gAmiEfikeycodeProtocolGuid
+ 789              		.align 16
+ 792              	gAmiEfikeycodeProtocolGuid:
+ 793 04a0 2DB6DF0A 		.long	182433325
+ 796 04a8 8944F85C 		.ascii	"\211D\370\\K\352\207\250"
+ 796      4BEA87A8 
+ 797              		.hidden	gEfiNetworkInterfaceIdentifierProtocolGuid_31
+ 798              		.globl	gEfiNetworkInterfaceIdentifierProtocolGuid_31
+ 799              		.align 16
+ 802              	gEfiNetworkInterfaceIdentifierProtocolGuid_31:
+ 803 04b0 66D5CE1A 		.long	449762662
+ 806 04b8 BC81767F 		.ascii	"\274\201v\177\037\227z\211"
+ 806      1F977A89 
+ 807              		.hidden	gEfiHiiConfigAccessProtocolGuid
+ 808              		.globl	gEfiHiiConfigAccessProtocolGuid
+ 809              		.align 16
+ 812              	gEfiHiiConfigAccessProtocolGuid:
+ 813 04c0 06470D33 		.long	856508166
+ 816 04c8 A369B66F 		.ascii	"\243i\266o\250\325C\205"
+ 816      A8D54385 
+ 817              		.hidden	gEfiStorageSecurityCommandProtocolGuid
+ 818              		.globl	gEfiStorageSecurityCommandProtocolGuid
+ 819              		.align 16
+ 822              	gEfiStorageSecurityCommandProtocolGuid:
+ 823 04d0 6D0B8BC8 		.long	-930411667
+ 826 04d8 9CB44907 		.ascii	"\234\264I\007KL:x"
+ 826      4B4C3A78 
+ 827              		.hidden	gEfiIdeControllerInitProtocolGuid
+ 828              		.globl	gEfiIdeControllerInitProtocolGuid
+ 829              		.align 16
+ 832              	gEfiIdeControllerInitProtocolGuid:
+ 833 04e0 5270E3A1 		.long	-1578930094
+ 836 04e8 A3173E9A 		.ascii	"\243\027>\232U\304>\311"
+ 836      55C43EC9 
+ 837              		.hidden	gEfiSioProtocolGuid
+ 838              		.globl	gEfiSioProtocolGuid
+ 839              		.align 16
+ 842              	gEfiSioProtocolGuid:
+ 843 04f0 18DD5F21 		.long	559930648
+ 846 04f8 890B58CA 		.ascii	"\211\013X\312\013G9\351"
+ 846      0B4739E9 
+ 847              		.hidden	gEfiLoadFile2ProtocolGuid
+ 848              		.globl	gEfiLoadFile2ProtocolGuid
+ 849              		.align 16
+ 852              	gEfiLoadFile2ProtocolGuid:
+ 853 0500 C1C00640 		.long	1074184385
+ 856 0508 996D4A6C 		.ascii	"\231mJl\207$\340m"
+ 856      8724E06D 
+ 857              		.hidden	gEfiFirmwareVolumeDispatchProtocolGuid
+ 858              		.globl	gEfiFirmwareVolumeDispatchProtocolGuid
+ 859              		.align 16
+ 862              	gEfiFirmwareVolumeDispatchProtocolGuid:
+ 863 0510 695AA37A 		.long	2057525865
+ 866 0518 A7AF694B 		.ascii	"\247\257iK\365oq\310"
+ 866      F56F71C8 
+ 867              		.hidden	gEfiFirmwareVolumeBlockProtocolGuid
+ 868              		.globl	gEfiFirmwareVolumeBlockProtocolGuid
+ 869              		.align 16
+ 872              	gEfiFirmwareVolumeBlockProtocolGuid:
+ 873 0520 A94F648F 		.long	-1889251415
+ 876 0528 9CE20B44 		.ascii	"\234\342\013Di\216\215\244"
+ 876      698E8DA4 
+ 877              		.hidden	gEfiFirmwareVolume2ProtocolGuid
+ 878              		.globl	gEfiFirmwareVolume2ProtocolGuid
+ 879              		.align 16
+ 882              	gEfiFirmwareVolume2ProtocolGuid:
+ 883 0530 B6730E22 		.long	571372470
+ 886 0538 8405B974 		.ascii	"\204\005\271t\261\ba\232"
+ 886      B108619A 
+ 887              		.hidden	gEfiExtScsiPassThruProtocolGuid
+ 888              		.globl	gEfiExtScsiPassThruProtocolGuid
+ 889              		.align 16
+ 892              	gEfiExtScsiPassThruProtocolGuid:
+ 893 0540 32763B14 		.long	339441202
+ 896 0548 ABD3B625 		.ascii	"\253\323\266%\245\271\277\376"
+ 896      A5B9BFFE 
+ 897              		.hidden	gEfiScsiIoProtocolGuid
+ 898              		.globl	gEfiScsiIoProtocolGuid
+ 899              		.align 16
+ 902              	gEfiScsiIoProtocolGuid:
+ 903 0550 E6472F93 		.long	-1825617946
+ 906 0558 803E3CD5 		.ascii	"\200><\325K\023\217\205"
+ 906      4B138F85 
+ 907              		.hidden	gEfiDiskInfoProtocolGuid
+ 908              		.globl	gEfiDiskInfoProtocolGuid
+ 909              		.align 16
+ 912              	gEfiDiskInfoProtocolGuid:
+ 913 0560 7FA632D4 		.long	-734878081
+ 916 0568 B3BB3F02 		.ascii	"\263\273?\002\221\204\223'"
+ 916      91849327 
+ 917              		.hidden	gEfiSimpleTextInExProtocolGuid
+ 918              		.globl	gEfiSimpleTextInExProtocolGuid
+ 919              		.align 16
+ 922              	gEfiSimpleTextInExProtocolGuid:
+ 923 0570 34759EDD 		.long	-576817868
+ 926 0578 8C14F585 		.ascii	"\214\024\365\205\027\246%\252"
+ 926      17A625AA 
+ 927              		.hidden	gEfiPlatformIDEProtocolGuid
+ 928              		.globl	gEfiPlatformIDEProtocolGuid
+ 929              		.align 16
+ 932              	gEfiPlatformIDEProtocolGuid:
+ 933 0580 9BF63767 		.long	1731720859
+ 936 0588 9327CCF5 		.ascii	"\223'\314\365\356\367\f\336"
+ 936      EEF70CDE 
+ 937              		.hidden	gEfiConsoleOutDevicesStartedGuid
+ 938              		.globl	gEfiConsoleOutDevicesStartedGuid
+ 939              		.align 16
+ 942              	gEfiConsoleOutDevicesStartedGuid:
+ 943 0590 71399AEF 		.long	-275105423
+ 946 0598 BD405AA1 		.ascii	"\275@Z\241e\362\334:"
+ 946      65F2DC3A 
+ 947              		.hidden	gEfiConsoleInDevicesStartedGuid
+ 948              		.globl	gEfiConsoleInDevicesStartedGuid
+ 949              		.align 16
+ 952              	gEfiConsoleInDevicesStartedGuid:
+ 953 05a0 51E0F12D 		.long	770826321
+ 956 05a8 869D24E6 		.ascii	"\206\235$\346Sx\373\236"
+ 956      5378FB9E 
+ 957              		.hidden	gEfiDataHubProtocolGuid
+ 958              		.globl	gEfiDataHubProtocolGuid
+ 959              		.align 16
+ 962              	gEfiDataHubProtocolGuid:
+ 963 05b0 21D080AE 		.long	-1367289823
+ 966 05b8 BCD700   		.string	"\274\327"
+ 967 05bb 80C73C88 		.ascii	"\200\307<\210\201"
+ 967      81
+ 968              		.hidden	gEfiUsbHcProtocolGuid
+ 969              		.globl	gEfiUsbHcProtocolGuid
+ 970              		.align 16
+ 973              	gEfiUsbHcProtocolGuid:
+ 974 05c0 669208F5 		.long	-183987610
+ 977 05c8 97D8562F 		.ascii	"\227\330V/\212s\265\031"
+ 977      8A73B519 
+ 978              		.hidden	gEfiUsb2HcProtocolGuid
+ 979              		.globl	gEfiUsb2HcProtocolGuid
+ 980              		.align 16
+ 983              	gEfiUsb2HcProtocolGuid:
+ 984 05d0 2652743E 		.long	1047810598
+ 987 05d8 A2ACD7CD 		.ascii	"\242\254\327\315\016\213\242\274"
+ 987      0E8BA2BC 
+ 988              		.hidden	gEfiUsbIoProtocolGuid
+ 989              		.globl	gEfiUsbIoProtocolGuid
+ 990              		.align 16
+ 993              	gEfiUsbIoProtocolGuid:
+ 994 05e0 D6682F2B 		.long	724527318
+ 997 05e8 8E8BBBA2 		.ascii	"\216\213\273\242\013\033[u"
+ 997      0B1B5B75 
+ 998              		.hidden	gEfiUsbTimingPolicyProtocolGuid
+ 999              		.globl	gEfiUsbTimingPolicyProtocolGuid
+ 1000              		.align 16
+ 1003              	gEfiUsbTimingPolicyProtocolGuid:
+ 1004 05f0 DCC1E389 		.long	-1981562404
+ 1007 05f8 AEADDD7E 		.ascii	"\256\255\335~\262\202\214\030"
+ 1007      B2828C18 
+ 1008              		.hidden	gEfiUsbPolicyProtocolGuid
+ 1009              		.globl	gEfiUsbPolicyProtocolGuid
+ 1010              		.align 16
+ 1013              	gEfiUsbPolicyProtocolGuid:
+ 1014 0600 76CB5958 		.long	1482279798
+ 1017 0608 BE2DB3DD 		.ascii	"\276-\263\335\032'\360\022"
+ 1017      1A27F012 
+ 1018              		.hidden	gEfiDriverConfigurationProtocolGuid
+ 1019              		.globl	gEfiDriverConfigurationProtocolGuid
+ 1020              		.align 16
+ 1023              	gEfiDriverConfigurationProtocolGuid:
+ 1024 0610 2B777A10 		.long	276461355
+ 1027 0618 9A4600   		.string	"\232F"
+ 1028 061b 90273FC1 		.ascii	"\220'?\301M"
+ 1028      4D
+ 1029              		.hidden	gEfiDriverDiagnostics2ProtocolGuid
+ 1030              		.globl	gEfiDriverDiagnostics2ProtocolGuid
+ 1031              		.align 16
+ 1034              	gEfiDriverDiagnostics2ProtocolGuid:
+ 1035 0620 2103334D 		.long	1295188769
+ 1038 0628 90D85ED9 		.string	"\220\330^\331"
+ 1038      00
+ 1039 062d 173B63   		.ascii	"\027;c"
+ 1040              		.hidden	gEfiDriverDiagnosticsProtocolGuid
+ 1041              		.globl	gEfiDriverDiagnosticsProtocolGuid
+ 1042              		.align 16
+ 1045              	gEfiDriverDiagnosticsProtocolGuid:
+ 1046 0630 4F928407 		.long	126128719
+ 1049 0638 9A4900   		.string	"\232I"
+ 1050 063b 90273FC1 		.ascii	"\220'?\301M"
+ 1050      4D
+ 1051              		.hidden	gEfiDriverSupportedEfiVersionProtocolGuid
+ 1052              		.globl	gEfiDriverSupportedEfiVersionProtocolGuid
+ 1053              		.align 16
+ 1056              	gEfiDriverSupportedEfiVersionProtocolGuid:
+ 1057 0640 6187195C 		.long	1545176929
+ 1060 0648 972C89D6 		.ascii	"\227,\211\326yT\370\035"
+ 1060      7954F81D 
+ 1061              		.hidden	gEfiConsoleInDeviceGuid
+ 1062              		.globl	gEfiConsoleInDeviceGuid
+ 1063              		.align 16
+ 1066              	gEfiConsoleInDeviceGuid:
+ 1067 0650 2B6FB3D3 		.long	-743215317
+ 1070 0658 9A4600   		.string	"\232F"
+ 1071 065b 90273FC1 		.ascii	"\220'?\301M"
+ 1071      4D
+ 1072              		.hidden	gEfiConsoleOutDeviceGuid
+ 1073              		.globl	gEfiConsoleOutDeviceGuid
+ 1074              		.align 16
+ 1077              	gEfiConsoleOutDeviceGuid:
+ 1078 0660 2C6FB3D3 		.long	-743215316
+ 1081 0668 9A4600   		.string	"\232F"
+ 1082 066b 90273FC1 		.ascii	"\220'?\301M"
+ 1082      4D
+ 1083              		.hidden	gEfiUgaDrawProtocolGuid
+ 1084              		.globl	gEfiUgaDrawProtocolGuid
+ 1085              		.align 16
+ 1088              	gEfiUgaDrawProtocolGuid:
+ 1089 0670 8B292C98 		.long	-1741936245
+ 1092 0678 B83877AA 		.ascii	"\2708w\252h\217\2709"
+ 1092      688FB839 
+ 1093              		.hidden	gEfiStandardErrorDeviceGuid
+ 1094              		.globl	gEfiStandardErrorDeviceGuid
+ 1095              		.align 16
+ 1098              	gEfiStandardErrorDeviceGuid:
+ 1099 0680 2D6FB3D3 		.long	-743215315
+ 1102 0688 9A4600   		.string	"\232F"
+ 1103 068b 90273FC1 		.ascii	"\220'?\301M"
+ 1103      4D
+ 1104              		.hidden	gEfiConsoleControlProtocolGuid
+ 1105              		.globl	gEfiConsoleControlProtocolGuid
+ 1106              		.align 16
+ 1109              	gEfiConsoleControlProtocolGuid:
+ 1110 0690 82772FF4 		.long	-198215806
+ 1113 0698 995649F9 		.ascii	"\231VI\371C\004\367!"
+ 1113      4304F721 
+ 1114              		.hidden	NullGuid
+ 1115              		.globl	NullGuid
+ 1116              		.align 16
+ 1119              	NullGuid:
+ 1120 06a0 00000000 		.zero	16
+ 1120      00000000 
+ 1120      00000000 
+ 1120      00000000 
+ 1121              		.hidden	gEfiGlobalVariableGuid
+ 1122              		.globl	gEfiGlobalVariableGuid
+ 1123              		.align 16
+ 1126              	gEfiGlobalVariableGuid:
+ 1127 06b0 61DFE48B 		.long	-1947934879
+ 1130 06b8 AA0D00   		.string	"\252\r"
+ 1131 06bb E098032B 		.ascii	"\340\230\003+\214"
+ 1131      8C
+ 1132              		.hidden	EndInstanceDevicePath
+ 1133              		.globl	EndInstanceDevicePath
+ 1136              	EndInstanceDevicePath:
+ 1137 06c0 7F       		.byte	127
+ 1138 06c1 01       		.byte	1
+ 1139 06c2 0400     		.string	"\004"
+ 1140              		.hidden	EndDevicePath
+ 1141              		.globl	EndDevicePath
+ 1144              	EndDevicePath:
+ 1145 06c4 7F       		.byte	127
+ 1146 06c5 FF       		.byte	-1
+ 1147 06c6 0400     		.string	"\004"
+ 1148              		.hidden	RootDevicePath
+ 1149              		.globl	RootDevicePath
+ 1152              	RootDevicePath:
+ 1153 06c8 7F       		.byte	127
+ 1154 06c9 FF       		.byte	-1
+ 1155 06ca 0400     		.string	"\004"
+ 1156              		.hidden	UnicodeInterface
+ 1157              		.globl	UnicodeInterface
+ 1158              		.section	.data.rel.local,"aw"
+ 1159              		.align 8
+ 1162              	UnicodeInterface:
+ 1163 0000 00000000 		.quad	LibStubUnicodeInterface
+ 1163      00000000 
+ 1164              		.hidden	LibStubUnicodeInterface
+ 1165              		.globl	LibStubUnicodeInterface
+ 1166 0008 00000000 		.align 32
+ 1166      00000000 
+ 1166      00000000 
+ 1166      00000000 
+ 1166      00000000 
+ 1169              	LibStubUnicodeInterface:
+ 1170 0020 00000000 		.quad	LibStubStriCmp
+ 1170      00000000 
+ 1171 0028 00000000 		.quad	LibStubMetaiMatch
+ 1171      00000000 
+ 1172 0030 00000000 		.quad	LibStubStrLwrUpr
+ 1172      00000000 
+ 1173 0038 00000000 		.quad	LibStubStrLwrUpr
+ 1173      00000000 
+ 1174 0040 00000000 		.quad	0
+ 1174      00000000 
+ 1175 0048 00000000 		.quad	0
+ 1175      00000000 
+ 1176 0050 00000000 		.quad	0
+ 1176      00000000 
+ 1177              		.hidden	PoolAllocationType
+ 1178              		.globl	PoolAllocationType
+ 1179              		.data
+ 1180              		.align 4
+ 1183              	PoolAllocationType:
+ 1184 06cc 04000000 		.long	4
+ 1185              		.hidden	BS
+ 1186              		.globl	BS
+ 1187              		.bss
+ 1188              		.align 8
+ 1191              	BS:
+ 1192 0000 00000000 		.zero	8
+ 1192      00000000 
+ 1193              		.hidden	ST
+ 1194              		.globl	ST
+ 1195              		.align 8
+ 1198              	ST:
+ 1199 0008 00000000 		.zero	8
+ 1199      00000000 
+ 1200              		.hidden	LibImageHandle
+ 1201              		.globl	LibImageHandle
+ 1202              		.align 8
+ 1205              	LibImageHandle:
+ 1206 0010 00000000 		.zero	8
+ 1206      00000000 
+ 1207              		.hidden	LibInitialized
+ 1208              		.globl	LibInitialized
+ 1209              		.data
+ 1212              	LibInitialized:
+ 1213 06d0 00       		.zero	1
+ 1214              		.text
+ 1215              	.Letext0:
+ 1216              		.file 1 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 1217              		.file 2 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 1218              		.file 3 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 1219              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidevp.h"
+ 1220              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efiprot.h"
+ 1221              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efiapi.h"
+ 1222              		.file 7 "../Backend/gnu-efi-3.0.9/inc/eficon.h"
+ 1223              		.file 8 "../Backend/gnu-efi-3.0.9/inc/efilib.h"
+ 1224              		.file 9 "../Backend/gnu-efi-3.0.9/lib/lib.h"
+ 1225              		.file 10 "../Backend/gnu-efi-3.0.9/lib/data.c"
+ 15294              		.section	.note.gnu.property,"a"
+ 15295              		.align 8
+ 15296 0000 04000000 		.long	1f - 0f
+ 15297 0004 10000000 		.long	4f - 1f
+ 15298 0008 05000000 		.long	5
+ 15299              	0:
+ 15300 000c 474E5500 		.string	"GNU"
+ 15301              	1:
+ 15302              		.align 8
+ 15303 0010 020000C0 		.long	0xc0000002
+ 15304 0014 04000000 		.long	3f - 2f
+ 15305              	2:
+ 15306 0018 03000000 		.long	0x3
+ 15307              	3:
+ 15308 001c 00000000 		.align 8
+ 15309              	4:

@@ -1,12 +1,26 @@
+//==================================================================================================================================
+//  Simple UEFI Bootloader: Memory Functions
+//==================================================================================================================================
+//
+// Version 2.3
+//
+// Author:
+//  KNNSpeed
+//
+// Source Code:
+//  https://github.com/KNNSpeed/Simple-UEFI-Bootloader
+//
+// This file contains memory-related functions.
+//
+
 #include "Bootloader.h"
 
+//==================================================================================================================================
+//  compare: Memory Comparison
+//==================================================================================================================================
 //
-//  compare
-//
-//  Esta función nos sirve para comparar dos bloques de memoria byte por byte.
-//  Si los dos bloques son exactamente iguales, devuelve 1. Si encuentra alguna diferencia,
-//  devuelve 0 de inmediato. La usamos principalmente para verificar si estamos corriendo en un 
-//  firmware de Apple comparando el vendor string.
+// A simple memory comparison function.
+// Returns 1 if the two items are the same; 0 if they're not.
 //
 
 // Variable 'comparelength' is in bytes
@@ -25,12 +39,11 @@ UINT8 compare(const void* firstitem, const void* seconditem, UINT64 comparelengt
 }
 
 
+//==================================================================================================================================
+//  VerifyZeroMem: Verify Memory Is Free
+//==================================================================================================================================
 //
-//  VerifyZeroMem
-//
-//  Revisa un segmento de memoria para asegurarse de que esté completamente vacío (lleno de ceros).
-//  Devuelve 0 si toda la memoria está limpia, o 1 si encuentra algún dato atravesado.
-//  Es útil para validar que la memoria que pedimos realmente está limpia antes de meterle datos.
+// Return 0 if desired section of memory is zeroed (for use in "if" statements)
 //
 
 UINT8 VerifyZeroMem(UINT64 NumBytes, UINT64 BaseAddr) // BaseAddr is a 64-bit unsigned int whose value is the memory address
@@ -45,12 +58,12 @@ UINT8 VerifyZeroMem(UINT64 NumBytes, UINT64 BaseAddr) // BaseAddr is a 64-bit un
   return 0;
 }
 
+//==================================================================================================================================
+//  ActuallyFreeAddress: Find A Free Memory Address, Bottom-Up
+//==================================================================================================================================
 //
-//  ActuallyFreeAddress
-//
-//  Si UEFI se pone necio y no nos quiere dar memoria con los métodos normales (AllocateAnyPages),
-//  esta función busca "a la fuerza" el siguiente bloque libre (EfiConventionalMemory)
-//  en el mapa de memoria del sistema que sea mayor a la dirección que le pasamos por parámetro (OldAddress).
+// This is meant to work in the event that AllocateAnyPages fails, but could have other uses. Returns the next EfiConventionalMemory
+// area that is > the supplied OldAddress.
 //
 
 EFI_PHYSICAL_ADDRESS ActuallyFreeAddress(UINT64 pages, EFI_PHYSICAL_ADDRESS OldAddress)
@@ -109,13 +122,12 @@ EFI_PHYSICAL_ADDRESS ActuallyFreeAddress(UINT64 pages, EFI_PHYSICAL_ADDRESS OldA
   return Piece->PhysicalStart;
 }
 
+//==================================================================================================================================
+//  ActuallyFreeAddressByPage: Find A Free Memory Address, Bottom-Up, The Hard Way
+//==================================================================================================================================
 //
-//  ActuallyFreeAddressByPage
-//
-//  Hace lo mismo que ActuallyFreeAddress pero es más intensa. 
-//  En vez de brincar por bloques enteros de memoria, busca página por página dentro 
-//  de los rangos válidos hasta encontrar espacio libre. Es un plan C por si 
-//  el mapa de memoria de la BIOS está muy fragmentado o tiene bugs raros.
+// This is meant to work in the event that AllocateAnyPages fails, but could have other uses. Returns the next page address marked as
+// free (EfiConventionalMemory) that is > the supplied OldAddress.
 //
 
 EFI_PHYSICAL_ADDRESS ActuallyFreeAddressByPage(UINT64 pages, EFI_PHYSICAL_ADDRESS OldAddress)
@@ -189,13 +201,11 @@ EFI_PHYSICAL_ADDRESS ActuallyFreeAddressByPage(UINT64 pages, EFI_PHYSICAL_ADDRES
   return DiscoveredAddress;
 }
 
+//==================================================================================================================================
+//  print_memmap: The Ultimate Debugging Tool
+//==================================================================================================================================
 //
-//  print_memmap
-//
-//  Esta es solo una herramienta de debug que hicimos. Pide todo el mapa de memoria
-//  a la BIOS y lo imprime bonito en pantalla, diciendo qué tipo de memoria hay
-//  en cada dirección y cuántas páginas ocupa. Sirve para ver qué está pasando 
-//  si se nos está acabando el espacio.
+// Get the system memory map, parse it, and print it. Print the whole thing.
 //
 
 // This array is a global variable so that it can be made static, which helps prevent a stack overflow if it ever needs to lengthen.

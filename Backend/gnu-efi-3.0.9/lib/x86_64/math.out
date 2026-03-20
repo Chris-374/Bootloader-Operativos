@@ -1,0 +1,294 @@
+   1              		.file	"math.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	LShiftU64
+   7              		.hidden	LShiftU64
+   9              	LShiftU64:
+  10              	.LVL0:
+  11              	.LFB0:
+  12              		.file 1 "../Backend/gnu-efi-3.0.9/lib/x86_64/math.c"
+   1:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     math.c
+   8:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  12:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** Revision History
+  15:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  16:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** --*/
+  17:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  18:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #include "lib.h"
+  19:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  20:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  21:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** //
+  22:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** // Declare runtime functions
+  23:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** //
+  24:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  25:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #ifdef RUNTIME_CODE
+  26:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #ifndef __GNUC__
+  27:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #pragma RUNTIME_CODE(LShiftU64)
+  28:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #pragma RUNTIME_CODE(RShiftU64)
+  29:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #pragma RUNTIME_CODE(MultU64x32)
+  30:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #pragma RUNTIME_CODE(DivU64x32)
+  31:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #endif
+  32:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #endif
+  33:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  34:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** //
+  35:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** //
+  36:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** //
+  37:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  38:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** UINT64
+  39:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** LShiftU64 (
+  40:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     IN UINT64   Operand,
+  41:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     IN UINTN    Count
+  42:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     )
+  43:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** // Left shift 64bit by 32bit and get a 64bit result
+  44:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** {
+  13              		.loc 1 44 1 view -0
+  14              		.cfi_startproc
+  15              		.loc 1 44 1 is_stmt 0 view .LVU1
+  16 0000 F30F1EFA 		endbr64
+  45:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #if defined(__GNUC__) || defined(_MSC_EXTENSIONS)
+  46:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     return Operand << Count;
+  17              		.loc 1 46 5 is_stmt 1 view .LVU2
+  18              		.loc 1 46 20 is_stmt 0 view .LVU3
+  19 0004 4889F8   		movq	%rdi, %rax
+  20 0007 89F1     		movl	%esi, %ecx
+  21 0009 48D3E0   		salq	%cl, %rax
+  47:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #else
+  48:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     UINT64      Result;
+  49:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     _asm {
+  50:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mov     eax, dword ptr Operand[0]
+  51:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mov     edx, dword ptr Operand[4]
+  52:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mov     ecx, Count
+  53:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         and     ecx, 63
+  54:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  55:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         shld    edx, eax, cl
+  56:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         shl     eax, cl
+  57:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  58:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         cmp     ecx, 32
+  59:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         jc      short ls10
+  60:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  61:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mov     edx, eax
+  62:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         xor     eax, eax
+  63:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  64:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** ls10:
+  65:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mov     dword ptr Result[0], eax
+  66:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mov     dword ptr Result[4], edx
+  67:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     }
+  68:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  69:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     return Result;
+  70:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #endif
+  71:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** }
+  22              		.loc 1 71 1 view .LVU4
+  23 000c C3       		ret
+  24              		.cfi_endproc
+  25              	.LFE0:
+  27              		.globl	RShiftU64
+  28              		.hidden	RShiftU64
+  30              	RShiftU64:
+  31              	.LVL1:
+  32              	.LFB1:
+  72:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  73:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** UINT64
+  74:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** RShiftU64 (
+  75:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     IN UINT64   Operand,
+  76:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     IN UINTN    Count
+  77:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     )
+  78:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** // Right shift 64bit by 32bit and get a 64bit result
+  79:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** {
+  33              		.loc 1 79 1 is_stmt 1 view -0
+  34              		.cfi_startproc
+  35              		.loc 1 79 1 is_stmt 0 view .LVU6
+  36 000d F30F1EFA 		endbr64
+  80:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #if defined(__GNUC__) || defined(_MSC_EXTENSIONS)
+  81:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     return Operand >> Count;
+  37              		.loc 1 81 5 is_stmt 1 view .LVU7
+  38              		.loc 1 81 20 is_stmt 0 view .LVU8
+  39 0011 4889F8   		movq	%rdi, %rax
+  40 0014 89F1     		movl	%esi, %ecx
+  41 0016 48D3E8   		shrq	%cl, %rax
+  82:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #else
+  83:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     UINT64      Result;
+  84:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     _asm {
+  85:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mov     eax, dword ptr Operand[0]
+  86:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mov     edx, dword ptr Operand[4]
+  87:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mov     ecx, Count
+  88:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         and     ecx, 63
+  89:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  90:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         shrd    eax, edx, cl
+  91:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         shr     edx, cl
+  92:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  93:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         cmp     ecx, 32
+  94:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         jc      short rs10
+  95:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  96:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mov     eax, edx
+  97:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         xor     edx, edx
+  98:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+  99:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** rs10:
+ 100:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mov     dword ptr Result[0], eax
+ 101:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mov     dword ptr Result[4], edx
+ 102:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     }
+ 103:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+ 104:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     return Result;
+ 105:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #endif
+ 106:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** }
+  42              		.loc 1 106 1 view .LVU9
+  43 0019 C3       		ret
+  44              		.cfi_endproc
+  45              	.LFE1:
+  47              		.globl	MultU64x32
+  48              		.hidden	MultU64x32
+  50              	MultU64x32:
+  51              	.LVL2:
+  52              	.LFB2:
+ 107:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+ 108:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+ 109:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** UINT64
+ 110:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** MultU64x32 (
+ 111:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     IN UINT64   Multiplicand,
+ 112:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     IN UINTN    Multiplier
+ 113:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     )
+ 114:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** // Multiple 64bit by 32bit and get a 64bit result
+ 115:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** {
+  53              		.loc 1 115 1 is_stmt 1 view -0
+  54              		.cfi_startproc
+  55              		.loc 1 115 1 is_stmt 0 view .LVU11
+  56 001a F30F1EFA 		endbr64
+ 116:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #if defined(__GNUC__) || defined(_MSC_EXTENSIONS)
+ 117:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     return Multiplicand * Multiplier;
+  57              		.loc 1 117 5 is_stmt 1 view .LVU12
+  58              		.loc 1 117 25 is_stmt 0 view .LVU13
+  59 001e 4889F8   		movq	%rdi, %rax
+  60 0021 480FAFC6 		imulq	%rsi, %rax
+ 118:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #else
+ 119:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     UINT64      Result;
+ 120:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     _asm {
+ 121:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mov     eax, dword ptr Multiplicand[0]
+ 122:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mul     Multiplier
+ 123:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mov     dword ptr Result[0], eax
+ 124:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mov     dword ptr Result[4], edx
+ 125:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mov     eax, dword ptr Multiplicand[4]
+ 126:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         mul     Multiplier
+ 127:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         add     dword ptr Result[4], eax
+ 128:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     }
+ 129:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+ 130:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     return Result;
+ 131:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #endif
+ 132:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** }
+  61              		.loc 1 132 1 view .LVU14
+  62 0025 C3       		ret
+  63              		.cfi_endproc
+  64              	.LFE2:
+  66              		.globl	DivU64x32
+  67              		.hidden	DivU64x32
+  69              	DivU64x32:
+  70              	.LVL3:
+  71              	.LFB3:
+ 133:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+ 134:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** UINT64
+ 135:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** DivU64x32 (
+ 136:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     IN UINT64   Dividend,
+ 137:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     IN UINTN    Divisor,
+ 138:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     OUT UINTN   *Remainder OPTIONAL
+ 139:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     )
+ 140:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** // divide 64bit by 32bit and get a 64bit result
+ 141:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** // N.B. only works for 31bit divisors!!
+ 142:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** {
+  72              		.loc 1 142 1 is_stmt 1 view -0
+  73              		.cfi_startproc
+  74              		.loc 1 142 1 is_stmt 0 view .LVU16
+  75 0026 F30F1EFA 		endbr64
+  76 002a 4889D1   		movq	%rdx, %rcx
+ 143:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #if defined(__GNUC__) || defined(_MSC_EXTENSIONS)
+ 144:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     if (Remainder)
+  77              		.loc 1 144 5 is_stmt 1 view .LVU17
+  78              		.loc 1 144 8 is_stmt 0 view .LVU18
+  79 002d 4885D2   		testq	%rdx, %rdx
+  80 0030 740E     		je	.L5
+ 145:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 	*Remainder = Dividend % Divisor;
+  81              		.loc 1 145 2 is_stmt 1 view .LVU19
+  82              		.loc 1 145 24 is_stmt 0 view .LVU20
+  83 0032 4889F8   		movq	%rdi, %rax
+  84 0035 BA000000 		movl	$0, %edx
+  84      00
+  85              	.LVL4:
+  86              		.loc 1 145 24 view .LVU21
+  87 003a 48F7F6   		divq	%rsi
+  88              		.loc 1 145 13 view .LVU22
+  89 003d 488911   		movq	%rdx, (%rcx)
+  90              	.L5:
+ 146:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     return Dividend / Divisor;
+  91              		.loc 1 146 5 is_stmt 1 view .LVU23
+  92              		.loc 1 146 21 is_stmt 0 view .LVU24
+  93 0040 4889F8   		movq	%rdi, %rax
+  94 0043 BA000000 		movl	$0, %edx
+  94      00
+  95 0048 48F7F6   		divq	%rsi
+ 147:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #else
+ 148:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     UINT32      Rem;
+ 149:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     UINT32      bit;        
+ 150:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+ 151:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     ASSERT (Divisor != 0);
+ 152:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     ASSERT ((Divisor >> 31) == 0);
+ 153:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+ 154:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     //
+ 155:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     // For each bit in the dividend
+ 156:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     //
+ 157:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+ 158:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     Rem = 0;
+ 159:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     for (bit=0; bit < 64; bit++) {
+ 160:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         _asm {
+ 161:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****             shl     dword ptr Dividend[0], 1    ; shift rem:dividend left one
+ 162:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****             rcl     dword ptr Dividend[4], 1    
+ 163:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****             rcl     dword ptr Rem, 1            
+ 164:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+ 165:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****             mov     eax, Rem
+ 166:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****             cmp     eax, Divisor                ; Is Rem >= Divisor?
+ 167:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****             cmc                                 ; No - do nothing
+ 168:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****             sbb     eax, eax                    ; Else, 
+ 169:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****             sub     dword ptr Dividend[0], eax  ;   set low bit in dividen
+ 170:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****             and     eax, Divisor                ; and
+ 171:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****             sub     Rem, eax                    ;   subtract divisor 
+ 172:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         }
+ 173:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     }
+ 174:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+ 175:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     if (Remainder) {
+ 176:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****         *Remainder = Rem;
+ 177:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     }
+ 178:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** 
+ 179:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c ****     return Dividend;
+ 180:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** #endif
+ 181:../Backend/gnu-efi-3.0.9/lib/x86_64/math.c **** }
+  96              		.loc 1 181 1 view .LVU25
+  97 004b C3       		ret
+  98              		.cfi_endproc
+  99              	.LFE3:
+ 101              	.Letext0:
+ 102              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 103              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 8581              		.section	.note.gnu.property,"a"
+ 8582              		.align 8
+ 8583 0000 04000000 		.long	1f - 0f
+ 8584 0004 10000000 		.long	4f - 1f
+ 8585 0008 05000000 		.long	5
+ 8586              	0:
+ 8587 000c 474E5500 		.string	"GNU"
+ 8588              	1:
+ 8589              		.align 8
+ 8590 0010 020000C0 		.long	0xc0000002
+ 8591 0014 04000000 		.long	3f - 2f
+ 8592              	2:
+ 8593 0018 03000000 		.long	0x3
+ 8594              	3:
+ 8595 001c 00000000 		.align 8
+ 8596              	4:

@@ -1,0 +1,334 @@
+   1              		.file	"vm.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	RtLibEnableVirtualMappings
+   7              		.hidden	RtLibEnableVirtualMappings
+   9              	RtLibEnableVirtualMappings:
+  10              	.LFB0:
+  11              		.file 1 "../Backend/gnu-efi-3.0.9/lib/runtime/vm.c"
+   1:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     vm.c
+   8:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     EFI Hell to remap runtime address into the new virual address space 
+  12:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     that was registered by the OS for RT calls.
+  13:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     So the code image needs to be relocated. All pointers need to be 
+  15:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     manually fixed up since the address map changes. 
+  16:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  17:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     GOOD LUCK NOT HAVING BUGS IN YOUR CODE! PLEASE TEST A LOT. MAKE SURE
+  18:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     EXIT BOOTSERVICES OVER WRITES ALL BOOTSERVICE MEMORY & DATA SPACES WHEN 
+  19:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     YOU TEST.
+  20:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  21:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** Revision History
+  22:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  23:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** --*/
+  24:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  25:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** #include "lib.h"
+  26:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  27:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** #ifndef __GNUC__
+  28:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** #pragma RUNTIME_CODE(RtLibEnableVirtualMappings)
+  29:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** #endif
+  30:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** VOID
+  31:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** RUNTIMEFUNCTION
+  32:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** RtLibEnableVirtualMappings (
+  33:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     VOID
+  34:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     )
+  35:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** {
+  12              		.loc 1 35 1 view -0
+  13              		.cfi_startproc
+  14 0000 F30F1EFA 		endbr64
+  36:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     EFI_CONVERT_POINTER     ConvertPointer;
+  15              		.loc 1 36 5 view .LVU1
+  37:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  38:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     //
+  39:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     // If this copy of the lib is linked into the firmware, then
+  40:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     // do not update the pointers yet.
+  41:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     //
+  42:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  43:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     if (!LibFwInstance) {
+  16              		.loc 1 43 5 view .LVU2
+  17              		.loc 1 43 8 is_stmt 0 view .LVU3
+  18 0004 803D0000 		cmpb	$0, LibFwInstance(%rip)
+  18      000000
+  19 000b 754E     		jne	.L4
+  35:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     EFI_CONVERT_POINTER     ConvertPointer;
+  20              		.loc 1 35 1 view .LVU4
+  21 000d 53       		pushq	%rbx
+  22              		.cfi_def_cfa_offset 16
+  23              		.cfi_offset 3, -16
+  24 000e 4883EC20 		subq	$32, %rsp
+  25              		.cfi_def_cfa_offset 48
+  44:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  45:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         //
+  46:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         // Different components are updating to the new virtual
+  47:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         // mappings at differnt times.  The only function that
+  48:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         // is safe to call at this notification is ConvertAddress
+  49:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         //
+  50:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  51:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         ConvertPointer = RT->ConvertPointer;
+  26              		.loc 1 51 9 is_stmt 1 view .LVU5
+  27              		.loc 1 51 28 is_stmt 0 view .LVU6
+  28 0012 488B0500 		movq	RT(%rip), %rax
+  28      000000
+  29              		.loc 1 51 24 view .LVU7
+  30 0019 488B5840 		movq	64(%rax), %rbx
+  31              	.LVL0:
+  52:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  53:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         //
+  54:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         // Fix any pointers that the lib created, that may be needed
+  55:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         // during runtime.
+  56:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         //
+  57:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  58:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         ConvertPointer (EFI_INTERNAL_PTR, (VOID **)&RT);
+  32              		.loc 1 58 9 is_stmt 1 view .LVU8
+  33 001d 488D1500 		leaq	RT(%rip), %rdx
+  33      000000
+  34 0024 B9040000 		movl	$4, %ecx
+  34      00
+  35 0029 FFD3     		call	*%rbx
+  36              	.LVL1:
+  59:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         ConvertPointer (EFI_OPTIONAL_PTR, (VOID **)&LibRuntimeDebugOut);
+  37              		.loc 1 59 9 view .LVU9
+  38 002b 488D1500 		leaq	LibRuntimeDebugOut(%rip), %rdx
+  38      000000
+  39 0032 B9010000 		movl	$1, %ecx
+  39      00
+  40 0037 FFD3     		call	*%rbx
+  41              	.LVL2:
+  60:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  61:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         ConvertPointer (EFI_INTERNAL_PTR, (VOID **)&LibRuntimeRaiseTPL);
+  42              		.loc 1 61 9 view .LVU10
+  43 0039 488D1500 		leaq	LibRuntimeRaiseTPL(%rip), %rdx
+  43      000000
+  44 0040 B9040000 		movl	$4, %ecx
+  44      00
+  45 0045 FFD3     		call	*%rbx
+  46              	.LVL3:
+  62:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         ConvertPointer (EFI_INTERNAL_PTR, (VOID **)&LibRuntimeRestoreTPL);
+  47              		.loc 1 62 9 view .LVU11
+  48 0047 488D1500 		leaq	LibRuntimeRestoreTPL(%rip), %rdx
+  48      000000
+  49 004e B9040000 		movl	$4, %ecx
+  49      00
+  50 0053 FFD3     		call	*%rbx
+  51              	.LVL4:
+  63:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  64:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         // that was it :^)
+  65:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     }
+  66:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** }
+  52              		.loc 1 66 1 is_stmt 0 view .LVU12
+  53 0055 4883C420 		addq	$32, %rsp
+  54              		.cfi_def_cfa_offset 16
+  55 0059 5B       		popq	%rbx
+  56              		.cfi_restore 3
+  57              		.cfi_def_cfa_offset 8
+  58              	.LVL5:
+  59              		.loc 1 66 1 view .LVU13
+  60 005a C3       		ret
+  61              	.LVL6:
+  62              	.L4:
+  63              		.loc 1 66 1 view .LVU14
+  64 005b C3       		ret
+  65              		.cfi_endproc
+  66              	.LFE0:
+  68              		.globl	RtConvertList
+  69              		.hidden	RtConvertList
+  71              	RtConvertList:
+  72              	.LVL7:
+  73              	.LFB1:
+  67:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  68:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  69:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** #ifndef __GNUC__
+  70:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** #pragma RUNTIME_CODE(RtConvertList)
+  71:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** #endif
+  72:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** VOID
+  73:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** RUNTIMEFUNCTION
+  74:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** RtConvertList (
+  75:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     IN UINTN                DebugDisposition,
+  76:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     IN OUT LIST_ENTRY       *ListHead
+  77:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     )
+  78:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** {
+  74              		.loc 1 78 1 is_stmt 1 view -0
+  75              		.cfi_startproc
+  76              		.loc 1 78 1 is_stmt 0 view .LVU16
+  77 005c F30F1EFA 		endbr64
+  78 0060 4156     		pushq	%r14
+  79              		.cfi_def_cfa_offset 16
+  80              		.cfi_offset 14, -16
+  81 0062 4155     		pushq	%r13
+  82              		.cfi_def_cfa_offset 24
+  83              		.cfi_offset 13, -24
+  84 0064 4154     		pushq	%r12
+  85              		.cfi_def_cfa_offset 32
+  86              		.cfi_offset 12, -32
+  87 0066 55       		pushq	%rbp
+  88              		.cfi_def_cfa_offset 40
+  89              		.cfi_offset 6, -40
+  90 0067 53       		pushq	%rbx
+  91              		.cfi_def_cfa_offset 48
+  92              		.cfi_offset 3, -48
+  93 0068 4883EC20 		subq	$32, %rsp
+  94              		.cfi_def_cfa_offset 80
+  95 006c 4989FE   		movq	%rdi, %r14
+  96 006f 4989F4   		movq	%rsi, %r12
+  79:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     LIST_ENTRY              *Link;
+  97              		.loc 1 79 5 is_stmt 1 view .LVU17
+  80:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     LIST_ENTRY              *NextLink;
+  98              		.loc 1 80 5 view .LVU18
+  81:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     EFI_CONVERT_POINTER     ConvertPointer;
+  99              		.loc 1 81 5 view .LVU19
+  82:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  83:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     ConvertPointer = RT->ConvertPointer;
+ 100              		.loc 1 83 5 view .LVU20
+ 101              		.loc 1 83 24 is_stmt 0 view .LVU21
+ 102 0072 488B0500 		movq	RT(%rip), %rax
+ 102      000000
+ 103              		.loc 1 83 20 view .LVU22
+ 104 0079 4C8B6840 		movq	64(%rax), %r13
+ 105              	.LVL8:
+  84:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  85:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     //
+  86:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     // Convert all the Flink & Blink pointers in the list
+  87:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     //
+  88:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  89:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     Link = ListHead;
+ 106              		.loc 1 89 5 is_stmt 1 view .LVU23
+ 107              		.loc 1 89 10 is_stmt 0 view .LVU24
+ 108 007d 4889F3   		movq	%rsi, %rbx
+ 109 0080 EB10     		jmp	.L10
+ 110              	.LVL9:
+ 111              	.L15:
+  90:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     do {
+  91:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         NextLink = Link->Flink;
+  92:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  93:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         ConvertPointer (
+ 112              		.loc 1 93 9 discriminator 1 view .LVU25
+ 113 0082 4C89F1   		movq	%r14, %rcx
+ 114 0085 EB1B     		jmp	.L8
+ 115              	.L16:
+  94:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****             Link->Flink == ListHead ? DebugDisposition : 0, 
+  95:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****             (VOID **)&Link->Flink
+  96:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****             );
+  97:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+  98:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         ConvertPointer (
+ 116              		.loc 1 98 9 discriminator 1 view .LVU26
+ 117 0087 4C89F1   		movq	%r14, %rcx
+ 118              	.L9:
+ 119              		.loc 1 98 9 discriminator 4 view .LVU27
+ 120 008a 41FFD5   		call	*%r13
+ 121              	.LVL10:
+  99:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****             Link->Blink == ListHead ? DebugDisposition : 0, 
+ 100:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****             (VOID **)&Link->Blink
+ 101:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****             );
+ 102:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+ 103:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         Link = NextLink;
+ 122              		.loc 1 103 9 is_stmt 1 view .LVU28
+ 104:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****     } while (Link != ListHead);
+ 123              		.loc 1 104 19 view .LVU29
+ 124 008d 4939DC   		cmpq	%rbx, %r12
+ 125 0090 7427     		je	.L14
+ 126              	.LVL11:
+ 127              	.L10:
+  90:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****         NextLink = Link->Flink;
+ 128              		.loc 1 90 5 view .LVU30
+  91:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+ 129              		.loc 1 91 9 view .LVU31
+ 130 0092 4889DD   		movq	%rbx, %rbp
+  91:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** 
+ 131              		.loc 1 91 18 is_stmt 0 view .LVU32
+ 132 0095 488B1B   		movq	(%rbx), %rbx
+ 133              	.LVL12:
+  93:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****             Link->Flink == ListHead ? DebugDisposition : 0, 
+ 134              		.loc 1 93 9 is_stmt 1 view .LVU33
+ 135 0098 4939DC   		cmpq	%rbx, %r12
+ 136 009b 74E5     		je	.L15
+  93:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****             Link->Flink == ListHead ? DebugDisposition : 0, 
+ 137              		.loc 1 93 9 is_stmt 0 discriminator 2 view .LVU34
+ 138 009d B9000000 		movl	$0, %ecx
+ 138      00
+ 139              	.L8:
+  93:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****             Link->Flink == ListHead ? DebugDisposition : 0, 
+ 140              		.loc 1 93 9 discriminator 4 view .LVU35
+ 141 00a2 4889EA   		movq	%rbp, %rdx
+ 142 00a5 41FFD5   		call	*%r13
+ 143              	.LVL13:
+  98:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****             Link->Blink == ListHead ? DebugDisposition : 0, 
+ 144              		.loc 1 98 9 is_stmt 1 view .LVU36
+ 100:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****             );
+ 145              		.loc 1 100 22 is_stmt 0 view .LVU37
+ 146 00a8 488D5508 		leaq	8(%rbp), %rdx
+  98:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****             Link->Blink == ListHead ? DebugDisposition : 0, 
+ 147              		.loc 1 98 9 view .LVU38
+ 148 00ac 4C396508 		cmpq	%r12, 8(%rbp)
+ 149 00b0 74D5     		je	.L16
+  98:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c ****             Link->Blink == ListHead ? DebugDisposition : 0, 
+ 150              		.loc 1 98 9 discriminator 2 view .LVU39
+ 151 00b2 B9000000 		movl	$0, %ecx
+ 151      00
+ 152 00b7 EBD1     		jmp	.L9
+ 153              	.LVL14:
+ 154              	.L14:
+ 105:../Backend/gnu-efi-3.0.9/lib/runtime/vm.c **** }
+ 155              		.loc 1 105 1 view .LVU40
+ 156 00b9 4883C420 		addq	$32, %rsp
+ 157              		.cfi_def_cfa_offset 48
+ 158 00bd 5B       		popq	%rbx
+ 159              		.cfi_restore 3
+ 160              		.cfi_def_cfa_offset 40
+ 161              	.LVL15:
+ 162              		.loc 1 105 1 view .LVU41
+ 163 00be 5D       		popq	%rbp
+ 164              		.cfi_restore 6
+ 165              		.cfi_def_cfa_offset 32
+ 166 00bf 415C     		popq	%r12
+ 167              		.cfi_restore 12
+ 168              		.cfi_def_cfa_offset 24
+ 169              	.LVL16:
+ 170              		.loc 1 105 1 view .LVU42
+ 171 00c1 415D     		popq	%r13
+ 172              		.cfi_restore 13
+ 173              		.cfi_def_cfa_offset 16
+ 174              	.LVL17:
+ 175              		.loc 1 105 1 view .LVU43
+ 176 00c3 415E     		popq	%r14
+ 177              		.cfi_restore 14
+ 178              		.cfi_def_cfa_offset 8
+ 179              	.LVL18:
+ 180              		.loc 1 105 1 view .LVU44
+ 181 00c5 C3       		ret
+ 182              		.cfi_endproc
+ 183              	.LFE1:
+ 185              	.Letext0:
+ 186              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 187              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 188              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 189              		.file 5 "../Backend/gnu-efi-3.0.9/inc/eficon.h"
+ 190              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efiapi.h"
+ 191              		.file 7 "../Backend/gnu-efi-3.0.9/inc/efilink.h"
+ 192              		.file 8 "../Backend/gnu-efi-3.0.9/lib/lib.h"
+ 193              		.file 9 "../Backend/gnu-efi-3.0.9/inc/efilib.h"
+ 10492              		.section	.note.gnu.property,"a"
+ 10493              		.align 8
+ 10494 0000 04000000 		.long	1f - 0f
+ 10495 0004 10000000 		.long	4f - 1f
+ 10496 0008 05000000 		.long	5
+ 10497              	0:
+ 10498 000c 474E5500 		.string	"GNU"
+ 10499              	1:
+ 10500              		.align 8
+ 10501 0010 020000C0 		.long	0xc0000002
+ 10502 0014 04000000 		.long	3f - 2f
+ 10503              	2:
+ 10504 0018 03000000 		.long	0x3
+ 10505              	3:
+ 10506 001c 00000000 		.align 8
+ 10507              	4:

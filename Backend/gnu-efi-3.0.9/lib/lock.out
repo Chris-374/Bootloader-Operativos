@@ -1,0 +1,201 @@
+   1              		.file	"lock.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	InitializeLock
+   7              		.hidden	InitializeLock
+   9              	InitializeLock:
+  10              	.LVL0:
+  11              	.LFB0:
+  12              		.file 1 "../Backend/gnu-efi-3.0.9/lib/lock.c"
+   1:../Backend/gnu-efi-3.0.9/lib/lock.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/lock.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/lock.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/lock.c ****     lock.c
+   8:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/lock.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/lock.c ****     Implements FLOCK
+  12:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  15:../Backend/gnu-efi-3.0.9/lib/lock.c **** Revision History
+  16:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  17:../Backend/gnu-efi-3.0.9/lib/lock.c **** --*/
+  18:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  19:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  20:../Backend/gnu-efi-3.0.9/lib/lock.c **** #include "lib.h"
+  21:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  22:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  23:../Backend/gnu-efi-3.0.9/lib/lock.c **** VOID
+  24:../Backend/gnu-efi-3.0.9/lib/lock.c **** InitializeLock (
+  25:../Backend/gnu-efi-3.0.9/lib/lock.c ****     IN OUT FLOCK    *Lock,
+  26:../Backend/gnu-efi-3.0.9/lib/lock.c ****     IN EFI_TPL      Priority
+  27:../Backend/gnu-efi-3.0.9/lib/lock.c ****     )
+  28:../Backend/gnu-efi-3.0.9/lib/lock.c **** /*++
+  29:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  30:../Backend/gnu-efi-3.0.9/lib/lock.c **** Routine Description:
+  31:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  32:../Backend/gnu-efi-3.0.9/lib/lock.c ****     Initialize a basic mutual exclusion lock.   Each lock
+  33:../Backend/gnu-efi-3.0.9/lib/lock.c ****     provides mutual exclusion access at it's task priority
+  34:../Backend/gnu-efi-3.0.9/lib/lock.c ****     level.  Since there is no-premption (at any TPL) or
+  35:../Backend/gnu-efi-3.0.9/lib/lock.c ****     multiprocessor support, acquiring the lock only consists
+  36:../Backend/gnu-efi-3.0.9/lib/lock.c ****     of raising to the locks TPL.
+  37:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  38:../Backend/gnu-efi-3.0.9/lib/lock.c ****     Note on a debug build the lock is acquired and released
+  39:../Backend/gnu-efi-3.0.9/lib/lock.c ****     to help ensure proper usage.
+  40:../Backend/gnu-efi-3.0.9/lib/lock.c ****     
+  41:../Backend/gnu-efi-3.0.9/lib/lock.c **** Arguments:
+  42:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  43:../Backend/gnu-efi-3.0.9/lib/lock.c ****     Lock        - The FLOCK structure to initialize
+  44:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  45:../Backend/gnu-efi-3.0.9/lib/lock.c ****     Priority    - The task priority level of the lock
+  46:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  47:../Backend/gnu-efi-3.0.9/lib/lock.c ****     
+  48:../Backend/gnu-efi-3.0.9/lib/lock.c **** Returns:
+  49:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  50:../Backend/gnu-efi-3.0.9/lib/lock.c ****     An initialized F Lock structure.
+  51:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  52:../Backend/gnu-efi-3.0.9/lib/lock.c **** --*/
+  53:../Backend/gnu-efi-3.0.9/lib/lock.c **** {
+  13              		.loc 1 53 1 view -0
+  14              		.cfi_startproc
+  15              		.loc 1 53 1 is_stmt 0 view .LVU1
+  16 0000 F30F1EFA 		endbr64
+  54:../Backend/gnu-efi-3.0.9/lib/lock.c ****     Lock->Tpl = Priority;
+  17              		.loc 1 54 5 is_stmt 1 view .LVU2
+  18              		.loc 1 54 15 is_stmt 0 view .LVU3
+  19 0004 488937   		movq	%rsi, (%rdi)
+  55:../Backend/gnu-efi-3.0.9/lib/lock.c ****     Lock->OwnerTpl = 0;
+  20              		.loc 1 55 5 is_stmt 1 view .LVU4
+  21              		.loc 1 55 20 is_stmt 0 view .LVU5
+  22 0007 48C74708 		movq	$0, 8(%rdi)
+  22      00000000 
+  56:../Backend/gnu-efi-3.0.9/lib/lock.c ****     Lock->Lock = 0;
+  23              		.loc 1 56 5 is_stmt 1 view .LVU6
+  24              		.loc 1 56 16 is_stmt 0 view .LVU7
+  25 000f 48C74710 		movq	$0, 16(%rdi)
+  25      00000000 
+  57:../Backend/gnu-efi-3.0.9/lib/lock.c **** }
+  26              		.loc 1 57 1 view .LVU8
+  27 0017 C3       		ret
+  28              		.cfi_endproc
+  29              	.LFE0:
+  31              		.globl	AcquireLock
+  32              		.hidden	AcquireLock
+  34              	AcquireLock:
+  35              	.LVL1:
+  36              	.LFB1:
+  58:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  59:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  60:../Backend/gnu-efi-3.0.9/lib/lock.c **** VOID
+  61:../Backend/gnu-efi-3.0.9/lib/lock.c **** AcquireLock (
+  62:../Backend/gnu-efi-3.0.9/lib/lock.c ****     IN FLOCK    *Lock
+  63:../Backend/gnu-efi-3.0.9/lib/lock.c ****     )
+  64:../Backend/gnu-efi-3.0.9/lib/lock.c **** /*++
+  65:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  66:../Backend/gnu-efi-3.0.9/lib/lock.c **** Routine Description:
+  67:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  68:../Backend/gnu-efi-3.0.9/lib/lock.c ****     Raising to the task priority level of the mutual exclusion
+  69:../Backend/gnu-efi-3.0.9/lib/lock.c ****     lock, and then acquires ownership of the lock.
+  70:../Backend/gnu-efi-3.0.9/lib/lock.c ****     
+  71:../Backend/gnu-efi-3.0.9/lib/lock.c **** Arguments:
+  72:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  73:../Backend/gnu-efi-3.0.9/lib/lock.c ****     Lock        - The lock to acquire
+  74:../Backend/gnu-efi-3.0.9/lib/lock.c ****     
+  75:../Backend/gnu-efi-3.0.9/lib/lock.c **** Returns:
+  76:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  77:../Backend/gnu-efi-3.0.9/lib/lock.c ****     Lock owned
+  78:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  79:../Backend/gnu-efi-3.0.9/lib/lock.c **** --*/
+  80:../Backend/gnu-efi-3.0.9/lib/lock.c **** {
+  37              		.loc 1 80 1 is_stmt 1 view -0
+  38              		.cfi_startproc
+  39              		.loc 1 80 1 is_stmt 0 view .LVU10
+  40 0018 F30F1EFA 		endbr64
+  41 001c 4883EC08 		subq	$8, %rsp
+  42              		.cfi_def_cfa_offset 16
+  81:../Backend/gnu-efi-3.0.9/lib/lock.c ****     RtAcquireLock (Lock);
+  43              		.loc 1 81 5 is_stmt 1 view .LVU11
+  44 0020 E8000000 		call	RtAcquireLock
+  44      00
+  45              	.LVL2:
+  82:../Backend/gnu-efi-3.0.9/lib/lock.c **** }
+  46              		.loc 1 82 1 is_stmt 0 view .LVU12
+  47 0025 4883C408 		addq	$8, %rsp
+  48              		.cfi_def_cfa_offset 8
+  49 0029 C3       		ret
+  50              		.cfi_endproc
+  51              	.LFE1:
+  53              		.globl	ReleaseLock
+  54              		.hidden	ReleaseLock
+  56              	ReleaseLock:
+  57              	.LVL3:
+  58              	.LFB2:
+  83:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  84:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  85:../Backend/gnu-efi-3.0.9/lib/lock.c **** VOID
+  86:../Backend/gnu-efi-3.0.9/lib/lock.c **** ReleaseLock (
+  87:../Backend/gnu-efi-3.0.9/lib/lock.c ****     IN FLOCK    *Lock
+  88:../Backend/gnu-efi-3.0.9/lib/lock.c ****     )
+  89:../Backend/gnu-efi-3.0.9/lib/lock.c **** /*++
+  90:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  91:../Backend/gnu-efi-3.0.9/lib/lock.c **** Routine Description:
+  92:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  93:../Backend/gnu-efi-3.0.9/lib/lock.c ****     Releases ownership of the mutual exclusion lock, and
+  94:../Backend/gnu-efi-3.0.9/lib/lock.c ****     restores the previous task priority level.
+  95:../Backend/gnu-efi-3.0.9/lib/lock.c ****     
+  96:../Backend/gnu-efi-3.0.9/lib/lock.c **** Arguments:
+  97:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+  98:../Backend/gnu-efi-3.0.9/lib/lock.c ****     Lock        - The lock to release
+  99:../Backend/gnu-efi-3.0.9/lib/lock.c ****     
+ 100:../Backend/gnu-efi-3.0.9/lib/lock.c **** Returns:
+ 101:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+ 102:../Backend/gnu-efi-3.0.9/lib/lock.c ****     Lock unowned
+ 103:../Backend/gnu-efi-3.0.9/lib/lock.c **** 
+ 104:../Backend/gnu-efi-3.0.9/lib/lock.c **** --*/
+ 105:../Backend/gnu-efi-3.0.9/lib/lock.c **** {
+  59              		.loc 1 105 1 is_stmt 1 view -0
+  60              		.cfi_startproc
+  61              		.loc 1 105 1 is_stmt 0 view .LVU14
+  62 002a F30F1EFA 		endbr64
+  63 002e 4883EC08 		subq	$8, %rsp
+  64              		.cfi_def_cfa_offset 16
+ 106:../Backend/gnu-efi-3.0.9/lib/lock.c ****     RtReleaseLock (Lock);
+  65              		.loc 1 106 5 is_stmt 1 view .LVU15
+  66 0032 E8000000 		call	RtReleaseLock
+  66      00
+  67              	.LVL4:
+ 107:../Backend/gnu-efi-3.0.9/lib/lock.c **** }
+  68              		.loc 1 107 1 is_stmt 0 view .LVU16
+  69 0037 4883C408 		addq	$8, %rsp
+  70              		.cfi_def_cfa_offset 8
+  71 003b C3       		ret
+  72              		.cfi_endproc
+  73              	.LFE2:
+  75              	.Letext0:
+  76              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+  77              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+  78              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+  79              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efilink.h"
+  80              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efirtlib.h"
+ 8700              		.section	.note.gnu.property,"a"
+ 8701              		.align 8
+ 8702 0000 04000000 		.long	1f - 0f
+ 8703 0004 10000000 		.long	4f - 1f
+ 8704 0008 05000000 		.long	5
+ 8705              	0:
+ 8706 000c 474E5500 		.string	"GNU"
+ 8707              	1:
+ 8708              		.align 8
+ 8709 0010 020000C0 		.long	0xc0000002
+ 8710 0014 04000000 		.long	3f - 2f
+ 8711              	2:
+ 8712 0018 03000000 		.long	0x3
+ 8713              	3:
+ 8714 001c 00000000 		.align 8
+ 8715              	4:

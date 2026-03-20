@@ -1,0 +1,982 @@
+   1              		.file	"error.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.section	.rodata
+   7              		.align 2
+   8              	.LC0:
+   9 0000 2500     		.string	"%"
+  10 0002 5800     		.string	"X"
+  11 0004 00       		.string	""
+  12 0005 00       		.string	""
+  13              		.text
+  14              		.globl	StatusToString
+  15              		.hidden	StatusToString
+  17              	StatusToString:
+  18              	.LVL0:
+  19              	.LFB0:
+  20              		.file 1 "../Backend/gnu-efi-3.0.9/lib/error.c"
+   1:../Backend/gnu-efi-3.0.9/lib/error.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/error.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/error.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/error.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/error.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/error.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/error.c ****     error.c
+   8:../Backend/gnu-efi-3.0.9/lib/error.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/error.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/error.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/error.c **** 
+  12:../Backend/gnu-efi-3.0.9/lib/error.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/error.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/error.c **** Revision History
+  15:../Backend/gnu-efi-3.0.9/lib/error.c **** 
+  16:../Backend/gnu-efi-3.0.9/lib/error.c **** --*/
+  17:../Backend/gnu-efi-3.0.9/lib/error.c **** 
+  18:../Backend/gnu-efi-3.0.9/lib/error.c **** #include "lib.h"
+  19:../Backend/gnu-efi-3.0.9/lib/error.c **** 
+  20:../Backend/gnu-efi-3.0.9/lib/error.c **** 
+  21:../Backend/gnu-efi-3.0.9/lib/error.c **** struct {
+  22:../Backend/gnu-efi-3.0.9/lib/error.c ****     EFI_STATUS      Code;
+  23:../Backend/gnu-efi-3.0.9/lib/error.c ****     WCHAR	    *Desc;
+  24:../Backend/gnu-efi-3.0.9/lib/error.c **** } ErrorCodeTable[] = {
+  25:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_SUCCESS,                L"Success"},
+  26:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_LOAD_ERROR,             L"Load Error"},
+  27:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_INVALID_PARAMETER,      L"Invalid Parameter"},
+  28:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_UNSUPPORTED,            L"Unsupported"},
+  29:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_BAD_BUFFER_SIZE,        L"Bad Buffer Size"},
+  30:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_BUFFER_TOO_SMALL,       L"Buffer Too Small"},
+  31:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_NOT_READY,              L"Not Ready"},
+  32:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_DEVICE_ERROR,           L"Device Error"},
+  33:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_WRITE_PROTECTED,        L"Write Protected"},
+  34:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_OUT_OF_RESOURCES,       L"Out of Resources"},
+  35:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_VOLUME_CORRUPTED,       L"Volume Corrupt"},
+  36:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_VOLUME_FULL,            L"Volume Full"},
+  37:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_NO_MEDIA,               L"No Media"},
+  38:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_MEDIA_CHANGED,          L"Media changed"},
+  39:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_NOT_FOUND,              L"Not Found"},
+  40:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_ACCESS_DENIED,          L"Access Denied"},
+  41:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_NO_RESPONSE,            L"No Response"},
+  42:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_NO_MAPPING,             L"No mapping"},
+  43:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_TIMEOUT,                L"Time out"},
+  44:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_NOT_STARTED,            L"Not started"},
+  45:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_ALREADY_STARTED,        L"Already started"},
+  46:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_ABORTED,                L"Aborted"},
+  47:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_ICMP_ERROR,             L"ICMP Error"},
+  48:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_TFTP_ERROR,             L"TFTP Error"},
+  49:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_PROTOCOL_ERROR,         L"Protocol Error"},
+  50:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_INCOMPATIBLE_VERSION,   L"Incompatible Version"},
+  51:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_SECURITY_VIOLATION,     L"Security Policy Violation"},
+  52:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_CRC_ERROR,              L"CRC Error"},
+  53:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_END_OF_MEDIA,           L"End of Media"},
+  54:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_END_OF_FILE,            L"End of File"},
+  55:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_INVALID_LANGUAGE,       L"Invalid Languages"},
+  56:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_COMPROMISED_DATA,       L"Compromised Data"},
+  57:../Backend/gnu-efi-3.0.9/lib/error.c **** 
+  58:../Backend/gnu-efi-3.0.9/lib/error.c **** 	// warnings
+  59:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_WARN_UNKOWN_GLYPH,      L"Warning Unknown Glyph"},
+  60:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_WARN_DELETE_FAILURE,    L"Warning Delete Failure"},
+  61:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_WARN_WRITE_FAILURE,     L"Warning Write Failure"},
+  62:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  EFI_WARN_BUFFER_TOO_SMALL,  L"Warning Buffer Too Small"},
+  63:../Backend/gnu-efi-3.0.9/lib/error.c **** 	{  0, NULL}
+  64:../Backend/gnu-efi-3.0.9/lib/error.c **** } ;
+  65:../Backend/gnu-efi-3.0.9/lib/error.c **** 
+  66:../Backend/gnu-efi-3.0.9/lib/error.c **** 
+  67:../Backend/gnu-efi-3.0.9/lib/error.c **** VOID
+  68:../Backend/gnu-efi-3.0.9/lib/error.c **** StatusToString (
+  69:../Backend/gnu-efi-3.0.9/lib/error.c ****     OUT CHAR16          *Buffer,
+  70:../Backend/gnu-efi-3.0.9/lib/error.c ****     IN EFI_STATUS       Status
+  71:../Backend/gnu-efi-3.0.9/lib/error.c ****     )
+  72:../Backend/gnu-efi-3.0.9/lib/error.c **** {
+  21              		.loc 1 72 1 view -0
+  22              		.cfi_startproc
+  23              		.loc 1 72 1 is_stmt 0 view .LVU1
+  24 0000 F30F1EFA 		endbr64
+  25 0004 4883EC08 		subq	$8, %rsp
+  26              		.cfi_def_cfa_offset 16
+  27 0008 4889F1   		movq	%rsi, %rcx
+  73:../Backend/gnu-efi-3.0.9/lib/error.c ****     UINTN           Index;
+  28              		.loc 1 73 5 is_stmt 1 view .LVU2
+  74:../Backend/gnu-efi-3.0.9/lib/error.c **** 
+  75:../Backend/gnu-efi-3.0.9/lib/error.c ****     for (Index = 0; ErrorCodeTable[Index].Desc; Index +=1) {
+  29              		.loc 1 75 5 view .LVU3
+  30              	.LVL1:
+  31              		.loc 1 75 16 is_stmt 0 view .LVU4
+  32 000b B8000000 		movl	$0, %eax
+  32      00
+  33              		.loc 1 75 5 view .LVU5
+  34 0010 EB04     		jmp	.L2
+  35              	.LVL2:
+  36              	.L3:
+  37              		.loc 1 75 55 is_stmt 1 discriminator 2 view .LVU6
+  38 0012 4883C001 		addq	$1, %rax
+  39              	.LVL3:
+  40              	.L2:
+  41              		.loc 1 75 21 discriminator 1 view .LVU7
+  42              		.loc 1 75 42 is_stmt 0 discriminator 1 view .LVU8
+  43 0016 4889C2   		movq	%rax, %rdx
+  44 0019 48C1E204 		salq	$4, %rdx
+  45 001d 4C8D0500 		leaq	ErrorCodeTable(%rip), %r8
+  45      000000
+  46 0024 498B7410 		movq	8(%r8,%rdx), %rsi
+  46      08
+  47              		.loc 1 75 21 discriminator 1 view .LVU9
+  48 0029 4885F6   		testq	%rsi, %rsi
+  49 002c 741B     		je	.L7
+  76:../Backend/gnu-efi-3.0.9/lib/error.c ****         if (ErrorCodeTable[Index].Code == Status) {
+  50              		.loc 1 76 9 is_stmt 1 view .LVU10
+  51              		.loc 1 76 34 is_stmt 0 view .LVU11
+  52 002e 4889C2   		movq	%rax, %rdx
+  53 0031 48C1E204 		salq	$4, %rdx
+  54              		.loc 1 76 12 view .LVU12
+  55 0035 4C8D0500 		leaq	ErrorCodeTable(%rip), %r8
+  55      000000
+  56 003c 49390C10 		cmpq	%rcx, (%r8,%rdx)
+  57 0040 75D0     		jne	.L3
+  77:../Backend/gnu-efi-3.0.9/lib/error.c **** 	    StrCpy (Buffer, ErrorCodeTable[Index].Desc);
+  58              		.loc 1 77 6 is_stmt 1 view .LVU13
+  59 0042 E8000000 		call	StrCpy
+  59      00
+  60              	.LVL4:
+  78:../Backend/gnu-efi-3.0.9/lib/error.c ****             return;
+  61              		.loc 1 78 13 view .LVU14
+  62 0047 EB11     		jmp	.L1
+  63              	.LVL5:
+  64              	.L7:
+  79:../Backend/gnu-efi-3.0.9/lib/error.c ****         }
+  80:../Backend/gnu-efi-3.0.9/lib/error.c ****     }
+  81:../Backend/gnu-efi-3.0.9/lib/error.c **** 
+  82:../Backend/gnu-efi-3.0.9/lib/error.c ****     SPrint (Buffer, 0, L"%X", Status);
+  65              		.loc 1 82 5 view .LVU15
+  66 0049 488D1500 		leaq	.LC0(%rip), %rdx
+  66      000000
+  67 0050 B8000000 		movl	$0, %eax
+  67      00
+  68              	.LVL6:
+  69              		.loc 1 82 5 is_stmt 0 view .LVU16
+  70 0055 E8000000 		call	SPrint
+  70      00
+  71              	.LVL7:
+  72              	.L1:
+  83:../Backend/gnu-efi-3.0.9/lib/error.c **** }
+  73              		.loc 1 83 1 view .LVU17
+  74 005a 4883C408 		addq	$8, %rsp
+  75              		.cfi_def_cfa_offset 8
+  76 005e C3       		ret
+  77              		.cfi_endproc
+  78              	.LFE0:
+  80              		.hidden	ErrorCodeTable
+  81              		.globl	ErrorCodeTable
+  82              		.section	.rodata
+  83              		.align 2
+  84              	.LC1:
+  85 0006 5300     		.string	"S"
+  86 0008 7500     		.string	"u"
+  87 000a 6300     		.string	"c"
+  88 000c 6300     		.string	"c"
+  89 000e 6500     		.string	"e"
+  90 0010 7300     		.string	"s"
+  91 0012 7300     		.string	"s"
+  92 0014 00       		.string	""
+  93 0015 00       		.string	""
+  94              		.align 2
+  95              	.LC2:
+  96 0016 4C00     		.string	"L"
+  97 0018 6F00     		.string	"o"
+  98 001a 6100     		.string	"a"
+  99 001c 6400     		.string	"d"
+ 100 001e 2000     		.string	" "
+ 101 0020 4500     		.string	"E"
+ 102 0022 7200     		.string	"r"
+ 103 0024 7200     		.string	"r"
+ 104 0026 6F00     		.string	"o"
+ 105 0028 7200     		.string	"r"
+ 106 002a 00       		.string	""
+ 107 002b 00       		.string	""
+ 108 002c 00000000 		.align 8
+ 109              	.LC3:
+ 110 0030 4900     		.string	"I"
+ 111 0032 6E00     		.string	"n"
+ 112 0034 7600     		.string	"v"
+ 113 0036 6100     		.string	"a"
+ 114 0038 6C00     		.string	"l"
+ 115 003a 6900     		.string	"i"
+ 116 003c 6400     		.string	"d"
+ 117 003e 2000     		.string	" "
+ 118 0040 5000     		.string	"P"
+ 119 0042 6100     		.string	"a"
+ 120 0044 7200     		.string	"r"
+ 121 0046 6100     		.string	"a"
+ 122 0048 6D00     		.string	"m"
+ 123 004a 6500     		.string	"e"
+ 124 004c 7400     		.string	"t"
+ 125 004e 6500     		.string	"e"
+ 126 0050 7200     		.string	"r"
+ 127 0052 00       		.string	""
+ 128 0053 00       		.string	""
+ 129              		.align 2
+ 130              	.LC4:
+ 131 0054 5500     		.string	"U"
+ 132 0056 6E00     		.string	"n"
+ 133 0058 7300     		.string	"s"
+ 134 005a 7500     		.string	"u"
+ 135 005c 7000     		.string	"p"
+ 136 005e 7000     		.string	"p"
+ 137 0060 6F00     		.string	"o"
+ 138 0062 7200     		.string	"r"
+ 139 0064 7400     		.string	"t"
+ 140 0066 6500     		.string	"e"
+ 141 0068 6400     		.string	"d"
+ 142 006a 00       		.string	""
+ 143 006b 00       		.string	""
+ 144 006c 00000000 		.align 8
+ 145              	.LC5:
+ 146 0070 4200     		.string	"B"
+ 147 0072 6100     		.string	"a"
+ 148 0074 6400     		.string	"d"
+ 149 0076 2000     		.string	" "
+ 150 0078 4200     		.string	"B"
+ 151 007a 7500     		.string	"u"
+ 152 007c 6600     		.string	"f"
+ 153 007e 6600     		.string	"f"
+ 154 0080 6500     		.string	"e"
+ 155 0082 7200     		.string	"r"
+ 156 0084 2000     		.string	" "
+ 157 0086 5300     		.string	"S"
+ 158 0088 6900     		.string	"i"
+ 159 008a 7A00     		.string	"z"
+ 160 008c 6500     		.string	"e"
+ 161 008e 00       		.string	""
+ 162 008f 00       		.string	""
+ 163              		.align 8
+ 164              	.LC6:
+ 165 0090 4200     		.string	"B"
+ 166 0092 7500     		.string	"u"
+ 167 0094 6600     		.string	"f"
+ 168 0096 6600     		.string	"f"
+ 169 0098 6500     		.string	"e"
+ 170 009a 7200     		.string	"r"
+ 171 009c 2000     		.string	" "
+ 172 009e 5400     		.string	"T"
+ 173 00a0 6F00     		.string	"o"
+ 174 00a2 6F00     		.string	"o"
+ 175 00a4 2000     		.string	" "
+ 176 00a6 5300     		.string	"S"
+ 177 00a8 6D00     		.string	"m"
+ 178 00aa 6100     		.string	"a"
+ 179 00ac 6C00     		.string	"l"
+ 180 00ae 6C00     		.string	"l"
+ 181 00b0 00       		.string	""
+ 182 00b1 00       		.string	""
+ 183              		.align 2
+ 184              	.LC7:
+ 185 00b2 4E00     		.string	"N"
+ 186 00b4 6F00     		.string	"o"
+ 187 00b6 7400     		.string	"t"
+ 188 00b8 2000     		.string	" "
+ 189 00ba 5200     		.string	"R"
+ 190 00bc 6500     		.string	"e"
+ 191 00be 6100     		.string	"a"
+ 192 00c0 6400     		.string	"d"
+ 193 00c2 7900     		.string	"y"
+ 194 00c4 00       		.string	""
+ 195 00c5 00       		.string	""
+ 196              		.align 2
+ 197              	.LC8:
+ 198 00c6 4400     		.string	"D"
+ 199 00c8 6500     		.string	"e"
+ 200 00ca 7600     		.string	"v"
+ 201 00cc 6900     		.string	"i"
+ 202 00ce 6300     		.string	"c"
+ 203 00d0 6500     		.string	"e"
+ 204 00d2 2000     		.string	" "
+ 205 00d4 4500     		.string	"E"
+ 206 00d6 7200     		.string	"r"
+ 207 00d8 7200     		.string	"r"
+ 208 00da 6F00     		.string	"o"
+ 209 00dc 7200     		.string	"r"
+ 210 00de 00       		.string	""
+ 211 00df 00       		.string	""
+ 212              		.align 8
+ 213              	.LC9:
+ 214 00e0 5700     		.string	"W"
+ 215 00e2 7200     		.string	"r"
+ 216 00e4 6900     		.string	"i"
+ 217 00e6 7400     		.string	"t"
+ 218 00e8 6500     		.string	"e"
+ 219 00ea 2000     		.string	" "
+ 220 00ec 5000     		.string	"P"
+ 221 00ee 7200     		.string	"r"
+ 222 00f0 6F00     		.string	"o"
+ 223 00f2 7400     		.string	"t"
+ 224 00f4 6500     		.string	"e"
+ 225 00f6 6300     		.string	"c"
+ 226 00f8 7400     		.string	"t"
+ 227 00fa 6500     		.string	"e"
+ 228 00fc 6400     		.string	"d"
+ 229 00fe 00       		.string	""
+ 230 00ff 00       		.string	""
+ 231              		.align 8
+ 232              	.LC10:
+ 233 0100 4F00     		.string	"O"
+ 234 0102 7500     		.string	"u"
+ 235 0104 7400     		.string	"t"
+ 236 0106 2000     		.string	" "
+ 237 0108 6F00     		.string	"o"
+ 238 010a 6600     		.string	"f"
+ 239 010c 2000     		.string	" "
+ 240 010e 5200     		.string	"R"
+ 241 0110 6500     		.string	"e"
+ 242 0112 7300     		.string	"s"
+ 243 0114 6F00     		.string	"o"
+ 244 0116 7500     		.string	"u"
+ 245 0118 7200     		.string	"r"
+ 246 011a 6300     		.string	"c"
+ 247 011c 6500     		.string	"e"
+ 248 011e 7300     		.string	"s"
+ 249 0120 00       		.string	""
+ 250 0121 00       		.string	""
+ 251              		.align 2
+ 252              	.LC11:
+ 253 0122 5600     		.string	"V"
+ 254 0124 6F00     		.string	"o"
+ 255 0126 6C00     		.string	"l"
+ 256 0128 7500     		.string	"u"
+ 257 012a 6D00     		.string	"m"
+ 258 012c 6500     		.string	"e"
+ 259 012e 2000     		.string	" "
+ 260 0130 4300     		.string	"C"
+ 261 0132 6F00     		.string	"o"
+ 262 0134 7200     		.string	"r"
+ 263 0136 7200     		.string	"r"
+ 264 0138 7500     		.string	"u"
+ 265 013a 7000     		.string	"p"
+ 266 013c 7400     		.string	"t"
+ 267 013e 00       		.string	""
+ 268 013f 00       		.string	""
+ 269              		.align 2
+ 270              	.LC12:
+ 271 0140 5600     		.string	"V"
+ 272 0142 6F00     		.string	"o"
+ 273 0144 6C00     		.string	"l"
+ 274 0146 7500     		.string	"u"
+ 275 0148 6D00     		.string	"m"
+ 276 014a 6500     		.string	"e"
+ 277 014c 2000     		.string	" "
+ 278 014e 4600     		.string	"F"
+ 279 0150 7500     		.string	"u"
+ 280 0152 6C00     		.string	"l"
+ 281 0154 6C00     		.string	"l"
+ 282 0156 00       		.string	""
+ 283 0157 00       		.string	""
+ 284              		.align 2
+ 285              	.LC13:
+ 286 0158 4E00     		.string	"N"
+ 287 015a 6F00     		.string	"o"
+ 288 015c 2000     		.string	" "
+ 289 015e 4D00     		.string	"M"
+ 290 0160 6500     		.string	"e"
+ 291 0162 6400     		.string	"d"
+ 292 0164 6900     		.string	"i"
+ 293 0166 6100     		.string	"a"
+ 294 0168 00       		.string	""
+ 295 0169 00       		.string	""
+ 296              		.align 2
+ 297              	.LC14:
+ 298 016a 4D00     		.string	"M"
+ 299 016c 6500     		.string	"e"
+ 300 016e 6400     		.string	"d"
+ 301 0170 6900     		.string	"i"
+ 302 0172 6100     		.string	"a"
+ 303 0174 2000     		.string	" "
+ 304 0176 6300     		.string	"c"
+ 305 0178 6800     		.string	"h"
+ 306 017a 6100     		.string	"a"
+ 307 017c 6E00     		.string	"n"
+ 308 017e 6700     		.string	"g"
+ 309 0180 6500     		.string	"e"
+ 310 0182 6400     		.string	"d"
+ 311 0184 00       		.string	""
+ 312 0185 00       		.string	""
+ 313              		.align 2
+ 314              	.LC15:
+ 315 0186 4E00     		.string	"N"
+ 316 0188 6F00     		.string	"o"
+ 317 018a 7400     		.string	"t"
+ 318 018c 2000     		.string	" "
+ 319 018e 4600     		.string	"F"
+ 320 0190 6F00     		.string	"o"
+ 321 0192 7500     		.string	"u"
+ 322 0194 6E00     		.string	"n"
+ 323 0196 6400     		.string	"d"
+ 324 0198 00       		.string	""
+ 325 0199 00       		.string	""
+ 326              		.align 2
+ 327              	.LC16:
+ 328 019a 4100     		.string	"A"
+ 329 019c 6300     		.string	"c"
+ 330 019e 6300     		.string	"c"
+ 331 01a0 6500     		.string	"e"
+ 332 01a2 7300     		.string	"s"
+ 333 01a4 7300     		.string	"s"
+ 334 01a6 2000     		.string	" "
+ 335 01a8 4400     		.string	"D"
+ 336 01aa 6500     		.string	"e"
+ 337 01ac 6E00     		.string	"n"
+ 338 01ae 6900     		.string	"i"
+ 339 01b0 6500     		.string	"e"
+ 340 01b2 6400     		.string	"d"
+ 341 01b4 00       		.string	""
+ 342 01b5 00       		.string	""
+ 343              		.align 2
+ 344              	.LC17:
+ 345 01b6 4E00     		.string	"N"
+ 346 01b8 6F00     		.string	"o"
+ 347 01ba 2000     		.string	" "
+ 348 01bc 5200     		.string	"R"
+ 349 01be 6500     		.string	"e"
+ 350 01c0 7300     		.string	"s"
+ 351 01c2 7000     		.string	"p"
+ 352 01c4 6F00     		.string	"o"
+ 353 01c6 6E00     		.string	"n"
+ 354 01c8 7300     		.string	"s"
+ 355 01ca 6500     		.string	"e"
+ 356 01cc 00       		.string	""
+ 357 01cd 00       		.string	""
+ 358              		.align 2
+ 359              	.LC18:
+ 360 01ce 4E00     		.string	"N"
+ 361 01d0 6F00     		.string	"o"
+ 362 01d2 2000     		.string	" "
+ 363 01d4 6D00     		.string	"m"
+ 364 01d6 6100     		.string	"a"
+ 365 01d8 7000     		.string	"p"
+ 366 01da 7000     		.string	"p"
+ 367 01dc 6900     		.string	"i"
+ 368 01de 6E00     		.string	"n"
+ 369 01e0 6700     		.string	"g"
+ 370 01e2 00       		.string	""
+ 371 01e3 00       		.string	""
+ 372              		.align 2
+ 373              	.LC19:
+ 374 01e4 5400     		.string	"T"
+ 375 01e6 6900     		.string	"i"
+ 376 01e8 6D00     		.string	"m"
+ 377 01ea 6500     		.string	"e"
+ 378 01ec 2000     		.string	" "
+ 379 01ee 6F00     		.string	"o"
+ 380 01f0 7500     		.string	"u"
+ 381 01f2 7400     		.string	"t"
+ 382 01f4 00       		.string	""
+ 383 01f5 00       		.string	""
+ 384              		.align 2
+ 385              	.LC20:
+ 386 01f6 4E00     		.string	"N"
+ 387 01f8 6F00     		.string	"o"
+ 388 01fa 7400     		.string	"t"
+ 389 01fc 2000     		.string	" "
+ 390 01fe 7300     		.string	"s"
+ 391 0200 7400     		.string	"t"
+ 392 0202 6100     		.string	"a"
+ 393 0204 7200     		.string	"r"
+ 394 0206 7400     		.string	"t"
+ 395 0208 6500     		.string	"e"
+ 396 020a 6400     		.string	"d"
+ 397 020c 00       		.string	""
+ 398 020d 00       		.string	""
+ 399 020e 0000     		.align 8
+ 400              	.LC21:
+ 401 0210 4100     		.string	"A"
+ 402 0212 6C00     		.string	"l"
+ 403 0214 7200     		.string	"r"
+ 404 0216 6500     		.string	"e"
+ 405 0218 6100     		.string	"a"
+ 406 021a 6400     		.string	"d"
+ 407 021c 7900     		.string	"y"
+ 408 021e 2000     		.string	" "
+ 409 0220 7300     		.string	"s"
+ 410 0222 7400     		.string	"t"
+ 411 0224 6100     		.string	"a"
+ 412 0226 7200     		.string	"r"
+ 413 0228 7400     		.string	"t"
+ 414 022a 6500     		.string	"e"
+ 415 022c 6400     		.string	"d"
+ 416 022e 00       		.string	""
+ 417 022f 00       		.string	""
+ 418              		.align 2
+ 419              	.LC22:
+ 420 0230 4100     		.string	"A"
+ 421 0232 6200     		.string	"b"
+ 422 0234 6F00     		.string	"o"
+ 423 0236 7200     		.string	"r"
+ 424 0238 7400     		.string	"t"
+ 425 023a 6500     		.string	"e"
+ 426 023c 6400     		.string	"d"
+ 427 023e 00       		.string	""
+ 428 023f 00       		.string	""
+ 429              		.align 2
+ 430              	.LC23:
+ 431 0240 4900     		.string	"I"
+ 432 0242 4300     		.string	"C"
+ 433 0244 4D00     		.string	"M"
+ 434 0246 5000     		.string	"P"
+ 435 0248 2000     		.string	" "
+ 436 024a 4500     		.string	"E"
+ 437 024c 7200     		.string	"r"
+ 438 024e 7200     		.string	"r"
+ 439 0250 6F00     		.string	"o"
+ 440 0252 7200     		.string	"r"
+ 441 0254 00       		.string	""
+ 442 0255 00       		.string	""
+ 443              		.align 2
+ 444              	.LC24:
+ 445 0256 5400     		.string	"T"
+ 446 0258 4600     		.string	"F"
+ 447 025a 5400     		.string	"T"
+ 448 025c 5000     		.string	"P"
+ 449 025e 2000     		.string	" "
+ 450 0260 4500     		.string	"E"
+ 451 0262 7200     		.string	"r"
+ 452 0264 7200     		.string	"r"
+ 453 0266 6F00     		.string	"o"
+ 454 0268 7200     		.string	"r"
+ 455 026a 00       		.string	""
+ 456 026b 00       		.string	""
+ 457              		.align 2
+ 458              	.LC25:
+ 459 026c 5000     		.string	"P"
+ 460 026e 7200     		.string	"r"
+ 461 0270 6F00     		.string	"o"
+ 462 0272 7400     		.string	"t"
+ 463 0274 6F00     		.string	"o"
+ 464 0276 6300     		.string	"c"
+ 465 0278 6F00     		.string	"o"
+ 466 027a 6C00     		.string	"l"
+ 467 027c 2000     		.string	" "
+ 468 027e 4500     		.string	"E"
+ 469 0280 7200     		.string	"r"
+ 470 0282 7200     		.string	"r"
+ 471 0284 6F00     		.string	"o"
+ 472 0286 7200     		.string	"r"
+ 473 0288 00       		.string	""
+ 474 0289 00       		.string	""
+ 475 028a 00000000 		.align 8
+ 475      0000
+ 476              	.LC26:
+ 477 0290 4900     		.string	"I"
+ 478 0292 6E00     		.string	"n"
+ 479 0294 6300     		.string	"c"
+ 480 0296 6F00     		.string	"o"
+ 481 0298 6D00     		.string	"m"
+ 482 029a 7000     		.string	"p"
+ 483 029c 6100     		.string	"a"
+ 484 029e 7400     		.string	"t"
+ 485 02a0 6900     		.string	"i"
+ 486 02a2 6200     		.string	"b"
+ 487 02a4 6C00     		.string	"l"
+ 488 02a6 6500     		.string	"e"
+ 489 02a8 2000     		.string	" "
+ 490 02aa 5600     		.string	"V"
+ 491 02ac 6500     		.string	"e"
+ 492 02ae 7200     		.string	"r"
+ 493 02b0 7300     		.string	"s"
+ 494 02b2 6900     		.string	"i"
+ 495 02b4 6F00     		.string	"o"
+ 496 02b6 6E00     		.string	"n"
+ 497 02b8 00       		.string	""
+ 498 02b9 00       		.string	""
+ 499 02ba 00000000 		.align 8
+ 499      0000
+ 500              	.LC27:
+ 501 02c0 5300     		.string	"S"
+ 502 02c2 6500     		.string	"e"
+ 503 02c4 6300     		.string	"c"
+ 504 02c6 7500     		.string	"u"
+ 505 02c8 7200     		.string	"r"
+ 506 02ca 6900     		.string	"i"
+ 507 02cc 7400     		.string	"t"
+ 508 02ce 7900     		.string	"y"
+ 509 02d0 2000     		.string	" "
+ 510 02d2 5000     		.string	"P"
+ 511 02d4 6F00     		.string	"o"
+ 512 02d6 6C00     		.string	"l"
+ 513 02d8 6900     		.string	"i"
+ 514 02da 6300     		.string	"c"
+ 515 02dc 7900     		.string	"y"
+ 516 02de 2000     		.string	" "
+ 517 02e0 5600     		.string	"V"
+ 518 02e2 6900     		.string	"i"
+ 519 02e4 6F00     		.string	"o"
+ 520 02e6 6C00     		.string	"l"
+ 521 02e8 6100     		.string	"a"
+ 522 02ea 7400     		.string	"t"
+ 523 02ec 6900     		.string	"i"
+ 524 02ee 6F00     		.string	"o"
+ 525 02f0 6E00     		.string	"n"
+ 526 02f2 00       		.string	""
+ 527 02f3 00       		.string	""
+ 528              		.align 2
+ 529              	.LC28:
+ 530 02f4 4300     		.string	"C"
+ 531 02f6 5200     		.string	"R"
+ 532 02f8 4300     		.string	"C"
+ 533 02fa 2000     		.string	" "
+ 534 02fc 4500     		.string	"E"
+ 535 02fe 7200     		.string	"r"
+ 536 0300 7200     		.string	"r"
+ 537 0302 6F00     		.string	"o"
+ 538 0304 7200     		.string	"r"
+ 539 0306 00       		.string	""
+ 540 0307 00       		.string	""
+ 541              		.align 2
+ 542              	.LC29:
+ 543 0308 4500     		.string	"E"
+ 544 030a 6E00     		.string	"n"
+ 545 030c 6400     		.string	"d"
+ 546 030e 2000     		.string	" "
+ 547 0310 6F00     		.string	"o"
+ 548 0312 6600     		.string	"f"
+ 549 0314 2000     		.string	" "
+ 550 0316 4D00     		.string	"M"
+ 551 0318 6500     		.string	"e"
+ 552 031a 6400     		.string	"d"
+ 553 031c 6900     		.string	"i"
+ 554 031e 6100     		.string	"a"
+ 555 0320 00       		.string	""
+ 556 0321 00       		.string	""
+ 557              		.align 2
+ 558              	.LC30:
+ 559 0322 4500     		.string	"E"
+ 560 0324 6E00     		.string	"n"
+ 561 0326 6400     		.string	"d"
+ 562 0328 2000     		.string	" "
+ 563 032a 6F00     		.string	"o"
+ 564 032c 6600     		.string	"f"
+ 565 032e 2000     		.string	" "
+ 566 0330 4600     		.string	"F"
+ 567 0332 6900     		.string	"i"
+ 568 0334 6C00     		.string	"l"
+ 569 0336 6500     		.string	"e"
+ 570 0338 00       		.string	""
+ 571 0339 00       		.string	""
+ 572 033a 00000000 		.align 8
+ 572      0000
+ 573              	.LC31:
+ 574 0340 4900     		.string	"I"
+ 575 0342 6E00     		.string	"n"
+ 576 0344 7600     		.string	"v"
+ 577 0346 6100     		.string	"a"
+ 578 0348 6C00     		.string	"l"
+ 579 034a 6900     		.string	"i"
+ 580 034c 6400     		.string	"d"
+ 581 034e 2000     		.string	" "
+ 582 0350 4C00     		.string	"L"
+ 583 0352 6100     		.string	"a"
+ 584 0354 6E00     		.string	"n"
+ 585 0356 6700     		.string	"g"
+ 586 0358 7500     		.string	"u"
+ 587 035a 6100     		.string	"a"
+ 588 035c 6700     		.string	"g"
+ 589 035e 6500     		.string	"e"
+ 590 0360 7300     		.string	"s"
+ 591 0362 00       		.string	""
+ 592 0363 00       		.string	""
+ 593 0364 00000000 		.align 8
+ 594              	.LC32:
+ 595 0368 4300     		.string	"C"
+ 596 036a 6F00     		.string	"o"
+ 597 036c 6D00     		.string	"m"
+ 598 036e 7000     		.string	"p"
+ 599 0370 7200     		.string	"r"
+ 600 0372 6F00     		.string	"o"
+ 601 0374 6D00     		.string	"m"
+ 602 0376 6900     		.string	"i"
+ 603 0378 7300     		.string	"s"
+ 604 037a 6500     		.string	"e"
+ 605 037c 6400     		.string	"d"
+ 606 037e 2000     		.string	" "
+ 607 0380 4400     		.string	"D"
+ 608 0382 6100     		.string	"a"
+ 609 0384 7400     		.string	"t"
+ 610 0386 6100     		.string	"a"
+ 611 0388 00       		.string	""
+ 612 0389 00       		.string	""
+ 613 038a 00000000 		.align 8
+ 613      0000
+ 614              	.LC33:
+ 615 0390 5700     		.string	"W"
+ 616 0392 6100     		.string	"a"
+ 617 0394 7200     		.string	"r"
+ 618 0396 6E00     		.string	"n"
+ 619 0398 6900     		.string	"i"
+ 620 039a 6E00     		.string	"n"
+ 621 039c 6700     		.string	"g"
+ 622 039e 2000     		.string	" "
+ 623 03a0 5500     		.string	"U"
+ 624 03a2 6E00     		.string	"n"
+ 625 03a4 6B00     		.string	"k"
+ 626 03a6 6E00     		.string	"n"
+ 627 03a8 6F00     		.string	"o"
+ 628 03aa 7700     		.string	"w"
+ 629 03ac 6E00     		.string	"n"
+ 630 03ae 2000     		.string	" "
+ 631 03b0 4700     		.string	"G"
+ 632 03b2 6C00     		.string	"l"
+ 633 03b4 7900     		.string	"y"
+ 634 03b6 7000     		.string	"p"
+ 635 03b8 6800     		.string	"h"
+ 636 03ba 00       		.string	""
+ 637 03bb 00       		.string	""
+ 638 03bc 00000000 		.align 8
+ 639              	.LC34:
+ 640 03c0 5700     		.string	"W"
+ 641 03c2 6100     		.string	"a"
+ 642 03c4 7200     		.string	"r"
+ 643 03c6 6E00     		.string	"n"
+ 644 03c8 6900     		.string	"i"
+ 645 03ca 6E00     		.string	"n"
+ 646 03cc 6700     		.string	"g"
+ 647 03ce 2000     		.string	" "
+ 648 03d0 4400     		.string	"D"
+ 649 03d2 6500     		.string	"e"
+ 650 03d4 6C00     		.string	"l"
+ 651 03d6 6500     		.string	"e"
+ 652 03d8 7400     		.string	"t"
+ 653 03da 6500     		.string	"e"
+ 654 03dc 2000     		.string	" "
+ 655 03de 4600     		.string	"F"
+ 656 03e0 6100     		.string	"a"
+ 657 03e2 6900     		.string	"i"
+ 658 03e4 6C00     		.string	"l"
+ 659 03e6 7500     		.string	"u"
+ 660 03e8 7200     		.string	"r"
+ 661 03ea 6500     		.string	"e"
+ 662 03ec 00       		.string	""
+ 663 03ed 00       		.string	""
+ 664 03ee 0000     		.align 8
+ 665              	.LC35:
+ 666 03f0 5700     		.string	"W"
+ 667 03f2 6100     		.string	"a"
+ 668 03f4 7200     		.string	"r"
+ 669 03f6 6E00     		.string	"n"
+ 670 03f8 6900     		.string	"i"
+ 671 03fa 6E00     		.string	"n"
+ 672 03fc 6700     		.string	"g"
+ 673 03fe 2000     		.string	" "
+ 674 0400 5700     		.string	"W"
+ 675 0402 7200     		.string	"r"
+ 676 0404 6900     		.string	"i"
+ 677 0406 7400     		.string	"t"
+ 678 0408 6500     		.string	"e"
+ 679 040a 2000     		.string	" "
+ 680 040c 4600     		.string	"F"
+ 681 040e 6100     		.string	"a"
+ 682 0410 6900     		.string	"i"
+ 683 0412 6C00     		.string	"l"
+ 684 0414 7500     		.string	"u"
+ 685 0416 7200     		.string	"r"
+ 686 0418 6500     		.string	"e"
+ 687 041a 00       		.string	""
+ 688 041b 00       		.string	""
+ 689 041c 00000000 		.align 8
+ 690              	.LC36:
+ 691 0420 5700     		.string	"W"
+ 692 0422 6100     		.string	"a"
+ 693 0424 7200     		.string	"r"
+ 694 0426 6E00     		.string	"n"
+ 695 0428 6900     		.string	"i"
+ 696 042a 6E00     		.string	"n"
+ 697 042c 6700     		.string	"g"
+ 698 042e 2000     		.string	" "
+ 699 0430 4200     		.string	"B"
+ 700 0432 7500     		.string	"u"
+ 701 0434 6600     		.string	"f"
+ 702 0436 6600     		.string	"f"
+ 703 0438 6500     		.string	"e"
+ 704 043a 7200     		.string	"r"
+ 705 043c 2000     		.string	" "
+ 706 043e 5400     		.string	"T"
+ 707 0440 6F00     		.string	"o"
+ 708 0442 6F00     		.string	"o"
+ 709 0444 2000     		.string	" "
+ 710 0446 5300     		.string	"S"
+ 711 0448 6D00     		.string	"m"
+ 712 044a 6100     		.string	"a"
+ 713 044c 6C00     		.string	"l"
+ 714 044e 6C00     		.string	"l"
+ 715 0450 00       		.string	""
+ 716 0451 00       		.string	""
+ 717              		.section	.data.rel.local,"aw"
+ 718              		.align 32
+ 721              	ErrorCodeTable:
+ 722 0000 00000000 		.quad	0
+ 722      00000000 
+ 723 0008 00000000 		.quad	.LC1
+ 723      00000000 
+ 724 0010 01000000 		.quad	-9223372036854775807
+ 724      00000080 
+ 725 0018 00000000 		.quad	.LC2
+ 725      00000000 
+ 726 0020 02000000 		.quad	-9223372036854775806
+ 726      00000080 
+ 727 0028 00000000 		.quad	.LC3
+ 727      00000000 
+ 728 0030 03000000 		.quad	-9223372036854775805
+ 728      00000080 
+ 729 0038 00000000 		.quad	.LC4
+ 729      00000000 
+ 730 0040 04000000 		.quad	-9223372036854775804
+ 730      00000080 
+ 731 0048 00000000 		.quad	.LC5
+ 731      00000000 
+ 732 0050 05000000 		.quad	-9223372036854775803
+ 732      00000080 
+ 733 0058 00000000 		.quad	.LC6
+ 733      00000000 
+ 734 0060 06000000 		.quad	-9223372036854775802
+ 734      00000080 
+ 735 0068 00000000 		.quad	.LC7
+ 735      00000000 
+ 736 0070 07000000 		.quad	-9223372036854775801
+ 736      00000080 
+ 737 0078 00000000 		.quad	.LC8
+ 737      00000000 
+ 738 0080 08000000 		.quad	-9223372036854775800
+ 738      00000080 
+ 739 0088 00000000 		.quad	.LC9
+ 739      00000000 
+ 740 0090 09000000 		.quad	-9223372036854775799
+ 740      00000080 
+ 741 0098 00000000 		.quad	.LC10
+ 741      00000000 
+ 742 00a0 0A000000 		.quad	-9223372036854775798
+ 742      00000080 
+ 743 00a8 00000000 		.quad	.LC11
+ 743      00000000 
+ 744 00b0 0B000000 		.quad	-9223372036854775797
+ 744      00000080 
+ 745 00b8 00000000 		.quad	.LC12
+ 745      00000000 
+ 746 00c0 0C000000 		.quad	-9223372036854775796
+ 746      00000080 
+ 747 00c8 00000000 		.quad	.LC13
+ 747      00000000 
+ 748 00d0 0D000000 		.quad	-9223372036854775795
+ 748      00000080 
+ 749 00d8 00000000 		.quad	.LC14
+ 749      00000000 
+ 750 00e0 0E000000 		.quad	-9223372036854775794
+ 750      00000080 
+ 751 00e8 00000000 		.quad	.LC15
+ 751      00000000 
+ 752 00f0 0F000000 		.quad	-9223372036854775793
+ 752      00000080 
+ 753 00f8 00000000 		.quad	.LC16
+ 753      00000000 
+ 754 0100 10000000 		.quad	-9223372036854775792
+ 754      00000080 
+ 755 0108 00000000 		.quad	.LC17
+ 755      00000000 
+ 756 0110 11000000 		.quad	-9223372036854775791
+ 756      00000080 
+ 757 0118 00000000 		.quad	.LC18
+ 757      00000000 
+ 758 0120 12000000 		.quad	-9223372036854775790
+ 758      00000080 
+ 759 0128 00000000 		.quad	.LC19
+ 759      00000000 
+ 760 0130 13000000 		.quad	-9223372036854775789
+ 760      00000080 
+ 761 0138 00000000 		.quad	.LC20
+ 761      00000000 
+ 762 0140 14000000 		.quad	-9223372036854775788
+ 762      00000080 
+ 763 0148 00000000 		.quad	.LC21
+ 763      00000000 
+ 764 0150 15000000 		.quad	-9223372036854775787
+ 764      00000080 
+ 765 0158 00000000 		.quad	.LC22
+ 765      00000000 
+ 766 0160 16000000 		.quad	-9223372036854775786
+ 766      00000080 
+ 767 0168 00000000 		.quad	.LC23
+ 767      00000000 
+ 768 0170 17000000 		.quad	-9223372036854775785
+ 768      00000080 
+ 769 0178 00000000 		.quad	.LC24
+ 769      00000000 
+ 770 0180 18000000 		.quad	-9223372036854775784
+ 770      00000080 
+ 771 0188 00000000 		.quad	.LC25
+ 771      00000000 
+ 772 0190 19000000 		.quad	-9223372036854775783
+ 772      00000080 
+ 773 0198 00000000 		.quad	.LC26
+ 773      00000000 
+ 774 01a0 1A000000 		.quad	-9223372036854775782
+ 774      00000080 
+ 775 01a8 00000000 		.quad	.LC27
+ 775      00000000 
+ 776 01b0 1B000000 		.quad	-9223372036854775781
+ 776      00000080 
+ 777 01b8 00000000 		.quad	.LC28
+ 777      00000000 
+ 778 01c0 1C000000 		.quad	-9223372036854775780
+ 778      00000080 
+ 779 01c8 00000000 		.quad	.LC29
+ 779      00000000 
+ 780 01d0 1F000000 		.quad	-9223372036854775777
+ 780      00000080 
+ 781 01d8 00000000 		.quad	.LC30
+ 781      00000000 
+ 782 01e0 20000000 		.quad	-9223372036854775776
+ 782      00000080 
+ 783 01e8 00000000 		.quad	.LC31
+ 783      00000000 
+ 784 01f0 21000000 		.quad	-9223372036854775775
+ 784      00000080 
+ 785 01f8 00000000 		.quad	.LC32
+ 785      00000000 
+ 786 0200 01000000 		.quad	1
+ 786      00000000 
+ 787 0208 00000000 		.quad	.LC33
+ 787      00000000 
+ 788 0210 02000000 		.quad	2
+ 788      00000000 
+ 789 0218 00000000 		.quad	.LC34
+ 789      00000000 
+ 790 0220 03000000 		.quad	3
+ 790      00000000 
+ 791 0228 00000000 		.quad	.LC35
+ 791      00000000 
+ 792 0230 04000000 		.quad	4
+ 792      00000000 
+ 793 0238 00000000 		.quad	.LC36
+ 793      00000000 
+ 794 0240 00000000 		.quad	0
+ 794      00000000 
+ 795 0248 00000000 		.quad	0
+ 795      00000000 
+ 796              		.text
+ 797              	.Letext0:
+ 798              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 799              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 800              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 801              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efilib.h"
+ 9539              		.section	.note.gnu.property,"a"
+ 9540              		.align 8
+ 9541 0000 04000000 		.long	1f - 0f
+ 9542 0004 10000000 		.long	4f - 1f
+ 9543 0008 05000000 		.long	5
+ 9544              	0:
+ 9545 000c 474E5500 		.string	"GNU"
+ 9546              	1:
+ 9547              		.align 8
+ 9548 0010 020000C0 		.long	0xc0000002
+ 9549 0014 04000000 		.long	3f - 2f
+ 9550              	2:
+ 9551 0018 03000000 		.long	0x3
+ 9552              	3:
+ 9553 001c 00000000 		.align 8
+ 9554              	4:

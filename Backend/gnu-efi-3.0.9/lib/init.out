@@ -1,0 +1,859 @@
+   1              		.file	"init.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	InitializeUnicodeSupport
+   7              		.hidden	InitializeUnicodeSupport
+   9              	InitializeUnicodeSupport:
+  10              	.LVL0:
+  11              	.LFB1:
+  12              		.file 1 "../Backend/gnu-efi-3.0.9/lib/init.c"
+   1:../Backend/gnu-efi-3.0.9/lib/init.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/init.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/init.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+   8:../Backend/gnu-efi-3.0.9/lib/init.c **** Abstract:
+   9:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  10:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  12:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/init.c **** Revision History
+  14:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  15:../Backend/gnu-efi-3.0.9/lib/init.c **** --*/
+  16:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  17:../Backend/gnu-efi-3.0.9/lib/init.c **** #include "lib.h"
+  18:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  19:../Backend/gnu-efi-3.0.9/lib/init.c **** VOID
+  20:../Backend/gnu-efi-3.0.9/lib/init.c **** EFIDebugVariable (
+  21:../Backend/gnu-efi-3.0.9/lib/init.c ****     VOID
+  22:../Backend/gnu-efi-3.0.9/lib/init.c ****     );
+  23:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  24:../Backend/gnu-efi-3.0.9/lib/init.c **** VOID
+  25:../Backend/gnu-efi-3.0.9/lib/init.c **** InitializeLib (
+  26:../Backend/gnu-efi-3.0.9/lib/init.c ****     IN EFI_HANDLE           ImageHandle,
+  27:../Backend/gnu-efi-3.0.9/lib/init.c ****     IN EFI_SYSTEM_TABLE     *SystemTable
+  28:../Backend/gnu-efi-3.0.9/lib/init.c ****     )
+  29:../Backend/gnu-efi-3.0.9/lib/init.c **** /*++
+  30:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  31:../Backend/gnu-efi-3.0.9/lib/init.c **** Routine Description:
+  32:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  33:../Backend/gnu-efi-3.0.9/lib/init.c ****     Initializes EFI library for use
+  34:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  35:../Backend/gnu-efi-3.0.9/lib/init.c **** Arguments:
+  36:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  37:../Backend/gnu-efi-3.0.9/lib/init.c ****     Firmware's EFI system table
+  38:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  39:../Backend/gnu-efi-3.0.9/lib/init.c **** Returns:
+  40:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  41:../Backend/gnu-efi-3.0.9/lib/init.c ****     None
+  42:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  43:../Backend/gnu-efi-3.0.9/lib/init.c **** --*/
+  44:../Backend/gnu-efi-3.0.9/lib/init.c **** {
+  45:../Backend/gnu-efi-3.0.9/lib/init.c ****     EFI_LOADED_IMAGE        *LoadedImage;
+  46:../Backend/gnu-efi-3.0.9/lib/init.c ****     EFI_STATUS              Status;
+  47:../Backend/gnu-efi-3.0.9/lib/init.c ****     CHAR8                   *LangCode;
+  48:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  49:../Backend/gnu-efi-3.0.9/lib/init.c ****     if (!LibInitialized) {
+  50:../Backend/gnu-efi-3.0.9/lib/init.c ****         LibInitialized = TRUE;
+  51:../Backend/gnu-efi-3.0.9/lib/init.c ****         LibFwInstance = FALSE;
+  52:../Backend/gnu-efi-3.0.9/lib/init.c ****         LibImageHandle = ImageHandle;
+  53:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  54:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  55:../Backend/gnu-efi-3.0.9/lib/init.c ****         //
+  56:../Backend/gnu-efi-3.0.9/lib/init.c ****         // Set up global pointer to the system table, boot services table,
+  57:../Backend/gnu-efi-3.0.9/lib/init.c ****         // and runtime services table
+  58:../Backend/gnu-efi-3.0.9/lib/init.c ****         //
+  59:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  60:../Backend/gnu-efi-3.0.9/lib/init.c ****         ST = SystemTable;
+  61:../Backend/gnu-efi-3.0.9/lib/init.c ****         BS = SystemTable->BootServices;
+  62:../Backend/gnu-efi-3.0.9/lib/init.c ****         RT = SystemTable->RuntimeServices;
+  63:../Backend/gnu-efi-3.0.9/lib/init.c **** //        ASSERT (CheckCrc(0, &ST->Hdr));
+  64:../Backend/gnu-efi-3.0.9/lib/init.c **** //        ASSERT (CheckCrc(0, &BS->Hdr));
+  65:../Backend/gnu-efi-3.0.9/lib/init.c **** //        ASSERT (CheckCrc(0, &RT->Hdr));
+  66:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  67:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  68:../Backend/gnu-efi-3.0.9/lib/init.c ****         //
+  69:../Backend/gnu-efi-3.0.9/lib/init.c ****         // Initialize pool allocation type
+  70:../Backend/gnu-efi-3.0.9/lib/init.c ****         //
+  71:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  72:../Backend/gnu-efi-3.0.9/lib/init.c ****         if (ImageHandle) {
+  73:../Backend/gnu-efi-3.0.9/lib/init.c **** /* // This is an EFI 1.0 function.
+  74:../Backend/gnu-efi-3.0.9/lib/init.c ****             Status = uefi_call_wrapper(
+  75:../Backend/gnu-efi-3.0.9/lib/init.c ****                 BS->HandleProtocol,
+  76:../Backend/gnu-efi-3.0.9/lib/init.c ****                 3,
+  77:../Backend/gnu-efi-3.0.9/lib/init.c ****                 ImageHandle,
+  78:../Backend/gnu-efi-3.0.9/lib/init.c ****                 &LoadedImageProtocol,
+  79:../Backend/gnu-efi-3.0.9/lib/init.c ****                 (VOID*)&LoadedImage
+  80:../Backend/gnu-efi-3.0.9/lib/init.c ****             );
+  81:../Backend/gnu-efi-3.0.9/lib/init.c **** */
+  82:../Backend/gnu-efi-3.0.9/lib/init.c **** // This is a UEFI 2.x function
+  83:../Backend/gnu-efi-3.0.9/lib/init.c ****               Status = uefi_call_wrapper(
+  84:../Backend/gnu-efi-3.0.9/lib/init.c ****                   BS->OpenProtocol,
+  85:../Backend/gnu-efi-3.0.9/lib/init.c ****                   6,
+  86:../Backend/gnu-efi-3.0.9/lib/init.c ****                   ImageHandle,
+  87:../Backend/gnu-efi-3.0.9/lib/init.c ****                   &LoadedImageProtocol,
+  88:../Backend/gnu-efi-3.0.9/lib/init.c ****                   (VOID*)&LoadedImage,
+  89:../Backend/gnu-efi-3.0.9/lib/init.c ****                   NULL,
+  90:../Backend/gnu-efi-3.0.9/lib/init.c ****                   NULL,
+  91:../Backend/gnu-efi-3.0.9/lib/init.c ****                   EFI_OPEN_PROTOCOL_GET_PROTOCOL
+  92:../Backend/gnu-efi-3.0.9/lib/init.c ****               );
+  93:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+  94:../Backend/gnu-efi-3.0.9/lib/init.c ****             if (!EFI_ERROR(Status)) {
+  95:../Backend/gnu-efi-3.0.9/lib/init.c ****                 PoolAllocationType = LoadedImage->ImageDataType;
+  96:../Backend/gnu-efi-3.0.9/lib/init.c ****             }
+  97:../Backend/gnu-efi-3.0.9/lib/init.c ****             EFIDebugVariable ();
+  98:../Backend/gnu-efi-3.0.9/lib/init.c ****         }
+  99:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 100:../Backend/gnu-efi-3.0.9/lib/init.c ****         //
+ 101:../Backend/gnu-efi-3.0.9/lib/init.c ****         // Initialize Guid table
+ 102:../Backend/gnu-efi-3.0.9/lib/init.c ****         //
+ 103:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 104:../Backend/gnu-efi-3.0.9/lib/init.c ****         InitializeGuid();
+ 105:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 106:../Backend/gnu-efi-3.0.9/lib/init.c ****         InitializeLibPlatform(ImageHandle,SystemTable);
+ 107:../Backend/gnu-efi-3.0.9/lib/init.c ****     }
+ 108:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 109:../Backend/gnu-efi-3.0.9/lib/init.c ****     //
+ 110:../Backend/gnu-efi-3.0.9/lib/init.c ****     //
+ 111:../Backend/gnu-efi-3.0.9/lib/init.c ****     //
+ 112:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 113:../Backend/gnu-efi-3.0.9/lib/init.c ****     if (ImageHandle && UnicodeInterface == &LibStubUnicodeInterface) {
+ 114:../Backend/gnu-efi-3.0.9/lib/init.c ****         LangCode = LibGetVariable (VarLanguage, &EfiGlobalVariable);
+ 115:../Backend/gnu-efi-3.0.9/lib/init.c ****         InitializeUnicodeSupport (LangCode);
+ 116:../Backend/gnu-efi-3.0.9/lib/init.c ****         if (LangCode) {
+ 117:../Backend/gnu-efi-3.0.9/lib/init.c ****             FreePool (LangCode);
+ 118:../Backend/gnu-efi-3.0.9/lib/init.c ****         }
+ 119:../Backend/gnu-efi-3.0.9/lib/init.c ****     }
+ 120:../Backend/gnu-efi-3.0.9/lib/init.c **** }
+ 121:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 122:../Backend/gnu-efi-3.0.9/lib/init.c **** VOID
+ 123:../Backend/gnu-efi-3.0.9/lib/init.c **** InitializeUnicodeSupport (
+ 124:../Backend/gnu-efi-3.0.9/lib/init.c ****     CHAR8 *LangCode
+ 125:../Backend/gnu-efi-3.0.9/lib/init.c ****     )
+ 126:../Backend/gnu-efi-3.0.9/lib/init.c **** {
+  13              		.loc 1 126 1 view -0
+  14              		.cfi_startproc
+  15              		.loc 1 126 1 is_stmt 0 view .LVU1
+  16 0000 F30F1EFA 		endbr64
+  17 0004 4156     		pushq	%r14
+  18              		.cfi_def_cfa_offset 16
+  19              		.cfi_offset 14, -16
+  20 0006 4155     		pushq	%r13
+  21              		.cfi_def_cfa_offset 24
+  22              		.cfi_offset 13, -24
+  23 0008 4154     		pushq	%r12
+  24              		.cfi_def_cfa_offset 32
+  25              		.cfi_offset 12, -32
+  26 000a 55       		pushq	%rbp
+  27              		.cfi_def_cfa_offset 40
+  28              		.cfi_offset 6, -40
+  29 000b 53       		pushq	%rbx
+  30              		.cfi_def_cfa_offset 48
+  31              		.cfi_offset 3, -48
+  32 000c 4883EC50 		subq	$80, %rsp
+  33              		.cfi_def_cfa_offset 128
+  34 0010 4889FD   		movq	%rdi, %rbp
+ 127:../Backend/gnu-efi-3.0.9/lib/init.c ****     EFI_UNICODE_COLLATION_INTERFACE *Ui;
+  35              		.loc 1 127 5 is_stmt 1 view .LVU2
+ 128:../Backend/gnu-efi-3.0.9/lib/init.c ****     EFI_STATUS                      Status;
+  36              		.loc 1 128 5 view .LVU3
+ 129:../Backend/gnu-efi-3.0.9/lib/init.c ****     CHAR8                           *Languages;
+  37              		.loc 1 129 5 view .LVU4
+ 130:../Backend/gnu-efi-3.0.9/lib/init.c ****     UINTN                           Index, Position, Length;
+  38              		.loc 1 130 5 view .LVU5
+ 131:../Backend/gnu-efi-3.0.9/lib/init.c ****     UINTN                           NoHandles;
+  39              		.loc 1 131 5 view .LVU6
+ 132:../Backend/gnu-efi-3.0.9/lib/init.c ****     EFI_HANDLE                      *Handles;
+  40              		.loc 1 132 5 view .LVU7
+ 133:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 134:../Backend/gnu-efi-3.0.9/lib/init.c ****     //
+ 135:../Backend/gnu-efi-3.0.9/lib/init.c ****     // If we don't know it, lookup the current language code
+ 136:../Backend/gnu-efi-3.0.9/lib/init.c ****     //
+ 137:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 138:../Backend/gnu-efi-3.0.9/lib/init.c ****     LibLocateHandle (ByProtocol, &UnicodeCollationProtocol, NULL, &NoHandles, &Handles);
+  41              		.loc 1 138 5 view .LVU8
+  42 0013 488D4C24 		leaq	64(%rsp), %rcx
+  42      40
+  43 0018 4C8D4424 		leaq	56(%rsp), %r8
+  43      38
+  44 001d BA000000 		movl	$0, %edx
+  44      00
+  45 0022 488D3500 		leaq	gEfiUnicodeCollationProtocolGuid(%rip), %rsi
+  45      000000
+  46 0029 BF020000 		movl	$2, %edi
+  46      00
+  47              	.LVL1:
+  48              		.loc 1 138 5 is_stmt 0 view .LVU9
+  49 002e E8000000 		call	LibLocateHandle
+  49      00
+  50              	.LVL2:
+ 139:../Backend/gnu-efi-3.0.9/lib/init.c ****     if (!LangCode || !NoHandles) {
+  51              		.loc 1 139 5 is_stmt 1 view .LVU10
+  52              		.loc 1 139 8 is_stmt 0 view .LVU11
+  53 0033 4885ED   		testq	%rbp, %rbp
+  54 0036 741C     		je	.L2
+  55              		.loc 1 139 19 discriminator 1 view .LVU12
+  56 0038 48837C24 		cmpq	$0, 64(%rsp)
+  56      4000
+  57 003e 7414     		je	.L2
+ 140:../Backend/gnu-efi-3.0.9/lib/init.c ****         goto Done;
+ 141:../Backend/gnu-efi-3.0.9/lib/init.c ****     }
+ 142:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 143:../Backend/gnu-efi-3.0.9/lib/init.c ****     //
+ 144:../Backend/gnu-efi-3.0.9/lib/init.c ****     // Check all driver's for a matching language code
+ 145:../Backend/gnu-efi-3.0.9/lib/init.c ****     //
+ 146:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 147:../Backend/gnu-efi-3.0.9/lib/init.c ****     for (Index=0; Index < NoHandles; Index++) {
+  58              		.loc 1 147 15 view .LVU13
+  59 0040 41BD0000 		movl	$0, %r13d
+  59      0000
+  60 0046 EB2C     		jmp	.L3
+  61              	.LVL3:
+  62              	.L11:
+ 148:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 149:../Backend/gnu-efi-3.0.9/lib/init.c **** //        Status = uefi_call_wrapper(BS->HandleProtocol, 3, Handles[Index], &UnicodeCollationProtoc
+ 150:../Backend/gnu-efi-3.0.9/lib/init.c ****         Status = uefi_call_wrapper(BS->OpenProtocol, 6, Handles[Index], &UnicodeCollationProtocol, 
+ 151:../Backend/gnu-efi-3.0.9/lib/init.c ****         if (EFI_ERROR(Status)) {
+ 152:../Backend/gnu-efi-3.0.9/lib/init.c ****             continue;
+ 153:../Backend/gnu-efi-3.0.9/lib/init.c ****         }
+ 154:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 155:../Backend/gnu-efi-3.0.9/lib/init.c ****         //
+ 156:../Backend/gnu-efi-3.0.9/lib/init.c ****         // Check for a matching language code
+ 157:../Backend/gnu-efi-3.0.9/lib/init.c ****         //
+ 158:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 159:../Backend/gnu-efi-3.0.9/lib/init.c ****         Languages = Ui->SupportedLanguages;
+ 160:../Backend/gnu-efi-3.0.9/lib/init.c ****         Length = strlena(Languages);
+ 161:../Backend/gnu-efi-3.0.9/lib/init.c ****         for (Position=0; Position < Length; Position += ISO_639_2_ENTRY_SIZE) {
+ 162:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 163:../Backend/gnu-efi-3.0.9/lib/init.c ****             //
+ 164:../Backend/gnu-efi-3.0.9/lib/init.c ****             // If this code matches, use this driver
+ 165:../Backend/gnu-efi-3.0.9/lib/init.c ****             //
+ 166:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 167:../Backend/gnu-efi-3.0.9/lib/init.c ****             if (CompareMem (Languages+Position, LangCode, ISO_639_2_ENTRY_SIZE) == 0) {
+ 168:../Backend/gnu-efi-3.0.9/lib/init.c ****                 UnicodeInterface = Ui;
+  63              		.loc 1 168 17 is_stmt 1 view .LVU14
+  64              		.loc 1 168 34 is_stmt 0 view .LVU15
+  65 0048 488B4424 		movq	72(%rsp), %rax
+  65      48
+  66 004d 48890500 		movq	%rax, UnicodeInterface(%rip)
+  66      000000
+ 169:../Backend/gnu-efi-3.0.9/lib/init.c ****                 goto Done;
+  67              		.loc 1 169 17 is_stmt 1 view .LVU16
+  68              	.LVL4:
+  69              	.L2:
+ 170:../Backend/gnu-efi-3.0.9/lib/init.c ****             }
+ 171:../Backend/gnu-efi-3.0.9/lib/init.c ****         }
+ 172:../Backend/gnu-efi-3.0.9/lib/init.c ****     }
+ 173:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 174:../Backend/gnu-efi-3.0.9/lib/init.c **** Done:
+ 175:../Backend/gnu-efi-3.0.9/lib/init.c ****     //
+ 176:../Backend/gnu-efi-3.0.9/lib/init.c ****     // Cleanup
+ 177:../Backend/gnu-efi-3.0.9/lib/init.c ****     //
+ 178:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 179:../Backend/gnu-efi-3.0.9/lib/init.c ****     if (Handles) {
+  70              		.loc 1 179 5 view .LVU17
+  71              		.loc 1 179 9 is_stmt 0 view .LVU18
+  72 0054 488B7C24 		movq	56(%rsp), %rdi
+  72      38
+  73              		.loc 1 179 8 view .LVU19
+  74 0059 4885FF   		testq	%rdi, %rdi
+  75 005c 7405     		je	.L1
+ 180:../Backend/gnu-efi-3.0.9/lib/init.c ****         FreePool (Handles);
+  76              		.loc 1 180 9 is_stmt 1 view .LVU20
+  77 005e E8000000 		call	FreePool
+  77      00
+  78              	.LVL5:
+  79              	.L1:
+ 181:../Backend/gnu-efi-3.0.9/lib/init.c ****     }
+ 182:../Backend/gnu-efi-3.0.9/lib/init.c **** }
+  80              		.loc 1 182 1 is_stmt 0 view .LVU21
+  81 0063 4883C450 		addq	$80, %rsp
+  82              		.cfi_remember_state
+  83              		.cfi_def_cfa_offset 48
+  84 0067 5B       		popq	%rbx
+  85              		.cfi_restore 3
+  86              		.cfi_def_cfa_offset 40
+  87 0068 5D       		popq	%rbp
+  88              		.cfi_restore 6
+  89              		.cfi_def_cfa_offset 32
+  90              	.LVL6:
+  91              		.loc 1 182 1 view .LVU22
+  92 0069 415C     		popq	%r12
+  93              		.cfi_restore 12
+  94              		.cfi_def_cfa_offset 24
+  95 006b 415D     		popq	%r13
+  96              		.cfi_restore 13
+  97              		.cfi_def_cfa_offset 16
+  98 006d 415E     		popq	%r14
+  99              		.cfi_restore 14
+ 100              		.cfi_def_cfa_offset 8
+ 101 006f C3       		ret
+ 102              	.LVL7:
+ 103              	.L4:
+ 104              		.cfi_restore_state
+ 147:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 105              		.loc 1 147 43 is_stmt 1 discriminator 2 view .LVU23
+ 106 0070 4983C501 		addq	$1, %r13
+ 107              	.LVL8:
+ 108              	.L3:
+ 147:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 109              		.loc 1 147 25 discriminator 1 view .LVU24
+ 110 0074 4C3B6C24 		cmpq	64(%rsp), %r13
+ 110      40
+ 111 0079 73D9     		jnb	.L2
+ 150:../Backend/gnu-efi-3.0.9/lib/init.c ****         if (EFI_ERROR(Status)) {
+ 112              		.loc 1 150 9 view .LVU25
+ 150:../Backend/gnu-efi-3.0.9/lib/init.c ****         if (EFI_ERROR(Status)) {
+ 113              		.loc 1 150 18 is_stmt 0 view .LVU26
+ 114 007b 488B0500 		movq	BS(%rip), %rax
+ 114      000000
+ 115 0082 488B8018 		movq	280(%rax), %rax
+ 115      010000
+ 116 0089 488B5424 		movq	56(%rsp), %rdx
+ 116      38
+ 117 008e 4A8B0CEA 		movq	(%rdx,%r13,8), %rcx
+ 118 0092 C7442428 		movl	$2, 40(%rsp)
+ 118      02000000 
+ 119 009a 48C74424 		movq	$0, 32(%rsp)
+ 119      20000000 
+ 119      00
+ 120 00a3 41B90000 		movl	$0, %r9d
+ 120      0000
+ 121 00a9 4C8D4424 		leaq	72(%rsp), %r8
+ 121      48
+ 122 00ae 488D1500 		leaq	gEfiUnicodeCollationProtocolGuid(%rip), %rdx
+ 122      000000
+ 123 00b5 FFD0     		call	*%rax
+ 124              	.LVL9:
+ 151:../Backend/gnu-efi-3.0.9/lib/init.c ****             continue;
+ 125              		.loc 1 151 9 is_stmt 1 view .LVU27
+ 151:../Backend/gnu-efi-3.0.9/lib/init.c ****             continue;
+ 126              		.loc 1 151 12 is_stmt 0 view .LVU28
+ 127 00b7 4885C0   		testq	%rax, %rax
+ 128 00ba 78B4     		js	.L4
+ 159:../Backend/gnu-efi-3.0.9/lib/init.c ****         Length = strlena(Languages);
+ 129              		.loc 1 159 9 is_stmt 1 view .LVU29
+ 159:../Backend/gnu-efi-3.0.9/lib/init.c ****         Length = strlena(Languages);
+ 130              		.loc 1 159 23 is_stmt 0 view .LVU30
+ 131 00bc 488B4424 		movq	72(%rsp), %rax
+ 131      48
+ 132              	.LVL10:
+ 159:../Backend/gnu-efi-3.0.9/lib/init.c ****         Length = strlena(Languages);
+ 133              		.loc 1 159 19 view .LVU31
+ 134 00c1 4C8B7030 		movq	48(%rax), %r14
+ 135              	.LVL11:
+ 160:../Backend/gnu-efi-3.0.9/lib/init.c ****         for (Position=0; Position < Length; Position += ISO_639_2_ENTRY_SIZE) {
+ 136              		.loc 1 160 9 is_stmt 1 view .LVU32
+ 160:../Backend/gnu-efi-3.0.9/lib/init.c ****         for (Position=0; Position < Length; Position += ISO_639_2_ENTRY_SIZE) {
+ 137              		.loc 1 160 18 is_stmt 0 view .LVU33
+ 138 00c5 4C89F7   		movq	%r14, %rdi
+ 139 00c8 E8000000 		call	strlena
+ 139      00
+ 140              	.LVL12:
+ 141 00cd 4989C4   		movq	%rax, %r12
+ 142              	.LVL13:
+ 161:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 143              		.loc 1 161 9 is_stmt 1 view .LVU34
+ 161:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 144              		.loc 1 161 22 is_stmt 0 view .LVU35
+ 145 00d0 BB000000 		movl	$0, %ebx
+ 145      00
+ 146              	.LVL14:
+ 147              	.L5:
+ 161:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 148              		.loc 1 161 35 is_stmt 1 discriminator 1 view .LVU36
+ 149 00d5 4C39E3   		cmpq	%r12, %rbx
+ 150 00d8 7396     		jnb	.L4
+ 167:../Backend/gnu-efi-3.0.9/lib/init.c ****                 UnicodeInterface = Ui;
+ 151              		.loc 1 167 13 view .LVU37
+ 167:../Backend/gnu-efi-3.0.9/lib/init.c ****                 UnicodeInterface = Ui;
+ 152              		.loc 1 167 38 is_stmt 0 view .LVU38
+ 153 00da 498D3C1E 		leaq	(%r14,%rbx), %rdi
+ 167:../Backend/gnu-efi-3.0.9/lib/init.c ****                 UnicodeInterface = Ui;
+ 154              		.loc 1 167 17 view .LVU39
+ 155 00de BA030000 		movl	$3, %edx
+ 155      00
+ 156 00e3 4889EE   		movq	%rbp, %rsi
+ 157 00e6 E8000000 		call	CompareMem
+ 157      00
+ 158              	.LVL15:
+ 167:../Backend/gnu-efi-3.0.9/lib/init.c ****                 UnicodeInterface = Ui;
+ 159              		.loc 1 167 16 discriminator 1 view .LVU40
+ 160 00eb 4885C0   		testq	%rax, %rax
+ 161 00ee 0F8454FF 		je	.L11
+ 161      FFFF
+ 161:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 162              		.loc 1 161 54 is_stmt 1 discriminator 2 view .LVU41
+ 163 00f4 4883C303 		addq	$3, %rbx
+ 164              	.LVL16:
+ 161:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 165              		.loc 1 161 54 is_stmt 0 discriminator 2 view .LVU42
+ 166 00f8 EBDB     		jmp	.L5
+ 167              		.cfi_endproc
+ 168              	.LFE1:
+ 170              		.section	.rodata
+ 171              		.align 2
+ 172              	.LC0:
+ 173 0000 4500     		.string	"E"
+ 174 0002 4600     		.string	"F"
+ 175 0004 4900     		.string	"I"
+ 176 0006 4400     		.string	"D"
+ 177 0008 6500     		.string	"e"
+ 178 000a 6200     		.string	"b"
+ 179 000c 7500     		.string	"u"
+ 180 000e 6700     		.string	"g"
+ 181 0010 00       		.string	""
+ 182 0011 00       		.string	""
+ 183              		.text
+ 184              		.globl	EFIDebugVariable
+ 185              		.hidden	EFIDebugVariable
+ 187              	EFIDebugVariable:
+ 188              	.LFB2:
+ 183:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 184:../Backend/gnu-efi-3.0.9/lib/init.c **** VOID
+ 185:../Backend/gnu-efi-3.0.9/lib/init.c **** EFIDebugVariable (
+ 186:../Backend/gnu-efi-3.0.9/lib/init.c ****     VOID
+ 187:../Backend/gnu-efi-3.0.9/lib/init.c ****     )
+ 188:../Backend/gnu-efi-3.0.9/lib/init.c **** {
+ 189              		.loc 1 188 1 is_stmt 1 view -0
+ 190              		.cfi_startproc
+ 191 00fa F30F1EFA 		endbr64
+ 192 00fe 4883EC58 		subq	$88, %rsp
+ 193              		.cfi_def_cfa_offset 96
+ 189:../Backend/gnu-efi-3.0.9/lib/init.c ****     EFI_STATUS      Status;
+ 194              		.loc 1 189 5 view .LVU44
+ 190:../Backend/gnu-efi-3.0.9/lib/init.c ****     UINT32          Attributes;
+ 195              		.loc 1 190 5 view .LVU45
+ 191:../Backend/gnu-efi-3.0.9/lib/init.c ****     UINTN           DataSize;
+ 196              		.loc 1 191 5 view .LVU46
+ 192:../Backend/gnu-efi-3.0.9/lib/init.c ****     UINTN           NewEFIDebug;
+ 197              		.loc 1 192 5 view .LVU47
+ 193:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 194:../Backend/gnu-efi-3.0.9/lib/init.c ****     DataSize = sizeof(EFIDebug);
+ 198              		.loc 1 194 5 view .LVU48
+ 199              		.loc 1 194 14 is_stmt 0 view .LVU49
+ 200 0102 48C74424 		movq	$8, 64(%rsp)
+ 200      40080000 
+ 200      00
+ 195:../Backend/gnu-efi-3.0.9/lib/init.c ****     Status = uefi_call_wrapper(RT->GetVariable, 5, L"EFIDebug", &EfiGlobalVariable, &Attributes, &D
+ 201              		.loc 1 195 5 is_stmt 1 view .LVU50
+ 202              		.loc 1 195 14 is_stmt 0 view .LVU51
+ 203 010b 488B0500 		movq	RT(%rip), %rax
+ 203      000000
+ 204 0112 488B4048 		movq	72(%rax), %rax
+ 205 0116 488D5424 		leaq	56(%rsp), %rdx
+ 205      38
+ 206 011b 48895424 		movq	%rdx, 32(%rsp)
+ 206      20
+ 207 0120 4C8D4C24 		leaq	64(%rsp), %r9
+ 207      40
+ 208 0125 4C8D4424 		leaq	76(%rsp), %r8
+ 208      4C
+ 209 012a 488D1500 		leaq	gEfiGlobalVariableGuid(%rip), %rdx
+ 209      000000
+ 210 0131 488D0D00 		leaq	.LC0(%rip), %rcx
+ 210      000000
+ 211 0138 FFD0     		call	*%rax
+ 212              	.LVL17:
+ 196:../Backend/gnu-efi-3.0.9/lib/init.c ****     if (!EFI_ERROR(Status)) {
+ 213              		.loc 1 196 5 is_stmt 1 view .LVU52
+ 214              		.loc 1 196 8 is_stmt 0 view .LVU53
+ 215 013a 4885C0   		testq	%rax, %rax
+ 216 013d 780C     		js	.L12
+ 197:../Backend/gnu-efi-3.0.9/lib/init.c ****         EFIDebug = NewEFIDebug;
+ 217              		.loc 1 197 9 is_stmt 1 view .LVU54
+ 218              		.loc 1 197 18 is_stmt 0 view .LVU55
+ 219 013f 488B4424 		movq	56(%rsp), %rax
+ 219      38
+ 220              	.LVL18:
+ 221              		.loc 1 197 18 view .LVU56
+ 222 0144 48890500 		movq	%rax, EFIDebug(%rip)
+ 222      000000
+ 223              	.L12:
+ 198:../Backend/gnu-efi-3.0.9/lib/init.c ****     }
+ 199:../Backend/gnu-efi-3.0.9/lib/init.c **** }
+ 224              		.loc 1 199 1 view .LVU57
+ 225 014b 4883C458 		addq	$88, %rsp
+ 226              		.cfi_def_cfa_offset 8
+ 227 014f C3       		ret
+ 228              		.cfi_endproc
+ 229              	.LFE2:
+ 231              		.section	.rodata
+ 232              		.align 2
+ 233              	.LC1:
+ 234 0012 4C00     		.string	"L"
+ 235 0014 6100     		.string	"a"
+ 236 0016 6E00     		.string	"n"
+ 237 0018 6700     		.string	"g"
+ 238 001a 00       		.string	""
+ 239 001b 00       		.string	""
+ 240              		.text
+ 241              		.globl	InitializeLib
+ 242              		.hidden	InitializeLib
+ 244              	InitializeLib:
+ 245              	.LVL19:
+ 246              	.LFB0:
+  44:../Backend/gnu-efi-3.0.9/lib/init.c ****     EFI_LOADED_IMAGE        *LoadedImage;
+ 247              		.loc 1 44 1 is_stmt 1 view -0
+ 248              		.cfi_startproc
+  44:../Backend/gnu-efi-3.0.9/lib/init.c ****     EFI_LOADED_IMAGE        *LoadedImage;
+ 249              		.loc 1 44 1 is_stmt 0 view .LVU59
+ 250 0150 F30F1EFA 		endbr64
+ 251 0154 55       		pushq	%rbp
+ 252              		.cfi_def_cfa_offset 16
+ 253              		.cfi_offset 6, -16
+ 254 0155 53       		pushq	%rbx
+ 255              		.cfi_def_cfa_offset 24
+ 256              		.cfi_offset 3, -24
+ 257 0156 4883EC48 		subq	$72, %rsp
+ 258              		.cfi_def_cfa_offset 96
+ 259 015a 4889FB   		movq	%rdi, %rbx
+  45:../Backend/gnu-efi-3.0.9/lib/init.c ****     EFI_STATUS              Status;
+ 260              		.loc 1 45 5 is_stmt 1 view .LVU60
+  46:../Backend/gnu-efi-3.0.9/lib/init.c ****     CHAR8                   *LangCode;
+ 261              		.loc 1 46 5 view .LVU61
+  47:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 262              		.loc 1 47 5 view .LVU62
+  49:../Backend/gnu-efi-3.0.9/lib/init.c ****         LibInitialized = TRUE;
+ 263              		.loc 1 49 5 view .LVU63
+  49:../Backend/gnu-efi-3.0.9/lib/init.c ****         LibInitialized = TRUE;
+ 264              		.loc 1 49 8 is_stmt 0 view .LVU64
+ 265 015d 803D0000 		cmpb	$0, LibInitialized(%rip)
+ 265      000000
+ 266 0164 0F859100 		jne	.L16
+ 266      0000
+ 267 016a 4889F5   		movq	%rsi, %rbp
+  50:../Backend/gnu-efi-3.0.9/lib/init.c ****         LibFwInstance = FALSE;
+ 268              		.loc 1 50 9 is_stmt 1 view .LVU65
+  50:../Backend/gnu-efi-3.0.9/lib/init.c ****         LibFwInstance = FALSE;
+ 269              		.loc 1 50 24 is_stmt 0 view .LVU66
+ 270 016d C6050000 		movb	$1, LibInitialized(%rip)
+ 270      000001
+  51:../Backend/gnu-efi-3.0.9/lib/init.c ****         LibImageHandle = ImageHandle;
+ 271              		.loc 1 51 9 is_stmt 1 view .LVU67
+  51:../Backend/gnu-efi-3.0.9/lib/init.c ****         LibImageHandle = ImageHandle;
+ 272              		.loc 1 51 23 is_stmt 0 view .LVU68
+ 273 0174 C6050000 		movb	$0, LibFwInstance(%rip)
+ 273      000000
+  52:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 274              		.loc 1 52 9 is_stmt 1 view .LVU69
+  52:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 275              		.loc 1 52 24 is_stmt 0 view .LVU70
+ 276 017b 48893D00 		movq	%rdi, LibImageHandle(%rip)
+ 276      000000
+  60:../Backend/gnu-efi-3.0.9/lib/init.c ****         BS = SystemTable->BootServices;
+ 277              		.loc 1 60 9 is_stmt 1 view .LVU71
+  60:../Backend/gnu-efi-3.0.9/lib/init.c ****         BS = SystemTable->BootServices;
+ 278              		.loc 1 60 12 is_stmt 0 view .LVU72
+ 279 0182 48893500 		movq	%rsi, ST(%rip)
+ 279      000000
+  61:../Backend/gnu-efi-3.0.9/lib/init.c ****         RT = SystemTable->RuntimeServices;
+ 280              		.loc 1 61 9 is_stmt 1 view .LVU73
+  61:../Backend/gnu-efi-3.0.9/lib/init.c ****         RT = SystemTable->RuntimeServices;
+ 281              		.loc 1 61 25 is_stmt 0 view .LVU74
+ 282 0189 488B4660 		movq	96(%rsi), %rax
+  61:../Backend/gnu-efi-3.0.9/lib/init.c ****         RT = SystemTable->RuntimeServices;
+ 283              		.loc 1 61 12 view .LVU75
+ 284 018d 48890500 		movq	%rax, BS(%rip)
+ 284      000000
+  62:../Backend/gnu-efi-3.0.9/lib/init.c **** //        ASSERT (CheckCrc(0, &ST->Hdr));
+ 285              		.loc 1 62 9 is_stmt 1 view .LVU76
+  62:../Backend/gnu-efi-3.0.9/lib/init.c **** //        ASSERT (CheckCrc(0, &ST->Hdr));
+ 286              		.loc 1 62 25 is_stmt 0 view .LVU77
+ 287 0194 488B5658 		movq	88(%rsi), %rdx
+  62:../Backend/gnu-efi-3.0.9/lib/init.c **** //        ASSERT (CheckCrc(0, &ST->Hdr));
+ 288              		.loc 1 62 12 view .LVU78
+ 289 0198 48891500 		movq	%rdx, RT(%rip)
+ 289      000000
+  72:../Backend/gnu-efi-3.0.9/lib/init.c **** /* // This is an EFI 1.0 function.
+ 290              		.loc 1 72 9 is_stmt 1 view .LVU79
+  72:../Backend/gnu-efi-3.0.9/lib/init.c **** /* // This is an EFI 1.0 function.
+ 291              		.loc 1 72 12 is_stmt 0 view .LVU80
+ 292 019f 4885FF   		testq	%rdi, %rdi
+ 293 01a2 7447     		je	.L17
+  83:../Backend/gnu-efi-3.0.9/lib/init.c ****                   BS->OpenProtocol,
+ 294              		.loc 1 83 15 is_stmt 1 view .LVU81
+  83:../Backend/gnu-efi-3.0.9/lib/init.c ****                   BS->OpenProtocol,
+ 295              		.loc 1 83 24 is_stmt 0 view .LVU82
+ 296 01a4 488B8018 		movq	280(%rax), %rax
+ 296      010000
+ 297 01ab C7442428 		movl	$2, 40(%rsp)
+ 297      02000000 
+ 298 01b3 48C74424 		movq	$0, 32(%rsp)
+ 298      20000000 
+ 298      00
+ 299 01bc 41B90000 		movl	$0, %r9d
+ 299      0000
+ 300 01c2 4C8D4424 		leaq	56(%rsp), %r8
+ 300      38
+ 301 01c7 488D1500 		leaq	gEfiLoadedImageProtocolGuid(%rip), %rdx
+ 301      000000
+ 302 01ce 4889F9   		movq	%rdi, %rcx
+ 303 01d1 FFD0     		call	*%rax
+ 304              	.LVL20:
+  94:../Backend/gnu-efi-3.0.9/lib/init.c ****                 PoolAllocationType = LoadedImage->ImageDataType;
+ 305              		.loc 1 94 13 is_stmt 1 view .LVU83
+  94:../Backend/gnu-efi-3.0.9/lib/init.c ****                 PoolAllocationType = LoadedImage->ImageDataType;
+ 306              		.loc 1 94 16 is_stmt 0 view .LVU84
+ 307 01d3 4885C0   		testq	%rax, %rax
+ 308 01d6 780E     		js	.L18
+  95:../Backend/gnu-efi-3.0.9/lib/init.c ****             }
+ 309              		.loc 1 95 17 is_stmt 1 view .LVU85
+  95:../Backend/gnu-efi-3.0.9/lib/init.c ****             }
+ 310              		.loc 1 95 49 is_stmt 0 view .LVU86
+ 311 01d8 488B4424 		movq	56(%rsp), %rax
+ 311      38
+ 312              	.LVL21:
+  95:../Backend/gnu-efi-3.0.9/lib/init.c ****             }
+ 313              		.loc 1 95 49 view .LVU87
+ 314 01dd 8B4054   		movl	84(%rax), %eax
+  95:../Backend/gnu-efi-3.0.9/lib/init.c ****             }
+ 315              		.loc 1 95 36 view .LVU88
+ 316 01e0 89050000 		movl	%eax, PoolAllocationType(%rip)
+ 316      0000
+ 317              	.L18:
+  97:../Backend/gnu-efi-3.0.9/lib/init.c ****         }
+ 318              		.loc 1 97 13 is_stmt 1 view .LVU89
+ 319 01e6 E8000000 		call	EFIDebugVariable
+ 319      00
+ 320              	.LVL22:
+ 321              	.L17:
+ 104:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 322              		.loc 1 104 9 view .LVU90
+ 323 01eb E8000000 		call	InitializeGuid
+ 323      00
+ 324              	.LVL23:
+ 106:../Backend/gnu-efi-3.0.9/lib/init.c ****     }
+ 325              		.loc 1 106 9 view .LVU91
+ 326 01f0 4889EE   		movq	%rbp, %rsi
+ 327 01f3 4889DF   		movq	%rbx, %rdi
+ 328 01f6 E8000000 		call	InitializeLibPlatform
+ 328      00
+ 329              	.LVL24:
+ 330              	.L16:
+ 113:../Backend/gnu-efi-3.0.9/lib/init.c ****         LangCode = LibGetVariable (VarLanguage, &EfiGlobalVariable);
+ 331              		.loc 1 113 5 view .LVU92
+ 113:../Backend/gnu-efi-3.0.9/lib/init.c ****         LangCode = LibGetVariable (VarLanguage, &EfiGlobalVariable);
+ 332              		.loc 1 113 8 is_stmt 0 view .LVU93
+ 333 01fb 4885DB   		testq	%rbx, %rbx
+ 334 01fe 7410     		je	.L15
+ 113:../Backend/gnu-efi-3.0.9/lib/init.c ****         LangCode = LibGetVariable (VarLanguage, &EfiGlobalVariable);
+ 335              		.loc 1 113 21 discriminator 1 view .LVU94
+ 336 0200 488D0500 		leaq	LibStubUnicodeInterface(%rip), %rax
+ 336      000000
+ 337 0207 48390500 		cmpq	%rax, UnicodeInterface(%rip)
+ 337      000000
+ 338 020e 7407     		je	.L21
+ 339              	.LVL25:
+ 340              	.L15:
+ 120:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 341              		.loc 1 120 1 view .LVU95
+ 342 0210 4883C448 		addq	$72, %rsp
+ 343              		.cfi_remember_state
+ 344              		.cfi_def_cfa_offset 24
+ 345 0214 5B       		popq	%rbx
+ 346              		.cfi_restore 3
+ 347              		.cfi_def_cfa_offset 16
+ 348 0215 5D       		popq	%rbp
+ 349              		.cfi_restore 6
+ 350              		.cfi_def_cfa_offset 8
+ 351 0216 C3       		ret
+ 352              	.LVL26:
+ 353              	.L21:
+ 354              		.cfi_restore_state
+ 114:../Backend/gnu-efi-3.0.9/lib/init.c ****         InitializeUnicodeSupport (LangCode);
+ 355              		.loc 1 114 9 is_stmt 1 view .LVU96
+ 114:../Backend/gnu-efi-3.0.9/lib/init.c ****         InitializeUnicodeSupport (LangCode);
+ 356              		.loc 1 114 20 is_stmt 0 view .LVU97
+ 357 0217 488D3500 		leaq	gEfiGlobalVariableGuid(%rip), %rsi
+ 357      000000
+ 358 021e 488D3D00 		leaq	.LC1(%rip), %rdi
+ 358      000000
+ 359 0225 E8000000 		call	LibGetVariable
+ 359      00
+ 360              	.LVL27:
+ 361 022a 4889C3   		movq	%rax, %rbx
+ 362              	.LVL28:
+ 115:../Backend/gnu-efi-3.0.9/lib/init.c ****         if (LangCode) {
+ 363              		.loc 1 115 9 is_stmt 1 view .LVU98
+ 364 022d 4889C7   		movq	%rax, %rdi
+ 365 0230 E8000000 		call	InitializeUnicodeSupport
+ 365      00
+ 366              	.LVL29:
+ 116:../Backend/gnu-efi-3.0.9/lib/init.c ****             FreePool (LangCode);
+ 367              		.loc 1 116 9 view .LVU99
+ 116:../Backend/gnu-efi-3.0.9/lib/init.c ****             FreePool (LangCode);
+ 368              		.loc 1 116 12 is_stmt 0 view .LVU100
+ 369 0235 4885DB   		testq	%rbx, %rbx
+ 370 0238 74D6     		je	.L15
+ 117:../Backend/gnu-efi-3.0.9/lib/init.c ****         }
+ 371              		.loc 1 117 13 is_stmt 1 view .LVU101
+ 372 023a 4889DF   		movq	%rbx, %rdi
+ 373 023d E8000000 		call	FreePool
+ 373      00
+ 374              	.LVL30:
+ 120:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 375              		.loc 1 120 1 is_stmt 0 view .LVU102
+ 376 0242 EBCC     		jmp	.L15
+ 377              		.cfi_endproc
+ 378              	.LFE0:
+ 380              		.globl	memset
+ 381              		.hidden	memset
+ 383              	memset:
+ 384              	.LVL31:
+ 385              	.LFB3:
+ 200:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 201:../Backend/gnu-efi-3.0.9/lib/init.c **** /*
+ 202:../Backend/gnu-efi-3.0.9/lib/init.c ****  * Calls to memset/memcpy may be emitted implicitly by GCC or MSVC
+ 203:../Backend/gnu-efi-3.0.9/lib/init.c ****  * even when -ffreestanding or /NODEFAULTLIB are in effect.
+ 204:../Backend/gnu-efi-3.0.9/lib/init.c ****  */
+ 205:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 206:../Backend/gnu-efi-3.0.9/lib/init.c **** #ifndef __SIZE_TYPE__
+ 207:../Backend/gnu-efi-3.0.9/lib/init.c **** #define __SIZE_TYPE__ UINTN
+ 208:../Backend/gnu-efi-3.0.9/lib/init.c **** #endif
+ 209:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 210:../Backend/gnu-efi-3.0.9/lib/init.c **** void *memset(void *s, int c, __SIZE_TYPE__ n)
+ 211:../Backend/gnu-efi-3.0.9/lib/init.c **** {
+ 386              		.loc 1 211 1 is_stmt 1 view -0
+ 387              		.cfi_startproc
+ 388              		.loc 1 211 1 is_stmt 0 view .LVU104
+ 389 0244 F30F1EFA 		endbr64
+ 390 0248 4889F8   		movq	%rdi, %rax
+ 212:../Backend/gnu-efi-3.0.9/lib/init.c ****     unsigned char *p = s;
+ 391              		.loc 1 212 5 is_stmt 1 view .LVU105
+ 392              	.LVL32:
+ 213:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 214:../Backend/gnu-efi-3.0.9/lib/init.c ****     while (n--)
+ 393              		.loc 1 214 5 view .LVU106
+ 212:../Backend/gnu-efi-3.0.9/lib/init.c ****     unsigned char *p = s;
+ 394              		.loc 1 212 20 is_stmt 0 view .LVU107
+ 395 024b 4889F9   		movq	%rdi, %rcx
+ 396              		.loc 1 214 11 view .LVU108
+ 397 024e EB0A     		jmp	.L23
+ 398              	.LVL33:
+ 399              	.L24:
+ 215:../Backend/gnu-efi-3.0.9/lib/init.c ****         *p++ = c;
+ 400              		.loc 1 215 9 is_stmt 1 view .LVU109
+ 401              		.loc 1 215 14 is_stmt 0 view .LVU110
+ 402 0250 408831   		movb	%sil, (%rcx)
+ 403              		.loc 1 215 11 view .LVU111
+ 404 0253 488D4901 		leaq	1(%rcx), %rcx
+ 405              	.LVL34:
+ 214:../Backend/gnu-efi-3.0.9/lib/init.c ****         *p++ = c;
+ 406              		.loc 1 214 13 view .LVU112
+ 407 0257 4C89C2   		movq	%r8, %rdx
+ 408              	.LVL35:
+ 409              	.L23:
+ 214:../Backend/gnu-efi-3.0.9/lib/init.c ****         *p++ = c;
+ 410              		.loc 1 214 12 is_stmt 1 view .LVU113
+ 214:../Backend/gnu-efi-3.0.9/lib/init.c ****         *p++ = c;
+ 411              		.loc 1 214 13 is_stmt 0 view .LVU114
+ 412 025a 4C8D42FF 		leaq	-1(%rdx), %r8
+ 413              	.LVL36:
+ 214:../Backend/gnu-efi-3.0.9/lib/init.c ****         *p++ = c;
+ 414              		.loc 1 214 12 view .LVU115
+ 415 025e 4885D2   		testq	%rdx, %rdx
+ 416 0261 75ED     		jne	.L24
+ 216:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 217:../Backend/gnu-efi-3.0.9/lib/init.c ****     return s;
+ 417              		.loc 1 217 5 is_stmt 1 view .LVU116
+ 218:../Backend/gnu-efi-3.0.9/lib/init.c **** }
+ 418              		.loc 1 218 1 is_stmt 0 view .LVU117
+ 419 0263 C3       		ret
+ 420              		.cfi_endproc
+ 421              	.LFE3:
+ 423              		.globl	memcpy
+ 424              		.hidden	memcpy
+ 426              	memcpy:
+ 427              	.LVL37:
+ 428              	.LFB4:
+ 219:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 220:../Backend/gnu-efi-3.0.9/lib/init.c **** void *memcpy(void *dest, const void *src, __SIZE_TYPE__ n)
+ 221:../Backend/gnu-efi-3.0.9/lib/init.c **** {
+ 429              		.loc 1 221 1 is_stmt 1 view -0
+ 430              		.cfi_startproc
+ 431              		.loc 1 221 1 is_stmt 0 view .LVU119
+ 432 0264 F30F1EFA 		endbr64
+ 433 0268 4889F8   		movq	%rdi, %rax
+ 222:../Backend/gnu-efi-3.0.9/lib/init.c ****     const unsigned char *q = src;
+ 434              		.loc 1 222 5 is_stmt 1 view .LVU120
+ 435              	.LVL38:
+ 223:../Backend/gnu-efi-3.0.9/lib/init.c ****     unsigned char *p = dest;
+ 436              		.loc 1 223 5 view .LVU121
+ 224:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 225:../Backend/gnu-efi-3.0.9/lib/init.c ****     while (n--)
+ 437              		.loc 1 225 5 view .LVU122
+ 223:../Backend/gnu-efi-3.0.9/lib/init.c ****     unsigned char *p = dest;
+ 438              		.loc 1 223 20 is_stmt 0 view .LVU123
+ 439 026b 4889F9   		movq	%rdi, %rcx
+ 440              		.loc 1 225 11 view .LVU124
+ 441 026e EB10     		jmp	.L26
+ 442              	.LVL39:
+ 443              	.L27:
+ 226:../Backend/gnu-efi-3.0.9/lib/init.c ****         *p++ = *q++;
+ 444              		.loc 1 226 9 is_stmt 1 view .LVU125
+ 445              		.loc 1 226 16 is_stmt 0 view .LVU126
+ 446 0270 0FB616   		movzbl	(%rsi), %edx
+ 447              		.loc 1 226 14 view .LVU127
+ 448 0273 8811     		movb	%dl, (%rcx)
+ 449              		.loc 1 226 11 view .LVU128
+ 450 0275 488D4901 		leaq	1(%rcx), %rcx
+ 451              	.LVL40:
+ 452              		.loc 1 226 18 view .LVU129
+ 453 0279 488D7601 		leaq	1(%rsi), %rsi
+ 454              	.LVL41:
+ 225:../Backend/gnu-efi-3.0.9/lib/init.c ****         *p++ = *q++;
+ 455              		.loc 1 225 13 view .LVU130
+ 456 027d 4C89C2   		movq	%r8, %rdx
+ 457              	.LVL42:
+ 458              	.L26:
+ 225:../Backend/gnu-efi-3.0.9/lib/init.c ****         *p++ = *q++;
+ 459              		.loc 1 225 12 is_stmt 1 view .LVU131
+ 225:../Backend/gnu-efi-3.0.9/lib/init.c ****         *p++ = *q++;
+ 460              		.loc 1 225 13 is_stmt 0 view .LVU132
+ 461 0280 4C8D42FF 		leaq	-1(%rdx), %r8
+ 462              	.LVL43:
+ 225:../Backend/gnu-efi-3.0.9/lib/init.c ****         *p++ = *q++;
+ 463              		.loc 1 225 12 view .LVU133
+ 464 0284 4885D2   		testq	%rdx, %rdx
+ 465 0287 75E7     		jne	.L27
+ 227:../Backend/gnu-efi-3.0.9/lib/init.c **** 
+ 228:../Backend/gnu-efi-3.0.9/lib/init.c ****     return dest;
+ 466              		.loc 1 228 5 is_stmt 1 view .LVU134
+ 229:../Backend/gnu-efi-3.0.9/lib/init.c **** }
+ 467              		.loc 1 229 1 is_stmt 0 view .LVU135
+ 468 0289 C3       		ret
+ 469              		.cfi_endproc
+ 470              	.LFE4:
+ 472              	.Letext0:
+ 473              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 474              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 475              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 476              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efidevp.h"
+ 477              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efiprot.h"
+ 478              		.file 7 "../Backend/gnu-efi-3.0.9/inc/efiapi.h"
+ 479              		.file 8 "../Backend/gnu-efi-3.0.9/inc/eficon.h"
+ 480              		.file 9 "../Backend/gnu-efi-3.0.9/inc/efilib.h"
+ 481              		.file 10 "../Backend/gnu-efi-3.0.9/inc/efidebug.h"
+ 482              		.file 11 "../Backend/gnu-efi-3.0.9/lib/lib.h"
+ 483              		.file 12 "../Backend/gnu-efi-3.0.9/inc/x86_64/efilibplat.h"
+ 14187              		.section	.note.gnu.property,"a"
+ 14188              		.align 8
+ 14189 0000 04000000 		.long	1f - 0f
+ 14190 0004 10000000 		.long	4f - 1f
+ 14191 0008 05000000 		.long	5
+ 14192              	0:
+ 14193 000c 474E5500 		.string	"GNU"
+ 14194              	1:
+ 14195              		.align 8
+ 14196 0010 020000C0 		.long	0xc0000002
+ 14197 0014 04000000 		.long	3f - 2f
+ 14198              	2:
+ 14199 0018 03000000 		.long	0x3
+ 14200              	3:
+ 14201 001c 00000000 		.align 8
+ 14202              	4:

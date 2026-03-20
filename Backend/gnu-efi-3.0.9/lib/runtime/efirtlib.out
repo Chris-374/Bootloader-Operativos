@@ -1,0 +1,418 @@
+   1              		.file	"efirtlib.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	RtZeroMem
+   8              	RtZeroMem:
+   9              	.LVL0:
+  10              	.LFB0:
+  11              		.file 1 "../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c"
+   1:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** Copyright (c) 1999  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     EfiRtLib.h
+   8:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     EFI Runtime library functions
+  12:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+  15:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** Revision History
+  16:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+  17:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** --*/
+  18:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+  19:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #include "efi.h"
+  20:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #include "efilib.h"
+  21:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #include "efirtlib.h"
+  22:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+  23:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #ifndef __GNUC__
+  24:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #pragma RUNTIME_CODE(RtZeroMem)
+  25:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #endif
+  26:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** VOID
+  27:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** RUNTIMEFUNCTION
+  28:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** RtZeroMem (
+  29:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     IN VOID     *Buffer,
+  30:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     IN UINTN     Size
+  31:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     )
+  32:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** {
+  12              		.loc 1 32 1 view -0
+  13              		.cfi_startproc
+  14              		.loc 1 32 1 is_stmt 0 view .LVU1
+  15 0000 F30F1EFA 		endbr64
+  33:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     INT8        *pt;
+  16              		.loc 1 33 5 is_stmt 1 view .LVU2
+  34:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+  35:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     pt = Buffer;
+  17              		.loc 1 35 5 view .LVU3
+  18              	.LVL1:
+  36:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (Size--) {
+  19              		.loc 1 36 5 view .LVU4
+  20              		.loc 1 36 11 is_stmt 0 view .LVU5
+  21 0004 EB0A     		jmp	.L2
+  22              	.LVL2:
+  23              	.L3:
+  37:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****         *(pt++) = 0;
+  24              		.loc 1 37 9 is_stmt 1 view .LVU6
+  25              		.loc 1 37 17 is_stmt 0 view .LVU7
+  26 0006 C60700   		movb	$0, (%rdi)
+  27              		.loc 1 37 13 view .LVU8
+  28 0009 488D7F01 		leaq	1(%rdi), %rdi
+  29              	.LVL3:
+  36:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (Size--) {
+  30              		.loc 1 36 16 view .LVU9
+  31 000d 4889C6   		movq	%rax, %rsi
+  32              	.LVL4:
+  33              	.L2:
+  36:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (Size--) {
+  34              		.loc 1 36 12 is_stmt 1 view .LVU10
+  36:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (Size--) {
+  35              		.loc 1 36 16 is_stmt 0 view .LVU11
+  36 0010 488D46FF 		leaq	-1(%rsi), %rax
+  37              	.LVL5:
+  36:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (Size--) {
+  38              		.loc 1 36 12 view .LVU12
+  39 0014 4885F6   		testq	%rsi, %rsi
+  40 0017 75ED     		jne	.L3
+  38:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     }
+  39:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** }
+  41              		.loc 1 39 1 view .LVU13
+  42 0019 C3       		ret
+  43              		.cfi_endproc
+  44              	.LFE0:
+  46              		.globl	RtSetMem
+  48              	RtSetMem:
+  49              	.LVL6:
+  50              	.LFB1:
+  40:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+  41:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #ifndef __GNUC__
+  42:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #pragma RUNTIME_CODE(RtSetMem)
+  43:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #endif
+  44:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** VOID
+  45:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** RUNTIMEFUNCTION
+  46:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** RtSetMem (
+  47:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     IN VOID     *Buffer,
+  48:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     IN UINTN    Size,
+  49:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     IN UINT8    Value    
+  50:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     )
+  51:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** {
+  51              		.loc 1 51 1 is_stmt 1 view -0
+  52              		.cfi_startproc
+  53              		.loc 1 51 1 is_stmt 0 view .LVU15
+  54 001a F30F1EFA 		endbr64
+  52:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     INT8        *pt;
+  55              		.loc 1 52 5 is_stmt 1 view .LVU16
+  53:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+  54:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     pt = Buffer;
+  56              		.loc 1 54 5 view .LVU17
+  57              	.LVL7:
+  55:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (Size--) {
+  58              		.loc 1 55 5 view .LVU18
+  59              		.loc 1 55 11 is_stmt 0 view .LVU19
+  60 001e EB09     		jmp	.L5
+  61              	.LVL8:
+  62              	.L6:
+  56:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****         *(pt++) = Value;
+  63              		.loc 1 56 9 is_stmt 1 view .LVU20
+  64              		.loc 1 56 17 is_stmt 0 view .LVU21
+  65 0020 8817     		movb	%dl, (%rdi)
+  66              		.loc 1 56 13 view .LVU22
+  67 0022 488D7F01 		leaq	1(%rdi), %rdi
+  68              	.LVL9:
+  55:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (Size--) {
+  69              		.loc 1 55 16 view .LVU23
+  70 0026 4889C6   		movq	%rax, %rsi
+  71              	.LVL10:
+  72              	.L5:
+  55:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (Size--) {
+  73              		.loc 1 55 12 is_stmt 1 view .LVU24
+  55:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (Size--) {
+  74              		.loc 1 55 16 is_stmt 0 view .LVU25
+  75 0029 488D46FF 		leaq	-1(%rsi), %rax
+  76              	.LVL11:
+  55:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (Size--) {
+  77              		.loc 1 55 12 view .LVU26
+  78 002d 4885F6   		testq	%rsi, %rsi
+  79 0030 75EE     		jne	.L6
+  57:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     }
+  58:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** }
+  80              		.loc 1 58 1 view .LVU27
+  81 0032 C3       		ret
+  82              		.cfi_endproc
+  83              	.LFE1:
+  85              		.globl	RtCopyMem
+  87              	RtCopyMem:
+  88              	.LVL12:
+  89              	.LFB2:
+  59:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+  60:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #ifndef __GNUC__
+  61:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #pragma RUNTIME_CODE(RtCopyMem)
+  62:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #endif
+  63:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** VOID
+  64:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** RUNTIMEFUNCTION
+  65:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** RtCopyMem (
+  66:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     IN VOID     *Dest,
+  67:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     IN CONST VOID     *Src,
+  68:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     IN UINTN    len
+  69:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     )
+  70:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** {
+  90              		.loc 1 70 1 is_stmt 1 view -0
+  91              		.cfi_startproc
+  92              		.loc 1 70 1 is_stmt 0 view .LVU29
+  93 0033 F30F1EFA 		endbr64
+  71:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     CHAR8   *d;
+  94              		.loc 1 71 5 is_stmt 1 view .LVU30
+  72:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     CONST CHAR8 *s = Src;
+  95              		.loc 1 72 5 view .LVU31
+  96              	.LVL13:
+  73:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     d = Dest;
+  97              		.loc 1 73 5 view .LVU32
+  74:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (len--) {
+  98              		.loc 1 74 5 view .LVU33
+  99              		.loc 1 74 11 is_stmt 0 view .LVU34
+ 100 0037 EB10     		jmp	.L8
+ 101              	.LVL14:
+ 102              	.L9:
+  75:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****         *(d++) = *(s++);
+ 103              		.loc 1 75 9 is_stmt 1 view .LVU35
+ 104              		.loc 1 75 18 is_stmt 0 view .LVU36
+ 105 0039 0FB616   		movzbl	(%rsi), %edx
+ 106              		.loc 1 75 16 view .LVU37
+ 107 003c 8817     		movb	%dl, (%rdi)
+ 108              		.loc 1 75 21 view .LVU38
+ 109 003e 488D7601 		leaq	1(%rsi), %rsi
+ 110              	.LVL15:
+ 111              		.loc 1 75 12 view .LVU39
+ 112 0042 488D7F01 		leaq	1(%rdi), %rdi
+ 113              	.LVL16:
+  74:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (len--) {
+ 114              		.loc 1 74 15 view .LVU40
+ 115 0046 4889C2   		movq	%rax, %rdx
+ 116              	.LVL17:
+ 117              	.L8:
+  74:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (len--) {
+ 118              		.loc 1 74 12 is_stmt 1 view .LVU41
+  74:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (len--) {
+ 119              		.loc 1 74 15 is_stmt 0 view .LVU42
+ 120 0049 488D42FF 		leaq	-1(%rdx), %rax
+ 121              	.LVL18:
+  74:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (len--) {
+ 122              		.loc 1 74 12 view .LVU43
+ 123 004d 4885D2   		testq	%rdx, %rdx
+ 124 0050 75E7     		jne	.L9
+  76:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     }
+  77:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** }
+ 125              		.loc 1 77 1 view .LVU44
+ 126 0052 C3       		ret
+ 127              		.cfi_endproc
+ 128              	.LFE2:
+ 130              		.globl	RtCompareMem
+ 132              	RtCompareMem:
+ 133              	.LVL19:
+ 134              	.LFB3:
+  78:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+  79:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #ifndef __GNUC__
+  80:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #pragma RUNTIME_CODE(RtCompareMem)
+  81:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #endif
+  82:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** INTN
+  83:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** RUNTIMEFUNCTION
+  84:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** RtCompareMem (
+  85:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     IN CONST VOID     *Dest,
+  86:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     IN CONST VOID     *Src,
+  87:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     IN UINTN    len
+  88:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     )
+  89:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** {
+ 135              		.loc 1 89 1 is_stmt 1 view -0
+ 136              		.cfi_startproc
+ 137              		.loc 1 89 1 is_stmt 0 view .LVU46
+ 138 0053 F30F1EFA 		endbr64
+  90:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     CONST CHAR8    *d = Dest, *s = Src;
+ 139              		.loc 1 90 5 is_stmt 1 view .LVU47
+ 140              	.LVL20:
+  91:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (len--) {
+ 141              		.loc 1 91 5 view .LVU48
+ 142              		.loc 1 91 11 is_stmt 0 view .LVU49
+ 143 0057 EB0B     		jmp	.L11
+ 144              	.LVL21:
+ 145              	.L12:
+  92:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****         if (*d != *s) {
+  93:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****             return *d - *s;
+  94:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****         }
+  95:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+  96:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****         d += 1;
+ 146              		.loc 1 96 9 is_stmt 1 view .LVU50
+ 147              		.loc 1 96 11 is_stmt 0 view .LVU51
+ 148 0059 4883C701 		addq	$1, %rdi
+ 149              	.LVL22:
+  97:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****         s += 1;
+ 150              		.loc 1 97 9 is_stmt 1 view .LVU52
+ 151              		.loc 1 97 11 is_stmt 0 view .LVU53
+ 152 005d 4883C601 		addq	$1, %rsi
+ 153              	.LVL23:
+  91:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (len--) {
+ 154              		.loc 1 91 15 view .LVU54
+ 155 0061 4889CA   		movq	%rcx, %rdx
+ 156              	.LVL24:
+ 157              	.L11:
+  91:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (len--) {
+ 158              		.loc 1 91 12 is_stmt 1 view .LVU55
+  91:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (len--) {
+ 159              		.loc 1 91 15 is_stmt 0 view .LVU56
+ 160 0064 488D4AFF 		leaq	-1(%rdx), %rcx
+ 161              	.LVL25:
+  91:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     while (len--) {
+ 162              		.loc 1 91 12 view .LVU57
+ 163 0068 4885D2   		testq	%rdx, %rdx
+ 164 006b 7415     		je	.L15
+  92:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****         if (*d != *s) {
+ 165              		.loc 1 92 9 is_stmt 1 view .LVU58
+  92:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****         if (*d != *s) {
+ 166              		.loc 1 92 13 is_stmt 0 view .LVU59
+ 167 006d 0FB607   		movzbl	(%rdi), %eax
+  92:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****         if (*d != *s) {
+ 168              		.loc 1 92 19 view .LVU60
+ 169 0070 0FB616   		movzbl	(%rsi), %edx
+  92:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****         if (*d != *s) {
+ 170              		.loc 1 92 12 view .LVU61
+ 171 0073 38D0     		cmpb	%dl, %al
+ 172 0075 74E2     		je	.L12
+  93:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****         }
+ 173              		.loc 1 93 13 is_stmt 1 view .LVU62
+  93:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****         }
+ 174              		.loc 1 93 20 is_stmt 0 view .LVU63
+ 175 0077 0FB6C0   		movzbl	%al, %eax
+  93:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****         }
+ 176              		.loc 1 93 25 view .LVU64
+ 177 007a 0FB6D2   		movzbl	%dl, %edx
+  93:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****         }
+ 178              		.loc 1 93 23 view .LVU65
+ 179 007d 29D0     		subl	%edx, %eax
+ 180 007f 4898     		cltq
+ 181 0081 C3       		ret
+ 182              	.L15:
+  98:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     }
+  99:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+ 100:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     return 0;
+ 183              		.loc 1 100 12 view .LVU66
+ 184 0082 B8000000 		movl	$0, %eax
+ 184      00
+ 101:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** }
+ 185              		.loc 1 101 1 view .LVU67
+ 186 0087 C3       		ret
+ 187              		.cfi_endproc
+ 188              	.LFE3:
+ 190              		.globl	RtCompareGuid
+ 192              	RtCompareGuid:
+ 193              	.LVL26:
+ 194              	.LFB4:
+ 102:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+ 103:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #ifndef __GNUC__
+ 104:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #pragma RUNTIME_CODE(RtCompareGuid)
+ 105:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** #endif
+ 106:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** INTN
+ 107:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** RUNTIMEFUNCTION
+ 108:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** RtCompareGuid (
+ 109:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     IN EFI_GUID     *Guid1,
+ 110:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     IN EFI_GUID     *Guid2
+ 111:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     )
+ 112:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** /*++
+ 113:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+ 114:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** Routine Description:
+ 115:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+ 116:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     Compares to GUIDs
+ 117:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+ 118:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** Arguments:
+ 119:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+ 120:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     Guid1       - guid to compare
+ 121:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     Guid2       - guid to compare
+ 122:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+ 123:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** Returns:
+ 124:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     = 0     if Guid1 == Guid2
+ 125:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+ 126:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** --*/
+ 127:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** {
+ 195              		.loc 1 127 1 is_stmt 1 view -0
+ 196              		.cfi_startproc
+ 197              		.loc 1 127 1 is_stmt 0 view .LVU69
+ 198 0088 F30F1EFA 		endbr64
+ 128:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     INT32       *g1, *g2, r;
+ 199              		.loc 1 128 5 is_stmt 1 view .LVU70
+ 129:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+ 130:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     //
+ 131:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     // Compare 32 bits at a time
+ 132:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     //
+ 133:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+ 134:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     g1 = (INT32 *) Guid1;
+ 200              		.loc 1 134 5 view .LVU71
+ 201              	.LVL27:
+ 135:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     g2 = (INT32 *) Guid2;
+ 202              		.loc 1 135 5 view .LVU72
+ 136:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+ 137:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     r  = g1[0] - g2[0];
+ 203              		.loc 1 137 5 view .LVU73
+ 204              		.loc 1 137 12 is_stmt 0 view .LVU74
+ 205 008c 8B17     		movl	(%rdi), %edx
+ 206              		.loc 1 137 8 view .LVU75
+ 207 008e 2B16     		subl	(%rsi), %edx
+ 208              	.LVL28:
+ 138:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     r |= g1[1] - g2[1];
+ 209              		.loc 1 138 5 is_stmt 1 view .LVU76
+ 210              		.loc 1 138 12 is_stmt 0 view .LVU77
+ 211 0090 8B4704   		movl	4(%rdi), %eax
+ 212              		.loc 1 138 16 view .LVU78
+ 213 0093 2B4604   		subl	4(%rsi), %eax
+ 214              		.loc 1 138 7 view .LVU79
+ 215 0096 09D0     		orl	%edx, %eax
+ 216              	.LVL29:
+ 139:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     r |= g1[2] - g2[2];
+ 217              		.loc 1 139 5 is_stmt 1 view .LVU80
+ 218              		.loc 1 139 12 is_stmt 0 view .LVU81
+ 219 0098 8B5708   		movl	8(%rdi), %edx
+ 220              		.loc 1 139 16 view .LVU82
+ 221 009b 2B5608   		subl	8(%rsi), %edx
+ 222              		.loc 1 139 7 view .LVU83
+ 223 009e 09C2     		orl	%eax, %edx
+ 224              	.LVL30:
+ 140:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     r |= g1[3] - g2[3];
+ 225              		.loc 1 140 5 is_stmt 1 view .LVU84
+ 226              		.loc 1 140 12 is_stmt 0 view .LVU85
+ 227 00a0 8B470C   		movl	12(%rdi), %eax
+ 228              		.loc 1 140 16 view .LVU86
+ 229 00a3 2B460C   		subl	12(%rsi), %eax
+ 230              		.loc 1 140 7 view .LVU87
+ 231 00a6 09D0     		orl	%edx, %eax
+ 232              	.LVL31:
+ 141:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** 
+ 142:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c ****     return r;
+ 233              		.loc 1 142 5 is_stmt 1 view .LVU88
+ 234              		.loc 1 142 12 is_stmt 0 view .LVU89
+ 235 00a8 4898     		cltq
+ 143:../Backend/gnu-efi-3.0.9/lib/runtime/efirtlib.c **** }
+ 236              		.loc 1 143 1 view .LVU90
+ 237 00aa C3       		ret
+ 238              		.cfi_endproc
+ 239              	.LFE4:
+ 241              	.Letext0:
+ 242              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 243              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 244              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 9296              		.section	.note.gnu.property,"a"
+ 9297              		.align 8
+ 9298 0000 04000000 		.long	1f - 0f
+ 9299 0004 10000000 		.long	4f - 1f
+ 9300 0008 05000000 		.long	5
+ 9301              	0:
+ 9302 000c 474E5500 		.string	"GNU"
+ 9303              	1:
+ 9304              		.align 8
+ 9305 0010 020000C0 		.long	0xc0000002
+ 9306 0014 04000000 		.long	3f - 2f
+ 9307              	2:
+ 9308 0018 03000000 		.long	0x3
+ 9309              	3:
+ 9310 001c 00000000 		.align 8
+ 9311              	4:

@@ -1,0 +1,277 @@
+   1              		.file	"rtlock.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	RtAcquireLock
+   7              		.hidden	RtAcquireLock
+   9              	RtAcquireLock:
+  10              	.LVL0:
+  11              	.LFB0:
+  12              		.file 1 "../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c"
+   1:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     lock.c
+   8:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     Implements FLOCK
+  12:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  15:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** Revision History
+  16:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  17:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** --*/
+  18:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  19:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  20:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** #include "lib.h"
+  21:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  22:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  23:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  24:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** #ifndef __GNUC__
+  25:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** #pragma RUNTIME_CODE(RtAcquireLock)
+  26:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** #endif
+  27:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** VOID
+  28:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** RtAcquireLock (
+  29:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     IN FLOCK    *Lock
+  30:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     )
+  31:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** /*++
+  32:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  33:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** Routine Description:
+  34:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  35:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     Raising to the task priority level of the mutual exclusion
+  36:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     lock, and then acquires ownership of the lock.
+  37:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     
+  38:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** Arguments:
+  39:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  40:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     Lock        - The lock to acquire
+  41:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     
+  42:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** Returns:
+  43:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  44:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     Lock owned
+  45:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  46:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** --*/
+  47:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** {
+  13              		.loc 1 47 1 view -0
+  14              		.cfi_startproc
+  15              		.loc 1 47 1 is_stmt 0 view .LVU1
+  16 0000 F30F1EFA 		endbr64
+  17 0004 53       		pushq	%rbx
+  18              		.cfi_def_cfa_offset 16
+  19              		.cfi_offset 3, -16
+  20 0005 4883EC20 		subq	$32, %rsp
+  21              		.cfi_def_cfa_offset 48
+  22 0009 4889FB   		movq	%rdi, %rbx
+  48:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     if (BS) {
+  23              		.loc 1 48 5 is_stmt 1 view .LVU2
+  24              		.loc 1 48 9 is_stmt 0 view .LVU3
+  25 000c 488B0500 		movq	BS(%rip), %rax
+  25      000000
+  26              		.loc 1 48 8 view .LVU4
+  27 0013 4885C0   		testq	%rax, %rax
+  28 0016 7424     		je	.L2
+  49:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****         if (BS->RaiseTPL != NULL) {
+  29              		.loc 1 49 9 is_stmt 1 view .LVU5
+  30              		.loc 1 49 15 is_stmt 0 view .LVU6
+  31 0018 488B4018 		movq	24(%rax), %rax
+  32              		.loc 1 49 12 view .LVU7
+  33 001c 4885C0   		testq	%rax, %rax
+  34 001f 7409     		je	.L3
+  50:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****             Lock->OwnerTpl = uefi_call_wrapper(BS->RaiseTPL, 1, Lock->Tpl);
+  35              		.loc 1 50 13 is_stmt 1 view .LVU8
+  36              		.loc 1 50 30 is_stmt 0 view .LVU9
+  37 0021 488B0F   		movq	(%rdi), %rcx
+  38 0024 FFD0     		call	*%rax
+  39              	.LVL1:
+  40              		.loc 1 50 28 discriminator 1 view .LVU10
+  41 0026 48894308 		movq	%rax, 8(%rbx)
+  42              	.L3:
+  51:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****         } 
+  52:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     }
+  53:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     else {
+  54:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****         if (LibRuntimeRaiseTPL != NULL) {
+  55:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****             Lock->OwnerTpl = LibRuntimeRaiseTPL(Lock->Tpl);
+  56:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****         }
+  57:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     }
+  58:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     Lock->Lock += 1;
+  43              		.loc 1 58 5 is_stmt 1 view .LVU11
+  44              		.loc 1 58 16 is_stmt 0 view .LVU12
+  45 002a 488B4310 		movq	16(%rbx), %rax
+  46 002e 4883C001 		addq	$1, %rax
+  47 0032 48894310 		movq	%rax, 16(%rbx)
+  59:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     ASSERT (Lock->Lock == 1);
+  48              		.loc 1 59 29 is_stmt 1 view .LVU13
+  60:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** }
+  49              		.loc 1 60 1 is_stmt 0 view .LVU14
+  50 0036 4883C420 		addq	$32, %rsp
+  51              		.cfi_remember_state
+  52              		.cfi_def_cfa_offset 16
+  53 003a 5B       		popq	%rbx
+  54              		.cfi_restore 3
+  55              		.cfi_def_cfa_offset 8
+  56              	.LVL2:
+  57              		.loc 1 60 1 view .LVU15
+  58 003b C3       		ret
+  59              	.LVL3:
+  60              	.L2:
+  61              		.cfi_restore_state
+  54:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****             Lock->OwnerTpl = LibRuntimeRaiseTPL(Lock->Tpl);
+  62              		.loc 1 54 9 is_stmt 1 view .LVU16
+  54:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****             Lock->OwnerTpl = LibRuntimeRaiseTPL(Lock->Tpl);
+  63              		.loc 1 54 32 is_stmt 0 view .LVU17
+  64 003c 488B0500 		movq	LibRuntimeRaiseTPL(%rip), %rax
+  64      000000
+  54:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****             Lock->OwnerTpl = LibRuntimeRaiseTPL(Lock->Tpl);
+  65              		.loc 1 54 12 view .LVU18
+  66 0043 4885C0   		testq	%rax, %rax
+  67 0046 74E2     		je	.L3
+  55:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****         }
+  68              		.loc 1 55 13 is_stmt 1 view .LVU19
+  55:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****         }
+  69              		.loc 1 55 30 is_stmt 0 view .LVU20
+  70 0048 488B0F   		movq	(%rdi), %rcx
+  71 004b FFD0     		call	*%rax
+  72              	.LVL4:
+  55:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****         }
+  73              		.loc 1 55 28 discriminator 1 view .LVU21
+  74 004d 48894308 		movq	%rax, 8(%rbx)
+  75 0051 EBD7     		jmp	.L3
+  76              		.cfi_endproc
+  77              	.LFE0:
+  79              		.globl	RtReleaseLock
+  80              		.hidden	RtReleaseLock
+  82              	RtReleaseLock:
+  83              	.LVL5:
+  84              	.LFB1:
+  61:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  62:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  63:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** #ifndef __GNUC__
+  64:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** #pragma RUNTIME_CODE(RtAcquireLock)
+  65:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** #endif
+  66:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** VOID
+  67:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** RtReleaseLock (
+  68:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     IN FLOCK    *Lock
+  69:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     )
+  70:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** /*++
+  71:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  72:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** Routine Description:
+  73:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  74:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     Releases ownership of the mutual exclusion lock, and
+  75:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     restores the previous task priority level.
+  76:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     
+  77:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** Arguments:
+  78:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  79:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     Lock        - The lock to release
+  80:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     
+  81:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** Returns:
+  82:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  83:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     Lock unowned
+  84:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  85:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** --*/
+  86:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** {
+  85              		.loc 1 86 1 is_stmt 1 view -0
+  86              		.cfi_startproc
+  87              		.loc 1 86 1 is_stmt 0 view .LVU23
+  88 0053 F30F1EFA 		endbr64
+  89 0057 4883EC28 		subq	$40, %rsp
+  90              		.cfi_def_cfa_offset 48
+  87:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     EFI_TPL     Tpl;
+  91              		.loc 1 87 5 is_stmt 1 view .LVU24
+  88:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** 
+  89:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     Tpl = Lock->OwnerTpl;
+  92              		.loc 1 89 5 view .LVU25
+  93              		.loc 1 89 9 is_stmt 0 view .LVU26
+  94 005b 488B4F08 		movq	8(%rdi), %rcx
+  95              	.LVL6:
+  90:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     ASSERT(Lock->Lock == 1);
+  96              		.loc 1 90 28 is_stmt 1 view .LVU27
+  91:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     Lock->Lock -= 1;
+  97              		.loc 1 91 5 view .LVU28
+  98              		.loc 1 91 16 is_stmt 0 view .LVU29
+  99 005f 488B4710 		movq	16(%rdi), %rax
+ 100 0063 4883E801 		subq	$1, %rax
+ 101 0067 48894710 		movq	%rax, 16(%rdi)
+  92:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     if (BS) {
+ 102              		.loc 1 92 5 is_stmt 1 view .LVU30
+ 103              		.loc 1 92 9 is_stmt 0 view .LVU31
+ 104 006b 488B0500 		movq	BS(%rip), %rax
+ 104      000000
+ 105              		.loc 1 92 8 view .LVU32
+ 106 0072 4885C0   		testq	%rax, %rax
+ 107 0075 7410     		je	.L6
+  93:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****         if (BS->RestoreTPL != NULL) {
+ 108              		.loc 1 93 9 is_stmt 1 view .LVU33
+ 109              		.loc 1 93 15 is_stmt 0 view .LVU34
+ 110 0077 488B4020 		movq	32(%rax), %rax
+ 111              		.loc 1 93 12 view .LVU35
+ 112 007b 4885C0   		testq	%rax, %rax
+ 113 007e 7402     		je	.L5
+  94:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****             uefi_call_wrapper(BS->RestoreTPL, 1, Tpl);
+ 114              		.loc 1 94 13 is_stmt 1 view .LVU36
+ 115 0080 FFD0     		call	*%rax
+ 116              	.LVL7:
+ 117              	.L5:
+  95:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****         } 
+  96:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     }
+  97:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     else {
+  98:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****         if (LibRuntimeRestoreTPL != NULL) {
+  99:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****             LibRuntimeRestoreTPL(Tpl);
+ 100:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****         }
+ 101:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****     }
+ 102:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c **** }
+ 118              		.loc 1 102 1 is_stmt 0 view .LVU37
+ 119 0082 4883C428 		addq	$40, %rsp
+ 120              		.cfi_remember_state
+ 121              		.cfi_def_cfa_offset 8
+ 122 0086 C3       		ret
+ 123              	.LVL8:
+ 124              	.L6:
+ 125              		.cfi_restore_state
+  98:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****             LibRuntimeRestoreTPL(Tpl);
+ 126              		.loc 1 98 9 is_stmt 1 view .LVU38
+  98:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****             LibRuntimeRestoreTPL(Tpl);
+ 127              		.loc 1 98 34 is_stmt 0 view .LVU39
+ 128 0087 488B0500 		movq	LibRuntimeRestoreTPL(%rip), %rax
+ 128      000000
+  98:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****             LibRuntimeRestoreTPL(Tpl);
+ 129              		.loc 1 98 12 view .LVU40
+ 130 008e 4885C0   		testq	%rax, %rax
+ 131 0091 74EF     		je	.L5
+  99:../Backend/gnu-efi-3.0.9/lib/runtime/rtlock.c ****         }
+ 132              		.loc 1 99 13 is_stmt 1 view .LVU41
+ 133 0093 FFD0     		call	*%rax
+ 134              	.LVL9:
+ 135              		.loc 1 102 1 is_stmt 0 view .LVU42
+ 136 0095 EBEB     		jmp	.L5
+ 137              		.cfi_endproc
+ 138              	.LFE1:
+ 140              	.Letext0:
+ 141              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 142              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 143              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 144              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efidevp.h"
+ 145              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efiprot.h"
+ 146              		.file 7 "../Backend/gnu-efi-3.0.9/inc/efiapi.h"
+ 147              		.file 8 "../Backend/gnu-efi-3.0.9/inc/efilink.h"
+ 148              		.file 9 "../Backend/gnu-efi-3.0.9/lib/lib.h"
+ 149              		.file 10 "../Backend/gnu-efi-3.0.9/inc/efilib.h"
+ 10915              		.section	.note.gnu.property,"a"
+ 10916              		.align 8
+ 10917 0000 04000000 		.long	1f - 0f
+ 10918 0004 10000000 		.long	4f - 1f
+ 10919 0008 05000000 		.long	5
+ 10920              	0:
+ 10921 000c 474E5500 		.string	"GNU"
+ 10922              	1:
+ 10923              		.align 8
+ 10924 0010 020000C0 		.long	0xc0000002
+ 10925 0014 04000000 		.long	3f - 2f
+ 10926              	2:
+ 10927 0018 03000000 		.long	0x3
+ 10928              	3:
+ 10929 001c 00000000 		.align 8
+ 10930              	4:

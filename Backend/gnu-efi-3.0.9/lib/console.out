@@ -1,0 +1,393 @@
+   1              		.file	"console.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	Output
+   7              		.hidden	Output
+   9              	Output:
+  10              	.LVL0:
+  11              	.LFB0:
+  12              		.file 1 "../Backend/gnu-efi-3.0.9/lib/console.c"
+   1:../Backend/gnu-efi-3.0.9/lib/console.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/console.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/console.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/console.c ****     console.c
+   8:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/console.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  12:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/console.c **** Revision History
+  15:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  16:../Backend/gnu-efi-3.0.9/lib/console.c **** --*/
+  17:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  18:../Backend/gnu-efi-3.0.9/lib/console.c **** #include "lib.h"
+  19:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  20:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  21:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  22:../Backend/gnu-efi-3.0.9/lib/console.c **** VOID
+  23:../Backend/gnu-efi-3.0.9/lib/console.c **** Output (
+  24:../Backend/gnu-efi-3.0.9/lib/console.c ****     IN CHAR16   *Str
+  25:../Backend/gnu-efi-3.0.9/lib/console.c ****     )
+  26:../Backend/gnu-efi-3.0.9/lib/console.c **** // Write a string to the console at the current cursor location
+  27:../Backend/gnu-efi-3.0.9/lib/console.c **** {
+  13              		.loc 1 27 1 view -0
+  14              		.cfi_startproc
+  15              		.loc 1 27 1 is_stmt 0 view .LVU1
+  16 0000 F30F1EFA 		endbr64
+  17 0004 4883EC28 		subq	$40, %rsp
+  18              		.cfi_def_cfa_offset 48
+  19 0008 4889FA   		movq	%rdi, %rdx
+  28:../Backend/gnu-efi-3.0.9/lib/console.c ****     uefi_call_wrapper(ST->ConOut->OutputString, 2, ST->ConOut, Str);
+  20              		.loc 1 28 5 is_stmt 1 view .LVU2
+  21 000b 488B0500 		movq	ST(%rip), %rax
+  21      000000
+  22 0012 488B4040 		movq	64(%rax), %rax
+  23 0016 4889C1   		movq	%rax, %rcx
+  24 0019 FF5008   		call	*8(%rax)
+  25              	.LVL1:
+  29:../Backend/gnu-efi-3.0.9/lib/console.c **** }
+  26              		.loc 1 29 1 is_stmt 0 view .LVU3
+  27 001c 4883C428 		addq	$40, %rsp
+  28              		.cfi_def_cfa_offset 8
+  29 0020 C3       		ret
+  30              		.cfi_endproc
+  31              	.LFE0:
+  33              		.section	.rodata
+  34              		.align 2
+  35              	.LC0:
+  36 0000 0800     		.string	"\b"
+  37 0002 2000     		.string	" "
+  38 0004 0800     		.string	"\b"
+  39 0006 00       		.string	""
+  40 0007 00       		.string	""
+  41              		.text
+  42              		.globl	IInput
+  43              		.hidden	IInput
+  45              	IInput:
+  46              	.LVL2:
+  47              	.LFB2:
+  30:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  31:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  32:../Backend/gnu-efi-3.0.9/lib/console.c **** VOID
+  33:../Backend/gnu-efi-3.0.9/lib/console.c **** Input (
+  34:../Backend/gnu-efi-3.0.9/lib/console.c ****     IN CHAR16    *Prompt OPTIONAL,
+  35:../Backend/gnu-efi-3.0.9/lib/console.c ****     OUT CHAR16   *InStr,
+  36:../Backend/gnu-efi-3.0.9/lib/console.c ****     IN UINTN     StrLen
+  37:../Backend/gnu-efi-3.0.9/lib/console.c ****     )
+  38:../Backend/gnu-efi-3.0.9/lib/console.c **** // Input a string at the current cursor location, for StrLen
+  39:../Backend/gnu-efi-3.0.9/lib/console.c **** {
+  40:../Backend/gnu-efi-3.0.9/lib/console.c ****     IInput (
+  41:../Backend/gnu-efi-3.0.9/lib/console.c ****         ST->ConOut,
+  42:../Backend/gnu-efi-3.0.9/lib/console.c ****         ST->ConIn,
+  43:../Backend/gnu-efi-3.0.9/lib/console.c ****         Prompt,
+  44:../Backend/gnu-efi-3.0.9/lib/console.c ****         InStr,
+  45:../Backend/gnu-efi-3.0.9/lib/console.c ****         StrLen
+  46:../Backend/gnu-efi-3.0.9/lib/console.c ****         );
+  47:../Backend/gnu-efi-3.0.9/lib/console.c **** }
+  48:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  49:../Backend/gnu-efi-3.0.9/lib/console.c **** VOID
+  50:../Backend/gnu-efi-3.0.9/lib/console.c **** IInput (
+  51:../Backend/gnu-efi-3.0.9/lib/console.c ****     IN SIMPLE_TEXT_OUTPUT_INTERFACE     *ConOut,
+  52:../Backend/gnu-efi-3.0.9/lib/console.c ****     IN SIMPLE_INPUT_INTERFACE           *ConIn,
+  53:../Backend/gnu-efi-3.0.9/lib/console.c ****     IN CHAR16                           *Prompt OPTIONAL,
+  54:../Backend/gnu-efi-3.0.9/lib/console.c ****     OUT CHAR16                          *InStr,
+  55:../Backend/gnu-efi-3.0.9/lib/console.c ****     IN UINTN                            StrLen
+  56:../Backend/gnu-efi-3.0.9/lib/console.c ****     )
+  57:../Backend/gnu-efi-3.0.9/lib/console.c **** // Input a string at the current cursor location, for StrLen
+  58:../Backend/gnu-efi-3.0.9/lib/console.c **** {
+  48              		.loc 1 58 1 is_stmt 1 view -0
+  49              		.cfi_startproc
+  50              		.loc 1 58 1 is_stmt 0 view .LVU5
+  51 0021 F30F1EFA 		endbr64
+  52 0025 4156     		pushq	%r14
+  53              		.cfi_def_cfa_offset 16
+  54              		.cfi_offset 14, -16
+  55 0027 4155     		pushq	%r13
+  56              		.cfi_def_cfa_offset 24
+  57              		.cfi_offset 13, -24
+  58 0029 4154     		pushq	%r12
+  59              		.cfi_def_cfa_offset 32
+  60              		.cfi_offset 12, -32
+  61 002b 55       		pushq	%rbp
+  62              		.cfi_def_cfa_offset 40
+  63              		.cfi_offset 6, -40
+  64 002c 53       		pushq	%rbx
+  65              		.cfi_def_cfa_offset 48
+  66              		.cfi_offset 3, -48
+  67 002d 4883EC30 		subq	$48, %rsp
+  68              		.cfi_def_cfa_offset 96
+  69 0031 4989FC   		movq	%rdi, %r12
+  70 0034 4889F3   		movq	%rsi, %rbx
+  71 0037 4989CD   		movq	%rcx, %r13
+  72 003a 4D89C6   		movq	%r8, %r14
+  59:../Backend/gnu-efi-3.0.9/lib/console.c ****     EFI_INPUT_KEY                   Key;
+  73              		.loc 1 59 5 is_stmt 1 view .LVU6
+  60:../Backend/gnu-efi-3.0.9/lib/console.c ****     EFI_STATUS                      Status;
+  74              		.loc 1 60 5 view .LVU7
+  61:../Backend/gnu-efi-3.0.9/lib/console.c ****     UINTN                           Len;
+  75              		.loc 1 61 5 view .LVU8
+  62:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  63:../Backend/gnu-efi-3.0.9/lib/console.c ****     if (Prompt) {
+  76              		.loc 1 63 5 view .LVU9
+  77              		.loc 1 63 8 is_stmt 0 view .LVU10
+  78 003d 4885D2   		testq	%rdx, %rdx
+  79 0040 7406     		je	.L4
+  64:../Backend/gnu-efi-3.0.9/lib/console.c ****         ConOut->OutputString (ConOut, Prompt);
+  80              		.loc 1 64 9 is_stmt 1 view .LVU11
+  81 0042 4889F9   		movq	%rdi, %rcx
+  82              	.LVL3:
+  83              		.loc 1 64 9 is_stmt 0 view .LVU12
+  84 0045 FF5708   		call	*8(%rdi)
+  85              	.LVL4:
+  86              	.L4:
+  58:../Backend/gnu-efi-3.0.9/lib/console.c ****     EFI_INPUT_KEY                   Key;
+  87              		.loc 1 58 1 view .LVU13
+  88 0048 BD000000 		movl	$0, %ebp
+  88      00
+  89              	.L5:
+  90              	.LVL5:
+  65:../Backend/gnu-efi-3.0.9/lib/console.c ****     }
+  66:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  67:../Backend/gnu-efi-3.0.9/lib/console.c ****     Len = 0;
+  68:../Backend/gnu-efi-3.0.9/lib/console.c ****     for (; ;) {
+  91              		.loc 1 68 5 is_stmt 1 view .LVU14
+  69:../Backend/gnu-efi-3.0.9/lib/console.c ****         WaitForSingleEvent (ConIn->WaitForKey, 0);
+  92              		.loc 1 69 9 view .LVU15
+  93 004d 488B7B10 		movq	16(%rbx), %rdi
+  94 0051 BE000000 		movl	$0, %esi
+  94      00
+  95 0056 E8000000 		call	WaitForSingleEvent
+  95      00
+  96              	.LVL6:
+  70:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  71:../Backend/gnu-efi-3.0.9/lib/console.c ****         Status = uefi_call_wrapper(ConIn->ReadKeyStroke, 2, ConIn, &Key);
+  97              		.loc 1 71 9 view .LVU16
+  98              		.loc 1 71 18 is_stmt 0 view .LVU17
+  99 005b 488D5424 		leaq	44(%rsp), %rdx
+  99      2C
+ 100 0060 4889D9   		movq	%rbx, %rcx
+ 101 0063 FF5308   		call	*8(%rbx)
+ 102              	.LVL7:
+  72:../Backend/gnu-efi-3.0.9/lib/console.c ****         if (EFI_ERROR(Status)) {
+ 103              		.loc 1 72 9 is_stmt 1 view .LVU18
+ 104              		.loc 1 72 12 is_stmt 0 view .LVU19
+ 105 0066 4885C0   		testq	%rax, %rax
+ 106 0069 7867     		js	.L6
+  73:../Backend/gnu-efi-3.0.9/lib/console.c ****             DEBUG((D_ERROR, "Input: error return from ReadKey %x\n", Status));
+  74:../Backend/gnu-efi-3.0.9/lib/console.c ****             break;
+  75:../Backend/gnu-efi-3.0.9/lib/console.c ****         }
+  76:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  77:../Backend/gnu-efi-3.0.9/lib/console.c ****         if (Key.UnicodeChar == '\n' ||
+ 107              		.loc 1 77 9 is_stmt 1 view .LVU20
+ 108              		.loc 1 77 16 is_stmt 0 view .LVU21
+ 109 006b 0FB74424 		movzwl	46(%rsp), %eax
+ 109      2E
+ 110              	.LVL8:
+ 111              		.loc 1 77 37 view .LVU22
+ 112 0070 6683F80A 		cmpw	$10, %ax
+ 113 0074 0F94C2   		sete	%dl
+ 114 0077 6683F80D 		cmpw	$13, %ax
+ 115 007b 0F94C1   		sete	%cl
+ 116              		.loc 1 77 12 view .LVU23
+ 117 007e 08CA     		orb	%cl, %dl
+ 118 0080 7550     		jne	.L6
+  78:../Backend/gnu-efi-3.0.9/lib/console.c ****             Key.UnicodeChar == '\r') {
+  79:../Backend/gnu-efi-3.0.9/lib/console.c ****             break;
+  80:../Backend/gnu-efi-3.0.9/lib/console.c ****         }
+  81:../Backend/gnu-efi-3.0.9/lib/console.c ****         
+  82:../Backend/gnu-efi-3.0.9/lib/console.c ****         if (Key.UnicodeChar == '\b') {
+ 119              		.loc 1 82 9 is_stmt 1 view .LVU24
+ 120              		.loc 1 82 12 is_stmt 0 view .LVU25
+ 121 0082 6683F808 		cmpw	$8, %ax
+ 122 0086 742D     		je	.L12
+  83:../Backend/gnu-efi-3.0.9/lib/console.c ****             if (Len) {
+  84:../Backend/gnu-efi-3.0.9/lib/console.c ****                 uefi_call_wrapper(ConOut->OutputString, 2, ConOut, L"\b \b");
+  85:../Backend/gnu-efi-3.0.9/lib/console.c ****                 Len -= 1;
+  86:../Backend/gnu-efi-3.0.9/lib/console.c ****             }
+  87:../Backend/gnu-efi-3.0.9/lib/console.c ****             continue;
+  88:../Backend/gnu-efi-3.0.9/lib/console.c ****         }
+  89:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  90:../Backend/gnu-efi-3.0.9/lib/console.c ****         if (Key.UnicodeChar >= ' ') {
+ 123              		.loc 1 90 9 is_stmt 1 view .LVU26
+ 124              		.loc 1 90 12 is_stmt 0 view .LVU27
+ 125 0088 6683F81F 		cmpw	$31, %ax
+ 126 008c 76BF     		jbe	.L5
+  91:../Backend/gnu-efi-3.0.9/lib/console.c ****             if (Len < StrLen-1) {
+ 127              		.loc 1 91 13 is_stmt 1 view .LVU28
+ 128              		.loc 1 91 29 is_stmt 0 view .LVU29
+ 129 008e 498D56FF 		leaq	-1(%r14), %rdx
+ 130              		.loc 1 91 16 view .LVU30
+ 131 0092 4839D5   		cmpq	%rdx, %rbp
+ 132 0095 73B6     		jnb	.L5
+  92:../Backend/gnu-efi-3.0.9/lib/console.c ****                 InStr[Len] = Key.UnicodeChar;
+ 133              		.loc 1 92 17 is_stmt 1 view .LVU31
+ 134              		.loc 1 92 22 is_stmt 0 view .LVU32
+ 135 0097 498D546D 		leaq	0(%r13,%rbp,2), %rdx
+ 135      00
+ 136              		.loc 1 92 28 view .LVU33
+ 137 009c 668902   		movw	%ax, (%rdx)
+  93:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  94:../Backend/gnu-efi-3.0.9/lib/console.c ****                 InStr[Len+1] = 0;
+ 138              		.loc 1 94 17 is_stmt 1 view .LVU34
+ 139              		.loc 1 94 22 is_stmt 0 view .LVU35
+ 140 009f 4883C501 		addq	$1, %rbp
+ 141              	.LVL9:
+ 142              		.loc 1 94 30 view .LVU36
+ 143 00a3 6641C744 		movw	$0, 0(%r13,%rbp,2)
+ 143      6D000000 
+  95:../Backend/gnu-efi-3.0.9/lib/console.c ****                 uefi_call_wrapper(ConOut->OutputString, 2, ConOut, &InStr[Len]);
+ 144              		.loc 1 95 17 is_stmt 1 view .LVU37
+ 145 00ab 4C89E1   		movq	%r12, %rcx
+ 146 00ae 41FF5424 		call	*8(%r12)
+ 146      08
+ 147              	.LVL10:
+  96:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+  97:../Backend/gnu-efi-3.0.9/lib/console.c ****                 Len += 1;
+ 148              		.loc 1 97 17 view .LVU38
+  98:../Backend/gnu-efi-3.0.9/lib/console.c ****             }
+  99:../Backend/gnu-efi-3.0.9/lib/console.c ****             continue;
+ 149              		.loc 1 99 13 view .LVU39
+ 150 00b3 EB98     		jmp	.L5
+ 151              	.L12:
+  83:../Backend/gnu-efi-3.0.9/lib/console.c ****                 uefi_call_wrapper(ConOut->OutputString, 2, ConOut, L"\b \b");
+ 152              		.loc 1 83 13 view .LVU40
+  83:../Backend/gnu-efi-3.0.9/lib/console.c ****                 uefi_call_wrapper(ConOut->OutputString, 2, ConOut, L"\b \b");
+ 153              		.loc 1 83 16 is_stmt 0 view .LVU41
+ 154 00b5 4885ED   		testq	%rbp, %rbp
+ 155 00b8 7493     		je	.L5
+  84:../Backend/gnu-efi-3.0.9/lib/console.c ****                 Len -= 1;
+ 156              		.loc 1 84 17 is_stmt 1 view .LVU42
+ 157 00ba 488D1500 		leaq	.LC0(%rip), %rdx
+ 157      000000
+ 158 00c1 4C89E1   		movq	%r12, %rcx
+ 159 00c4 41FF5424 		call	*8(%r12)
+ 159      08
+ 160              	.LVL11:
+  85:../Backend/gnu-efi-3.0.9/lib/console.c ****             }
+ 161              		.loc 1 85 17 view .LVU43
+  85:../Backend/gnu-efi-3.0.9/lib/console.c ****             }
+ 162              		.loc 1 85 21 is_stmt 0 view .LVU44
+ 163 00c9 4883ED01 		subq	$1, %rbp
+ 164              	.LVL12:
+  87:../Backend/gnu-efi-3.0.9/lib/console.c ****         }
+ 165              		.loc 1 87 13 is_stmt 1 view .LVU45
+ 166 00cd E97BFFFF 		jmp	.L5
+ 166      FF
+ 167              	.L6:
+ 100:../Backend/gnu-efi-3.0.9/lib/console.c ****         }
+ 101:../Backend/gnu-efi-3.0.9/lib/console.c ****     }
+ 102:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+ 103:../Backend/gnu-efi-3.0.9/lib/console.c ****     InStr[Len] = 0;
+ 168              		.loc 1 103 5 view .LVU46
+ 169              		.loc 1 103 16 is_stmt 0 view .LVU47
+ 170 00d2 6641C744 		movw	$0, 0(%r13,%rbp,2)
+ 170      6D000000 
+ 104:../Backend/gnu-efi-3.0.9/lib/console.c **** }
+ 171              		.loc 1 104 1 view .LVU48
+ 172 00da 4883C430 		addq	$48, %rsp
+ 173              		.cfi_def_cfa_offset 48
+ 174 00de 5B       		popq	%rbx
+ 175              		.cfi_restore 3
+ 176              		.cfi_def_cfa_offset 40
+ 177              	.LVL13:
+ 178              		.loc 1 104 1 view .LVU49
+ 179 00df 5D       		popq	%rbp
+ 180              		.cfi_restore 6
+ 181              		.cfi_def_cfa_offset 32
+ 182              	.LVL14:
+ 183              		.loc 1 104 1 view .LVU50
+ 184 00e0 415C     		popq	%r12
+ 185              		.cfi_restore 12
+ 186              		.cfi_def_cfa_offset 24
+ 187              	.LVL15:
+ 188              		.loc 1 104 1 view .LVU51
+ 189 00e2 415D     		popq	%r13
+ 190              		.cfi_restore 13
+ 191              		.cfi_def_cfa_offset 16
+ 192              	.LVL16:
+ 193              		.loc 1 104 1 view .LVU52
+ 194 00e4 415E     		popq	%r14
+ 195              		.cfi_restore 14
+ 196              		.cfi_def_cfa_offset 8
+ 197              	.LVL17:
+ 198              		.loc 1 104 1 view .LVU53
+ 199 00e6 C3       		ret
+ 200              		.cfi_endproc
+ 201              	.LFE2:
+ 203              		.globl	Input
+ 204              		.hidden	Input
+ 206              	Input:
+ 207              	.LVL18:
+ 208              	.LFB1:
+  39:../Backend/gnu-efi-3.0.9/lib/console.c ****     IInput (
+ 209              		.loc 1 39 1 is_stmt 1 view -0
+ 210              		.cfi_startproc
+  39:../Backend/gnu-efi-3.0.9/lib/console.c ****     IInput (
+ 211              		.loc 1 39 1 is_stmt 0 view .LVU55
+ 212 00e7 F30F1EFA 		endbr64
+ 213 00eb 4883EC08 		subq	$8, %rsp
+ 214              		.cfi_def_cfa_offset 16
+ 215 00ef 4889F1   		movq	%rsi, %rcx
+ 216 00f2 4989D0   		movq	%rdx, %r8
+  40:../Backend/gnu-efi-3.0.9/lib/console.c ****         ST->ConOut,
+ 217              		.loc 1 40 5 is_stmt 1 view .LVU56
+  42:../Backend/gnu-efi-3.0.9/lib/console.c ****         Prompt,
+ 218              		.loc 1 42 11 is_stmt 0 view .LVU57
+ 219 00f5 488B0500 		movq	ST(%rip), %rax
+ 219      000000
+  40:../Backend/gnu-efi-3.0.9/lib/console.c ****         ST->ConOut,
+ 220              		.loc 1 40 5 view .LVU58
+ 221 00fc 488B7030 		movq	48(%rax), %rsi
+ 222              	.LVL19:
+  40:../Backend/gnu-efi-3.0.9/lib/console.c ****         ST->ConOut,
+ 223              		.loc 1 40 5 view .LVU59
+ 224 0100 488B4040 		movq	64(%rax), %rax
+ 225 0104 4889FA   		movq	%rdi, %rdx
+ 226              	.LVL20:
+  40:../Backend/gnu-efi-3.0.9/lib/console.c ****         ST->ConOut,
+ 227              		.loc 1 40 5 view .LVU60
+ 228 0107 4889C7   		movq	%rax, %rdi
+ 229              	.LVL21:
+  40:../Backend/gnu-efi-3.0.9/lib/console.c ****         ST->ConOut,
+ 230              		.loc 1 40 5 view .LVU61
+ 231 010a E8000000 		call	IInput
+ 231      00
+ 232              	.LVL22:
+  47:../Backend/gnu-efi-3.0.9/lib/console.c **** 
+ 233              		.loc 1 47 1 view .LVU62
+ 234 010f 4883C408 		addq	$8, %rsp
+ 235              		.cfi_def_cfa_offset 8
+ 236 0113 C3       		ret
+ 237              		.cfi_endproc
+ 238              	.LFE1:
+ 240              	.Letext0:
+ 241              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 242              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 243              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 244              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efidevp.h"
+ 245              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efiprot.h"
+ 246              		.file 7 "../Backend/gnu-efi-3.0.9/inc/efiapi.h"
+ 247              		.file 8 "../Backend/gnu-efi-3.0.9/inc/eficon.h"
+ 248              		.file 9 "../Backend/gnu-efi-3.0.9/inc/efilib.h"
+ 12799              		.section	.note.gnu.property,"a"
+ 12800              		.align 8
+ 12801 0000 04000000 		.long	1f - 0f
+ 12802 0004 10000000 		.long	4f - 1f
+ 12803 0008 05000000 		.long	5
+ 12804              	0:
+ 12805 000c 474E5500 		.string	"GNU"
+ 12806              	1:
+ 12807              		.align 8
+ 12808 0010 020000C0 		.long	0xc0000002
+ 12809 0014 04000000 		.long	3f - 2f
+ 12810              	2:
+ 12811 0018 03000000 		.long	0x3
+ 12812              	3:
+ 12813 001c 00000000 		.align 8
+ 12814              	4:

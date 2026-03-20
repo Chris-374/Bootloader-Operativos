@@ -1,0 +1,470 @@
+   1              		.file	"smbios.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.globl	LibGetSmbiosString
+   7              		.hidden	LibGetSmbiosString
+   9              	LibGetSmbiosString:
+  10              	.LVL0:
+  11              	.LFB1:
+  12              		.file 1 "../Backend/gnu-efi-3.0.9/lib/smbios.c"
+   1:../Backend/gnu-efi-3.0.9/lib/smbios.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/smbios.c **** Copyright (c) 2000  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/smbios.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     Smbios.c
+   8:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     
+   9:../Backend/gnu-efi-3.0.9/lib/smbios.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     Lib fucntions for SMBIOS. Used to get system serial number and GUID
+  12:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/smbios.c **** Revision History
+  14:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+  15:../Backend/gnu-efi-3.0.9/lib/smbios.c **** --*/
+  16:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+  17:../Backend/gnu-efi-3.0.9/lib/smbios.c **** #include "lib.h"
+  18:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+  19:../Backend/gnu-efi-3.0.9/lib/smbios.c **** /*
+  20:../Backend/gnu-efi-3.0.9/lib/smbios.c ****  * We convert 32 bit values to pointers. In 64 bit mode the compiler will issue a
+  21:../Backend/gnu-efi-3.0.9/lib/smbios.c ****  * warning stating that the value is too small for the pointer:
+  22:../Backend/gnu-efi-3.0.9/lib/smbios.c ****  * "warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]"
+  23:../Backend/gnu-efi-3.0.9/lib/smbios.c ****  * we can safely ignore them here.
+  24:../Backend/gnu-efi-3.0.9/lib/smbios.c ****  */
+  25:../Backend/gnu-efi-3.0.9/lib/smbios.c **** #ifdef __GNUC__
+  26:../Backend/gnu-efi-3.0.9/lib/smbios.c **** #pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
+  27:../Backend/gnu-efi-3.0.9/lib/smbios.c **** #endif
+  28:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+  29:../Backend/gnu-efi-3.0.9/lib/smbios.c **** EFI_STATUS
+  30:../Backend/gnu-efi-3.0.9/lib/smbios.c **** LibGetSmbiosSystemGuidAndSerialNumber (
+  31:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     IN  EFI_GUID    *SystemGuid,
+  32:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     OUT CHAR8       **SystemSerialNumber
+  33:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     )
+  34:../Backend/gnu-efi-3.0.9/lib/smbios.c **** {
+  35:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     EFI_STATUS                  Status;
+  36:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     SMBIOS_STRUCTURE_TABLE      *SmbiosTable;
+  37:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     SMBIOS_STRUCTURE_POINTER    Smbios;  
+  38:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     SMBIOS_STRUCTURE_POINTER    SmbiosEnd;  
+  39:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     UINT16                      Index;
+  40:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     
+  41:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     Status = LibGetSystemConfigurationTable(&SMBIOSTableGuid, (VOID**)&SmbiosTable);
+  42:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     if (EFI_ERROR(Status)) {
+  43:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         return EFI_NOT_FOUND;
+  44:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     }
+  45:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+  46:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     Smbios.Hdr = (SMBIOS_HEADER *)SmbiosTable->TableAddress;
+  47:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     SmbiosEnd.Raw = (UINT8 *)(SmbiosTable->TableAddress + SmbiosTable->TableLength);
+  48:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     for (Index = 0; Index < SmbiosTable->TableLength ; Index++) {
+  49:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         if (Smbios.Hdr->Type == 1) {
+  50:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             if (Smbios.Hdr->Length < 0x19) {
+  51:../Backend/gnu-efi-3.0.9/lib/smbios.c ****                 //
+  52:../Backend/gnu-efi-3.0.9/lib/smbios.c ****                 // Older version did not support Guid and Serial number
+  53:../Backend/gnu-efi-3.0.9/lib/smbios.c ****                 //
+  54:../Backend/gnu-efi-3.0.9/lib/smbios.c ****                 continue;
+  55:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             }
+  56:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+  57:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             //
+  58:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             // SMBIOS tables are byte packed so we need to do a byte copy to
+  59:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             //  prevend alignment faults on IA-64.
+  60:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             
+  61:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             CopyMem (SystemGuid, &Smbios.Type1->Uuid, sizeof(EFI_GUID));
+  62:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             *SystemSerialNumber = LibGetSmbiosString(&Smbios, Smbios.Type1->SerialNumber);
+  63:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             return EFI_SUCCESS;
+  64:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         }
+  65:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+  66:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         //
+  67:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         // Make Smbios point to the next record
+  68:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         //
+  69:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         LibGetSmbiosString (&Smbios, -1);
+  70:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+  71:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         if (Smbios.Raw >= SmbiosEnd.Raw) {
+  72:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             //
+  73:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             // SMBIOS 2.1 incorrectly stated the length of SmbiosTable as 0x1e. 
+  74:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             //  given this we must double check against the lenght of
+  75:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             /// the structure. My home PC has this bug.ruthard
+  76:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             //
+  77:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             return EFI_SUCCESS;
+  78:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         }
+  79:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     }
+  80:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+  81:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     return EFI_SUCCESS;
+  82:../Backend/gnu-efi-3.0.9/lib/smbios.c **** }
+  83:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+  84:../Backend/gnu-efi-3.0.9/lib/smbios.c **** CHAR8*
+  85:../Backend/gnu-efi-3.0.9/lib/smbios.c **** LibGetSmbiosString (
+  86:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     IN  SMBIOS_STRUCTURE_POINTER    *Smbios,
+  87:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     IN  UINT16                      StringNumber
+  88:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     )
+  89:../Backend/gnu-efi-3.0.9/lib/smbios.c **** /*++
+  90:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+  91:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     Return SMBIOS string given the string number.
+  92:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+  93:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     Arguments:
+  94:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         Smbios - Pointer to SMBIOS structure
+  95:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         StringNumber - String number to return. -1 is used to skip all strings and 
+  96:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             point to the next SMBIOS structure.
+  97:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+  98:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     Returns:
+  99:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         Pointer to string, or pointer to next SMBIOS strcuture if StringNumber == -1
+ 100:../Backend/gnu-efi-3.0.9/lib/smbios.c **** --*/
+ 101:../Backend/gnu-efi-3.0.9/lib/smbios.c **** {
+  13              		.loc 1 101 1 view -0
+  14              		.cfi_startproc
+  15              		.loc 1 101 1 is_stmt 0 view .LVU1
+  16 0000 F30F1EFA 		endbr64
+ 102:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     UINT16  Index;
+  17              		.loc 1 102 5 is_stmt 1 view .LVU2
+ 103:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     CHAR8   *String;
+  18              		.loc 1 103 5 view .LVU3
+ 104:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+ 105:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     //
+ 106:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     // Skip over formatted section
+ 107:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     //
+ 108:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     String = (CHAR8 *)(Smbios->Raw + Smbios->Hdr->Length);
+  19              		.loc 1 108 5 view .LVU4
+  20              		.loc 1 108 30 is_stmt 0 view .LVU5
+  21 0004 488B07   		movq	(%rdi), %rax
+  22              		.loc 1 108 49 view .LVU6
+  23 0007 0FB65001 		movzbl	1(%rax), %edx
+  24              		.loc 1 108 12 view .LVU7
+  25 000b 4801D0   		addq	%rdx, %rax
+  26              	.LVL1:
+ 109:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+ 110:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     //
+ 111:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     // Look through unformated section
+ 112:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     //
+ 113:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     for (Index = 1; Index <= StringNumber; Index++) {
+  27              		.loc 1 113 5 is_stmt 1 view .LVU8
+  28              		.loc 1 113 16 is_stmt 0 view .LVU9
+  29 000e BA010000 		movl	$1, %edx
+  29      00
+  30              		.loc 1 113 5 view .LVU10
+  31 0013 EB19     		jmp	.L2
+  32              	.LVL2:
+  33              	.L5:
+ 114:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         if (StringNumber == Index) {
+ 115:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             return String;
+ 116:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         }
+ 117:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+ 118:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         //
+ 119:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         // Skip string
+ 120:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         //
+ 121:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         for (; *String != 0; String++);
+  34              		.loc 1 121 36 is_stmt 1 discriminator 2 view .LVU11
+  35 0015 4883C001 		addq	$1, %rax
+  36              	.LVL3:
+  37              	.L4:
+  38              		.loc 1 121 24 discriminator 1 view .LVU12
+  39 0019 803800   		cmpb	$0, (%rax)
+  40 001c 75F7     		jne	.L5
+ 122:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         String++;
+  41              		.loc 1 122 9 view .LVU13
+  42              		.loc 1 122 15 is_stmt 0 view .LVU14
+  43 001e 488D4801 		leaq	1(%rax), %rcx
+  44              	.LVL4:
+ 123:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+ 124:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         if (*String == 0) {
+  45              		.loc 1 124 9 is_stmt 1 view .LVU15
+  46              		.loc 1 124 12 is_stmt 0 view .LVU16
+  47 0022 80780100 		cmpb	$0, 1(%rax)
+  48 0026 7411     		je	.L8
+ 113:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         if (StringNumber == Index) {
+  49              		.loc 1 113 49 is_stmt 1 discriminator 2 view .LVU17
+  50 0028 83C201   		addl	$1, %edx
+  51              	.LVL5:
+ 122:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         String++;
+  52              		.loc 1 122 15 is_stmt 0 view .LVU18
+  53 002b 4889C8   		movq	%rcx, %rax
+  54              	.LVL6:
+  55              	.L2:
+ 113:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         if (StringNumber == Index) {
+  56              		.loc 1 113 27 is_stmt 1 discriminator 1 view .LVU19
+  57 002e 6639D6   		cmpw	%dx, %si
+  58 0031 7213     		jb	.L9
+ 114:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             return String;
+  59              		.loc 1 114 9 view .LVU20
+ 114:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             return String;
+  60              		.loc 1 114 12 is_stmt 0 view .LVU21
+  61 0033 6639F2   		cmpw	%si, %dx
+  62 0036 75E1     		jne	.L4
+  63 0038 C3       		ret
+  64              	.LVL7:
+  65              	.L8:
+ 125:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             //
+ 126:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             // If double NULL then we are done.
+ 127:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             //  Retrun pointer to next structure in Smbios.
+ 128:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             //  if you pass in a -1 you will always get here
+ 129:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             //
+ 130:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             Smbios->Raw = (UINT8 *)++String;
+  66              		.loc 1 130 13 is_stmt 1 view .LVU22
+  67              		.loc 1 130 25 is_stmt 0 view .LVU23
+  68 0039 4883C002 		addq	$2, %rax
+  69              	.LVL8:
+  70              		.loc 1 130 25 view .LVU24
+  71 003d 488907   		movq	%rax, (%rdi)
+ 131:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             return NULL;        
+  72              		.loc 1 131 13 is_stmt 1 view .LVU25
+  73              		.loc 1 131 20 is_stmt 0 view .LVU26
+  74 0040 B8000000 		movl	$0, %eax
+  74      00
+  75              	.LVL9:
+  76              		.loc 1 131 20 view .LVU27
+  77 0045 C3       		ret
+  78              	.LVL10:
+  79              	.L9:
+ 132:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         }
+ 133:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     }
+ 134:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     return NULL;        
+  80              		.loc 1 134 12 view .LVU28
+  81 0046 B8000000 		movl	$0, %eax
+  81      00
+  82              	.LVL11:
+ 135:../Backend/gnu-efi-3.0.9/lib/smbios.c **** }
+  83              		.loc 1 135 1 view .LVU29
+  84 004b C3       		ret
+  85              		.cfi_endproc
+  86              	.LFE1:
+  88              		.globl	LibGetSmbiosSystemGuidAndSerialNumber
+  89              		.hidden	LibGetSmbiosSystemGuidAndSerialNumber
+  91              	LibGetSmbiosSystemGuidAndSerialNumber:
+  92              	.LVL12:
+  93              	.LFB0:
+  34:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     EFI_STATUS                  Status;
+  94              		.loc 1 34 1 is_stmt 1 view -0
+  95              		.cfi_startproc
+  34:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     EFI_STATUS                  Status;
+  96              		.loc 1 34 1 is_stmt 0 view .LVU31
+  97 004c F30F1EFA 		endbr64
+  98 0050 4155     		pushq	%r13
+  99              		.cfi_def_cfa_offset 16
+ 100              		.cfi_offset 13, -16
+ 101 0052 4154     		pushq	%r12
+ 102              		.cfi_def_cfa_offset 24
+ 103              		.cfi_offset 12, -24
+ 104 0054 55       		pushq	%rbp
+ 105              		.cfi_def_cfa_offset 32
+ 106              		.cfi_offset 6, -32
+ 107 0055 53       		pushq	%rbx
+ 108              		.cfi_def_cfa_offset 40
+ 109              		.cfi_offset 3, -40
+ 110 0056 4883EC18 		subq	$24, %rsp
+ 111              		.cfi_def_cfa_offset 64
+ 112 005a 4989FC   		movq	%rdi, %r12
+ 113 005d 4889F5   		movq	%rsi, %rbp
+  35:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     SMBIOS_STRUCTURE_TABLE      *SmbiosTable;
+ 114              		.loc 1 35 5 is_stmt 1 view .LVU32
+  36:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     SMBIOS_STRUCTURE_POINTER    Smbios;  
+ 115              		.loc 1 36 5 view .LVU33
+  37:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     SMBIOS_STRUCTURE_POINTER    SmbiosEnd;  
+ 116              		.loc 1 37 5 view .LVU34
+  38:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     UINT16                      Index;
+ 117              		.loc 1 38 5 view .LVU35
+  39:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     
+ 118              		.loc 1 39 5 view .LVU36
+  41:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     if (EFI_ERROR(Status)) {
+ 119              		.loc 1 41 5 view .LVU37
+  41:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     if (EFI_ERROR(Status)) {
+ 120              		.loc 1 41 14 is_stmt 0 view .LVU38
+ 121 0060 488D7424 		leaq	8(%rsp), %rsi
+ 121      08
+ 122              	.LVL13:
+  41:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     if (EFI_ERROR(Status)) {
+ 123              		.loc 1 41 14 view .LVU39
+ 124 0065 488D3D00 		leaq	SMBIOSTableGuid(%rip), %rdi
+ 124      000000
+ 125              	.LVL14:
+  41:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     if (EFI_ERROR(Status)) {
+ 126              		.loc 1 41 14 view .LVU40
+ 127 006c E8000000 		call	LibGetSystemConfigurationTable
+ 127      00
+ 128              	.LVL15:
+  42:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         return EFI_NOT_FOUND;
+ 129              		.loc 1 42 5 is_stmt 1 view .LVU41
+  42:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         return EFI_NOT_FOUND;
+ 130              		.loc 1 42 8 is_stmt 0 view .LVU42
+ 131 0071 4885C0   		testq	%rax, %rax
+ 132 0074 0F888900 		js	.L16
+ 132      0000
+  46:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     SmbiosEnd.Raw = (UINT8 *)(SmbiosTable->TableAddress + SmbiosTable->TableLength);
+ 133              		.loc 1 46 5 is_stmt 1 view .LVU43
+  46:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     SmbiosEnd.Raw = (UINT8 *)(SmbiosTable->TableAddress + SmbiosTable->TableLength);
+ 134              		.loc 1 46 46 is_stmt 0 view .LVU44
+ 135 007a 488B5424 		movq	8(%rsp), %rdx
+ 135      08
+ 136 007f 8B4218   		movl	24(%rdx), %eax
+ 137              	.LVL16:
+  46:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     SmbiosEnd.Raw = (UINT8 *)(SmbiosTable->TableAddress + SmbiosTable->TableLength);
+ 138              		.loc 1 46 16 view .LVU45
+ 139 0082 89C1     		movl	%eax, %ecx
+ 140 0084 48890C24 		movq	%rcx, (%rsp)
+  47:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     for (Index = 0; Index < SmbiosTable->TableLength ; Index++) {
+ 141              		.loc 1 47 5 is_stmt 1 view .LVU46
+  47:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     for (Index = 0; Index < SmbiosTable->TableLength ; Index++) {
+ 142              		.loc 1 47 70 is_stmt 0 view .LVU47
+ 143 0088 0FB75216 		movzwl	22(%rdx), %edx
+  47:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     for (Index = 0; Index < SmbiosTable->TableLength ; Index++) {
+ 144              		.loc 1 47 57 view .LVU48
+ 145 008c 448D2C10 		leal	(%rax,%rdx), %r13d
+  48:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         if (Smbios.Hdr->Type == 1) {
+ 146              		.loc 1 48 5 is_stmt 1 view .LVU49
+ 147              	.LVL17:
+  48:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         if (Smbios.Hdr->Type == 1) {
+ 148              		.loc 1 48 16 is_stmt 0 view .LVU50
+ 149 0090 BB000000 		movl	$0, %ebx
+ 149      00
+  48:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         if (Smbios.Hdr->Type == 1) {
+ 150              		.loc 1 48 5 view .LVU51
+ 151 0095 EB16     		jmp	.L12
+ 152              	.LVL18:
+ 153              	.L13:
+  69:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+ 154              		.loc 1 69 9 is_stmt 1 view .LVU52
+ 155 0097 4889E7   		movq	%rsp, %rdi
+ 156 009a BEFFFF00 		movl	$65535, %esi
+ 156      00
+ 157 009f E8000000 		call	LibGetSmbiosString
+ 157      00
+ 158              	.LVL19:
+  71:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             //
+ 159              		.loc 1 71 9 view .LVU53
+  71:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             //
+ 160              		.loc 1 71 12 is_stmt 0 view .LVU54
+ 161 00a4 4C392C24 		cmpq	%r13, (%rsp)
+ 162 00a8 7365     		jnb	.L17
+ 163              	.L14:
+  48:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         if (Smbios.Hdr->Type == 1) {
+ 164              		.loc 1 48 61 is_stmt 1 discriminator 2 view .LVU55
+ 165 00aa 83C301   		addl	$1, %ebx
+ 166              	.LVL20:
+ 167              	.L12:
+  48:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         if (Smbios.Hdr->Type == 1) {
+ 168              		.loc 1 48 27 discriminator 1 view .LVU56
+ 169 00ad 488B4424 		movq	8(%rsp), %rax
+ 169      08
+ 170 00b2 663B5816 		cmpw	22(%rax), %bx
+ 171 00b6 7344     		jnb	.L19
+  49:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             if (Smbios.Hdr->Length < 0x19) {
+ 172              		.loc 1 49 9 view .LVU57
+  49:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             if (Smbios.Hdr->Length < 0x19) {
+ 173              		.loc 1 49 19 is_stmt 0 view .LVU58
+ 174 00b8 488B3424 		movq	(%rsp), %rsi
+  49:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             if (Smbios.Hdr->Length < 0x19) {
+ 175              		.loc 1 49 12 view .LVU59
+ 176 00bc 803E01   		cmpb	$1, (%rsi)
+ 177 00bf 75D6     		jne	.L13
+  50:../Backend/gnu-efi-3.0.9/lib/smbios.c ****                 //
+ 178              		.loc 1 50 13 is_stmt 1 view .LVU60
+  50:../Backend/gnu-efi-3.0.9/lib/smbios.c ****                 //
+ 179              		.loc 1 50 16 is_stmt 0 view .LVU61
+ 180 00c1 807E0118 		cmpb	$24, 1(%rsi)
+ 181 00c5 76E3     		jbe	.L14
+  61:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             *SystemSerialNumber = LibGetSmbiosString(&Smbios, Smbios.Type1->SerialNumber);
+ 182              		.loc 1 61 13 is_stmt 1 view .LVU62
+  61:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             *SystemSerialNumber = LibGetSmbiosString(&Smbios, Smbios.Type1->SerialNumber);
+ 183              		.loc 1 61 34 is_stmt 0 view .LVU63
+ 184 00c7 4883C608 		addq	$8, %rsi
+  61:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             *SystemSerialNumber = LibGetSmbiosString(&Smbios, Smbios.Type1->SerialNumber);
+ 185              		.loc 1 61 13 view .LVU64
+ 186 00cb BA100000 		movl	$16, %edx
+ 186      00
+ 187 00d0 4C89E7   		movq	%r12, %rdi
+ 188 00d3 E8000000 		call	CopyMem
+ 188      00
+ 189              	.LVL21:
+  62:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             return EFI_SUCCESS;
+ 190              		.loc 1 62 13 is_stmt 1 view .LVU65
+  62:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             return EFI_SUCCESS;
+ 191              		.loc 1 62 35 is_stmt 0 view .LVU66
+ 192 00d8 488B0424 		movq	(%rsp), %rax
+ 193 00dc 0FB67007 		movzbl	7(%rax), %esi
+ 194 00e0 4889E7   		movq	%rsp, %rdi
+ 195 00e3 E8000000 		call	LibGetSmbiosString
+ 195      00
+ 196              	.LVL22:
+  62:../Backend/gnu-efi-3.0.9/lib/smbios.c ****             return EFI_SUCCESS;
+ 197              		.loc 1 62 33 discriminator 1 view .LVU67
+ 198 00e8 48894500 		movq	%rax, 0(%rbp)
+  63:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         }
+ 199              		.loc 1 63 13 is_stmt 1 view .LVU68
+  63:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         }
+ 200              		.loc 1 63 20 is_stmt 0 view .LVU69
+ 201 00ec B8000000 		movl	$0, %eax
+ 201      00
+ 202              	.LVL23:
+ 203              	.L10:
+  82:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+ 204              		.loc 1 82 1 view .LVU70
+ 205 00f1 4883C418 		addq	$24, %rsp
+ 206              		.cfi_remember_state
+ 207              		.cfi_def_cfa_offset 40
+ 208 00f5 5B       		popq	%rbx
+ 209              		.cfi_restore 3
+ 210              		.cfi_def_cfa_offset 32
+ 211 00f6 5D       		popq	%rbp
+ 212              		.cfi_restore 6
+ 213              		.cfi_def_cfa_offset 24
+ 214              	.LVL24:
+  82:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+ 215              		.loc 1 82 1 view .LVU71
+ 216 00f7 415C     		popq	%r12
+ 217              		.cfi_restore 12
+ 218              		.cfi_def_cfa_offset 16
+ 219              	.LVL25:
+  82:../Backend/gnu-efi-3.0.9/lib/smbios.c **** 
+ 220              		.loc 1 82 1 view .LVU72
+ 221 00f9 415D     		popq	%r13
+ 222              		.cfi_restore 13
+ 223              		.cfi_def_cfa_offset 8
+ 224 00fb C3       		ret
+ 225              	.LVL26:
+ 226              	.L19:
+ 227              		.cfi_restore_state
+  81:../Backend/gnu-efi-3.0.9/lib/smbios.c **** }
+ 228              		.loc 1 81 12 view .LVU73
+ 229 00fc B8000000 		movl	$0, %eax
+ 229      00
+ 230 0101 EBEE     		jmp	.L10
+ 231              	.LVL27:
+ 232              	.L16:
+  43:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     }
+ 233              		.loc 1 43 16 view .LVU74
+ 234 0103 48B80E00 		movabsq	$-9223372036854775794, %rax
+ 234      00000000 
+ 234      0080
+ 235              	.LVL28:
+  43:../Backend/gnu-efi-3.0.9/lib/smbios.c ****     }
+ 236              		.loc 1 43 16 view .LVU75
+ 237 010d EBE2     		jmp	.L10
+ 238              	.LVL29:
+ 239              	.L17:
+  77:../Backend/gnu-efi-3.0.9/lib/smbios.c ****         }
+ 240              		.loc 1 77 20 view .LVU76
+ 241 010f B8000000 		movl	$0, %eax
+ 241      00
+ 242 0114 EBDB     		jmp	.L10
+ 243              		.cfi_endproc
+ 244              	.LFE0:
+ 246              	.Letext0:
+ 247              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+ 248              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+ 249              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+ 250              		.file 5 "../Backend/gnu-efi-3.0.9/inc/libsmbios.h"
+ 251              		.file 6 "../Backend/gnu-efi-3.0.9/inc/efilib.h"
+ 10130              		.section	.note.gnu.property,"a"
+ 10131              		.align 8
+ 10132 0000 04000000 		.long	1f - 0f
+ 10133 0004 10000000 		.long	4f - 1f
+ 10134 0008 05000000 		.long	5
+ 10135              	0:
+ 10136 000c 474E5500 		.string	"GNU"
+ 10137              	1:
+ 10138              		.align 8
+ 10139 0010 020000C0 		.long	0xc0000002
+ 10140 0014 04000000 		.long	3f - 2f
+ 10141              	2:
+ 10142 0018 03000000 		.long	0x3
+ 10143              	3:
+ 10144 001c 00000000 		.align 8
+ 10145              	4:

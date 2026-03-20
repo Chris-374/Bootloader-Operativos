@@ -1,0 +1,116 @@
+   1              		.file	"debug.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.file 0 "/home/kokipc/Downloads/Bootloader-Operativos-514eab6e99233e465cadca9e7789fbac7f66fa4f/Sim
+   6              		.section	.rodata
+   7              		.align 8
+   8              	.LC0:
+   9 0000 25454153 		.string	"%EASSERT FAILED: %a(%d): %a%N\n"
+   9      53455254 
+   9      20464149 
+   9      4C45443A 
+   9      20256128 
+  10              		.text
+  11              		.globl	DbgAssert
+  12              		.hidden	DbgAssert
+  14              	DbgAssert:
+  15              	.LVL0:
+  16              	.LFB0:
+  17              		.file 1 "../Backend/gnu-efi-3.0.9/lib/debug.c"
+   1:../Backend/gnu-efi-3.0.9/lib/debug.c **** /*++
+   2:../Backend/gnu-efi-3.0.9/lib/debug.c **** 
+   3:../Backend/gnu-efi-3.0.9/lib/debug.c **** Copyright (c) 1998  Intel Corporation
+   4:../Backend/gnu-efi-3.0.9/lib/debug.c **** 
+   5:../Backend/gnu-efi-3.0.9/lib/debug.c **** Module Name:
+   6:../Backend/gnu-efi-3.0.9/lib/debug.c **** 
+   7:../Backend/gnu-efi-3.0.9/lib/debug.c ****     debug.c
+   8:../Backend/gnu-efi-3.0.9/lib/debug.c **** 
+   9:../Backend/gnu-efi-3.0.9/lib/debug.c **** Abstract:
+  10:../Backend/gnu-efi-3.0.9/lib/debug.c **** 
+  11:../Backend/gnu-efi-3.0.9/lib/debug.c ****     Debug library functions
+  12:../Backend/gnu-efi-3.0.9/lib/debug.c **** 
+  13:../Backend/gnu-efi-3.0.9/lib/debug.c **** 
+  14:../Backend/gnu-efi-3.0.9/lib/debug.c **** 
+  15:../Backend/gnu-efi-3.0.9/lib/debug.c **** Revision History
+  16:../Backend/gnu-efi-3.0.9/lib/debug.c **** 
+  17:../Backend/gnu-efi-3.0.9/lib/debug.c **** --*/
+  18:../Backend/gnu-efi-3.0.9/lib/debug.c **** 
+  19:../Backend/gnu-efi-3.0.9/lib/debug.c **** #include "lib.h"
+  20:../Backend/gnu-efi-3.0.9/lib/debug.c **** 
+  21:../Backend/gnu-efi-3.0.9/lib/debug.c **** 
+  22:../Backend/gnu-efi-3.0.9/lib/debug.c **** 
+  23:../Backend/gnu-efi-3.0.9/lib/debug.c **** //
+  24:../Backend/gnu-efi-3.0.9/lib/debug.c **** // Declare runtime functions
+  25:../Backend/gnu-efi-3.0.9/lib/debug.c **** //
+  26:../Backend/gnu-efi-3.0.9/lib/debug.c **** 
+  27:../Backend/gnu-efi-3.0.9/lib/debug.c **** //
+  28:../Backend/gnu-efi-3.0.9/lib/debug.c **** //
+  29:../Backend/gnu-efi-3.0.9/lib/debug.c **** //
+  30:../Backend/gnu-efi-3.0.9/lib/debug.c **** 
+  31:../Backend/gnu-efi-3.0.9/lib/debug.c **** INTN
+  32:../Backend/gnu-efi-3.0.9/lib/debug.c **** DbgAssert (
+  33:../Backend/gnu-efi-3.0.9/lib/debug.c ****     IN CONST CHAR8    *FileName,
+  34:../Backend/gnu-efi-3.0.9/lib/debug.c ****     IN INTN           LineNo,
+  35:../Backend/gnu-efi-3.0.9/lib/debug.c ****     IN CONST CHAR8    *Description
+  36:../Backend/gnu-efi-3.0.9/lib/debug.c ****     )
+  37:../Backend/gnu-efi-3.0.9/lib/debug.c **** {
+  18              		.loc 1 37 1 view -0
+  19              		.cfi_startproc
+  20              		.loc 1 37 1 is_stmt 0 view .LVU1
+  21 0000 F30F1EFA 		endbr64
+  22 0004 50       		pushq	%rax
+  23              		.cfi_def_cfa_offset 16
+  24 0005 58       		popq	%rax
+  25              		.cfi_def_cfa_offset 8
+  26 0006 4883EC08 		subq	$8, %rsp
+  27              		.cfi_def_cfa_offset 16
+  28 000a 4889F1   		movq	%rsi, %rcx
+  29 000d 4989D0   		movq	%rdx, %r8
+  38:../Backend/gnu-efi-3.0.9/lib/debug.c ****     DbgPrint (D_ERROR, (CHAR8 *)"%EASSERT FAILED: %a(%d): %a%N\n", FileName, LineNo, Description);
+  30              		.loc 1 38 5 is_stmt 1 view .LVU2
+  31 0010 4889FA   		movq	%rdi, %rdx
+  32              	.LVL1:
+  33              		.loc 1 38 5 is_stmt 0 view .LVU3
+  34 0013 488D3500 		leaq	.LC0(%rip), %rsi
+  34      000000
+  35              	.LVL2:
+  36              		.loc 1 38 5 view .LVU4
+  37 001a BF000000 		movl	$2147483648, %edi
+  37      80
+  38              	.LVL3:
+  39              		.loc 1 38 5 view .LVU5
+  40 001f B8000000 		movl	$0, %eax
+  40      00
+  41 0024 E8000000 		call	DbgPrint
+  41      00
+  42              	.LVL4:
+  43              	.L2:
+  39:../Backend/gnu-efi-3.0.9/lib/debug.c **** 
+  40:../Backend/gnu-efi-3.0.9/lib/debug.c ****     BREAKPOINT();
+  44              		.loc 1 40 5 is_stmt 1 view .LVU6
+  45              		.loc 1 40 5 view .LVU7
+  46 0029 EBFE     		jmp	.L2
+  47              		.cfi_endproc
+  48              	.LFE0:
+  50              	.Letext0:
+  51              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint-gcc.h"
+  52              		.file 3 "../Backend/gnu-efi-3.0.9/inc/x86_64/efibind.h"
+  53              		.file 4 "../Backend/gnu-efi-3.0.9/inc/efidef.h"
+  54              		.file 5 "../Backend/gnu-efi-3.0.9/inc/efidebug.h"
+ 8606              		.section	.note.gnu.property,"a"
+ 8607              		.align 8
+ 8608 0000 04000000 		.long	1f - 0f
+ 8609 0004 10000000 		.long	4f - 1f
+ 8610 0008 05000000 		.long	5
+ 8611              	0:
+ 8612 000c 474E5500 		.string	"GNU"
+ 8613              	1:
+ 8614              		.align 8
+ 8615 0010 020000C0 		.long	0xc0000002
+ 8616 0014 04000000 		.long	3f - 2f
+ 8617              	2:
+ 8618 0018 03000000 		.long	0x3
+ 8619              	3:
+ 8620 001c 00000000 		.align 8
+ 8621              	4:
