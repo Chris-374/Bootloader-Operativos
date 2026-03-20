@@ -1,5 +1,6 @@
 SHELL := /bin/bash
 
+# Definición de rutas y herramientas en el entorno Linux
 CURDIR_ABS := $(CURDIR)
 BACKEND_DIR := ../Backend
 GCC_FOLDER_NAME := /usr
@@ -7,70 +8,77 @@ BINUTILS_FOLDER_NAME := /usr
 EFI_FOLDER_NAME := gnu-efi-3.0.9
 LINKER_SCRIPT := $(EFI_FOLDER_NAME)/gnuefi/elf_x86_64_efi.lds
 
+# Asignación del compilador (GCC) y utilidades binarias
 CC := $(GCC_FOLDER_NAME)/bin/gcc
 SIZE := $(BINUTILS_FOLDER_NAME)/bin/size
 OBJCOPY := $(BINUTILS_FOLDER_NAME)/bin/objcopy
 
 export PATH := $(BINUTILS_FOLDER_NAME)/bin:$(PATH)
 
+# Inclusión de las cabeceras (archivos .h) necesarias para el proyecto
 BASE_HFILES := -I$(CURDIR_ABS)/inc/ -I$(CURDIR_ABS)/startup/
 EXTRA_HFILES := $(shell sed '/^[[:space:]]*$$/d' h_files.txt | sed 's|^|$(BACKEND_DIR)/|' | sed 's|^|-I|')
 HFILES := $(BASE_HFILES) $(EXTRA_HFILES)
 
+# Banderas de compilación comunes: configuran GCC para generar código 
+# independiente (freestanding) compatible con la arquitectura UEFI de 64 bits
 CFLAGS_COMMON := -DGNU_EFI_USE_MS_ABI \
-	-mno-avx \
-	-mcmodel=small \
-	-mno-stack-arg-probe \
-	-m64 \
-	-mno-red-zone \
-	-maccumulate-outgoing-args \
-	-Og \
-	-ffreestanding \
-	-fshort-wchar \
-	-fpie \
-	-fomit-frame-pointer \
-	-fno-delete-null-pointer-checks \
-	-fno-zero-initialized-in-bss \
-	-fno-common \
-	-fno-exceptions \
-	-fno-unwind-tables \
-	-fno-asynchronous-unwind-tables \
-	-fno-stack-protector \
-	-fno-stack-check \
-	-fno-strict-aliasing \
-	-fno-merge-all-constants \
-	-fno-merge-constants \
-	--std=c11 \
-	-g3 \
-	-Wall \
-	-Wextra \
-	-Wdouble-promotion \
-	-fmessage-length=0 \
-	-c \
-	-MMD \
-	-MP \
-	$(HFILES)
+    -mno-avx \
+    -mcmodel=small \
+    -mno-stack-arg-probe \
+    -m64 \
+    -mno-red-zone \
+    -maccumulate-outgoing-args \
+    -Og \
+    -ffreestanding \
+    -fshort-wchar \
+    -fpie \
+    -fomit-frame-pointer \
+    -fno-delete-null-pointer-checks \
+    -fno-zero-initialized-in-bss \
+    -fno-common \
+    -fno-exceptions \
+    -fno-unwind-tables \
+    -fno-asynchronous-unwind-tables \
+    -fno-stack-protector \
+    -fno-stack-check \
+    -fno-strict-aliasing \
+    -fno-merge-all-constants \
+    -fno-merge-constants \
+    --std=c11 \
+    -g3 \
+    -Wall \
+    -Wextra \
+    -Wdouble-promotion \
+    -fmessage-length=0 \
+    -c \
+    -MMD \
+    -MP \
+    $(HFILES)
 
 CFLAGS_BACKEND := $(CFLAGS_COMMON)
 CFLAGS_USER := $(CFLAGS_COMMON) -Wpedantic
 
+# Banderas exclusivas para compilar archivos en ensamblador (.S)
 ASFLAGS_BACKEND := -DGNU_EFI_USE_MS_ABI \
-	-m64 \
-	-maccumulate-outgoing-args \
-	--std=c11 \
-	-c
+    -m64 \
+    -maccumulate-outgoing-args \
+    --std=c11 \
+    -c
 
+# Banderas del linker: enlazan los objetos usando el script de UEFI
 LDFLAGS := -T$(LINKER_SCRIPT) \
-	-nostdlib \
-	-s \
-	-static-pie \
-	-Wl,--warn-common \
-	-Wl,--no-undefined \
-	-Wl,-z,text \
-	-Wl,-z,norelro \
-	-Wl,-z,now \
-	-Wl,-Map=output.map
+    -nostdlib \
+    -s \
+    -static-pie \
+    -Wl,--warn-common \
+    -Wl,--no-undefined \
+    -Wl,-z,text \
+    -Wl,-z,norelro \
+    -Wl,-z,now \
+    -Wl,-Map=output.map
 
+# Extracción y filtrado de los archivos fuente (C y Ensamblador) del backend
 RAW_BACKEND_FILES := $(shell sed '/^[[:space:]]*$$/d' c_files_linux.txt)
 
 BACKEND_C_REL := $(filter %.c,$(RAW_BACKEND_FILES))
@@ -83,6 +91,8 @@ BACKEND_C_OBJ := $(patsubst %.c,%.o,$(BACKEND_C_SRC))
 BACKEND_S_OBJ := $(patsubst %.S,%.o,$(BACKEND_S_SRC))
 
 BACKEND_C_DEP := $(patsubst %.c,%.d,$(BACKEND_C_SRC))
+
+# Procesamiento de los archivos fuente desarrollados por el usuario
 USER_CFILES := $(wildcard src/*.c)
 USER_OFILES := $(patsubst %.c,%.o,$(USER_CFILES))
 USER_DFILES := $(patsubst %.c,%.d,$(USER_CFILES))
@@ -94,12 +104,14 @@ ALL_LINK_OBJECTS := $(ALL_BACKEND_OBJ_REL) $(USER_OFILES_FOR_LINK)
 
 .PHONY: all clean recompile prepare_lists showvars
 
+# Regla por defecto: prepara listas y genera el booteable UEFI final
 all: prepare_lists $(BACKEND_DIR)/BOOTX64.EFI
 
 prepare_lists:
 	@perl -pi -e 's/\r\n/\n/g' c_files_linux.txt
 	@perl -pi -e 's/\r\n/\n/g' h_files.txt
 
+# Regla para empaquetar el .so en una aplicación booteable efi-app-x86_64
 $(BACKEND_DIR)/BOOTX64.EFI: $(BACKEND_DIR)/program.so
 	@echo
 	@echo Generating binary and Printing size information:
@@ -123,11 +135,13 @@ $(BACKEND_DIR)/BOOTX64.EFI: $(BACKEND_DIR)/program.so
 	@$(SIZE) $(BACKEND_DIR)/BOOTX64.EFI
 	@echo
 
+# Regla de enlace: junta los .o en un solo shared object (.so)
 $(BACKEND_DIR)/program.so: $(BACKEND_C_OBJ) $(BACKEND_S_OBJ) $(USER_OFILES)
 	@echo "Linking program.so..."
 	cd $(BACKEND_DIR) && \
 	$(CC) $(LDFLAGS) -o program.so $(ALL_LINK_OBJECTS)
 
+# Reglas de compilación para C y Ensamblador del backend
 $(BACKEND_DIR)/%.o: $(BACKEND_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS_BACKEND) \
@@ -140,6 +154,7 @@ $(BACKEND_DIR)/%.o: $(BACKEND_DIR)/%.S
 	@mkdir -p $(dir $@)
 	$(CC) $(ASFLAGS_BACKEND) -o "$@" "$<"
 
+# Regla de compilación para los archivos C del usuario
 src/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS_USER) \
@@ -148,6 +163,7 @@ src/%.o: src/%.c
 		-MT"src/$@" \
 		-o "src/$*.o" "src/$*.c"
 
+# Limpieza de todos los archivos objeto y dependencias
 clean:
 	@echo "Cleaning..."
 	@find . -name "*.d" -delete
@@ -157,6 +173,7 @@ clean:
 	@rm -f $(BACKEND_DIR)/BOOTX64.EFI
 	@rm -f $(BACKEND_DIR)/output.map
 
+# Limpia el directorio completo y vuelve a compilar
 recompile: clean all
 
 showvars:
